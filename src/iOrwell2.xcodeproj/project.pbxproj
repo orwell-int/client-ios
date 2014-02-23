@@ -47,6 +47,8 @@
 		CD30E5DE18B0F99100327A3B /* protobuf-ios.Framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA25D2718B0C78400916054 /* protobuf-ios.Framework */; };
 		CD30E5DF18B0F99700327A3B /* zmq-ios-aggregate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA25D2918B0C78400916054 /* zmq-ios-aggregate.framework */; };
 		CD30E5E118B0FADA00327A3B /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CD30E5E018B0FADA00327A3B /* libstdc++.dylib */; };
+		CD5B3CF818BA4B4F00368CE6 /* marvin.png in Resources */ = {isa = PBXBuildFile; fileRef = CD5B3CF718BA4B4F00368CE6 /* marvin.png */; };
+		CD5B3CFB18BA549A00368CE6 /* PlayGameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD5B3CFA18BA549A00368CE6 /* PlayGameScene.mm */; };
 		CD7D452618B7CFBC00B5D596 /* bordersprite_regular_20.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CD7D452218B7CFBC00B5D596 /* bordersprite_regular_20.fnt */; };
 		CD7D452718B7CFBC00B5D596 /* bordersprite_regular_20.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CD7D452318B7CFBC00B5D596 /* bordersprite_regular_20.PNG */; };
 		CD7D452818B7CFBC00B5D596 /* dodger_shadow_shadow_20.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CD7D452418B7CFBC00B5D596 /* dodger_shadow_shadow_20.fnt */; };
@@ -127,6 +129,9 @@
 		CD2822A718B92686003B768C /* tech-button-on.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = "tech-button-on.psd"; sourceTree = "<group>"; };
 		CD2CFF1918B9125800DB2CEC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = iOrwell2/Images.xcassets; sourceTree = "<group>"; };
 		CD30E5E018B0FADA00327A3B /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		CD5B3CF718BA4B4F00368CE6 /* marvin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = marvin.png; sourceTree = "<group>"; };
+		CD5B3CF918BA549A00368CE6 /* PlayGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayGameScene.h; path = src/scenes/PlayGameScene.h; sourceTree = SOURCE_ROOT; };
+		CD5B3CFA18BA549A00368CE6 /* PlayGameScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PlayGameScene.mm; path = src/scenes/PlayGameScene.mm; sourceTree = SOURCE_ROOT; };
 		CD7D452218B7CFBC00B5D596 /* bordersprite_regular_20.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bordersprite_regular_20.fnt; sourceTree = "<group>"; };
 		CD7D452318B7CFBC00B5D596 /* bordersprite_regular_20.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bordersprite_regular_20.PNG; sourceTree = "<group>"; };
 		CD7D452418B7CFBC00B5D596 /* dodger_shadow_shadow_20.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dodger_shadow_shadow_20.fnt; sourceTree = "<group>"; };
@@ -340,6 +345,8 @@
 				CD28228C18B92624003B768C /* FlowScene.mm */,
 				CD28228D18B92624003B768C /* MainStage.h */,
 				CD28228E18B92624003B768C /* MainStage.mm */,
+				CD5B3CF918BA549A00368CE6 /* PlayGameScene.h */,
+				CD5B3CFA18BA549A00368CE6 /* PlayGameScene.mm */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -366,6 +373,7 @@
 		DE4F80DD14E1541400655D44 /* 1x */ = {
 			isa = PBXGroup;
 			children = (
+				CD5B3CF718BA4B4F00368CE6 /* marvin.png */,
 				CD28229C18B92686003B768C /* black-dialog.png */,
 				CD28229D18B92686003B768C /* cut-metal.jpg */,
 				CD28229E18B92686003B768C /* game-bg.png */,
@@ -454,6 +462,7 @@
 				CD7D452918B7CFBC00B5D596 /* dodger_shadow_shadow_20.PNG in Resources */,
 				CD2822B018B92686003B768C /* tech-button-off.png in Resources */,
 				CD2822AF18B92686003B768C /* Network-lines-background.jpg in Resources */,
+				CD5B3CF818BA4B4F00368CE6 /* marvin.png in Resources */,
 				CD2822AC18B92686003B768C /* Metal-background.jpg in Resources */,
 				CD2822B318B92686003B768C /* tech-button-on.psd in Resources */,
 				CD7D452818B7CFBC00B5D596 /* dodger_shadow_shadow_20.fnt in Resources */,
@@ -475,6 +484,7 @@
 				CD28229018B92624003B768C /* BroadcastScene.mm in Sources */,
 				CD28229218B92624003B768C /* MainStage.mm in Sources */,
 				CD28228618B92617003B768C /* ServerCommunicator.mm in Sources */,
+				CD5B3CFB18BA549A00368CE6 /* PlayGameScene.mm in Sources */,
 				CD28228318B92617003B768C /* BroadcastRetriever.cpp in Sources */,
 				CD28226C18B925F0003B768C /* CallbackGameState.mm in Sources */,
 				CD28227918B92605003B768C /* server-game.pb.cc in Sources */,

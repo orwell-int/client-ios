@@ -37,4 +37,7 @@
 - (void) registerSelector:(SEL)selector;
 - (void) unregisterSelector:(SEL)selector;
 
+- (float) getBackButtonY;
+- (float) getBackButtonHeight;
+
 @end

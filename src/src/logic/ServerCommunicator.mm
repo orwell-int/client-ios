@@ -68,6 +68,7 @@
 {
 	BroadcastRetriever _broadcastRetriever;
 	BOOL _subscriberRunning;
+	BOOL _broadcastRetrieved;
 }
 
 @synthesize zmq_context = _zmq_context;
@@ -98,6 +99,7 @@
 	self = [super init];
 	
 	_subscriberRunning = NO;
+	_broadcastRetrieved = NO;
 	_callbacks = [NSMutableDictionary dictionary];
 	
 	[_callbacks setObject:[[CallbackWelcome alloc] init] forKey:@"Welcome"];
@@ -230,16 +232,30 @@
 
 - (BOOL)retrieveServerFromBroadcast
 {
-	BOOL response = NO;
+	if (_broadcastRetrieved)
+		return YES;
 	
-	BroadcastRetriever::BroadcastError error = _broadcastRetriever.launchTest("");
+	BOOL response = NO;
+	BroadcastRetriever::BroadcastError error;
+	struct timeval tv;
+	tv.tv_sec = 2;
+	tv.tv_usec = 3000;
+	_broadcastRetriever.setTimeout(tv);
+	error = _broadcastRetriever.launchTest("");
+
 	switch (error)
 	{
 		case BroadcastRetriever::kOk:
 			_serverIp = [NSString stringWithFormat:@"%s", _broadcastRetriever.getResponderIP().c_str()];
+			_serverIp = [NSString stringWithFormat:@"tcp://%@", _serverIp];
+			
 			_pusherPort = [NSString stringWithFormat:@"%s", _broadcastRetriever.getFirstPort().c_str()];
 			_subscriberPort = [NSString stringWithFormat:@"%s", _broadcastRetriever.getSecondPort().c_str()];
 			response = YES;
+			
+			NSLog(@"Retrieved from broadcast: %@:%@ and %@",
+				  _serverIp, _pusherPort, _subscriberPort);
+			
 			break;
 			
 		default:

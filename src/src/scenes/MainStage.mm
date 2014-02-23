@@ -30,6 +30,7 @@
 
 #import "BroadcastScene.h"
 #import "FlowScene.h"
+#import "PlayGameScene.h"
 
 #import "ORButton.h"
 
@@ -79,12 +80,6 @@
 	_marvin.x = (Sparrow.stage.width / 2) - (_marvin.width / 2);
 	_marvin.y = Sparrow.stage.height - _marvin.height - 10.0f;
 	[self addChild:_marvin];
-	
-	SPTween *animator = [SPTween tweenWithTarget:_marvin time:1.0f];
-	[animator animateProperty:@"alpha" targetValue:0];
-	animator.reverse = YES;
-	animator.repeatCount = 0;
-	[Sparrow.juggler addObject:animator];
 	
 	[self addEventListener:@selector(onSceneClosing:)
 				  atObject:self
@@ -148,14 +143,14 @@
 {
 	SPButton *button = (SPButton *)event.target;
 	NSLog(@"Clicked button: %@", button.name);
-	
+
 	if (_activeScene) return;
-	
+
 	else if ([button.name isEqualToString:@"BroadcastButton"])
 	{
 		_activeScene = [[BroadcastScene alloc] init];
 	}
-
+	
 	else if ([button.name isEqualToString:@"HelloButton"])
 	{
 		_activeScene = [[FlowScene alloc] init];
@@ -163,7 +158,7 @@
 	
 	else
 	{
-		_activeScene = [[FlowScene alloc] init];
+		_activeScene = [[PlayGameScene alloc] init];
 	}
 	
 	[self addChild:_activeScene];

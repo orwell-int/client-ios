@@ -36,7 +36,9 @@
 
 
 @interface FlowScene() <CallbackResponder>
-- (void) launchTest;
+- (void)launchTest;
+- (void)communicatorDidRetrieveAddress;
+- (void)communicatorDidNotRetrieveAddress;
 - (BOOL)messageReceived:(NSDictionary *)message;
 
 @end
@@ -45,6 +47,8 @@
 {
 	MessagesWrapper *_messageWrapper;
 	ServerCommunicator *_serverCommunicator;
+	SPImage *_marvin;
+	SPTween *_loadingAnimator;
 	
 	ORButton *_launchTestButton;
 	ORTextField *_response;
@@ -59,27 +63,33 @@
 	
 	_messageWrapper = [[MessagesWrapper alloc] init];
 	_serverCommunicator = [ServerCommunicator initSingleton];
-
-	_serverCommunicator.serverIp = @"tcp://127.0.0.1";
-	_serverCommunicator.pusherPort = @"9000";
-	_serverCommunicator.subscriberPort = @"9001";
-	[_serverCommunicator connect];
-	[_serverCommunicator registerResponder:self forMessage:@"Welcome"];
-	[_serverCommunicator registerResponder:self forMessage:@"GameState"];
-	[_serverCommunicator registerResponder:self forMessage:@"Goodbye"];
 	
 	_launchTestButton = [[ORButton alloc] initWithText:@"Launch Test"];
 
 	_launchTestButton.x = (Sparrow.stage.width / 2) - (_launchTestButton.width / 2);
 	_launchTestButton.y = 40.0f;
 	
-	_response = [ORTextField textFieldWithWidth:Sparrow.stage.width - 30.0f height:60.0f text:@"Response"];
+	_launchTestButton.touchable = NO;
+	
+	_response = [ORTextField textFieldWithWidth:Sparrow.stage.width - 30.0f height:60.0f text:@"Retrieving IP"];
 	_response.x = 15.0f;
 	_response.y = _launchTestButton.y + _launchTestButton.height + 10.0f;
 	
-	_gameState = [ORTextField textFieldWithWidth:Sparrow.stage.width - 30.0f height:60.0f text:@"GameState"];
+	_gameState = [ORTextField textFieldWithWidth:Sparrow.stage.width - 30.0f height:60.0f text:@""];
 	_gameState.x = 15.0f;
 	_gameState.y = _response.y + _response.height + 10.0f;
+	
+	_marvin = [SPImage imageWithContentsOfFile:@"marvin.png"];
+	_loadingAnimator = [SPTween tweenWithTarget:_marvin time:0.5f];
+	[_loadingAnimator animateProperty:@"alpha" targetValue:0];
+	_loadingAnimator.repeatCount = 0;
+	_loadingAnimator.reverse = YES;
+	[Sparrow.juggler addObject:_loadingAnimator];
+	
+	_marvin.x = (Sparrow.stage.width / 2) - (_marvin.width / 2);
+	_marvin.y = [self getBackButtonY] - _marvin.height - 10.0f;
+	
+	[self addChild:_marvin];
 	
 	// Better not have a strong relationship with myself.
 	__weak FlowScene *weakSelf = self;
@@ -92,7 +102,43 @@
 	[self addChild:_response];
 	[self addChild:_gameState];
 	
+	
+	dispatch_queue_t q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+	dispatch_async(q, ^{
+		BOOL ret = NO;
+		
+		ret = [_serverCommunicator retrieveServerFromBroadcast];
+		
+		dispatch_async(dispatch_get_main_queue(), ^{
+			if (ret) [self communicatorDidRetrieveAddress];
+			else [self communicatorDidNotRetrieveAddress];
+		});
+		
+	});
+	
 	return self;
+}
+
+- (void)communicatorDidRetrieveAddress
+{
+	[_serverCommunicator connect];
+	[_serverCommunicator registerResponder:self forMessage:@"Welcome"];
+	[_serverCommunicator registerResponder:self forMessage:@"GameState"];
+	[_serverCommunicator registerResponder:self forMessage:@"Goodbye"];
+	
+	_response.text = [NSString stringWithFormat:@"IP %@", _serverCommunicator.serverIp];
+	_launchTestButton.touchable = YES;
+
+	[Sparrow.juggler removeObject:_loadingAnimator];
+	_marvin.alpha = 1.0f;
+}
+
+- (void)communicatorDidNotRetrieveAddress
+{
+	_response.text = @"Failed Broadcast";
+
+	[Sparrow.juggler removeObject:_loadingAnimator];
+	_marvin.alpha = 1.0f;
 }
 
 - (void)launchTest

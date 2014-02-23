@@ -42,11 +42,11 @@
 	ret.background.width = width;
 	ret.background.height = height;
 	
-	[ret addChild:ret.background];
+	[ret addChild:ret.background atIndex:0];
 	ret.color = 0xffffff;
-	ret.fontSize = 11;
-	ret.fontName = [SPTextField registerBitmapFontFromFile:@"bordersprite_regular_20.fnt"];
-	ret.background.alpha = 0.5f;
+	ret.fontSize = 9;
+	ret.fontName = [SPTextField registerBitmapFontFromFile:@"dodger_condensed_condensed_20.fnt"];
+	ret.background.alpha = 1.0f;
 	
 	ret.text = text;
 	
