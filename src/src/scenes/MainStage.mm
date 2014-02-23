@@ -143,13 +143,7 @@
 {
 	SPButton *button = (SPButton *)event.target;
 	NSLog(@"Clicked button: %@", button.name);
-	
-	SPTween *animator = [SPTween tweenWithTarget:_marvin time:1.0f];
-	[animator animateProperty:@"alpha" targetValue:0];
-	animator.reverse = YES;
-	animator.repeatCount = 0;
-	[Sparrow.juggler addObject:animator];
-	
+
 	if (_activeScene) return;
 
 	else if ([button.name isEqualToString:@"BroadcastButton"])

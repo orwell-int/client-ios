@@ -70,4 +70,14 @@
 	[_backButton removeEventListener:selector atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
 }
 
+- (float)getBackButtonY
+{
+	return _backButton.y;
+}
+
+- (float)getBackButtonHeight
+{
+	return _backButton.height;
+}
+
 @end

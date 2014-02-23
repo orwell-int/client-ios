@@ -47,6 +47,8 @@
 {
 	MessagesWrapper *_messageWrapper;
 	ServerCommunicator *_serverCommunicator;
+	SPImage *_marvin;
+	SPTween *_loadingAnimator;
 	
 	ORButton *_launchTestButton;
 	ORTextField *_response;
@@ -76,6 +78,18 @@
 	_gameState = [ORTextField textFieldWithWidth:Sparrow.stage.width - 30.0f height:60.0f text:@""];
 	_gameState.x = 15.0f;
 	_gameState.y = _response.y + _response.height + 10.0f;
+	
+	_marvin = [SPImage imageWithContentsOfFile:@"marvin.png"];
+	_loadingAnimator = [SPTween tweenWithTarget:_marvin time:0.5f];
+	[_loadingAnimator animateProperty:@"alpha" targetValue:0];
+	_loadingAnimator.repeatCount = 0;
+	_loadingAnimator.reverse = YES;
+	[Sparrow.juggler addObject:_loadingAnimator];
+	
+	_marvin.x = (Sparrow.stage.width / 2) - (_marvin.width / 2);
+	_marvin.y = [self getBackButtonY] - _marvin.height - 10.0f;
+	
+	[self addChild:_marvin];
 	
 	// Better not have a strong relationship with myself.
 	__weak FlowScene *weakSelf = self;
@@ -114,11 +128,17 @@
 	
 	_response.text = [NSString stringWithFormat:@"IP %@", _serverCommunicator.serverIp];
 	_launchTestButton.touchable = YES;
+
+	[Sparrow.juggler removeObject:_loadingAnimator];
+	_marvin.alpha = 1.0f;
 }
 
 - (void)communicatorDidNotRetrieveAddress
 {
 	_response.text = @"Failed Broadcast";
+
+	[Sparrow.juggler removeObject:_loadingAnimator];
+	_marvin.alpha = 1.0f;
 }
 
 - (void)launchTest
