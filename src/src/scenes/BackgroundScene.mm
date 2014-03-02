@@ -80,4 +80,14 @@
 	return _backButton.height;
 }
 
+- (void)placeObjectInStage
+{
+	
+}
+
+- (void)startObjects
+{
+	
+}
+
 @end

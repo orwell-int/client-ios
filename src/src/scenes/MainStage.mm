@@ -161,7 +161,10 @@
 		_activeScene = [[PlayGameScene alloc] init];
 	}
 	
+	[_activeScene placeObjectInStage];
+
 	[self addChild:_activeScene];
+	[_activeScene startObjects];
 }
 
 - (void)onSceneClosing:(SPEvent *)event

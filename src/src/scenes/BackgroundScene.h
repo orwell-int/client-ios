@@ -40,4 +40,7 @@
 - (float) getBackButtonY;
 - (float) getBackButtonHeight;
 
+- (void) placeObjectInStage;
+- (void) startObjects;
+
 @end

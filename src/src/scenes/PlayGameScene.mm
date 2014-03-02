@@ -25,15 +25,46 @@
  */
 
 #import "PlayGameScene.h"
+#import "ServerCommunicator.h"
+#import "CallbackResponder.h"
+#import "ORButton.h"
+#import "ORTextField.h"
+
+#import "controller.pb.h"
+
+@interface PlayGameScene() <CallbackResponder, UITextFieldDelegate>
+@property (strong, nonatomic) ORTextField *header;
+@property (strong, nonatomic) ORTextField *response;
+@property (strong, nonatomic) UITextField *inputPlayerName;
+@property (strong, nonatomic) ORButton *startButton;
+@property (strong, nonatomic) ServerCommunicator *serverCommunicator;
+@property (nonatomic) BOOL messageSent;
+
+@end
 
 @implementation PlayGameScene
+
+@synthesize header = _header;
+@synthesize inputPlayerName = _inputPlayerName;
+@synthesize serverCommunicator = _serverCommunicator;
+@synthesize startButton = _startButton;
+@synthesize response = _response;
+@synthesize messageSent = _messageSent;
 
 - (id)init
 {
 	self = [super init];
 	[self addBackButton];
-	
 	[self registerSelector:@selector(onBackButton:)];
+	
+	_serverCommunicator = [ServerCommunicator initSingleton];
+	[self.serverCommunicator registerResponder:self forMessage:@"Welcome"];
+	_inputPlayerName = [[UITextField alloc] init];
+	_header = [ORTextField textFieldWithWidth:Sparrow.stage.width - 30 height:40.0f text:@"Welcome to iOrwell"];
+	_response = [ORTextField textFieldWithWidth:Sparrow.stage.width - 30 height:40.0f text:@"Waiting for response"];
+	_startButton = [[ORButton alloc] initWithText:@"Start"];
+	
+	_messageSent = NO;
 	
 	return self;
 }
@@ -42,6 +73,88 @@
 {
 	[self unregisterSelector:@selector(onBackButton:)];
 	[self dispatchEventWithType:EVENT_TYPE_SCENE_CLOSING bubbles:YES];
+	
+	[_inputPlayerName removeFromSuperview];
+}
+
+- (BOOL)messageReceived:(NSDictionary *)message
+{
+	NSLog(@"Welcome message received");
+	
+	_response.text = [message objectForKey:@"ROBOT"];
+	_messageSent = YES;
+	return YES;
+}
+
+- (void)placeObjectInStage
+{
+	float usableHeight;
+	static const float space = 15.0f;
+	
+	NSLog(@"Placing objects in stage for PlayGameScene");
+	
+	_header.x = 15.0f;
+	_header.y = 20.0f;
+	usableHeight = _header.y + _header.height + space;
+
+	_inputPlayerName.frame = CGRectMake(15.0f, usableHeight, Sparrow.stage.width - 30.0f, 30.0f);
+	_inputPlayerName.placeholder = @"Type your name";
+	_inputPlayerName.delegate = self;
+	_inputPlayerName.borderStyle = UITextBorderStyleRoundedRect;
+	[Sparrow.currentController.view addSubview:_inputPlayerName];
+	
+	usableHeight = _inputPlayerName.frame.origin.y + _inputPlayerName.frame.size.height + space;
+	
+	_startButton.x = (Sparrow.stage.width / 2) - (_startButton.width / 2);
+	_startButton.y = usableHeight;
+	
+	// I am weak.
+	__weak PlayGameScene *wself = self;
+	[_startButton addEventListenerForType:SP_EVENT_TYPE_TRIGGERED block:^(SPEvent *event) {
+		NSLog(@"StartButton handling..");
+		
+		if (wself.messageSent or [wself.inputPlayerName.text isEqualToString:@""])
+			return;
+
+		orwell::messages::Hello hello;
+		NSLog(@"Player name will be: %@", wself.inputPlayerName.text);
+		hello.set_name([wself.inputPlayerName.text cStringUsingEncoding:NSASCIIStringEncoding]);
+		hello.set_ip("0");
+		hello.set_port(0);
+		
+		ServerMessage *msg = [[ServerMessage alloc] init];
+		msg.payload = [NSData dataWithBytes:hello.SerializeAsString().c_str() length:hello.SerializeAsString().size()];
+		msg.receiver = @"iphoneclient ";
+		msg.tag = @"Hello " ;
+		
+		[wself.serverCommunicator pushMessage:msg];
+		
+	}];
+	
+	usableHeight = _startButton.y + _startButton.height + space;
+	
+	_response.x = 15.0f;
+	_response.y = usableHeight;
+	usableHeight = _response.y + _response.height + space;
+	
+	[self addChild:_header];
+	[self addChild:_startButton];
+	[self addChild:_response];
+}
+
+- (void)startObjects
+{
+	NSLog(@"Starting logic of PlayGameScene");
+	[_serverCommunicator retrieveServerFromBroadcast];
+	[_serverCommunicator connect];
+	[_serverCommunicator runSubscriber];
+	[_serverCommunicator registerResponder:self forMessage:@"Welcome"];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+	[_inputPlayerName resignFirstResponder];
+	return YES;
 }
 
 @end
