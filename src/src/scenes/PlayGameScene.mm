@@ -29,6 +29,7 @@
 #import "CallbackResponder.h"
 #import "ORButton.h"
 #import "ORTextField.h"
+#import "InputGameScene.h"
 
 #import "controller.pb.h"
 
@@ -38,7 +39,10 @@
 @property (strong, nonatomic) UITextField *inputPlayerName;
 @property (strong, nonatomic) ORButton *startButton;
 @property (strong, nonatomic) ServerCommunicator *serverCommunicator;
+@property (strong, nonatomic) InputGameScene *inputGameScene;
 @property (nonatomic) BOOL messageSent;
+
+-(void) onSubSceneClosing:(SPEvent *)event;
 
 @end
 
@@ -50,6 +54,7 @@
 @synthesize startButton = _startButton;
 @synthesize response = _response;
 @synthesize messageSent = _messageSent;
+@synthesize inputGameScene = _inputGameScene;
 
 - (id)init
 {
@@ -65,6 +70,8 @@
 	_startButton = [[ORButton alloc] initWithText:@"Start"];
 	
 	_messageSent = NO;
+	
+	[self addEventListener:@selector(onSubSceneClosing:) atObject:self forType:EVENT_TYPE_INPUT_SCENE_CLOSING];
 	
 	return self;
 }
@@ -83,6 +90,20 @@
 	
 	_response.text = [message objectForKey:@"ROBOT"];
 	_messageSent = YES;
+	
+	// This has to be done in the main thread
+	dispatch_async(dispatch_get_main_queue(), ^(){
+		if (self.inputGameScene == nil)
+		{
+			_inputGameScene = [[InputGameScene alloc] init];
+		}
+		
+		self.inputGameScene.robotName = [message objectForKey:@"ROBOT"];
+		self.inputGameScene.playerName = self.inputPlayerName.text;
+		[self addChild:self.inputGameScene];
+		[_inputPlayerName removeFromSuperview];
+	});
+	
 	return YES;
 }
 
@@ -113,7 +134,7 @@
 	[_startButton addEventListenerForType:SP_EVENT_TYPE_TRIGGERED block:^(SPEvent *event) {
 		NSLog(@"StartButton handling..");
 		
-		if (wself.messageSent or [wself.inputPlayerName.text isEqualToString:@""])
+		if ([wself.inputPlayerName.text isEqualToString:@""])
 			return;
 
 		orwell::messages::Hello hello;
@@ -155,6 +176,18 @@
 {
 	[_inputPlayerName resignFirstResponder];
 	return YES;
+}
+
+- (void)onSubSceneClosing:(SPEvent *)event
+{
+	if (self.inputGameScene)
+	{
+		[self.inputGameScene removeFromParent];
+		self.inputPlayerName.text = self.inputGameScene.playerName;
+	}
+	
+	[Sparrow.currentController.view addSubview:self.inputPlayerName];
+	self.inputGameScene = nil;
 }
 
 @end

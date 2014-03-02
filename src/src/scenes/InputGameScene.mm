@@ -24,24 +24,35 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Foundation/Foundation.h>
-#import "SPImage.h"
+#import "InputGameScene.h"
 
-#define EVENT_TYPE_SCENE_CLOSING @"closing"
-#define EVENT_TYPE_INPUT_SCENE_CLOSING @"inputclosing"
+@implementation InputGameScene
 
-@interface BackgroundScene : SPSprite
+- (id)init
+{
+	self = [super init];
+	[self addBackButton];
+	[self registerSelector:@selector(onBackButton:)];
+	
+	NSLog(@"Initing with Robot Name: %@", self.robotName);
+	
+	return self;
+}
 
-- (id) init;
-- (void) addBackButton;
+- (void)onBackButton:(SPEvent *)event
+{
+	[self unregisterSelector:@selector(onBackButton:)];
+	[self dispatchEventWithType:EVENT_TYPE_INPUT_SCENE_CLOSING bubbles:YES];
+}
 
-- (void) registerSelector:(SEL)selector;
-- (void) unregisterSelector:(SEL)selector;
+- (void)placeObjectInStage
+{
+	
+}
 
-- (float) getBackButtonY;
-- (float) getBackButtonHeight;
-
-- (void) placeObjectInStage;
-- (void) startObjects;
+- (void)startObjects
+{
+	
+}
 
 @end

@@ -24,24 +24,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Foundation/Foundation.h>
-#import "SPImage.h"
+#import "BackgroundScene.h"
 
-#define EVENT_TYPE_SCENE_CLOSING @"closing"
-#define EVENT_TYPE_INPUT_SCENE_CLOSING @"inputclosing"
+@interface InputGameScene : BackgroundScene
 
-@interface BackgroundScene : SPSprite
+@property (strong, nonatomic) NSString *robotName;
+@property (strong, nonatomic) NSString *playerName;
 
-- (id) init;
-- (void) addBackButton;
-
-- (void) registerSelector:(SEL)selector;
-- (void) unregisterSelector:(SEL)selector;
-
-- (float) getBackButtonY;
-- (float) getBackButtonHeight;
-
-- (void) placeObjectInStage;
-- (void) startObjects;
+- (id)init;
+- (void)onBackButton:(SPEvent *)event;
 
 @end

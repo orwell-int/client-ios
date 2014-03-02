@@ -55,6 +55,7 @@
 		CD7D452918B7CFBC00B5D596 /* dodger_shadow_shadow_20.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CD7D452518B7CFBC00B5D596 /* dodger_shadow_shadow_20.PNG */; };
 		CD7D452C18B7FAF800B5D596 /* dodger_condensed_condensed_20.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CD7D452A18B7FAF800B5D596 /* dodger_condensed_condensed_20.fnt */; };
 		CD7D452D18B7FAF800B5D596 /* dodger_condensed_condensed_20.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CD7D452B18B7FAF800B5D596 /* dodger_condensed_condensed_20.PNG */; };
+		CD9B82C018C392E7003EB4EF /* InputGameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD9B82BF18C392E7003EB4EF /* InputGameScene.mm */; };
 		CDA25D2B18B0C78400916054 /* sparrow.Framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA25D2818B0C78400916054 /* sparrow.Framework */; };
 		DE3F093811B7B9DC009D4DB0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3F093711B7B9DC009D4DB0 /* AVFoundation.framework */; };
 		DE3F093A11B7B9DC009D4DB0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3F093911B7B9DC009D4DB0 /* AudioToolbox.framework */; };
@@ -138,6 +139,8 @@
 		CD7D452518B7CFBC00B5D596 /* dodger_shadow_shadow_20.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dodger_shadow_shadow_20.PNG; sourceTree = "<group>"; };
 		CD7D452A18B7FAF800B5D596 /* dodger_condensed_condensed_20.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dodger_condensed_condensed_20.fnt; sourceTree = "<group>"; };
 		CD7D452B18B7FAF800B5D596 /* dodger_condensed_condensed_20.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dodger_condensed_condensed_20.PNG; sourceTree = "<group>"; };
+		CD9B82BE18C392E7003EB4EF /* InputGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InputGameScene.h; path = src/scenes/InputGameScene.h; sourceTree = SOURCE_ROOT; };
+		CD9B82BF18C392E7003EB4EF /* InputGameScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = InputGameScene.mm; path = src/scenes/InputGameScene.mm; sourceTree = SOURCE_ROOT; };
 		CDA25D2718B0C78400916054 /* protobuf-ios.Framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "protobuf-ios.Framework"; path = "../lib/protobuf-ios.Framework"; sourceTree = "<group>"; };
 		CDA25D2818B0C78400916054 /* sparrow.Framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sparrow.Framework; path = ../lib/sparrow.Framework; sourceTree = "<group>"; };
 		CDA25D2918B0C78400916054 /* zmq-ios-aggregate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "zmq-ios-aggregate.framework"; path = "../lib/zmq-ios-aggregate.framework"; sourceTree = "<group>"; };
@@ -347,6 +350,8 @@
 				CD28228E18B92624003B768C /* MainStage.mm */,
 				CD5B3CF918BA549A00368CE6 /* PlayGameScene.h */,
 				CD5B3CFA18BA549A00368CE6 /* PlayGameScene.mm */,
+				CD9B82BE18C392E7003EB4EF /* InputGameScene.h */,
+				CD9B82BF18C392E7003EB4EF /* InputGameScene.mm */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -498,6 +503,7 @@
 				CD28228418B92617003B768C /* Media.mm in Sources */,
 				CD28227718B92605003B768C /* controller.pb.cc in Sources */,
 				CD28228518B92617003B768C /* MessagesWrapper.mm in Sources */,
+				CD9B82C018C392E7003EB4EF /* InputGameScene.mm in Sources */,
 				CD28228F18B92624003B768C /* BackgroundScene.mm in Sources */,
 				CD28226018B925E3003B768C /* ORButton.mm in Sources */,
 				CD28226E18B925F0003B768C /* CallbackWelcome.mm in Sources */,
