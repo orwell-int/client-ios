@@ -24,60 +24,25 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "BackgroundScene.h"
-#import "ORButton.h"
+#import "InputGameScene.h"
 
-@interface BackgroundScene()
-@end
-
-@implementation BackgroundScene
-{
-	SPImage *_background;
-	ORButton *_backButton;
-}
+@implementation InputGameScene
 
 - (id)init
 {
 	self = [super init];
+	[self addBackButton];
+	[self registerSelector:@selector(onBackButton:)];
 	
-	_background = [SPImage imageWithContentsOfFile:@"game-bg.png"];
-	[self addChild:_background];
+	NSLog(@"Initing with Robot Name: %@", self.robotName);
 	
 	return self;
 }
 
-- (void)addBackButton
+- (void)onBackButton:(SPEvent *)event
 {
-	_backButton = [[ORButton alloc] initWithText:@"Back"];;
-	_backButton.name = @"Back";
-	
-	_backButton.x = (Sparrow.stage.width / 2) - (_backButton.width / 2);
-	_backButton.y = (Sparrow.stage.height) - _backButton.height - 10;
-	
-	[self addChild:_backButton];
-}
-
-- (void)registerSelector:(SEL)selector
-{
-	if (_backButton)
-	{
-		[_backButton addEventListener:selector atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-	}
-}
-
-- (void)unregisterSelector:(SEL)selector
-{
-	[_backButton removeEventListener:selector atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-}
-
-- (float)getBackButtonY
-{
-	return _backButton.y;
-}
-
-- (float)getBackButtonHeight
-{
-	return _backButton.height;
+	[self unregisterSelector:@selector(onBackButton:)];
+	[self dispatchEventWithType:EVENT_TYPE_INPUT_SCENE_CLOSING bubbles:YES];
 }
 
 - (void)placeObjectInStage

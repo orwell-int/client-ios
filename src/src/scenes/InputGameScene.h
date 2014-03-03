@@ -25,69 +25,13 @@
  */
 
 #import "BackgroundScene.h"
-#import "ORButton.h"
 
-@interface BackgroundScene()
-@end
+@interface InputGameScene : BackgroundScene
 
-@implementation BackgroundScene
-{
-	SPImage *_background;
-	ORButton *_backButton;
-}
+@property (strong, nonatomic) NSString *robotName;
+@property (strong, nonatomic) NSString *playerName;
 
-- (id)init
-{
-	self = [super init];
-	
-	_background = [SPImage imageWithContentsOfFile:@"game-bg.png"];
-	[self addChild:_background];
-	
-	return self;
-}
-
-- (void)addBackButton
-{
-	_backButton = [[ORButton alloc] initWithText:@"Back"];;
-	_backButton.name = @"Back";
-	
-	_backButton.x = (Sparrow.stage.width / 2) - (_backButton.width / 2);
-	_backButton.y = (Sparrow.stage.height) - _backButton.height - 10;
-	
-	[self addChild:_backButton];
-}
-
-- (void)registerSelector:(SEL)selector
-{
-	if (_backButton)
-	{
-		[_backButton addEventListener:selector atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-	}
-}
-
-- (void)unregisterSelector:(SEL)selector
-{
-	[_backButton removeEventListener:selector atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-}
-
-- (float)getBackButtonY
-{
-	return _backButton.y;
-}
-
-- (float)getBackButtonHeight
-{
-	return _backButton.height;
-}
-
-- (void)placeObjectInStage
-{
-	
-}
-
-- (void)startObjects
-{
-	
-}
+- (id)init;
+- (void)onBackButton:(SPEvent *)event;
 
 @end

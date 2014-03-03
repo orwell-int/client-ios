@@ -28,6 +28,7 @@
 #import "SPImage.h"
 
 #define EVENT_TYPE_SCENE_CLOSING @"closing"
+#define EVENT_TYPE_INPUT_SCENE_CLOSING @"inputclosing"
 
 @interface BackgroundScene : SPSprite
 
@@ -39,5 +40,8 @@
 
 - (float) getBackButtonY;
 - (float) getBackButtonHeight;
+
+- (void) placeObjectInStage;
+- (void) startObjects;
 
 @end

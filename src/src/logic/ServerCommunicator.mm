@@ -230,6 +230,12 @@
 	return NO;
 }
 
+- (BOOL)deleteResponder:(id<CallbackResponder>)responder
+{
+	// @TODO: implement
+	return YES;
+}
+
 - (BOOL)retrieveServerFromBroadcast
 {
 	if (_broadcastRetrieved)

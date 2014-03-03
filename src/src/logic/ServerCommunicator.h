@@ -58,4 +58,6 @@
 - (BOOL) registerResponder:(id<CallbackResponder>)responder
 				forMessage:(NSString *)message;
 
+- (BOOL) deleteResponder:(id<CallbackResponder>)responder;
+
 @end
