@@ -57,6 +57,8 @@
 		CD7D452D18B7FAF800B5D596 /* dodger_condensed_condensed_20.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CD7D452B18B7FAF800B5D596 /* dodger_condensed_condensed_20.PNG */; };
 		CD9B82C018C392E7003EB4EF /* InputGameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD9B82BF18C392E7003EB4EF /* InputGameScene.mm */; };
 		CDA25D2B18B0C78400916054 /* sparrow.Framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA25D2818B0C78400916054 /* sparrow.Framework */; };
+		CDBC804F18C667470097D336 /* button-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = CDBC804E18C667470097D336 /* button-arrow.png */; };
+		CDBC805218C667AA0097D336 /* ORArrowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBC805118C667AA0097D336 /* ORArrowButton.m */; };
 		DE3F093811B7B9DC009D4DB0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3F093711B7B9DC009D4DB0 /* AVFoundation.framework */; };
 		DE3F093A11B7B9DC009D4DB0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3F093911B7B9DC009D4DB0 /* AudioToolbox.framework */; };
 		DE3F097811B7BABD009D4DB0 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3F097711B7BABD009D4DB0 /* OpenAL.framework */; };
@@ -144,6 +146,9 @@
 		CDA25D2718B0C78400916054 /* protobuf-ios.Framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "protobuf-ios.Framework"; path = "../lib/protobuf-ios.Framework"; sourceTree = "<group>"; };
 		CDA25D2818B0C78400916054 /* sparrow.Framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sparrow.Framework; path = ../lib/sparrow.Framework; sourceTree = "<group>"; };
 		CDA25D2918B0C78400916054 /* zmq-ios-aggregate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "zmq-ios-aggregate.framework"; path = "../lib/zmq-ios-aggregate.framework"; sourceTree = "<group>"; };
+		CDBC804E18C667470097D336 /* button-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-arrow.png"; sourceTree = "<group>"; };
+		CDBC805018C667AA0097D336 /* ORArrowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ORArrowButton.h; path = src/ui/ORArrowButton.h; sourceTree = SOURCE_ROOT; };
+		CDBC805118C667AA0097D336 /* ORArrowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ORArrowButton.m; path = src/ui/ORArrowButton.m; sourceTree = SOURCE_ROOT; };
 		DE3F093711B7B9DC009D4DB0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		DE3F093911B7B9DC009D4DB0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DE3F097711B7BABD009D4DB0 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -269,6 +274,8 @@
 		CD7D451D18B7CA9100B5D596 /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
+				CDBC805018C667AA0097D336 /* ORArrowButton.h */,
+				CDBC805118C667AA0097D336 /* ORArrowButton.m */,
 				CD28225C18B925E3003B768C /* ORButton.h */,
 				CD28225D18B925E3003B768C /* ORButton.mm */,
 				CD28225E18B925E3003B768C /* ORTextField.h */,
@@ -378,6 +385,7 @@
 		DE4F80DD14E1541400655D44 /* 1x */ = {
 			isa = PBXGroup;
 			children = (
+				CDBC804E18C667470097D336 /* button-arrow.png */,
 				CD5B3CF718BA4B4F00368CE6 /* marvin.png */,
 				CD28229C18B92686003B768C /* black-dialog.png */,
 				CD28229D18B92686003B768C /* cut-metal.jpg */,
@@ -454,6 +462,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDBC804F18C667470097D336 /* button-arrow.png in Resources */,
 				DE4F80E814E1541400655D44 /* sound.caf in Resources */,
 				CD7D452C18B7FAF800B5D596 /* dodger_condensed_condensed_20.fnt in Resources */,
 				CD2822A918B92686003B768C /* cut-metal.jpg in Resources */,
@@ -487,6 +496,7 @@
 			files = (
 				CD28226118B925E3003B768C /* ORTextField.mm in Sources */,
 				CD28229018B92624003B768C /* BroadcastScene.mm in Sources */,
+				CDBC805218C667AA0097D336 /* ORArrowButton.m in Sources */,
 				CD28229218B92624003B768C /* MainStage.mm in Sources */,
 				CD28228618B92617003B768C /* ServerCommunicator.mm in Sources */,
 				CD5B3CFB18BA549A00368CE6 /* PlayGameScene.mm in Sources */,
