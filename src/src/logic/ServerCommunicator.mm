@@ -189,8 +189,6 @@
 				uint32_t bytes = zmq_recv(_zmq_socket_subscriber, zmq_msg_data(&zmq_message), 5024, 0);
 				
 				if (bytes) {
-					NSLog(@"Received %d bytes in %s", bytes, zmq_msg_data(&zmq_message));
-					
 					NSString *msg = [NSString stringWithCString:(char *)zmq_msg_data(&zmq_message)
 													   encoding:NSASCIIStringEncoding];
 					
@@ -204,9 +202,7 @@
 						payload = [NSString stringWithString:[msg substringFromIndex:[scanner scanLocation]+1]];
 					else
 						payload = [NSString stringWithFormat:@"NO PAYLOAD"];
-						
-					NSLog(@"Clients: %@ - Tag: %@ - Payload: %@", clients, tag, payload);
-					
+
 					Callback *cb = [_callbacks objectForKey:tag];
 					
 					if (cb != nil)
