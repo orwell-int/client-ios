@@ -25,8 +25,16 @@
  */
 
 #import "InputGameScene.h"
+#import "ORButton.h"
+#import "ORTextField.h"
+
+@interface InputGameScene()
+@property (strong, nonatomic) ORTextField *playerTextField;
+@end
 
 @implementation InputGameScene
+
+@synthesize playerTextField = _playerTextField;
 
 - (id)init
 {
@@ -34,8 +42,8 @@
 	[self addBackButton];
 	[self registerSelector:@selector(onBackButton:)];
 	
-	NSLog(@"Initing with Robot Name: %@", self.robotName);
-	
+	_playerTextField = [ORTextField textFieldWithWidth:Sparrow.stage.width - 30.0f height:40.0f text:@""];
+
 	return self;
 }
 
@@ -47,7 +55,13 @@
 
 - (void)placeObjectInStage
 {
+	NSLog(@"Inited with robot name: %@", self.robotName);
+	NSLog(@"Inited with player name: %@", self.playerName);
 	
+	self.playerTextField.text = [NSString stringWithFormat:@"%@ @ %@", self.playerName, self.robotName];
+	self.playerTextField.x = 15.0f;
+	self.playerTextField.y = 10.0f;
+	[self addChild:self.playerTextField];
 }
 
 - (void)startObjects

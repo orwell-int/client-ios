@@ -94,12 +94,13 @@
 	// This has to be done in the main thread
 	dispatch_async(dispatch_get_main_queue(), ^(){
 		if (self.inputGameScene == nil)
-		{
 			_inputGameScene = [[InputGameScene alloc] init];
-		}
+		
 		
 		self.inputGameScene.robotName = [message objectForKey:@"ROBOT"];
 		self.inputGameScene.playerName = self.inputPlayerName.text;
+		[self.inputGameScene placeObjectInStage];
+		[self.inputGameScene startObjects];
 		[self addChild:self.inputGameScene];
 		[_inputPlayerName removeFromSuperview];
 	});
