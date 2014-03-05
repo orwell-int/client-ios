@@ -34,7 +34,12 @@
 @interface InputGameScene() <CallbackResponder>
 @property (strong, nonatomic) ORTextField *playerTextField;
 @property (strong, nonatomic) ServerCommunicator *serverCommunicator;
+
 @property (strong, nonatomic) ORArrowButton *leftButton;
+@property (strong, nonatomic) ORArrowButton *downButton;
+@property (strong, nonatomic) ORArrowButton *rightButton;
+@property (strong, nonatomic) ORArrowButton *upButton;
+
 @end
 
 @implementation InputGameScene
@@ -42,6 +47,9 @@
 @synthesize playerTextField = _playerTextField;
 @synthesize serverCommunicator = _serverCommunicator;
 @synthesize leftButton = _leftButton;
+@synthesize downButton = _downButton;
+@synthesize rightButton = _rightButton;
+@synthesize upButton = _upButton;
 
 - (id)init
 {
@@ -50,7 +58,10 @@
 	[self registerSelector:@selector(onBackButton:)];
 	
 	_playerTextField = [ORTextField textFieldWithWidth:Sparrow.stage.width - 30.0f height:40.0f text:@""];
-	_leftButton = [[ORArrowButton alloc] init];
+	_leftButton = [[ORArrowButton alloc] initWithRotation:LEFT];
+	_rightButton = [[ORArrowButton alloc] initWithRotation:RIGHT];
+	_downButton = [[ORArrowButton alloc] initWithRotation:DOWN];
+	_upButton = [[ORArrowButton alloc] initWithRotation:UP];
 	
 	// This is active already
 	_serverCommunicator = [ServerCommunicator initSingleton];
@@ -74,9 +85,25 @@
 	self.playerTextField.y = 10.0f;
 	[self addChild:self.playerTextField];
 	
-	self.leftButton.x = 15.0f;
-	self.leftButton.y = self.playerTextField.y + self.playerTextField.height + 15.0f;
+	float downSide = [self getBackButtonY] - self.downButton.height - 15.0f;
+	float separator = 20.0f;
+
+	self.downButton.x = (Sparrow.stage.width / 2) - (self.downButton.width / 2);
+	self.downButton.y = downSide;
+	
+	self.leftButton.x = self.downButton.x - self.leftButton.width - separator;
+	self.leftButton.y = downSide;
+	
+	self.rightButton.x = self.downButton.x + self.downButton.width + separator;
+	self.rightButton.y = downSide;
+	
+	self.upButton.x = self.downButton.x;
+	self.upButton.y = downSide - self.downButton.height - separator;
+	
+	[self addChild:self.rightButton];
+	[self addChild:self.downButton];
 	[self addChild:self.leftButton];
+	[self addChild:self.upButton];
 }
 
 - (void)startObjects

@@ -26,8 +26,16 @@
 
 #import "SPButton.h"
 
+enum Rotation {
+	RIGHT = 0,
+	LEFT,
+	DOWN,
+	UP
+};
+
 @interface ORArrowButton : SPButton
 
 -(id)init;
+-(id)initWithRotation:(Rotation)rotation;
 
 @end
