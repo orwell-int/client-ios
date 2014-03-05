@@ -30,10 +30,30 @@
 
 - (id)init
 {
-	self = [super initWithUpState:[SPTexture textureWithContentsOfFile:@"button-arrow.png"]];
-	self.width = 15.0f;
-	self.height = 15.0f;
+	self = [super initWithUpState:[SPTexture textureWithContentsOfFile:@"button-arrow-down.png"]];
+	self.width = 60.0f;
+	self.height = 60.0f;
 	
+	return self;
+}
+
+- (id)initWithRotation:(Rotation)rotation
+{
+	SPTexture *texture;
+	
+	switch (rotation) {
+		case DOWN:
+			texture = [SPTexture textureWithContentsOfFile:@"button-arrow-down.png"];
+			break;
+
+		default:
+			texture = [SPTexture textureWithContentsOfFile:@"button-arrow-down.png"];
+			break;
+	}
+	
+	self = [super initWithUpState:texture];
+	self.width = 60.0f;
+	self.height = 60.0f;
 	return self;
 }
 
