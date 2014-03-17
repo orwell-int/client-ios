@@ -24,13 +24,9 @@
 		CD910B4C18D77C2B00C61610 /* MessagesWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE918D77B0D00C61610 /* MessagesWrapper.mm */; };
 		CD910B4D18D77C2B00C61610 /* ServerCommunicator.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEB18D77B0D00C61610 /* ServerCommunicator.mm */; };
 		CD910B4E18D77C2B00C61610 /* controller.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AED18D77B0D00C61610 /* controller.pb.cc */; };
-		CD910B4F18D77C2B00C61610 /* controller.pb.h in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEE18D77B0D00C61610 /* controller.pb.h */; };
 		CD910B5018D77C2B00C61610 /* robot.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEF18D77B0D00C61610 /* robot.pb.cc */; };
-		CD910B5118D77C2B00C61610 /* robot.pb.h in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF018D77B0D00C61610 /* robot.pb.h */; };
 		CD910B5218D77C2B00C61610 /* server-game.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF118D77B0D00C61610 /* server-game.pb.cc */; };
-		CD910B5318D77C2B00C61610 /* server-game.pb.h in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF218D77B0D00C61610 /* server-game.pb.h */; };
 		CD910B5418D77C2B00C61610 /* server-web.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF318D77B0D00C61610 /* server-web.pb.cc */; };
-		CD910B5518D77C2B00C61610 /* server-web.pb.h in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF418D77B0D00C61610 /* server-web.pb.h */; };
 		CD910B5618D77C2B00C61610 /* BackgroundScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF718D77B0D00C61610 /* BackgroundScene.mm */; };
 		CD910B5718D77C2B00C61610 /* BroadcastScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF918D77B0D00C61610 /* BroadcastScene.mm */; };
 		CD910B5818D77C2B00C61610 /* FlowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AFB18D77B0D00C61610 /* FlowScene.mm */; };
@@ -40,6 +36,7 @@
 		CD910B5C18D77C2B00C61610 /* ORArrowButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0418D77B0D00C61610 /* ORArrowButton.mm */; };
 		CD910B5D18D77C2B00C61610 /* ORButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0618D77B0D00C61610 /* ORButton.mm */; };
 		CD910B5E18D77C2B00C61610 /* ORTextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0818D77B0D00C61610 /* ORTextField.mm */; };
+		CD924DB818D78F2400DE0A59 /* App-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD924DB618D78F2400DE0A59 /* App-Info.plist */; };
 		CDDD0B8E18D77FE600979E1E /* sound.caf in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7418D77FE600979E1E /* sound.caf */; };
 		CDDD0B8F18D77FE600979E1E /* bordersprite_regular_20.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7618D77FE600979E1E /* bordersprite_regular_20.fnt */; };
 		CDDD0B9018D77FE600979E1E /* bordersprite_regular_20.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7718D77FE600979E1E /* bordersprite_regular_20.PNG */; };
@@ -121,6 +118,8 @@
 		CD910B1418D77BDF00C61610 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		CD910B1618D77BDF00C61610 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		CD910B2E18D77BDF00C61610 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		CD924DB618D78F2400DE0A59 /* App-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "App-Info.plist"; path = "Project/App-Info.plist"; sourceTree = SOURCE_ROOT; };
+		CD924DB718D78F2400DE0A59 /* App-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "App-Prefix.pch"; path = "Project/App-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		CDDD0B7418D77FE600979E1E /* sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.caf; sourceTree = "<group>"; };
 		CDDD0B7618D77FE600979E1E /* bordersprite_regular_20.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bordersprite_regular_20.fnt; sourceTree = "<group>"; };
 		CDDD0B7718D77FE600979E1E /* bordersprite_regular_20.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bordersprite_regular_20.PNG; sourceTree = "<group>"; };
@@ -175,6 +174,8 @@
 		CD910AD218D77B0D00C61610 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				CD924DB618D78F2400DE0A59 /* App-Info.plist */,
+				CD924DB718D78F2400DE0A59 /* App-Prefix.pch */,
 				CD910AD318D77B0D00C61610 /* callback */,
 				CD910ADD18D77B0D00C61610 /* init */,
 				CD910AE318D77B0D00C61610 /* logic */,
@@ -423,6 +424,7 @@
 			files = (
 				CDDD0B9A18D77FE600979E1E /* Metal-background-2.jpg in Resources */,
 				CDDD0B9418D77FE600979E1E /* dodger_shadow_shadow_20.PNG in Resources */,
+				CD924DB818D78F2400DE0A59 /* App-Info.plist in Resources */,
 				CDDD0BA318D77FE600979E1E /* README.txt in Resources */,
 				CDDD0B8F18D77FE600979E1E /* bordersprite_regular_20.fnt in Resources */,
 				CDDD0B9B18D77FE600979E1E /* Metal-background.jpg in Resources */,
@@ -498,13 +500,9 @@
 				CD910B4C18D77C2B00C61610 /* MessagesWrapper.mm in Sources */,
 				CD910B4D18D77C2B00C61610 /* ServerCommunicator.mm in Sources */,
 				CD910B4E18D77C2B00C61610 /* controller.pb.cc in Sources */,
-				CD910B4F18D77C2B00C61610 /* controller.pb.h in Sources */,
 				CD910B5018D77C2B00C61610 /* robot.pb.cc in Sources */,
-				CD910B5118D77C2B00C61610 /* robot.pb.h in Sources */,
 				CD910B5218D77C2B00C61610 /* server-game.pb.cc in Sources */,
-				CD910B5318D77C2B00C61610 /* server-game.pb.h in Sources */,
 				CD910B5418D77C2B00C61610 /* server-web.pb.cc in Sources */,
-				CD910B5518D77C2B00C61610 /* server-web.pb.h in Sources */,
 				CD910B5618D77C2B00C61610 /* BackgroundScene.mm in Sources */,
 				CD910B5718D77C2B00C61610 /* BroadcastScene.mm in Sources */,
 				CD910B5818D77C2B00C61610 /* FlowScene.mm in Sources */,
@@ -561,7 +559,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iOrwell/iOrwell-Prefix.pch";
+				GCC_PREFIX_HEADER = "Project/App-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -573,7 +571,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "iOrwell/iOrwell-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Project/App-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -610,14 +608,14 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iOrwell/iOrwell-Prefix.pch";
+				GCC_PREFIX_HEADER = "Project/App-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "iOrwell/iOrwell-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Project/App-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
