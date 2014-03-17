@@ -1,5 +1,9 @@
 language: objective-c
 
+install:
+  - sudo gem install cocoapods
+  - brew update
+
 build:
   - pod install
   - xcodebuild -workspace iOrwell.xcworkspace -scheme iOrwell -sdk iphonesimulator
