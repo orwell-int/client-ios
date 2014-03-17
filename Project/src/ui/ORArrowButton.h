@@ -24,7 +24,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "SPButton.h"
+#import <Sparrow.h>
 
 enum Rotation {
 	RIGHT = 0,

@@ -25,7 +25,8 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "SPImage.h"
+#import <Sparrow.h>
+
 
 #define EVENT_TYPE_SCENE_CLOSING @"closing"
 #define EVENT_TYPE_INPUT_SCENE_CLOSING @"inputclosing"

@@ -1,0 +1,653 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C9F74AE22D3E472ABE27E648 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2162E0EDEF7D475B8F6DB092 /* libPods.a */; };
+		CD910B1118D77BDF00C61610 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1018D77BDF00C61610 /* Foundation.framework */; };
+		CD910B1318D77BDF00C61610 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1218D77BDF00C61610 /* CoreGraphics.framework */; };
+		CD910B1518D77BDF00C61610 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1418D77BDF00C61610 /* UIKit.framework */; };
+		CD910B1718D77BDF00C61610 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1618D77BDF00C61610 /* CoreData.framework */; };
+		CD910B4318D77C2B00C61610 /* Callback.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AD518D77B0D00C61610 /* Callback.mm */; };
+		CD910B4418D77C2B00C61610 /* CallbackGameState.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AD718D77B0D00C61610 /* CallbackGameState.mm */; };
+		CD910B4518D77C2B00C61610 /* CallbackGoodbye.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AD918D77B0D00C61610 /* CallbackGoodbye.mm */; };
+		CD910B4618D77C2B00C61610 /* CallbackWelcome.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910ADC18D77B0D00C61610 /* CallbackWelcome.mm */; };
+		CD910B4718D77C2B00C61610 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910ADF18D77B0D00C61610 /* AppDelegate.mm */; };
+		CD910B4818D77C2B00C61610 /* Game.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE118D77B0D00C61610 /* Game.mm */; };
+		CD910B4918D77C2B00C61610 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE218D77B0D00C61610 /* main.mm */; };
+		CD910B4A18D77C2B00C61610 /* BroadcastRetriever.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE418D77B0D00C61610 /* BroadcastRetriever.cpp */; };
+		CD910B4B18D77C2B00C61610 /* Media.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE718D77B0D00C61610 /* Media.mm */; };
+		CD910B4C18D77C2B00C61610 /* MessagesWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE918D77B0D00C61610 /* MessagesWrapper.mm */; };
+		CD910B4D18D77C2B00C61610 /* ServerCommunicator.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEB18D77B0D00C61610 /* ServerCommunicator.mm */; };
+		CD910B4E18D77C2B00C61610 /* controller.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AED18D77B0D00C61610 /* controller.pb.cc */; };
+		CD910B4F18D77C2B00C61610 /* controller.pb.h in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEE18D77B0D00C61610 /* controller.pb.h */; };
+		CD910B5018D77C2B00C61610 /* robot.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEF18D77B0D00C61610 /* robot.pb.cc */; };
+		CD910B5118D77C2B00C61610 /* robot.pb.h in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF018D77B0D00C61610 /* robot.pb.h */; };
+		CD910B5218D77C2B00C61610 /* server-game.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF118D77B0D00C61610 /* server-game.pb.cc */; };
+		CD910B5318D77C2B00C61610 /* server-game.pb.h in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF218D77B0D00C61610 /* server-game.pb.h */; };
+		CD910B5418D77C2B00C61610 /* server-web.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF318D77B0D00C61610 /* server-web.pb.cc */; };
+		CD910B5518D77C2B00C61610 /* server-web.pb.h in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF418D77B0D00C61610 /* server-web.pb.h */; };
+		CD910B5618D77C2B00C61610 /* BackgroundScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF718D77B0D00C61610 /* BackgroundScene.mm */; };
+		CD910B5718D77C2B00C61610 /* BroadcastScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF918D77B0D00C61610 /* BroadcastScene.mm */; };
+		CD910B5818D77C2B00C61610 /* FlowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AFB18D77B0D00C61610 /* FlowScene.mm */; };
+		CD910B5918D77C2B00C61610 /* InputGameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AFD18D77B0D00C61610 /* InputGameScene.mm */; };
+		CD910B5A18D77C2B00C61610 /* MainStage.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AFF18D77B0D00C61610 /* MainStage.mm */; };
+		CD910B5B18D77C2B00C61610 /* PlayGameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0118D77B0D00C61610 /* PlayGameScene.mm */; };
+		CD910B5C18D77C2B00C61610 /* ORArrowButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0418D77B0D00C61610 /* ORArrowButton.mm */; };
+		CD910B5D18D77C2B00C61610 /* ORButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0618D77B0D00C61610 /* ORButton.mm */; };
+		CD910B5E18D77C2B00C61610 /* ORTextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0818D77B0D00C61610 /* ORTextField.mm */; };
+		CDDD0B8E18D77FE600979E1E /* sound.caf in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7418D77FE600979E1E /* sound.caf */; };
+		CDDD0B8F18D77FE600979E1E /* bordersprite_regular_20.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7618D77FE600979E1E /* bordersprite_regular_20.fnt */; };
+		CDDD0B9018D77FE600979E1E /* bordersprite_regular_20.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7718D77FE600979E1E /* bordersprite_regular_20.PNG */; };
+		CDDD0B9118D77FE600979E1E /* dodger_condensed_condensed_20.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7818D77FE600979E1E /* dodger_condensed_condensed_20.fnt */; };
+		CDDD0B9218D77FE600979E1E /* dodger_condensed_condensed_20.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7918D77FE600979E1E /* dodger_condensed_condensed_20.PNG */; };
+		CDDD0B9318D77FE600979E1E /* dodger_shadow_shadow_20.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7A18D77FE600979E1E /* dodger_shadow_shadow_20.fnt */; };
+		CDDD0B9418D77FE600979E1E /* dodger_shadow_shadow_20.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7B18D77FE600979E1E /* dodger_shadow_shadow_20.PNG */; };
+		CDDD0B9518D77FE600979E1E /* black-dialog.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7E18D77FE600979E1E /* black-dialog.png */; };
+		CDDD0B9618D77FE600979E1E /* button-arrow-down.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7F18D77FE600979E1E /* button-arrow-down.png */; };
+		CDDD0B9718D77FE600979E1E /* cut-metal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8018D77FE600979E1E /* cut-metal.jpg */; };
+		CDDD0B9818D77FE600979E1E /* game-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8118D77FE600979E1E /* game-bg.png */; };
+		CDDD0B9918D77FE600979E1E /* marvin.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8218D77FE600979E1E /* marvin.png */; };
+		CDDD0B9A18D77FE600979E1E /* Metal-background-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8318D77FE600979E1E /* Metal-background-2.jpg */; };
+		CDDD0B9B18D77FE600979E1E /* Metal-background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8418D77FE600979E1E /* Metal-background.jpg */; };
+		CDDD0B9C18D77FE600979E1E /* Metal-background.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8518D77FE600979E1E /* Metal-background.png */; };
+		CDDD0B9D18D77FE600979E1E /* Metal-background.psd in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8618D77FE600979E1E /* Metal-background.psd */; };
+		CDDD0B9E18D77FE600979E1E /* Network-lines-background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8718D77FE600979E1E /* Network-lines-background.jpg */; };
+		CDDD0B9F18D77FE600979E1E /* tech-button-off.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8818D77FE600979E1E /* tech-button-off.png */; };
+		CDDD0BA018D77FE600979E1E /* tech-button-off.psd in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8918D77FE600979E1E /* tech-button-off.psd */; };
+		CDDD0BA118D77FE600979E1E /* tech-button-on.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8A18D77FE600979E1E /* tech-button-on.png */; };
+		CDDD0BA218D77FE600979E1E /* tech-button-on.psd in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8B18D77FE600979E1E /* tech-button-on.psd */; };
+		CDDD0BA318D77FE600979E1E /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8D18D77FE600979E1E /* README.txt */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2162E0EDEF7D475B8F6DB092 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FE88D42A3C54E55B4666AC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		CD910AD418D77B0D00C61610 /* Callback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Callback.h; sourceTree = "<group>"; };
+		CD910AD518D77B0D00C61610 /* Callback.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Callback.mm; sourceTree = "<group>"; };
+		CD910AD618D77B0D00C61610 /* CallbackGameState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallbackGameState.h; sourceTree = "<group>"; };
+		CD910AD718D77B0D00C61610 /* CallbackGameState.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CallbackGameState.mm; sourceTree = "<group>"; };
+		CD910AD818D77B0D00C61610 /* CallbackGoodbye.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallbackGoodbye.h; sourceTree = "<group>"; };
+		CD910AD918D77B0D00C61610 /* CallbackGoodbye.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CallbackGoodbye.mm; sourceTree = "<group>"; };
+		CD910ADA18D77B0D00C61610 /* CallbackResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallbackResponder.h; sourceTree = "<group>"; };
+		CD910ADB18D77B0D00C61610 /* CallbackWelcome.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallbackWelcome.h; sourceTree = "<group>"; };
+		CD910ADC18D77B0D00C61610 /* CallbackWelcome.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CallbackWelcome.mm; sourceTree = "<group>"; };
+		CD910ADE18D77B0D00C61610 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		CD910ADF18D77B0D00C61610 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		CD910AE018D77B0D00C61610 /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		CD910AE118D77B0D00C61610 /* Game.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Game.mm; sourceTree = "<group>"; };
+		CD910AE218D77B0D00C61610 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
+		CD910AE418D77B0D00C61610 /* BroadcastRetriever.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BroadcastRetriever.cpp; sourceTree = "<group>"; };
+		CD910AE518D77B0D00C61610 /* BroadcastRetriever.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BroadcastRetriever.h; sourceTree = "<group>"; };
+		CD910AE618D77B0D00C61610 /* Media.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Media.h; sourceTree = "<group>"; };
+		CD910AE718D77B0D00C61610 /* Media.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Media.mm; sourceTree = "<group>"; };
+		CD910AE818D77B0D00C61610 /* MessagesWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessagesWrapper.h; sourceTree = "<group>"; };
+		CD910AE918D77B0D00C61610 /* MessagesWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MessagesWrapper.mm; sourceTree = "<group>"; };
+		CD910AEA18D77B0D00C61610 /* ServerCommunicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerCommunicator.h; sourceTree = "<group>"; };
+		CD910AEB18D77B0D00C61610 /* ServerCommunicator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ServerCommunicator.mm; sourceTree = "<group>"; };
+		CD910AED18D77B0D00C61610 /* controller.pb.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = controller.pb.cc; sourceTree = "<group>"; };
+		CD910AEE18D77B0D00C61610 /* controller.pb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = controller.pb.h; sourceTree = "<group>"; };
+		CD910AEF18D77B0D00C61610 /* robot.pb.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = robot.pb.cc; sourceTree = "<group>"; };
+		CD910AF018D77B0D00C61610 /* robot.pb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = robot.pb.h; sourceTree = "<group>"; };
+		CD910AF118D77B0D00C61610 /* server-game.pb.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "server-game.pb.cc"; sourceTree = "<group>"; };
+		CD910AF218D77B0D00C61610 /* server-game.pb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "server-game.pb.h"; sourceTree = "<group>"; };
+		CD910AF318D77B0D00C61610 /* server-web.pb.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "server-web.pb.cc"; sourceTree = "<group>"; };
+		CD910AF418D77B0D00C61610 /* server-web.pb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "server-web.pb.h"; sourceTree = "<group>"; };
+		CD910AF618D77B0D00C61610 /* BackgroundScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackgroundScene.h; sourceTree = "<group>"; };
+		CD910AF718D77B0D00C61610 /* BackgroundScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BackgroundScene.mm; sourceTree = "<group>"; };
+		CD910AF818D77B0D00C61610 /* BroadcastScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BroadcastScene.h; sourceTree = "<group>"; };
+		CD910AF918D77B0D00C61610 /* BroadcastScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BroadcastScene.mm; sourceTree = "<group>"; };
+		CD910AFA18D77B0D00C61610 /* FlowScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlowScene.h; sourceTree = "<group>"; };
+		CD910AFB18D77B0D00C61610 /* FlowScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FlowScene.mm; sourceTree = "<group>"; };
+		CD910AFC18D77B0D00C61610 /* InputGameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputGameScene.h; sourceTree = "<group>"; };
+		CD910AFD18D77B0D00C61610 /* InputGameScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = InputGameScene.mm; sourceTree = "<group>"; };
+		CD910AFE18D77B0D00C61610 /* MainStage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainStage.h; sourceTree = "<group>"; };
+		CD910AFF18D77B0D00C61610 /* MainStage.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MainStage.mm; sourceTree = "<group>"; };
+		CD910B0018D77B0D00C61610 /* PlayGameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayGameScene.h; sourceTree = "<group>"; };
+		CD910B0118D77B0D00C61610 /* PlayGameScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlayGameScene.mm; sourceTree = "<group>"; };
+		CD910B0318D77B0D00C61610 /* ORArrowButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORArrowButton.h; sourceTree = "<group>"; };
+		CD910B0418D77B0D00C61610 /* ORArrowButton.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ORArrowButton.mm; sourceTree = "<group>"; };
+		CD910B0518D77B0D00C61610 /* ORButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORButton.h; sourceTree = "<group>"; };
+		CD910B0618D77B0D00C61610 /* ORButton.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ORButton.mm; sourceTree = "<group>"; };
+		CD910B0718D77B0D00C61610 /* ORTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORTextField.h; sourceTree = "<group>"; };
+		CD910B0818D77B0D00C61610 /* ORTextField.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ORTextField.mm; sourceTree = "<group>"; };
+		CD910B0D18D77BDF00C61610 /* iOrwell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOrwell.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD910B1018D77BDF00C61610 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CD910B1218D77BDF00C61610 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		CD910B1418D77BDF00C61610 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		CD910B1618D77BDF00C61610 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		CD910B2E18D77BDF00C61610 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		CDDD0B7418D77FE600979E1E /* sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.caf; sourceTree = "<group>"; };
+		CDDD0B7618D77FE600979E1E /* bordersprite_regular_20.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bordersprite_regular_20.fnt; sourceTree = "<group>"; };
+		CDDD0B7718D77FE600979E1E /* bordersprite_regular_20.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bordersprite_regular_20.PNG; sourceTree = "<group>"; };
+		CDDD0B7818D77FE600979E1E /* dodger_condensed_condensed_20.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dodger_condensed_condensed_20.fnt; sourceTree = "<group>"; };
+		CDDD0B7918D77FE600979E1E /* dodger_condensed_condensed_20.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dodger_condensed_condensed_20.PNG; sourceTree = "<group>"; };
+		CDDD0B7A18D77FE600979E1E /* dodger_shadow_shadow_20.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dodger_shadow_shadow_20.fnt; sourceTree = "<group>"; };
+		CDDD0B7B18D77FE600979E1E /* dodger_shadow_shadow_20.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dodger_shadow_shadow_20.PNG; sourceTree = "<group>"; };
+		CDDD0B7E18D77FE600979E1E /* black-dialog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black-dialog.png"; sourceTree = "<group>"; };
+		CDDD0B7F18D77FE600979E1E /* button-arrow-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-arrow-down.png"; sourceTree = "<group>"; };
+		CDDD0B8018D77FE600979E1E /* cut-metal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "cut-metal.jpg"; sourceTree = "<group>"; };
+		CDDD0B8118D77FE600979E1E /* game-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-bg.png"; sourceTree = "<group>"; };
+		CDDD0B8218D77FE600979E1E /* marvin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = marvin.png; sourceTree = "<group>"; };
+		CDDD0B8318D77FE600979E1E /* Metal-background-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal-background-2.jpg"; sourceTree = "<group>"; };
+		CDDD0B8418D77FE600979E1E /* Metal-background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal-background.jpg"; sourceTree = "<group>"; };
+		CDDD0B8518D77FE600979E1E /* Metal-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Metal-background.png"; sourceTree = "<group>"; };
+		CDDD0B8618D77FE600979E1E /* Metal-background.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metal-background.psd"; sourceTree = "<group>"; };
+		CDDD0B8718D77FE600979E1E /* Network-lines-background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Network-lines-background.jpg"; sourceTree = "<group>"; };
+		CDDD0B8818D77FE600979E1E /* tech-button-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tech-button-off.png"; sourceTree = "<group>"; };
+		CDDD0B8918D77FE600979E1E /* tech-button-off.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = "tech-button-off.psd"; sourceTree = "<group>"; };
+		CDDD0B8A18D77FE600979E1E /* tech-button-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tech-button-on.png"; sourceTree = "<group>"; };
+		CDDD0B8B18D77FE600979E1E /* tech-button-on.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = "tech-button-on.psd"; sourceTree = "<group>"; };
+		CDDD0B8D18D77FE600979E1E /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CD910B0A18D77BDF00C61610 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD910B1318D77BDF00C61610 /* CoreGraphics.framework in Frameworks */,
+				CD910B1718D77BDF00C61610 /* CoreData.framework in Frameworks */,
+				CD910B1518D77BDF00C61610 /* UIKit.framework in Frameworks */,
+				CD910B1118D77BDF00C61610 /* Foundation.framework in Frameworks */,
+				C9F74AE22D3E472ABE27E648 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CD4E0ED618D77ACE00CA8505 = {
+			isa = PBXGroup;
+			children = (
+				CDDD0B7218D77FDA00979E1E /* Resources */,
+				CD910AD218D77B0D00C61610 /* Sources */,
+				CD910B0F18D77BDF00C61610 /* Frameworks */,
+				CD910B0E18D77BDF00C61610 /* Products */,
+				9FE88D42A3C54E55B4666AC5 /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		CD910AD218D77B0D00C61610 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				CD910AD318D77B0D00C61610 /* callback */,
+				CD910ADD18D77B0D00C61610 /* init */,
+				CD910AE318D77B0D00C61610 /* logic */,
+				CD910AEC18D77B0D00C61610 /* messages */,
+				CD910AF518D77B0D00C61610 /* scenes */,
+				CD910B0218D77B0D00C61610 /* ui */,
+			);
+			name = Sources;
+			path = Project/src;
+			sourceTree = "<group>";
+		};
+		CD910AD318D77B0D00C61610 /* callback */ = {
+			isa = PBXGroup;
+			children = (
+				CD910AD418D77B0D00C61610 /* Callback.h */,
+				CD910AD518D77B0D00C61610 /* Callback.mm */,
+				CD910AD618D77B0D00C61610 /* CallbackGameState.h */,
+				CD910AD718D77B0D00C61610 /* CallbackGameState.mm */,
+				CD910AD818D77B0D00C61610 /* CallbackGoodbye.h */,
+				CD910AD918D77B0D00C61610 /* CallbackGoodbye.mm */,
+				CD910ADA18D77B0D00C61610 /* CallbackResponder.h */,
+				CD910ADB18D77B0D00C61610 /* CallbackWelcome.h */,
+				CD910ADC18D77B0D00C61610 /* CallbackWelcome.mm */,
+			);
+			path = callback;
+			sourceTree = "<group>";
+		};
+		CD910ADD18D77B0D00C61610 /* init */ = {
+			isa = PBXGroup;
+			children = (
+				CD910ADE18D77B0D00C61610 /* AppDelegate.h */,
+				CD910ADF18D77B0D00C61610 /* AppDelegate.mm */,
+				CD910AE018D77B0D00C61610 /* Game.h */,
+				CD910AE118D77B0D00C61610 /* Game.mm */,
+				CD910AE218D77B0D00C61610 /* main.mm */,
+			);
+			path = init;
+			sourceTree = "<group>";
+		};
+		CD910AE318D77B0D00C61610 /* logic */ = {
+			isa = PBXGroup;
+			children = (
+				CD910AE418D77B0D00C61610 /* BroadcastRetriever.cpp */,
+				CD910AE518D77B0D00C61610 /* BroadcastRetriever.h */,
+				CD910AE618D77B0D00C61610 /* Media.h */,
+				CD910AE718D77B0D00C61610 /* Media.mm */,
+				CD910AE818D77B0D00C61610 /* MessagesWrapper.h */,
+				CD910AE918D77B0D00C61610 /* MessagesWrapper.mm */,
+				CD910AEA18D77B0D00C61610 /* ServerCommunicator.h */,
+				CD910AEB18D77B0D00C61610 /* ServerCommunicator.mm */,
+			);
+			path = logic;
+			sourceTree = "<group>";
+		};
+		CD910AEC18D77B0D00C61610 /* messages */ = {
+			isa = PBXGroup;
+			children = (
+				CD910AED18D77B0D00C61610 /* controller.pb.cc */,
+				CD910AEE18D77B0D00C61610 /* controller.pb.h */,
+				CD910AEF18D77B0D00C61610 /* robot.pb.cc */,
+				CD910AF018D77B0D00C61610 /* robot.pb.h */,
+				CD910AF118D77B0D00C61610 /* server-game.pb.cc */,
+				CD910AF218D77B0D00C61610 /* server-game.pb.h */,
+				CD910AF318D77B0D00C61610 /* server-web.pb.cc */,
+				CD910AF418D77B0D00C61610 /* server-web.pb.h */,
+			);
+			path = messages;
+			sourceTree = "<group>";
+		};
+		CD910AF518D77B0D00C61610 /* scenes */ = {
+			isa = PBXGroup;
+			children = (
+				CD910AF618D77B0D00C61610 /* BackgroundScene.h */,
+				CD910AF718D77B0D00C61610 /* BackgroundScene.mm */,
+				CD910AF818D77B0D00C61610 /* BroadcastScene.h */,
+				CD910AF918D77B0D00C61610 /* BroadcastScene.mm */,
+				CD910AFA18D77B0D00C61610 /* FlowScene.h */,
+				CD910AFB18D77B0D00C61610 /* FlowScene.mm */,
+				CD910AFC18D77B0D00C61610 /* InputGameScene.h */,
+				CD910AFD18D77B0D00C61610 /* InputGameScene.mm */,
+				CD910AFE18D77B0D00C61610 /* MainStage.h */,
+				CD910AFF18D77B0D00C61610 /* MainStage.mm */,
+				CD910B0018D77B0D00C61610 /* PlayGameScene.h */,
+				CD910B0118D77B0D00C61610 /* PlayGameScene.mm */,
+			);
+			path = scenes;
+			sourceTree = "<group>";
+		};
+		CD910B0218D77B0D00C61610 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				CD910B0318D77B0D00C61610 /* ORArrowButton.h */,
+				CD910B0418D77B0D00C61610 /* ORArrowButton.mm */,
+				CD910B0518D77B0D00C61610 /* ORButton.h */,
+				CD910B0618D77B0D00C61610 /* ORButton.mm */,
+				CD910B0718D77B0D00C61610 /* ORTextField.h */,
+				CD910B0818D77B0D00C61610 /* ORTextField.mm */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
+		CD910B0E18D77BDF00C61610 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CD910B0D18D77BDF00C61610 /* iOrwell.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CD910B0F18D77BDF00C61610 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CD910B1018D77BDF00C61610 /* Foundation.framework */,
+				CD910B1218D77BDF00C61610 /* CoreGraphics.framework */,
+				CD910B1418D77BDF00C61610 /* UIKit.framework */,
+				CD910B1618D77BDF00C61610 /* CoreData.framework */,
+				CD910B2E18D77BDF00C61610 /* XCTest.framework */,
+				2162E0EDEF7D475B8F6DB092 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CDDD0B7218D77FDA00979E1E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CDDD0B7318D77FE600979E1E /* audio */,
+				CDDD0B7518D77FE600979E1E /* fonts */,
+				CDDD0B7C18D77FE600979E1E /* graphics */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		CDDD0B7318D77FE600979E1E /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				CDDD0B7418D77FE600979E1E /* sound.caf */,
+			);
+			name = audio;
+			path = media/audio;
+			sourceTree = "<group>";
+		};
+		CDDD0B7518D77FE600979E1E /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				CDDD0B7618D77FE600979E1E /* bordersprite_regular_20.fnt */,
+				CDDD0B7718D77FE600979E1E /* bordersprite_regular_20.PNG */,
+				CDDD0B7818D77FE600979E1E /* dodger_condensed_condensed_20.fnt */,
+				CDDD0B7918D77FE600979E1E /* dodger_condensed_condensed_20.PNG */,
+				CDDD0B7A18D77FE600979E1E /* dodger_shadow_shadow_20.fnt */,
+				CDDD0B7B18D77FE600979E1E /* dodger_shadow_shadow_20.PNG */,
+			);
+			name = fonts;
+			path = media/fonts;
+			sourceTree = "<group>";
+		};
+		CDDD0B7C18D77FE600979E1E /* graphics */ = {
+			isa = PBXGroup;
+			children = (
+				CDDD0B7D18D77FE600979E1E /* 1x */,
+				CDDD0B8C18D77FE600979E1E /* 4x */,
+			);
+			name = graphics;
+			path = media/graphics;
+			sourceTree = "<group>";
+		};
+		CDDD0B7D18D77FE600979E1E /* 1x */ = {
+			isa = PBXGroup;
+			children = (
+				CDDD0B7E18D77FE600979E1E /* black-dialog.png */,
+				CDDD0B7F18D77FE600979E1E /* button-arrow-down.png */,
+				CDDD0B8018D77FE600979E1E /* cut-metal.jpg */,
+				CDDD0B8118D77FE600979E1E /* game-bg.png */,
+				CDDD0B8218D77FE600979E1E /* marvin.png */,
+				CDDD0B8318D77FE600979E1E /* Metal-background-2.jpg */,
+				CDDD0B8418D77FE600979E1E /* Metal-background.jpg */,
+				CDDD0B8518D77FE600979E1E /* Metal-background.png */,
+				CDDD0B8618D77FE600979E1E /* Metal-background.psd */,
+				CDDD0B8718D77FE600979E1E /* Network-lines-background.jpg */,
+				CDDD0B8818D77FE600979E1E /* tech-button-off.png */,
+				CDDD0B8918D77FE600979E1E /* tech-button-off.psd */,
+				CDDD0B8A18D77FE600979E1E /* tech-button-on.png */,
+				CDDD0B8B18D77FE600979E1E /* tech-button-on.psd */,
+			);
+			path = 1x;
+			sourceTree = "<group>";
+		};
+		CDDD0B8C18D77FE600979E1E /* 4x */ = {
+			isa = PBXGroup;
+			children = (
+				CDDD0B8D18D77FE600979E1E /* README.txt */,
+			);
+			path = 4x;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CD910B0C18D77BDF00C61610 /* iOrwell */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD910B3D18D77BDF00C61610 /* Build configuration list for PBXNativeTarget "iOrwell" */;
+			buildPhases = (
+				79D27F72FF934B00B99A1ED9 /* Check Pods Manifest.lock */,
+				CD910B0918D77BDF00C61610 /* Sources */,
+				CD910B0A18D77BDF00C61610 /* Frameworks */,
+				CD910B0B18D77BDF00C61610 /* Resources */,
+				64294D5C993B4EF7B418EED4 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iOrwell;
+			productName = iOrwell;
+			productReference = CD910B0D18D77BDF00C61610 /* iOrwell.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CD4E0ED718D77ACE00CA8505 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+			};
+			buildConfigurationList = CD4E0EDA18D77ACE00CA8505 /* Build configuration list for PBXProject "iOrwell" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CD4E0ED618D77ACE00CA8505;
+			productRefGroup = CD910B0E18D77BDF00C61610 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CD910B0C18D77BDF00C61610 /* iOrwell */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CD910B0B18D77BDF00C61610 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDDD0B9A18D77FE600979E1E /* Metal-background-2.jpg in Resources */,
+				CDDD0B9418D77FE600979E1E /* dodger_shadow_shadow_20.PNG in Resources */,
+				CDDD0BA318D77FE600979E1E /* README.txt in Resources */,
+				CDDD0B8F18D77FE600979E1E /* bordersprite_regular_20.fnt in Resources */,
+				CDDD0B9B18D77FE600979E1E /* Metal-background.jpg in Resources */,
+				CDDD0BA118D77FE600979E1E /* tech-button-on.png in Resources */,
+				CDDD0B9718D77FE600979E1E /* cut-metal.jpg in Resources */,
+				CDDD0B9C18D77FE600979E1E /* Metal-background.png in Resources */,
+				CDDD0B9818D77FE600979E1E /* game-bg.png in Resources */,
+				CDDD0B8E18D77FE600979E1E /* sound.caf in Resources */,
+				CDDD0B9618D77FE600979E1E /* button-arrow-down.png in Resources */,
+				CDDD0B9D18D77FE600979E1E /* Metal-background.psd in Resources */,
+				CDDD0B9218D77FE600979E1E /* dodger_condensed_condensed_20.PNG in Resources */,
+				CDDD0B9318D77FE600979E1E /* dodger_shadow_shadow_20.fnt in Resources */,
+				CDDD0B9518D77FE600979E1E /* black-dialog.png in Resources */,
+				CDDD0BA018D77FE600979E1E /* tech-button-off.psd in Resources */,
+				CDDD0B9F18D77FE600979E1E /* tech-button-off.png in Resources */,
+				CDDD0B9E18D77FE600979E1E /* Network-lines-background.jpg in Resources */,
+				CDDD0B9018D77FE600979E1E /* bordersprite_regular_20.PNG in Resources */,
+				CDDD0B9918D77FE600979E1E /* marvin.png in Resources */,
+				CDDD0BA218D77FE600979E1E /* tech-button-on.psd in Resources */,
+				CDDD0B9118D77FE600979E1E /* dodger_condensed_condensed_20.fnt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		64294D5C993B4EF7B418EED4 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		79D27F72FF934B00B99A1ED9 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CD910B0918D77BDF00C61610 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD910B4318D77C2B00C61610 /* Callback.mm in Sources */,
+				CD910B4418D77C2B00C61610 /* CallbackGameState.mm in Sources */,
+				CD910B4518D77C2B00C61610 /* CallbackGoodbye.mm in Sources */,
+				CD910B4618D77C2B00C61610 /* CallbackWelcome.mm in Sources */,
+				CD910B4718D77C2B00C61610 /* AppDelegate.mm in Sources */,
+				CD910B4818D77C2B00C61610 /* Game.mm in Sources */,
+				CD910B4918D77C2B00C61610 /* main.mm in Sources */,
+				CD910B4A18D77C2B00C61610 /* BroadcastRetriever.cpp in Sources */,
+				CD910B4B18D77C2B00C61610 /* Media.mm in Sources */,
+				CD910B4C18D77C2B00C61610 /* MessagesWrapper.mm in Sources */,
+				CD910B4D18D77C2B00C61610 /* ServerCommunicator.mm in Sources */,
+				CD910B4E18D77C2B00C61610 /* controller.pb.cc in Sources */,
+				CD910B4F18D77C2B00C61610 /* controller.pb.h in Sources */,
+				CD910B5018D77C2B00C61610 /* robot.pb.cc in Sources */,
+				CD910B5118D77C2B00C61610 /* robot.pb.h in Sources */,
+				CD910B5218D77C2B00C61610 /* server-game.pb.cc in Sources */,
+				CD910B5318D77C2B00C61610 /* server-game.pb.h in Sources */,
+				CD910B5418D77C2B00C61610 /* server-web.pb.cc in Sources */,
+				CD910B5518D77C2B00C61610 /* server-web.pb.h in Sources */,
+				CD910B5618D77C2B00C61610 /* BackgroundScene.mm in Sources */,
+				CD910B5718D77C2B00C61610 /* BroadcastScene.mm in Sources */,
+				CD910B5818D77C2B00C61610 /* FlowScene.mm in Sources */,
+				CD910B5918D77C2B00C61610 /* InputGameScene.mm in Sources */,
+				CD910B5A18D77C2B00C61610 /* MainStage.mm in Sources */,
+				CD910B5B18D77C2B00C61610 /* PlayGameScene.mm in Sources */,
+				CD910B5C18D77C2B00C61610 /* ORArrowButton.mm in Sources */,
+				CD910B5D18D77C2B00C61610 /* ORButton.mm in Sources */,
+				CD910B5E18D77C2B00C61610 /* ORTextField.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CD4E0EDB18D77ACE00CA8505 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		CD4E0EDC18D77ACE00CA8505 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		CD910B3E18D77BDF00C61610 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9FE88D42A3C54E55B4666AC5 /* Pods.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOrwell/iOrwell-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "iOrwell/iOrwell-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		CD910B3F18D77BDF00C61610 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9FE88D42A3C54E55B4666AC5 /* Pods.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOrwell/iOrwell-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "iOrwell/iOrwell-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CD4E0EDA18D77ACE00CA8505 /* Build configuration list for PBXProject "iOrwell" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD4E0EDB18D77ACE00CA8505 /* Debug */,
+				CD4E0EDC18D77ACE00CA8505 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD910B3D18D77BDF00C61610 /* Build configuration list for PBXNativeTarget "iOrwell" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD910B3E18D77BDF00C61610 /* Debug */,
+				CD910B3F18D77BDF00C61610 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CD4E0ED718D77ACE00CA8505 /* Project object */;
+}

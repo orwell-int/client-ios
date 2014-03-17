@@ -26,6 +26,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIDevice.h>
+#import <Sparrow.h>
 
 @interface Game : SPSprite
 

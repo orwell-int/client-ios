@@ -25,6 +25,7 @@
  */
 
 #import "ORTextField.h"
+#import <SPImage.h>
 
 @interface ORTextField()
 @property (strong, nonatomic) SPImage *background;

@@ -26,6 +26,7 @@
 
 #import "ORButton.h"
 #import <SPTextField.h>
+#import <SPTexture.h>
 
 #define UP_STATE @"tech-button-off.png"
 #define DOWN_STATE @"tech-button-on.png"

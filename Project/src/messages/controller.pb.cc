@@ -174,7 +174,7 @@ bool Hello::MergePartialFromCodedStream(
             ::google_public::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_ready:
           DO_((::google_public::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google_public::protobuf::internal::WireFormatLite::TYPE_GBOOL>(
+                   bool, ::google_public::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &ready_)));
           set_has_ready();
         } else {
@@ -621,7 +621,7 @@ bool Input_Fire::MergePartialFromCodedStream(
         if (::google_public::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google_public::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
           DO_((::google_public::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google_public::protobuf::internal::WireFormatLite::TYPE_GBOOL>(
+                   bool, ::google_public::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &weapon1_)));
           set_has_weapon1();
         } else {
@@ -637,7 +637,7 @@ bool Input_Fire::MergePartialFromCodedStream(
             ::google_public::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_weapon2:
           DO_((::google_public::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google_public::protobuf::internal::WireFormatLite::TYPE_GBOOL>(
+                   bool, ::google_public::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &weapon2_)));
           set_has_weapon2();
         } else {
