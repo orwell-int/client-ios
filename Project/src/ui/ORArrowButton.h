@@ -24,24 +24,18 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Foundation/Foundation.h>
-#import "SPImage.h"
+#import <Sparrow.h>
 
-#define EVENT_TYPE_SCENE_CLOSING @"closing"
-#define EVENT_TYPE_INPUT_SCENE_CLOSING @"inputclosing"
+enum Rotation {
+	RIGHT = 0,
+	LEFT,
+	DOWN,
+	UP
+};
 
-@interface BackgroundScene : SPSprite
+@interface ORArrowButton : SPButton
 
-- (id) init;
-- (void) addBackButton;
-
-- (void) registerSelector:(SEL)selector;
-- (void) unregisterSelector:(SEL)selector;
-
-- (float) getBackButtonY;
-- (float) getBackButtonHeight;
-
-- (void) placeObjectInStage;
-- (void) startObjects;
+-(id)init;
+-(id)initWithRotation:(Rotation)rotation;
 
 @end

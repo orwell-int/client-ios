@@ -24,18 +24,32 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "SPButton.h"
+#import "ORButton.h"
+#import <SPTextField.h>
+#import <SPTexture.h>
 
-enum Rotation {
-	RIGHT = 0,
-	LEFT,
-	DOWN,
-	UP
-};
+#define UP_STATE @"tech-button-off.png"
+#define DOWN_STATE @"tech-button-on.png"
 
-@interface ORArrowButton : SPButton
+@implementation ORButton
 
--(id)init;
--(id)initWithRotation:(Rotation)rotation;
+- (id)init
+{
+	self = [super initWithUpState:[SPTexture textureWithContentsOfFile:UP_STATE] downState:[SPTexture textureWithContentsOfFile:DOWN_STATE]];
+	
+	return self;
+}
+
+- (id)initWithText:(NSString *)text
+{
+	self = [self init];
+	
+	self.fontName = [SPTextField registerBitmapFontFromFile:@"dodger_condensed_condensed_20.fnt"];
+	self.fontSize = 10;
+	self.fontColor = 0xffffff;
+	self.text = text;
+
+	return self;
+}
 
 @end

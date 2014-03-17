@@ -25,6 +25,7 @@
  */
 
 #import "Media.h"
+#import <Sparrow.h>
 
 
 @implementation Media

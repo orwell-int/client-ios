@@ -32,9 +32,9 @@
 #include <zmq.h>
 #include <netinet/udp.h>
 #include <arpa/inet.h>
-#import <sys/socket.h>
-#import <sys/types.h>
-#import <netdb.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netdb.h>
 #include <unistd.h>
 #include <cstring>
 
@@ -97,14 +97,14 @@ BroadcastRetriever::BroadcastError BroadcastRetriever::launchTest(std::string co
     
     if (not getIP4())
 	{
-        NSLog(@"Error while retrieving IP4");
+//        NSLog(@"Error while retrieving IP4");
 	}
     _ip4.b4 = 255;
     
     if (_ip4)
 	{
-        NSLog(@"Everything's good: %@",
-              [NSString stringWithUTF8String:((std::string) _ip4).c_str()]);
+//        NSLog(@"Everything's good: %@",
+//              [NSString stringWithUTF8String:((std::string) _ip4).c_str()]);
 	}
     
     // Build the destination object
@@ -120,47 +120,47 @@ BroadcastRetriever::BroadcastError BroadcastRetriever::launchTest(std::string co
     // Allow the socket to send broadcast messages
     if ( (setsockopt(broadcastSocket, SOL_SOCKET, SO_BROADCAST, &broadcast, sizeof(int))) == -1)
     {
-        NSLog(@"Couldn't set sockopt for broadcast");
+//        NSLog(@"Couldn't set sockopt for broadcast");
 		returnValue = kUnknownError;
     }
     
 	// Send timeout..
 	if ( (setsockopt(broadcastSocket, SOL_SOCKET, SO_SNDTIMEO, (char*)&_timeout, sizeof(_timeout))) == -1)
 	{
-		NSLog(@"Could not set sockopt for SNDTIMEO");
+//		NSLog(@"Could not set sockopt for SNDTIMEO");
 		returnValue = kUnknownError;
 	}
 	
 	// Receive timeout..
 	if ( (setsockopt(broadcastSocket, SOL_SOCKET, SO_RCVTIMEO, (char*)&_timeout, sizeof(_timeout))) == -1)
 	{
-		NSLog(@"Could not set sockopt RCVTIMEO");
+//		NSLog(@"Could not set sockopt RCVTIMEO");
 		returnValue = kUnknownError;
 	}
 	
     if (sendto(broadcastSocket, messageToSend, messageLength, 0, (struct sockaddr *) &destination, sizeof(destination)) != messageLength)
     {
-        NSLog(@"Couldn't send message");
+//        NSLog(@"Couldn't send message");
 		returnValue = kSendTimeout;
     }
     
     destinationLength = sizeof(destination);
     if (recvfrom(broadcastSocket, reply, sizeof(reply), 0, (struct sockaddr *) &destination, &destinationLength) == -1)
     {
-        NSLog(@"Fell into RCV Timeout");
+//        NSLog(@"Fell into RCV Timeout");
 		returnValue = kRecvTimeout;
     }
 	
 	_responderIp = std::string(addr2ascii(AF_INET, &destination.sin_addr, sizeof(destination.sin_addr), 0));
 	
-	NSLog(@"Received message: %s : from %s",
-		  reply,
-		  _responderIp.c_str());
+//	NSLog(@"Received message: %s : from %s",
+//		  reply,
+//		  _responderIp.c_str());
     
     // Some magic here to retrieve the datas..
 	if (returnValue == kOk)
 	{
-		NSLog(@"Yeah, retrieving everything..");
+//		NSLog(@"Yeah, retrieving everything..");
 		uint8_t firstSeparator, secondSeparator, firstSize, secondSize;
 		
 		firstSeparator = (uint8_t) reply[0];
@@ -180,8 +180,8 @@ BroadcastRetriever::BroadcastError BroadcastRetriever::launchTest(std::string co
 		_secondPort = _secondIp.substr(_secondIp.find(":")+1);
 		_secondPort = _secondPort.substr(_secondPort.find(":") + 1);
 		
-		NSLog(@"Message decoded: %s", aBufferForLogger);
-		NSLog(@"First port: %s - second port: %s", _firstPort.c_str(), _secondPort.c_str());
+//		NSLog(@"Message decoded: %s", aBufferForLogger);
+//		NSLog(@"First port: %s - second port: %s", _firstPort.c_str(), _secondPort.c_str());
 	}
 	
 	if (returnValue != kUnknownError)
@@ -195,7 +195,7 @@ void BroadcastRetriever::setTimeout(const struct timeval &iTimeout)
 	_timeout.tv_sec = iTimeout.tv_sec;
 	_timeout.tv_usec = iTimeout.tv_usec;
 	
-	NSLog(@"tv_sec = %ld  -  tv_usec = %d", _timeout.tv_sec, _timeout.tv_usec);
+//	NSLog(@"tv_sec = %ld  -  tv_usec = %d", _timeout.tv_sec, _timeout.tv_usec);
 }
 
 std::string const & BroadcastRetriever::getFirstIP() const

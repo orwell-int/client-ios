@@ -24,31 +24,21 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ORButton.h"
-#import <SPTextField.h>
+#import <Foundation/Foundation.h>
+#import <Sparrow.h>
 
-#define UP_STATE @"tech-button-off.png"
-#define DOWN_STATE @"tech-button-on.png"
+@interface Media : NSObject 
 
-@implementation ORButton
++ (void)initAtlas;
++ (void)releaseAtlas;
 
-- (id)init
-{
-	self = [super initWithUpState:[SPTexture textureWithContentsOfFile:UP_STATE] downState:[SPTexture textureWithContentsOfFile:DOWN_STATE]];
-	
-	return self;
-}
++ (SPTexture *)atlasTexture:(NSString *)name;
++ (NSArray *)atlasTexturesWithPrefix:(NSString *)prefix;
 
-- (id)initWithText:(NSString *)text
-{
-	self = [self init];
-	
-	self.fontName = [SPTextField registerBitmapFontFromFile:@"dodger_condensed_condensed_20.fnt"];
-	self.fontSize = 10;
-	self.fontColor = 0xffffff;
-	self.text = text;
++ (void)initSound;
++ (void)releaseSound;
 
-	return self;
-}
++ (SPSoundChannel *)soundChannel:(NSString *)soundName;
++ (void)playSound:(NSString *)soundName;
 
 @end

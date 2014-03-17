@@ -423,7 +423,7 @@ bool GameState::MergePartialFromCodedStream(
         if (::google_public::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google_public::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
           DO_((::google_public::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google_public::protobuf::internal::WireFormatLite::TYPE_GBOOL>(
+                   bool, ::google_public::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &playing_)));
           set_has_playing();
         } else {
@@ -1606,7 +1606,7 @@ bool Stop::MergePartialFromCodedStream(
         if (::google_public::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google_public::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
           DO_((::google_public::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google_public::protobuf::internal::WireFormatLite::TYPE_GBOOL>(
+                   bool, ::google_public::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &shutdown_)));
           set_has_shutdown();
         } else {
@@ -1622,7 +1622,7 @@ bool Stop::MergePartialFromCodedStream(
             ::google_public::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_video:
           DO_((::google_public::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google_public::protobuf::internal::WireFormatLite::TYPE_GBOOL>(
+                   bool, ::google_public::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &video_)));
           set_has_video();
         } else {

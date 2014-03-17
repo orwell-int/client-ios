@@ -377,7 +377,7 @@ bool RobotState::MergePartialFromCodedStream(
             ::google_public::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_active:
           DO_((::google_public::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google_public::protobuf::internal::WireFormatLite::TYPE_GBOOL>(
+                   bool, ::google_public::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &active_)));
           set_has_active();
         } else {

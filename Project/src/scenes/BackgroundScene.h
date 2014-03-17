@@ -25,8 +25,24 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIDevice.h>
+#import <Sparrow.h>
 
-@interface Game : SPSprite
+
+#define EVENT_TYPE_SCENE_CLOSING @"closing"
+#define EVENT_TYPE_INPUT_SCENE_CLOSING @"inputclosing"
+
+@interface BackgroundScene : SPSprite
+
+- (id) init;
+- (void) addBackButton;
+
+- (void) registerSelector:(SEL)selector;
+- (void) unregisterSelector:(SEL)selector;
+
+- (float) getBackButtonY;
+- (float) getBackButtonHeight;
+
+- (void) placeObjectInStage;
+- (void) startObjects;
 
 @end

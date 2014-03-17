@@ -24,33 +24,10 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ORTextField.h"
+#import <Foundation/Foundation.h>
+#import <UIKit/UIDevice.h>
+#import <Sparrow.h>
 
-@interface ORTextField()
-@property (strong, nonatomic) SPImage *background;
-
-@end
-
-@implementation ORTextField
-
-@synthesize background = _background;
-
-+ (id)textFieldWithWidth:(float)width height:(float)height text:(NSString *)text
-{
-	ORTextField *ret = [[ORTextField alloc] initWithWidth:width height:height text:text];
-	ret.background = [SPImage imageWithContentsOfFile:@"black-dialog.png"];
-	ret.background.width = width;
-	ret.background.height = height;
-	
-	[ret addChild:ret.background atIndex:0];
-	ret.color = 0xffffff;
-	ret.fontSize = 9;
-	ret.fontName = [SPTextField registerBitmapFontFromFile:@"dodger_condensed_condensed_20.fnt"];
-	ret.background.alpha = 1.0f;
-	
-	ret.text = text;
-	
-	return ret;
-}
+@interface Game : SPSprite
 
 @end
