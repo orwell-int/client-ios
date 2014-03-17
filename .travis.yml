@@ -1,0 +1,7 @@
+language: objective-c
+
+build:
+  - pod install
+  - xcodebuild -workspace iOrwell.xcworkspace -scheme iOrwell -sdk iphonesimulator
+
+
