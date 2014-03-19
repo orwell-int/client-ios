@@ -39,6 +39,7 @@
 @property (strong, nonatomic) ORArrowButton *downButton;
 @property (strong, nonatomic) ORArrowButton *rightButton;
 @property (strong, nonatomic) ORArrowButton *upButton;
+@property (strong, nonatomic) NSMutableArray *buttonsArray;
 
 @end
 
@@ -50,6 +51,7 @@
 @synthesize downButton = _downButton;
 @synthesize rightButton = _rightButton;
 @synthesize upButton = _upButton;
+@synthesize buttonsArray = _buttonsArray;
 
 - (id)init
 {
@@ -58,13 +60,36 @@
 	[self registerSelector:@selector(onBackButton:)];
 	
 	_playerTextField = [ORTextField textFieldWithWidth:Sparrow.stage.width - 30.0f height:40.0f text:@""];
+	
+	_buttonsArray = [NSMutableArray array];
+
 	_leftButton = [[ORArrowButton alloc] initWithRotation:LEFT];
+	_leftButton.name = @"left";
+	[_buttonsArray addObject:_leftButton];
+	
 	_rightButton = [[ORArrowButton alloc] initWithRotation:RIGHT];
+	_rightButton.name = @"right";
+	[_buttonsArray addObject:_rightButton];
+
 	_downButton = [[ORArrowButton alloc] initWithRotation:DOWN];
+	_downButton.name = @"down";
+	[_buttonsArray addObject:_downButton];
+
 	_upButton = [[ORArrowButton alloc] initWithRotation:UP];
+	_upButton.name = @"up";
+	[_buttonsArray addObject:_upButton];
+
+	// Event block
+	for (ORArrowButton *button in _buttonsArray) {
+		[button addEventListenerForType:SP_EVENT_TYPE_TRIGGERED block:^(SPEvent *event) {
+			ORArrowButton *button = (ORArrowButton *) event.target;
+			DDLogInfo(@"Button %@ pressed", button.name);
+		}];
+	}
 	
 	// This is active already
 	_serverCommunicator = [ServerCommunicator initSingleton];
+	[_serverCommunicator registerResponder:self forMessage:@"Input"];
 
 	return self;
 }
