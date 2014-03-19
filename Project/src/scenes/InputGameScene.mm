@@ -31,6 +31,9 @@
 #import "CallbackResponder.h"
 #import "ORArrowButton.h"
 
+#import "robot.pb.h"
+#import "controller.pb.h"
+
 @interface InputGameScene() <CallbackResponder>
 @property (strong, nonatomic) ORTextField *playerTextField;
 @property (strong, nonatomic) ServerCommunicator *serverCommunicator;
@@ -39,6 +42,7 @@
 @property (strong, nonatomic) ORArrowButton *downButton;
 @property (strong, nonatomic) ORArrowButton *rightButton;
 @property (strong, nonatomic) ORArrowButton *upButton;
+@property (strong, nonatomic) NSMutableArray *buttonsArray;
 
 @end
 
@@ -50,6 +54,7 @@
 @synthesize downButton = _downButton;
 @synthesize rightButton = _rightButton;
 @synthesize upButton = _upButton;
+@synthesize buttonsArray = _buttonsArray;
 
 - (id)init
 {
@@ -58,13 +63,76 @@
 	[self registerSelector:@selector(onBackButton:)];
 	
 	_playerTextField = [ORTextField textFieldWithWidth:Sparrow.stage.width - 30.0f height:40.0f text:@""];
+	
+	_buttonsArray = [NSMutableArray array];
+
 	_leftButton = [[ORArrowButton alloc] initWithRotation:LEFT];
+	_leftButton.name = @"left";
+	[_buttonsArray addObject:_leftButton];
+	
 	_rightButton = [[ORArrowButton alloc] initWithRotation:RIGHT];
+	_rightButton.name = @"right";
+	[_buttonsArray addObject:_rightButton];
+
 	_downButton = [[ORArrowButton alloc] initWithRotation:DOWN];
+	_downButton.name = @"down";
+	[_buttonsArray addObject:_downButton];
+
 	_upButton = [[ORArrowButton alloc] initWithRotation:UP];
+	_upButton.name = @"up";
+	[_buttonsArray addObject:_upButton];
+
+	// Event block
+	for (ORArrowButton *button in _buttonsArray) {
+		[button addEventListenerForType:SP_EVENT_TYPE_TRIGGERED block:^(SPEvent *event) {
+			using namespace orwell::messages;
+			ORArrowButton *button = (ORArrowButton *) event.target;
+			DDLogInfo(@"Button %@ pressed, rotation: %d", button.name, button.rotation);
+
+			double left, right;
+			left = right = 0;
+			
+			Input inputMessage;
+			switch (button.rotation) {
+				case UP:
+					left = 1;
+					right = 1;
+					break;
+				case DOWN:
+					left = -1;
+					right = -1;
+					break;
+				case LEFT:
+					left = 1;
+					right = -1;
+					break;
+				case RIGHT:
+					left = -1;
+					right = 1;
+					break;
+			}
+			
+			DDLogDebug(@"Sending message with left: %f, right: %f", left, right);
+			
+			inputMessage.mutable_move()->set_left(left);
+			inputMessage.mutable_move()->set_right(right);
+			inputMessage.mutable_fire()->set_weapon1(false);
+			inputMessage.mutable_fire()->set_weapon2(false);
+			
+			ServerMessage *message = [[ServerMessage alloc] init];
+			message.tag = @"Input ";
+			message.receiver = @"iphoneclient ";
+			message.payload = [NSData dataWithBytes:inputMessage.SerializeAsString().c_str() length:inputMessage.SerializeAsString().length()];
+			DDLogDebug(@"Pushing message Input");
+			
+			[_serverCommunicator pushMessage:message];
+
+		}];
+	}
 	
 	// This is active already
 	_serverCommunicator = [ServerCommunicator initSingleton];
+	[_serverCommunicator registerResponder:self forMessage:@"Input"];
 
 	return self;
 }
@@ -113,6 +181,7 @@
 
 - (BOOL)messageReceived:(NSDictionary *)message
 {
+	DDLogVerbose(@"Received message : %@", [message debugDescription]);
 	return YES;
 }
 

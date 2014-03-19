@@ -24,19 +24,35 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef __OBJC__
+#import "CallbackInput.h"
+#import "controller.pb.h"
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+@implementation CallbackInput
 
-#import "Sparrow.h"
-#import "Media.h"
-#import <DDLog.h>
+@synthesize delegate = _delegate;
 
-#ifdef DEBUG
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-#else
-static const int ddLogLevel = LOG_LEVEL_INFO;
-#endif
+- (BOOL)processMessage:(NSData *)message
+{
+	NSMutableDictionary *mutableDic = [NSMutableDictionary dictionary];
+	orwell::messages::Input input;
+	input.ParseFromArray([message bytes], [message length]);
+	DDLogDebug(@"CallbackInput in");
 
-#endif
+	if (input.has_move()) {
+		[mutableDic setObject:[NSNumber numberWithDouble:input.move().left()] forKey:CB_INPUT_MOVE_LEFT];
+		[mutableDic setObject:[NSNumber numberWithDouble:input.move().right()] forKey:CB_INPUT_MOVE_RIGHT];
+	}
+
+	if (input.has_fire()) {
+		[mutableDic setObject:[NSNumber numberWithBool:input.fire().weapon1()] forKey:CB_INPUT_FIRE_WEAPON1];
+		[mutableDic setObject:[NSNumber numberWithBool:input.fire().weapon2()] forKey:CB_INPUT_FIRE_WEAPON2];
+	}
+
+	if (_delegate) {
+		[_delegate messageReceived:mutableDic];
+	}
+	
+	return YES;
+}
+
+@end

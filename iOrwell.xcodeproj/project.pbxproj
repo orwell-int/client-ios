@@ -11,6 +11,7 @@
 		CD333EB018DA176A0075E51D /* button-arrow-left.png in Resources */ = {isa = PBXBuildFile; fileRef = CD333EAD18DA176A0075E51D /* button-arrow-left.png */; };
 		CD333EB118DA176A0075E51D /* button-arrow-right.png in Resources */ = {isa = PBXBuildFile; fileRef = CD333EAE18DA176A0075E51D /* button-arrow-right.png */; };
 		CD333EB218DA176A0075E51D /* button-arrow-up.png in Resources */ = {isa = PBXBuildFile; fileRef = CD333EAF18DA176A0075E51D /* button-arrow-up.png */; };
+		CD333EB518DA21910075E51D /* CallbackInput.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD333EB418DA21910075E51D /* CallbackInput.mm */; };
 		CD910B1118D77BDF00C61610 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1018D77BDF00C61610 /* Foundation.framework */; };
 		CD910B1318D77BDF00C61610 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1218D77BDF00C61610 /* CoreGraphics.framework */; };
 		CD910B1518D77BDF00C61610 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1418D77BDF00C61610 /* UIKit.framework */; };
@@ -70,6 +71,8 @@
 		CD333EAD18DA176A0075E51D /* button-arrow-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-arrow-left.png"; sourceTree = "<group>"; };
 		CD333EAE18DA176A0075E51D /* button-arrow-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-arrow-right.png"; sourceTree = "<group>"; };
 		CD333EAF18DA176A0075E51D /* button-arrow-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-arrow-up.png"; sourceTree = "<group>"; };
+		CD333EB318DA21910075E51D /* CallbackInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallbackInput.h; sourceTree = "<group>"; };
+		CD333EB418DA21910075E51D /* CallbackInput.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CallbackInput.mm; sourceTree = "<group>"; };
 		CD910AD418D77B0D00C61610 /* Callback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Callback.h; sourceTree = "<group>"; };
 		CD910AD518D77B0D00C61610 /* Callback.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Callback.mm; sourceTree = "<group>"; };
 		CD910AD618D77B0D00C61610 /* CallbackGameState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallbackGameState.h; sourceTree = "<group>"; };
@@ -205,6 +208,8 @@
 				CD910ADA18D77B0D00C61610 /* CallbackResponder.h */,
 				CD910ADB18D77B0D00C61610 /* CallbackWelcome.h */,
 				CD910ADC18D77B0D00C61610 /* CallbackWelcome.mm */,
+				CD333EB318DA21910075E51D /* CallbackInput.h */,
+				CD333EB418DA21910075E51D /* CallbackInput.mm */,
 			);
 			path = callback;
 			sourceTree = "<group>";
@@ -501,6 +506,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD910B4318D77C2B00C61610 /* Callback.mm in Sources */,
+				CD333EB518DA21910075E51D /* CallbackInput.mm in Sources */,
 				CD910B4418D77C2B00C61610 /* CallbackGameState.mm in Sources */,
 				CD910B4518D77C2B00C61610 /* CallbackGoodbye.mm in Sources */,
 				CD910B4618D77C2B00C61610 /* CallbackWelcome.mm in Sources */,

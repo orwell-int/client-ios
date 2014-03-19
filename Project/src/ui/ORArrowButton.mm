@@ -27,6 +27,7 @@
 #import "ORArrowButton.h"
 
 @implementation ORArrowButton
+@synthesize rotation = _rotation;
 
 - (id)init
 {
@@ -42,7 +43,9 @@
 	SPTexture *texture;
 	DDLogInfo(@"Calling ORArrowButton with rotation: %d", rotation);
 	
-	switch (rotation) {
+	_rotation = rotation;
+	
+	switch (_rotation) {
 		case DOWN:
 			texture = [SPTexture textureWithContentsOfFile:@"button-arrow-down.png"];
 			break;
