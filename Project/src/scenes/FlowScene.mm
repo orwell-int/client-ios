@@ -159,7 +159,7 @@
 
 	msg.payload = data;
 	
-	NSLog(@"About to send message: %@,%@,%s", msg.receiver, msg.tag, (const char *) [msg.payload bytes]);
+	DDLogDebug(@"About to send message: %@,%@,%s", msg.receiver, msg.tag, (const char *) [msg.payload bytes]);
 	
 	[_serverCommunicator pushMessage:msg];
 }
@@ -172,7 +172,7 @@
 
 - (BOOL)messageReceived:(NSDictionary *)message
 {
-	NSLog(@"Message Received: \n%@", [message debugDescription]);
+	DDLogDebug(@"Message Received: \n%@", [message debugDescription]);
 	
 	NSString *robot;
 	robot = [message objectForKey:CB_WELCOME_KEY_ROBOT];

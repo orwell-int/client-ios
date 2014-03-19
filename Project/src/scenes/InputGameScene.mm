@@ -77,8 +77,8 @@
 
 - (void)placeObjectInStage
 {
-	NSLog(@"Inited with robot name: %@", self.robotName);
-	NSLog(@"Inited with player name: %@", self.playerName);
+	DDLogDebug(@"Inited with robot name: %@", self.robotName);
+	DDLogDebug(@"Inited with player name: %@", self.playerName);
 
 	self.playerTextField.text = [NSString stringWithFormat:@"%@ @ %@", self.playerName, self.robotName];
 	self.playerTextField.x = 15.0f;

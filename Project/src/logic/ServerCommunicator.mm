@@ -87,7 +87,7 @@
 	static id shared = nil;
 	
 	dispatch_once(&pred, ^(){
-		NSLog(@"Dispatching once...");
+		DDLogDebug(@"Dispatching once...");
 		shared = [[super alloc] init];
 	});
 	
@@ -155,7 +155,7 @@
 	[_load appendData:[tag dataUsingEncoding:NSASCIIStringEncoding]];
 	[_load appendData:payload];
 	
-	NSLog(@"ServerCommunicator: pushing %s \n", (const char *) [_load bytes]);
+	DDLogDebug(@"ServerCommunicator: pushing %s \n", (const char *) [_load bytes]);
 	
 	zmq_msg_t zmq_message;
 	zmq_msg_init_size(&zmq_message, [_load length]);
@@ -181,7 +181,7 @@
 		dispatch_async(q, ^(){
 			while (true)
 			{
-				NSLog(@"Subscriber waiting for a message..");
+				DDLogDebug(@"Subscriber waiting for a message..");
 				using std::string;
 				zmq_msg_t zmq_message;
 				zmq_msg_init_size(&zmq_message, 5024);
@@ -207,6 +207,7 @@
 					
 					if (cb != nil)
 					{
+						DDLogDebug(@"Launching cb %@", [cb description]);
 						[cb processMessage:[payload dataUsingEncoding:NSASCIIStringEncoding]];
 					}
 				}
