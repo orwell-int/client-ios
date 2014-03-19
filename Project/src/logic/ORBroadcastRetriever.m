@@ -24,36 +24,42 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <XCTest/XCTest.h>
-#import "ServerCommunicator.h"
+#import "ORBroadcastRetriever.h"
+#include <netinet/udp.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netdb.h>
+#include <unistd.h>
 
-@interface iOrwellTests : XCTestCase
-
-@end
-
-@implementation iOrwellTests
-
-- (void)setUp
-{
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+@implementation ORBroadcastRetriever {
+	struct timeval _timeout;
 }
 
-- (void)tearDown
+@synthesize firstIp = _firstIp;
+@synthesize secondIp = _secondIp;
+@synthesize firstPort = _firstPort;
+@synthesize secondPort = _secondPort;
+@synthesize responderIp = _responderIp;
+@synthesize ipFour = _ipFour;
+
++ (id)retriever
 {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
+	ORBroadcastRetriever *retriever = [ORBroadcastRetriever alloc];
+	retriever = [super init];
+	retriever->_timeout.tv_sec = 1;
+	retriever->_timeout.tv_usec = 1000;
+	
+	return retriever;
 }
 
-- (void) testServerCommunicator
++ (id)retrieverWithTimeout:(int)timeout
 {
-	ServerCommunicator *communicator = [ServerCommunicator initSingleton];
+	ORBroadcastRetriever *retriever = [ORBroadcastRetriever retriever];
+	retriever->_timeout.tv_sec = timeout;
+	retriever->_timeout.tv_usec = 1000;
 	
-	// Communicator is not properly set, so it shouldn't work
-	XCTAssert(![communicator connect]);
-	
-	// There is no broadcast service (yet), communicator should fail
-	XCTAssert(![communicator retrieveServerFromBroadcast]);
+	return retriever;
 }
 
 @end

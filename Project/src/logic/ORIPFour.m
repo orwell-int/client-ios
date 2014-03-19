@@ -24,36 +24,41 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <XCTest/XCTest.h>
-#import "ServerCommunicator.h"
+#import "ORIPFour.h"
 
-@interface iOrwellTests : XCTestCase
+@implementation ORIPFour
 
-@end
+@synthesize byte1 = _byte1;
+@synthesize byte2 = _byte2;
+@synthesize byte3 = _byte3;
+@synthesize byte4 = _byte4;
 
-@implementation iOrwellTests
-
-- (void)setUp
++ (id)ipFour
 {
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+	ORIPFour *ipFour = [[ORIPFour alloc] init];
+	return ipFour;
 }
 
-- (void)tearDown
++ (id)ipFourFromIP:(NSString *)ip
 {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
+	ORIPFour *ipFour = [ORIPFour ipFour];
+	return ipFour;
 }
 
-- (void) testServerCommunicator
+- (id)init
 {
-	ServerCommunicator *communicator = [ServerCommunicator initSingleton];
-	
-	// Communicator is not properly set, so it shouldn't work
-	XCTAssert(![communicator connect]);
-	
-	// There is no broadcast service (yet), communicator should fail
-	XCTAssert(![communicator retrieveServerFromBroadcast]);
+	self = [super init];
+	return self;
+}
+
+- (NSString *)debugDescription
+{
+	return @"Not implemented yet";
+}
+
+- (BOOL)isValid
+{
+	return NO;
 }
 
 @end
