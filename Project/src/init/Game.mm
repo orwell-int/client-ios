@@ -30,6 +30,7 @@
 #import <DDLog.h>
 #import <DDTTYLogger.h>
 #import <DDASLLogger.h>
+#import <DDFileLogger.h>
 
 // --- private interface ---------------------------------------------------------------------------
 
@@ -59,9 +60,14 @@
 - (void)setup
 {
 	// Setup CocoaLumberjack for logging
-	[DDLog addLogger:[DDTTYLogger sharedInstance]];
-	[DDLog addLogger:[DDASLLogger sharedInstance]];
+	[DDLog addLogger:[DDTTYLogger sharedInstance] withLogLevel:LOG_LEVEL_DEBUG];
+	[DDLog addLogger:[DDASLLogger sharedInstance] withLogLevel:LOG_LEVEL_ERROR];
 	[DDTTYLogger sharedInstance].colorsEnabled = YES;
+	
+	DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
+	fileLogger.rollingFrequency = 60 * 15; // Change roll file every 15 minutes
+	fileLogger.logFileManager.maximumNumberOfLogFiles = 3; // Log 45 minutes maximum
+	[DDLog addLogger:fileLogger withLogLevel:LOG_LEVEL_VERBOSE];
 	
 	_mainstage = [[MainStage sprite] initMainStage];
 	[self addChild:_mainstage];

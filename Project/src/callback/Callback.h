@@ -35,6 +35,11 @@
 
 #define CB_GAMESTATE_KEY_PLAYING @"PLAYING"
 
+#define CB_INPUT_MOVE_LEFT @"MOVE-LEFT"
+#define CB_INPUT_MOVE_RIGHT @"MOVE-RIGHT"
+#define CB_INPUT_FIRE_WEAPON1 @"FIRE-WEAPON1"
+#define CB_INPUT_FIRE_WEAPON2 @"FIRE-WEAPON2"
+
 @interface Callback : NSObject
 @property (strong, nonatomic) id<CallbackResponder> delegate;
 

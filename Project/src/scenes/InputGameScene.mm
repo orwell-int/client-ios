@@ -31,6 +31,9 @@
 #import "CallbackResponder.h"
 #import "ORArrowButton.h"
 
+#import "robot.pb.h"
+#import "controller.pb.h"
+
 @interface InputGameScene() <CallbackResponder>
 @property (strong, nonatomic) ORTextField *playerTextField;
 @property (strong, nonatomic) ServerCommunicator *serverCommunicator;
@@ -82,8 +85,48 @@
 	// Event block
 	for (ORArrowButton *button in _buttonsArray) {
 		[button addEventListenerForType:SP_EVENT_TYPE_TRIGGERED block:^(SPEvent *event) {
+			using namespace orwell::messages;
 			ORArrowButton *button = (ORArrowButton *) event.target;
-			DDLogInfo(@"Button %@ pressed", button.name);
+			DDLogInfo(@"Button %@ pressed, rotation: %d", button.name, button.rotation);
+
+			double left, right;
+			left = right = 0;
+			
+			Input inputMessage;
+			switch (button.rotation) {
+				case UP:
+					left = 1;
+					right = 1;
+					break;
+				case DOWN:
+					left = -1;
+					right = -1;
+					break;
+				case LEFT:
+					left = 1;
+					right = -1;
+					break;
+				case RIGHT:
+					left = -1;
+					right = 1;
+					break;
+			}
+			
+			DDLogDebug(@"Sending message with left: %f, right: %f", left, right);
+			
+			inputMessage.mutable_move()->set_left(left);
+			inputMessage.mutable_move()->set_right(right);
+			inputMessage.mutable_fire()->set_weapon1(false);
+			inputMessage.mutable_fire()->set_weapon2(false);
+			
+			ServerMessage *message = [[ServerMessage alloc] init];
+			message.tag = @"Input ";
+			message.receiver = @"iphoneclient ";
+			message.payload = [NSData dataWithBytes:inputMessage.SerializeAsString().c_str() length:inputMessage.SerializeAsString().length()];
+			DDLogDebug(@"Pushing message Input");
+			
+			[_serverCommunicator pushMessage:message];
+
 		}];
 	}
 	
@@ -138,6 +181,7 @@
 
 - (BOOL)messageReceived:(NSDictionary *)message
 {
+	DDLogVerbose(@"Received message : %@", [message debugDescription]);
 	return YES;
 }
 

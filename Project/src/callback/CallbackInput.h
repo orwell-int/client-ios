@@ -24,19 +24,22 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef __OBJC__
-
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import "Callback.h"
 
-#import "Sparrow.h"
-#import "Media.h"
-#import <DDLog.h>
+// Notify the state of the inputs to control the robot
+//			message Input {
+//				optional group Move = 1 {
+//					optional double left = 1;
+//					optional double right = 2;
+//				}
+//				optional group Fire = 2 {
+//					optional bool weapon1 = 1;
+//					optional bool weapon2 = 2;
+//				}
+//			}
 
-#ifdef DEBUG
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-#else
-static const int ddLogLevel = LOG_LEVEL_INFO;
-#endif
 
-#endif
+@interface CallbackInput : Callback
+- (BOOL)processMessage:(NSData *)message;
+@end

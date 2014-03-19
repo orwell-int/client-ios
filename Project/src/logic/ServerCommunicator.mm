@@ -32,6 +32,7 @@
 #import "CallbackWelcome.h"
 #import "CallbackGameState.h"
 #import "CallbackGoodbye.h"
+#import "CallbackInput.h"
 #import "BroadcastRetriever.h"
 
 @interface ServerCommunicator()
@@ -105,6 +106,7 @@
 	[_callbacks setObject:[[CallbackWelcome alloc] init] forKey:@"Welcome"];
 	[_callbacks setObject:[[CallbackGameState alloc] init] forKey:@"GameState"];
 	[_callbacks setObject:[[CallbackGoodbye alloc] init] forKey:@"Goodbye"];
+	[_callbacks setObject:[[CallbackInput alloc] init] forKey:@"Input"];
 	
 	return self;
 }
@@ -181,7 +183,7 @@
 		dispatch_async(q, ^(){
 			while (true)
 			{
-				DDLogDebug(@"Subscriber waiting for a message..");
+				DDLogVerbose(@"Subscriber waiting for a message..");
 				using std::string;
 				zmq_msg_t zmq_message;
 				zmq_msg_init_size(&zmq_message, 5024);
@@ -207,7 +209,7 @@
 					
 					if (cb != nil)
 					{
-						DDLogDebug(@"Launching cb %@", [cb description]);
+						DDLogVerbose(@"Launching cb %@ (message is for: %@, tag: %@)", [cb description], clients, tag);
 						[cb processMessage:[payload dataUsingEncoding:NSASCIIStringEncoding]];
 					}
 				}
