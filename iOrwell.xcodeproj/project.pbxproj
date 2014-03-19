@@ -12,6 +12,11 @@
 		CD333EB118DA176A0075E51D /* button-arrow-right.png in Resources */ = {isa = PBXBuildFile; fileRef = CD333EAE18DA176A0075E51D /* button-arrow-right.png */; };
 		CD333EB218DA176A0075E51D /* button-arrow-up.png in Resources */ = {isa = PBXBuildFile; fileRef = CD333EAF18DA176A0075E51D /* button-arrow-up.png */; };
 		CD333EB518DA21910075E51D /* CallbackInput.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD333EB418DA21910075E51D /* CallbackInput.mm */; };
+		CD4C362918DA453100FD1F3A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B2E18D77BDF00C61610 /* XCTest.framework */; };
+		CD4C362A18DA453100FD1F3A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1018D77BDF00C61610 /* Foundation.framework */; };
+		CD4C362B18DA453100FD1F3A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1418D77BDF00C61610 /* UIKit.framework */; };
+		CD4C363118DA453100FD1F3A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD4C362F18DA453100FD1F3A /* InfoPlist.strings */; };
+		CD4C363318DA453100FD1F3A /* iOrwellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4C363218DA453100FD1F3A /* iOrwellTests.m */; };
 		CD910B1118D77BDF00C61610 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1018D77BDF00C61610 /* Foundation.framework */; };
 		CD910B1318D77BDF00C61610 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1218D77BDF00C61610 /* CoreGraphics.framework */; };
 		CD910B1518D77BDF00C61610 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1418D77BDF00C61610 /* UIKit.framework */; };
@@ -65,6 +70,16 @@
 		CDDD0BA318D77FE600979E1E /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8D18D77FE600979E1E /* README.txt */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		CD4C363518DA453100FD1F3A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD4E0ED718D77ACE00CA8505 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD910B0C18D77BDF00C61610;
+			remoteInfo = iOrwell;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		2162E0EDEF7D475B8F6DB092 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE88D42A3C54E55B4666AC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -73,6 +88,11 @@
 		CD333EAF18DA176A0075E51D /* button-arrow-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-arrow-up.png"; sourceTree = "<group>"; };
 		CD333EB318DA21910075E51D /* CallbackInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallbackInput.h; sourceTree = "<group>"; };
 		CD333EB418DA21910075E51D /* CallbackInput.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CallbackInput.mm; sourceTree = "<group>"; };
+		CD4C362818DA453100FD1F3A /* iOrwellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOrwellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD4C362E18DA453100FD1F3A /* iOrwellTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOrwellTests-Info.plist"; sourceTree = "<group>"; };
+		CD4C363018DA453100FD1F3A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CD4C363218DA453100FD1F3A /* iOrwellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOrwellTests.m; sourceTree = "<group>"; };
+		CD4C363418DA453100FD1F3A /* iOrwellTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOrwellTests-Prefix.pch"; sourceTree = "<group>"; };
 		CD910AD418D77B0D00C61610 /* Callback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Callback.h; sourceTree = "<group>"; };
 		CD910AD518D77B0D00C61610 /* Callback.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Callback.mm; sourceTree = "<group>"; };
 		CD910AD618D77B0D00C61610 /* CallbackGameState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallbackGameState.h; sourceTree = "<group>"; };
@@ -154,6 +174,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CD4C362518DA453100FD1F3A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD4C362918DA453100FD1F3A /* XCTest.framework in Frameworks */,
+				CD4C362B18DA453100FD1F3A /* UIKit.framework in Frameworks */,
+				CD4C362A18DA453100FD1F3A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD910B0A18D77BDF00C61610 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -169,11 +199,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CD4C362C18DA453100FD1F3A /* iOrwellTests */ = {
+			isa = PBXGroup;
+			children = (
+				CD4C363218DA453100FD1F3A /* iOrwellTests.m */,
+				CD4C362D18DA453100FD1F3A /* Supporting Files */,
+			);
+			path = iOrwellTests;
+			sourceTree = "<group>";
+		};
+		CD4C362D18DA453100FD1F3A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CD4C362E18DA453100FD1F3A /* iOrwellTests-Info.plist */,
+				CD4C362F18DA453100FD1F3A /* InfoPlist.strings */,
+				CD4C363418DA453100FD1F3A /* iOrwellTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		CD4E0ED618D77ACE00CA8505 = {
 			isa = PBXGroup;
 			children = (
 				CDDD0B7218D77FDA00979E1E /* Resources */,
 				CD910AD218D77B0D00C61610 /* Sources */,
+				CD4C362C18DA453100FD1F3A /* iOrwellTests */,
 				CD910B0F18D77BDF00C61610 /* Frameworks */,
 				CD910B0E18D77BDF00C61610 /* Products */,
 				9FE88D42A3C54E55B4666AC5 /* Pods.xcconfig */,
@@ -292,6 +342,7 @@
 			isa = PBXGroup;
 			children = (
 				CD910B0D18D77BDF00C61610 /* iOrwell.app */,
+				CD4C362818DA453100FD1F3A /* iOrwellTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -387,6 +438,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CD4C362718DA453100FD1F3A /* iOrwellTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD4C363918DA453100FD1F3A /* Build configuration list for PBXNativeTarget "iOrwellTests" */;
+			buildPhases = (
+				CD4C362418DA453100FD1F3A /* Sources */,
+				CD4C362518DA453100FD1F3A /* Frameworks */,
+				CD4C362618DA453100FD1F3A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD4C363618DA453100FD1F3A /* PBXTargetDependency */,
+			);
+			name = iOrwellTests;
+			productName = iOrwellTests;
+			productReference = CD4C362818DA453100FD1F3A /* iOrwellTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		CD910B0C18D77BDF00C61610 /* iOrwell */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD910B3D18D77BDF00C61610 /* Build configuration list for PBXNativeTarget "iOrwell" */;
@@ -413,6 +482,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
+				TargetAttributes = {
+					CD4C362718DA453100FD1F3A = {
+						TestTargetID = CD910B0C18D77BDF00C61610;
+					};
+				};
 			};
 			buildConfigurationList = CD4E0EDA18D77ACE00CA8505 /* Build configuration list for PBXProject "iOrwell" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -427,11 +501,20 @@
 			projectRoot = "";
 			targets = (
 				CD910B0C18D77BDF00C61610 /* iOrwell */,
+				CD4C362718DA453100FD1F3A /* iOrwellTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CD4C362618DA453100FD1F3A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD4C363118DA453100FD1F3A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD910B0B18D77BDF00C61610 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -501,6 +584,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CD4C362418DA453100FD1F3A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD4C363318DA453100FD1F3A /* iOrwellTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD910B0918D77BDF00C61610 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -535,7 +626,118 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		CD4C363618DA453100FD1F3A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD910B0C18D77BDF00C61610 /* iOrwell */;
+			targetProxy = CD4C363518DA453100FD1F3A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CD4C362F18DA453100FD1F3A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD4C363018DA453100FD1F3A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		CD4C363718DA453100FD1F3A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOrwell.app/iOrwell";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOrwellTests/iOrwellTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "iOrwellTests/iOrwellTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		CD4C363818DA453100FD1F3A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOrwell.app/iOrwell";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOrwellTests/iOrwellTests-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "iOrwellTests/iOrwellTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 		CD4E0EDB18D77ACE00CA8505 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -645,6 +847,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CD4C363918DA453100FD1F3A /* Build configuration list for PBXNativeTarget "iOrwellTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD4C363718DA453100FD1F3A /* Debug */,
+				CD4C363818DA453100FD1F3A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		CD4E0EDA18D77ACE00CA8505 /* Build configuration list for PBXProject "iOrwell" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
