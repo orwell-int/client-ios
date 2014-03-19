@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		C9F74AE22D3E472ABE27E648 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2162E0EDEF7D475B8F6DB092 /* libPods.a */; };
+		CD333EB018DA176A0075E51D /* button-arrow-left.png in Resources */ = {isa = PBXBuildFile; fileRef = CD333EAD18DA176A0075E51D /* button-arrow-left.png */; };
+		CD333EB118DA176A0075E51D /* button-arrow-right.png in Resources */ = {isa = PBXBuildFile; fileRef = CD333EAE18DA176A0075E51D /* button-arrow-right.png */; };
+		CD333EB218DA176A0075E51D /* button-arrow-up.png in Resources */ = {isa = PBXBuildFile; fileRef = CD333EAF18DA176A0075E51D /* button-arrow-up.png */; };
 		CD910B1118D77BDF00C61610 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1018D77BDF00C61610 /* Foundation.framework */; };
 		CD910B1318D77BDF00C61610 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1218D77BDF00C61610 /* CoreGraphics.framework */; };
 		CD910B1518D77BDF00C61610 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1418D77BDF00C61610 /* UIKit.framework */; };
@@ -64,6 +67,9 @@
 /* Begin PBXFileReference section */
 		2162E0EDEF7D475B8F6DB092 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE88D42A3C54E55B4666AC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		CD333EAD18DA176A0075E51D /* button-arrow-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-arrow-left.png"; sourceTree = "<group>"; };
+		CD333EAE18DA176A0075E51D /* button-arrow-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-arrow-right.png"; sourceTree = "<group>"; };
+		CD333EAF18DA176A0075E51D /* button-arrow-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-arrow-up.png"; sourceTree = "<group>"; };
 		CD910AD418D77B0D00C61610 /* Callback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Callback.h; sourceTree = "<group>"; };
 		CD910AD518D77B0D00C61610 /* Callback.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Callback.mm; sourceTree = "<group>"; };
 		CD910AD618D77B0D00C61610 /* CallbackGameState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallbackGameState.h; sourceTree = "<group>"; };
@@ -346,6 +352,9 @@
 			children = (
 				CDDD0B7E18D77FE600979E1E /* black-dialog.png */,
 				CDDD0B7F18D77FE600979E1E /* button-arrow-down.png */,
+				CD333EAD18DA176A0075E51D /* button-arrow-left.png */,
+				CD333EAE18DA176A0075E51D /* button-arrow-right.png */,
+				CD333EAF18DA176A0075E51D /* button-arrow-up.png */,
 				CDDD0B8018D77FE600979E1E /* cut-metal.jpg */,
 				CDDD0B8118D77FE600979E1E /* game-bg.png */,
 				CDDD0B8218D77FE600979E1E /* marvin.png */,
@@ -426,10 +435,12 @@
 				CDDD0B9418D77FE600979E1E /* dodger_shadow_shadow_20.PNG in Resources */,
 				CD924DB818D78F2400DE0A59 /* App-Info.plist in Resources */,
 				CDDD0BA318D77FE600979E1E /* README.txt in Resources */,
+				CD333EB018DA176A0075E51D /* button-arrow-left.png in Resources */,
 				CDDD0B8F18D77FE600979E1E /* bordersprite_regular_20.fnt in Resources */,
 				CDDD0B9B18D77FE600979E1E /* Metal-background.jpg in Resources */,
 				CDDD0BA118D77FE600979E1E /* tech-button-on.png in Resources */,
 				CDDD0B9718D77FE600979E1E /* cut-metal.jpg in Resources */,
+				CD333EB118DA176A0075E51D /* button-arrow-right.png in Resources */,
 				CDDD0B9C18D77FE600979E1E /* Metal-background.png in Resources */,
 				CDDD0B9818D77FE600979E1E /* game-bg.png in Resources */,
 				CDDD0B8E18D77FE600979E1E /* sound.caf in Resources */,
@@ -438,6 +449,7 @@
 				CDDD0B9218D77FE600979E1E /* dodger_condensed_condensed_20.PNG in Resources */,
 				CDDD0B9318D77FE600979E1E /* dodger_shadow_shadow_20.fnt in Resources */,
 				CDDD0B9518D77FE600979E1E /* black-dialog.png in Resources */,
+				CD333EB218DA176A0075E51D /* button-arrow-up.png in Resources */,
 				CDDD0BA018D77FE600979E1E /* tech-button-off.psd in Resources */,
 				CDDD0B9F18D77FE600979E1E /* tech-button-off.png in Resources */,
 				CDDD0B9E18D77FE600979E1E /* Network-lines-background.jpg in Resources */,

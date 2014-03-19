@@ -124,14 +124,14 @@
 
 - (void)launchTest:(SPEvent *)event
 {
-	NSLog(@"Launching test...");
+	DDLogDebug(@"Launching test...");
 	_result.text = @"Launching test...";
 	
 	struct timeval tv;
 	tv.tv_sec = 5;
 	tv.tv_usec = 3000;
 	
-	NSLog(@"Sending message: %s", _message.c_str());
+	DDLogDebug(@"Sending message: %s", _message.c_str());
 	
 	_broadcastRetriever.setTimeout(tv);
 	
@@ -146,12 +146,15 @@
 							_broadcastRetriever.getSecondIP().c_str()];
 			break;
 		case BroadcastRetriever::kRecvTimeout:
+			DDLogWarn(@"RCV TO");
 			_result.text = @"Fell into RCV timeout :-(";
 			break;
 		case BroadcastRetriever::kSendTimeout:
+			DDLogWarn(@"SND TO");
 			_result.text = @"Fell into SND timeout :-(";
 			break;
 		case BroadcastRetriever::kUnknownError:
+			DDLogError(@"Unknown error");
 			_result.text = @"Unknown error happened :-(";
 			break;
 	}

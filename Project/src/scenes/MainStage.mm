@@ -142,7 +142,7 @@
 - (void)onButtonTriggered:(SPEvent *)event
 {
 	SPButton *button = (SPButton *)event.target;
-	NSLog(@"Clicked button: %@", button.name);
+	DDLogDebug(@"Clicked button: %@", button.name);
 
 	if (_activeScene) return;
 
@@ -158,6 +158,7 @@
 	
 	else
 	{
+		DDLogWarn(@"Defaulting to PlayGameScene");
 		_activeScene = [[PlayGameScene alloc] init];
 	}
 	

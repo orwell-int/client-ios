@@ -40,13 +40,24 @@
 - (id)initWithRotation:(Rotation)rotation
 {
 	SPTexture *texture;
+	DDLogInfo(@"Calling ORArrowButton with rotation: %d", rotation);
 	
 	switch (rotation) {
 		case DOWN:
 			texture = [SPTexture textureWithContentsOfFile:@"button-arrow-down.png"];
 			break;
+		case UP:
+			texture = [SPTexture textureWithContentsOfFile:@"button-arrow-up.png"];
+			break;
+		case LEFT:
+			texture = [SPTexture textureWithContentsOfFile:@"button-arrow-left.png"];
+			break;
+		case RIGHT:
+			texture = [SPTexture textureWithContentsOfFile:@"button-arrow-right.png"];
+			break;
 
 		default:
+			DDLogError(@"Something wrong happened, we have been called with: %d", rotation);
 			texture = [SPTexture textureWithContentsOfFile:@"button-arrow-down.png"];
 			break;
 	}
