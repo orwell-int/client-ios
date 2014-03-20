@@ -119,8 +119,14 @@
 		DDLogDebug(@"Retrieved IP: %@", [_ipFour debugDescription]);
 	}
 	
-	if ([self sendMessageToServer:&broadcastSocket])
-		[self parseMessageFromServer:[self getResponseFromServer:&broadcastSocket]];
+	if ([self sendMessageToServer:&broadcastSocket]) {
+		NSData *data = [self getResponseFromServer:&broadcastSocket];
+
+		if (data != nil)
+			[self parseMessageFromServer:data];
+		else
+			returnValue = NO;
+	}
 	
 	if (returnValue)
 		close(broadcastSocket);
