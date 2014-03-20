@@ -31,6 +31,15 @@
 #import "ORBroadcastRetriever.h"
 #import "ORIPFour.h"
 
+// Callbacks
+#import "CallbackResponder.h"
+#import "CallbackGameState.h"
+#import "CallbackWelcome.h"
+#import "CallbackGoodbye.h"
+
+// Messages
+#import "server-game.pb.h"
+
 @interface iOrwellTests : XCTestCase
 
 @end
@@ -84,8 +93,8 @@
 	
 	// Mock objects!
 	id mocked_retriever = [OCMockObject partialMockForObject:[ORBroadcastRetriever retrieverWithTimeout:2]];
-	[[[mocked_retriever stub] andReturnValue:@YES] sendMessageToServer:[OCMArg anyPointer]];
-	[[[mocked_retriever stub] andReturn:data] getResponseFromServer:[OCMArg anyPointer]];
+	[[[mocked_retriever stub] andReturnValue:@YES] sendMessageToServer:(int *)[OCMArg anyPointer]];
+	[[[mocked_retriever stub] andReturn:data] getResponseFromServer:(int *)[OCMArg anyPointer]];
 	
 	XCTAssert([mocked_retriever retrieveAddress]);
 	XCTAssert([[mocked_retriever firstIp] isEqual:@"tcp://*:9000"]);
@@ -104,6 +113,31 @@
 	
 	// There is no broadcast service (yet), communicator should fail
 	XCTAssert(![communicator retrieveServerFromBroadcast]);
+}
+
+- (void) testCallbackWelcome
+{
+	id protocol_mocker = [OCMockObject mockForProtocol:@protocol(CallbackResponder)];
+	[[[protocol_mocker stub] andDo:^(NSInvocation *invocation) {
+		__unsafe_unretained NSDictionary *dictionary;
+		[invocation getArgument:&dictionary atIndex:2];
+		
+		NSLog(@"Received object: %@", [invocation debugDescription]);
+		NSLog(@"Received dictionary: %@", [dictionary debugDescription]);
+		
+		XCTAssert([[dictionary objectForKey:CB_WELCOME_KEY_ROBOT] isEqualToString:@"DamienChilot"]);
+		XCTAssert([[dictionary objectForKey:CB_WELCOME_KEY_ROBOT] intValue] == orwell::messages::RED);
+	}] messageReceived:[OCMArg any]];
+
+	CallbackWelcome *callback = [[CallbackWelcome alloc] init];
+	callback.delegate = protocol_mocker;
+	
+	// Create a fake Welcome message
+	orwell::messages::Welcome welcome;
+	welcome.set_robot("DamienChilot");
+	welcome.set_team(orwell::messages::RED);
+	NSData *message = [NSData dataWithBytes:welcome.SerializeAsString().c_str()	length:welcome.SerializeAsString().size()];
+	[callback processMessage:message];
 }
 
 @end

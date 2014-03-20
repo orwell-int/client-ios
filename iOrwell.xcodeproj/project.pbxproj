@@ -17,7 +17,7 @@
 		CD4C362A18DA453100FD1F3A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1018D77BDF00C61610 /* Foundation.framework */; };
 		CD4C362B18DA453100FD1F3A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1418D77BDF00C61610 /* UIKit.framework */; };
 		CD4C363118DA453100FD1F3A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD4C362F18DA453100FD1F3A /* InfoPlist.strings */; };
-		CD4C363318DA453100FD1F3A /* iOrwellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4C363218DA453100FD1F3A /* iOrwellTests.m */; };
+		CD4C363318DA453100FD1F3A /* iOrwellTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD4C363218DA453100FD1F3A /* iOrwellTests.mm */; };
 		CD4C363C18DA495C00FD1F3A /* ORBroadcastRetriever.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4C363B18DA495C00FD1F3A /* ORBroadcastRetriever.m */; };
 		CD4C363F18DA4B6700FD1F3A /* ORIPFour.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4C363E18DA4B6700FD1F3A /* ORIPFour.m */; };
 		CD910B1118D77BDF00C61610 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1018D77BDF00C61610 /* Foundation.framework */; };
@@ -93,7 +93,7 @@
 		CD4C362818DA453100FD1F3A /* iOrwellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOrwellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD4C362E18DA453100FD1F3A /* iOrwellTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOrwellTests-Info.plist"; sourceTree = "<group>"; };
 		CD4C363018DA453100FD1F3A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		CD4C363218DA453100FD1F3A /* iOrwellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOrwellTests.m; sourceTree = "<group>"; };
+		CD4C363218DA453100FD1F3A /* iOrwellTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = iOrwellTests.mm; sourceTree = "<group>"; };
 		CD4C363418DA453100FD1F3A /* iOrwellTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOrwellTests-Prefix.pch"; sourceTree = "<group>"; };
 		CD4C363A18DA495C00FD1F3A /* ORBroadcastRetriever.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORBroadcastRetriever.h; sourceTree = "<group>"; };
 		CD4C363B18DA495C00FD1F3A /* ORBroadcastRetriever.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORBroadcastRetriever.m; sourceTree = "<group>"; };
@@ -209,7 +209,7 @@
 		CD4C362C18DA453100FD1F3A /* iOrwellTests */ = {
 			isa = PBXGroup;
 			children = (
-				CD4C363218DA453100FD1F3A /* iOrwellTests.m */,
+				CD4C363218DA453100FD1F3A /* iOrwellTests.mm */,
 				CD4C362D18DA453100FD1F3A /* Supporting Files */,
 			);
 			path = iOrwellTests;
@@ -631,7 +631,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD4C363318DA453100FD1F3A /* iOrwellTests.m in Sources */,
+				CD4C363318DA453100FD1F3A /* iOrwellTests.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
