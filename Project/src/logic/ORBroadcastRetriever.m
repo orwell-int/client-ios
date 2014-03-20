@@ -75,21 +75,21 @@
 - (BOOL)retrieveIPFour
 {
 	char szBuffer[1024];
-    
-    if(gethostname(szBuffer, sizeof(szBuffer)) == -1)
-    {
-        return NO;
-    }
-    
-    struct hostent *host = gethostbyname(szBuffer);
-    if(host == NULL)
-    {
-        return NO;
-    }
+	
+	if(gethostname(szBuffer, sizeof(szBuffer)) == -1)
+	{
+		return NO;
+	}
+	
+	struct hostent *host = gethostbyname(szBuffer);
+	if(host == NULL)
+	{
+		return NO;
+	}
 
 	_ipFour = [ORIPFour ipFourFromBytes:(uint8_t *) host->h_addr_list[0]];
-    
-    return YES;
+	
+	return YES;
 }
 
 - (BOOL)retrieveAddress
@@ -99,21 +99,21 @@
 
 	DDLogInfo(@"Retrieving address from broadcast");
 	   
-    // Build the socket
-    if ( (broadcastSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP) ) < 0)
-    {
+	// Build the socket
+	if ( (broadcastSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP) ) < 0)
+	{
 		DDLogError(@"Could not create the socket");
 		returnValue = NO;
-    }
-    
-    if (! [self retrieveIPFour])
+	}
+	
+	if (! [self retrieveIPFour])
 	{
 		DDLogError(@"Error while retrieving IP4");
 	}
 	
 	// IPFour should set the last byte to 255
-    
-    if ([_ipFour isValid])
+	
+	if ([_ipFour isValid])
 	{
 		[_ipFour makeBroadcastIP];
 		DDLogDebug(@"Retrieved IP: %@", [_ipFour debugDescription]);
@@ -197,15 +197,15 @@
 	struct sockaddr_in destination;
 	int broadcast = 1;
 
-    // Set the destination to the socket
-    setsockopt(*socket, IPPROTO_IP, IP_MULTICAST_IF, &destination, sizeof(destination));
-    
-    // Allow the socket to send broadcast messages
-    if ( (setsockopt(*socket, SOL_SOCKET, SO_BROADCAST, &broadcast, sizeof(int))) == -1) {
+	// Set the destination to the socket
+	setsockopt(*socket, IPPROTO_IP, IP_MULTICAST_IF, &destination, sizeof(destination));
+	
+	// Allow the socket to send broadcast messages
+	if ( (setsockopt(*socket, SOL_SOCKET, SO_BROADCAST, &broadcast, sizeof(int))) == -1) {
 		DDLogError(@"Couldn't set BROADCAST option on Socket");
 		return_value = NO;
-    }
-    
+	}
+	
 	// Send timeout..
 	if ( (setsockopt(*socket, SOL_SOCKET, SO_SNDTIMEO, (char*)&_timeout, sizeof(_timeout))) == -1) {
 		DDLogError(@"Couldn't set SNDTIMEO option on Socket");
@@ -219,15 +219,15 @@
 	}
 
 	// Build the destination object
-    memset(&destination, 0, sizeof(destination));
-    destination.sin_family = AF_INET;
-    destination.sin_addr.s_addr = inet_addr([[_ipFour toString] cStringUsingEncoding:NSASCIIStringEncoding]);
-    destination.sin_port = htons(9080);
+	memset(&destination, 0, sizeof(destination));
+	destination.sin_family = AF_INET;
+	destination.sin_addr.s_addr = inet_addr([[_ipFour toString] cStringUsingEncoding:NSASCIIStringEncoding]);
+	destination.sin_port = htons(9080);
 	
-    if (sendto(*socket, "b", 2, 0, (struct sockaddr *) &destination, sizeof(destination)) != 2) {
+	if (sendto(*socket, "b", 2, 0, (struct sockaddr *) &destination, sizeof(destination)) != 2) {
 		DDLogError(@"Couldn't send to socket");
 		return_value = NO;
-    }
+	}
 	
 	return return_value;
 }
