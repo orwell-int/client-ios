@@ -33,10 +33,13 @@
 @property (strong, nonatomic, readonly) NSNumber *byte4;
 
 + (id) ipFour;
-+ (id) ipFourFromIP:(NSString *)ip;
++ (id) ipFourFromString:(NSString *)ip;
++ (id) ipFourFromBytes:(uint8_t[4])bytes;
 
 - (id) init;
 - (BOOL) isValid;
+- (NSString *)toString;
 - (NSString *)debugDescription;
+- (void) makeBroadcastIP;
 
 @end

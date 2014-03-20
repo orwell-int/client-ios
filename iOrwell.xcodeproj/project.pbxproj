@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06C19FB250114F2EA5DD2F78 /* libPods-iOrwellTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E68E9561282D4B5587E7FD82 /* libPods-iOrwellTests.a */; };
 		C9F74AE22D3E472ABE27E648 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2162E0EDEF7D475B8F6DB092 /* libPods.a */; };
 		CD333EB018DA176A0075E51D /* button-arrow-left.png in Resources */ = {isa = PBXBuildFile; fileRef = CD333EAD18DA176A0075E51D /* button-arrow-left.png */; };
 		CD333EB118DA176A0075E51D /* button-arrow-right.png in Resources */ = {isa = PBXBuildFile; fileRef = CD333EAE18DA176A0075E51D /* button-arrow-right.png */; };
@@ -30,7 +31,6 @@
 		CD910B4718D77C2B00C61610 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910ADF18D77B0D00C61610 /* AppDelegate.mm */; };
 		CD910B4818D77C2B00C61610 /* Game.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE118D77B0D00C61610 /* Game.mm */; };
 		CD910B4918D77C2B00C61610 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE218D77B0D00C61610 /* main.mm */; };
-		CD910B4A18D77C2B00C61610 /* BroadcastRetriever.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE418D77B0D00C61610 /* BroadcastRetriever.cpp */; };
 		CD910B4B18D77C2B00C61610 /* Media.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE718D77B0D00C61610 /* Media.mm */; };
 		CD910B4C18D77C2B00C61610 /* MessagesWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE918D77B0D00C61610 /* MessagesWrapper.mm */; };
 		CD910B4D18D77C2B00C61610 /* ServerCommunicator.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEB18D77B0D00C61610 /* ServerCommunicator.mm */; };
@@ -113,8 +113,6 @@
 		CD910AE018D77B0D00C61610 /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		CD910AE118D77B0D00C61610 /* Game.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Game.mm; sourceTree = "<group>"; };
 		CD910AE218D77B0D00C61610 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
-		CD910AE418D77B0D00C61610 /* BroadcastRetriever.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BroadcastRetriever.cpp; sourceTree = "<group>"; };
-		CD910AE518D77B0D00C61610 /* BroadcastRetriever.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BroadcastRetriever.h; sourceTree = "<group>"; };
 		CD910AE618D77B0D00C61610 /* Media.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Media.h; sourceTree = "<group>"; };
 		CD910AE718D77B0D00C61610 /* Media.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Media.mm; sourceTree = "<group>"; };
 		CD910AE818D77B0D00C61610 /* MessagesWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessagesWrapper.h; sourceTree = "<group>"; };
@@ -177,6 +175,8 @@
 		CDDD0B8A18D77FE600979E1E /* tech-button-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tech-button-on.png"; sourceTree = "<group>"; };
 		CDDD0B8B18D77FE600979E1E /* tech-button-on.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = "tech-button-on.psd"; sourceTree = "<group>"; };
 		CDDD0B8D18D77FE600979E1E /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		D1EAEB90F3844352AD4A84D1 /* Pods-iOrwellTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOrwellTests.xcconfig"; path = "Pods/Pods-iOrwellTests.xcconfig"; sourceTree = "<group>"; };
+		E68E9561282D4B5587E7FD82 /* libPods-iOrwellTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOrwellTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +187,7 @@
 				CD4C362918DA453100FD1F3A /* XCTest.framework in Frameworks */,
 				CD4C362B18DA453100FD1F3A /* UIKit.framework in Frameworks */,
 				CD4C362A18DA453100FD1F3A /* Foundation.framework in Frameworks */,
+				06C19FB250114F2EA5DD2F78 /* libPods-iOrwellTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +234,7 @@
 				CD910B0E18D77BDF00C61610 /* Products */,
 				CD4C362C18DA453100FD1F3A /* iOrwellTests */,
 				9FE88D42A3C54E55B4666AC5 /* Pods.xcconfig */,
+				D1EAEB90F3844352AD4A84D1 /* Pods-iOrwellTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -285,8 +287,6 @@
 		CD910AE318D77B0D00C61610 /* logic */ = {
 			isa = PBXGroup;
 			children = (
-				CD910AE418D77B0D00C61610 /* BroadcastRetriever.cpp */,
-				CD910AE518D77B0D00C61610 /* BroadcastRetriever.h */,
 				CD4C363D18DA4B6700FD1F3A /* ORIPFour.h */,
 				CD4C363E18DA4B6700FD1F3A /* ORIPFour.m */,
 				CD4C363A18DA495C00FD1F3A /* ORBroadcastRetriever.h */,
@@ -366,6 +366,7 @@
 				CD910B1618D77BDF00C61610 /* CoreData.framework */,
 				CD910B2E18D77BDF00C61610 /* XCTest.framework */,
 				2162E0EDEF7D475B8F6DB092 /* libPods.a */,
+				E68E9561282D4B5587E7FD82 /* libPods-iOrwellTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -452,9 +453,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD4C363918DA453100FD1F3A /* Build configuration list for PBXNativeTarget "iOrwellTests" */;
 			buildPhases = (
+				F70BFA72AD12409C9AC2FCA3 /* Check Pods Manifest.lock */,
 				CD4C362418DA453100FD1F3A /* Sources */,
 				CD4C362518DA453100FD1F3A /* Frameworks */,
 				CD4C362618DA453100FD1F3A /* Resources */,
+				11D47938745A49908AA03B8F /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -561,6 +564,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		11D47938745A49908AA03B8F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-iOrwellTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		64294D5C993B4EF7B418EED4 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -577,6 +595,21 @@
 			showEnvVarsInLog = 0;
 		};
 		79D27F72FF934B00B99A1ED9 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F70BFA72AD12409C9AC2FCA3 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -615,7 +648,6 @@
 				CD910B4718D77C2B00C61610 /* AppDelegate.mm in Sources */,
 				CD910B4818D77C2B00C61610 /* Game.mm in Sources */,
 				CD910B4918D77C2B00C61610 /* main.mm in Sources */,
-				CD910B4A18D77C2B00C61610 /* BroadcastRetriever.cpp in Sources */,
 				CD910B4B18D77C2B00C61610 /* Media.mm in Sources */,
 				CD910B4C18D77C2B00C61610 /* MessagesWrapper.mm in Sources */,
 				CD910B4D18D77C2B00C61610 /* ServerCommunicator.mm in Sources */,
@@ -660,6 +692,7 @@
 /* Begin XCBuildConfiguration section */
 		CD4C363718DA453100FD1F3A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1EAEB90F3844352AD4A84D1 /* Pods-iOrwellTests.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOrwell.app/iOrwell";
@@ -709,6 +742,7 @@
 		};
 		CD4C363818DA453100FD1F3A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1EAEB90F3844352AD4A84D1 /* Pods-iOrwellTests.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOrwell.app/iOrwell";
@@ -866,6 +900,7 @@
 				CD4C363818DA453100FD1F3A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CD4E0EDA18D77ACE00CA8505 /* Build configuration list for PBXProject "iOrwell" */ = {
 			isa = XCConfigurationList;

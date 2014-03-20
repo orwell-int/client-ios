@@ -37,5 +37,9 @@
 
 + (id) retriever;
 + (id) retrieverWithTimeout:(int)timeout;
+- (BOOL) retrieveAddress;
+- (BOOL) sendMessageToServer:(int *)socket;
+- (NSData *) getResponseFromServer:(int *)socket;
+- (void) parseMessageFromServer:(NSData *)message;
 
 @end

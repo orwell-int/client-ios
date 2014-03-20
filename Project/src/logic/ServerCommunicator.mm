@@ -33,7 +33,7 @@
 #import "CallbackGameState.h"
 #import "CallbackGoodbye.h"
 #import "CallbackInput.h"
-#import "BroadcastRetriever.h"
+#import "ORBroadcastRetriever.h"
 
 @interface ServerCommunicator()
 
@@ -41,6 +41,7 @@
 @property (nonatomic) void* zmq_socket_pusher;
 @property (nonatomic) void* zmq_socket_subscriber;
 @property (strong, nonatomic) NSMutableDictionary* callbacks;
+@property (strong, nonatomic) ORBroadcastRetriever* broadcastRetriever;
 
 
 // Initialization methods
@@ -67,7 +68,6 @@
 
 @implementation ServerCommunicator
 {
-	BroadcastRetriever _broadcastRetriever;
 	BOOL _subscriberRunning;
 	BOOL _broadcastRetrieved;
 }
@@ -81,6 +81,7 @@
 @synthesize subscriberPort = _subscriberPort;
 
 @synthesize callbacks = _callbacks;
+@synthesize broadcastRetriever = _broadcastRetriever;
 
 + (id)initSingleton
 {
@@ -241,32 +242,18 @@
 		return YES;
 	
 	BOOL response = NO;
-	BroadcastRetriever::BroadcastError error;
-	struct timeval tv;
-	tv.tv_sec = 2;
-	tv.tv_usec = 3000;
-	_broadcastRetriever.setTimeout(tv);
-	error = _broadcastRetriever.launchTest("");
-
-	switch (error)
-	{
-		case BroadcastRetriever::kOk:
-			_serverIp = [NSString stringWithFormat:@"%s", _broadcastRetriever.getResponderIP().c_str()];
-			_serverIp = [NSString stringWithFormat:@"tcp://%@", _serverIp];
-			
-			_pusherPort = [NSString stringWithFormat:@"%s", _broadcastRetriever.getFirstPort().c_str()];
-			_subscriberPort = [NSString stringWithFormat:@"%s", _broadcastRetriever.getSecondPort().c_str()];
-			response = YES;
-			
-			NSLog(@"Retrieved from broadcast: %@:%@ and %@",
-				  _serverIp, _pusherPort, _subscriberPort);
-			
-			break;
-			
-		default:
-			break;
-	}
+	_broadcastRetriever = [ORBroadcastRetriever retrieverWithTimeout:3];
 	
+	if ([_broadcastRetriever retrieveAddress]) {
+		_serverIp = [NSString stringWithFormat:@"tcp://%@", _broadcastRetriever.responderIp];
+		_pusherPort = [_broadcastRetriever.firstPort stringValue];
+		_subscriberPort = [_broadcastRetriever.secondPort stringValue];
+		
+		DDLogInfo(@"Retrieved: %@:%@ and %@:%@", _serverIp, _pusherPort, _serverIp, _subscriberPort);
+		
+		response = YES;
+	}
+
 	return response;
 }
 

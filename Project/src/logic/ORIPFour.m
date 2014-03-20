@@ -39,9 +39,36 @@
 	return ipFour;
 }
 
-+ (id)ipFourFromIP:(NSString *)ip
++ (id)ipFourFromString:(NSString *)ip
 {
 	ORIPFour *ipFour = [ORIPFour ipFour];
+	NSScanner *scanner = [NSScanner scannerWithString:ip];
+	int32_t byte1 = 0, byte2 = 0, byte3 = 0, byte4 = 0;
+	if ([scanner scanInt:&byte1])
+		ipFour->_byte1 = [NSNumber numberWithInt:byte1];
+	[scanner scanString:@"." intoString:nil];
+	
+	if ([scanner scanInt:&byte2])
+		ipFour->_byte2 = [NSNumber numberWithInt:byte2];
+	[scanner scanString:@"." intoString:nil];
+	
+	if ([scanner scanInt:&byte3])
+		ipFour->_byte3 = [NSNumber numberWithInt:byte3];
+	[scanner scanString:@"." intoString:nil];
+	
+	if ([scanner scanInt:&byte4])
+		ipFour->_byte4 = [NSNumber numberWithInt:byte4];
+
+	return ipFour;
+}
+
++ (id)ipFourFromBytes:(uint8_t [4])bytes
+{
+	ORIPFour *ipFour = [ORIPFour ipFour];
+	ipFour->_byte1 = [NSNumber numberWithUnsignedShort:bytes[0]];
+	ipFour->_byte2 = [NSNumber numberWithUnsignedShort:bytes[1]];
+	ipFour->_byte3 = [NSNumber numberWithUnsignedShort:bytes[2]];
+	ipFour->_byte4 = [NSNumber numberWithUnsignedShort:bytes[3]];
 	return ipFour;
 }
 
@@ -53,12 +80,31 @@
 
 - (NSString *)debugDescription
 {
-	return @"Not implemented yet";
+	return [self toString];
+}
+
+- (NSString *)toString
+{
+	return [NSString stringWithFormat:@"%u.%u.%u.%u",
+			[_byte1 unsignedShortValue],
+			[_byte2 unsignedShortValue],
+			[_byte3 unsignedShortValue],
+			[_byte4 unsignedShortValue]];
 }
 
 - (BOOL)isValid
 {
+	if (_byte1 != nil && _byte2 != nil && _byte3 != nil && _byte4 != nil) {
+		return YES;
+	}
+	
 	return NO;
+}
+- (void)makeBroadcastIP
+{
+	if ([self isValid]) {
+		_byte4 = [NSNumber numberWithUnsignedShort:255];
+	}
 }
 
 @end
