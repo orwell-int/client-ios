@@ -25,9 +25,9 @@
  */
 
 #import "BroadcastScene.h"
-#import "BroadcastRetriever.h"
 #import "ORButton.h"
 #import <sys/types.h>
+#import "ORBroadcastRetriever.h"
 
 @interface BroadcastScene()
 - (void) launchTest:(SPEvent *)event;
@@ -42,7 +42,6 @@
 	UITextField *_input;
 	
 	// C++ Objects here..
-	BroadcastRetriever _broadcastRetriever;
 	std::string _message;
 }
 
@@ -133,30 +132,14 @@
 	
 	DDLogDebug(@"Sending message: %s", _message.c_str());
 	
-	_broadcastRetriever.setTimeout(tv);
-	
-	BroadcastRetriever::BroadcastError status = _broadcastRetriever.launchTest(_message);
-	
-	switch (status)
-	{
-		case BroadcastRetriever::kOk:
-			_result.text = [NSString stringWithFormat:@"Got from: %s\nIP1: %s\nIP2: %s",
-							_broadcastRetriever.getResponderIP().c_str(),
-							_broadcastRetriever.getFirstIP().c_str(),
-							_broadcastRetriever.getSecondIP().c_str()];
-			break;
-		case BroadcastRetriever::kRecvTimeout:
-			DDLogWarn(@"RCV TO");
-			_result.text = @"Fell into RCV timeout :-(";
-			break;
-		case BroadcastRetriever::kSendTimeout:
-			DDLogWarn(@"SND TO");
-			_result.text = @"Fell into SND timeout :-(";
-			break;
-		case BroadcastRetriever::kUnknownError:
-			DDLogError(@"Unknown error");
-			_result.text = @"Unknown error happened :-(";
-			break;
+	ORBroadcastRetriever *retriever = [ORBroadcastRetriever retrieverWithTimeout:2];
+	if ([retriever retrieveAddress]) {
+		_result.text = [NSString stringWithFormat:@"Got from %@\nIP1: %@\nIP2: %@",
+						retriever.responderIp, retriever.firstIp, retriever.secondIp];
+	}
+	else {
+		_result.text = @"Could not retrieve broadcast address";
+		DDLogWarn(@"Could not retrieve broadcast address");
 	}
 }
 
