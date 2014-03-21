@@ -24,74 +24,22 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#import <Foundation/Foundation.h>
+#import "ORIPFour.h"
 
-#ifndef __iOrwell2__BroadcastRetriever__
-#define __iOrwell2__BroadcastRetriever__
+@interface ORBroadcastRetriever : NSObject
+@property (strong, nonatomic, readonly) NSString *firstIp;
+@property (strong, nonatomic, readonly) NSString *secondIp;
+@property (strong, nonatomic, readonly) NSString *responderIp;
+@property (strong, nonatomic, readonly) NSNumber *firstPort;
+@property (strong, nonatomic, readonly) NSNumber *secondPort;
+@property (strong, nonatomic, readonly) ORIPFour *ipFour;
 
-#import <string>
-#import <iostream>
++ (id) retriever;
++ (id) retrieverWithTimeout:(int)timeout;
+- (BOOL) retrieveAddress;
+- (BOOL) sendMessageToServer:(int *)socket;
+- (NSData *) getResponseFromServer:(int *)socket;
+- (void) parseMessageFromServer:(NSData *)message;
 
-struct IP4
-{
-    uint8_t b1, b2, b3, b4 = 0;
-    
-    operator std::string() const
-    {
-        char buffer[32];
-        sprintf(&buffer[0], "%u.%u.%u.%u", b1, b2, b3, b4);
-        
-        return std::string(buffer);
-    };
-    
-    operator bool() const
-    {
-        return (not
-                (b1 == 0 and b2 == 0 and b3 == 0 and b4 == 0));
-    };
-    
-    friend std::ostream & operator<<(std::ostream & _stream, IP4 const & ip4)
-    {
-        _stream << (std::string) ip4;
-        return _stream;
-    };
-};
-
-
-class BroadcastRetriever
-{
-public:
-	typedef enum {
-		kSendTimeout,
-		kRecvTimeout,
-		kOk,
-		kUnknownError
-	} BroadcastError;
-	
-	BroadcastRetriever();
-	virtual ~BroadcastRetriever();
-	
-	bool getIP4();
-	BroadcastError launchTest(std::string const & message);
-	void setTimeout(struct timeval const & iTimeout);
-	
-	std::string const & getFirstIP() const;
-	std::string const & getSecondIP() const;
-	
-	std::string const & getResponderIP() const;
-	
-	std::string const & getFirstPort() const;
-	std::string const & getSecondPort() const;
-	
-private:
-	bool _initialized;
-	struct timeval _timeout;
-	IP4 _ip4;
-	std::string _firstIp;
-	std::string _secondIp;
-	std::string _responderIp;
-	
-	std::string _firstPort;
-	std::string _secondPort;
-};
-
-#endif /* defined(__iOrwell2__BroadcastRetriever__) */
+@end

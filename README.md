@@ -6,9 +6,6 @@
 * **master** branch build
 [![Build Status](https://travis-ci.org/orwell-int/client-ios.png?branch=master)](https://travis-ci.org/orwell-int/client-ios)
 
-client-ios
-==========
-
 iOrwell
 =======
 
