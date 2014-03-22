@@ -34,6 +34,8 @@
 #import "robot.pb.h"
 #import "controller.pb.h"
 
+#import <MotionJpegImageView.h>
+
 @interface InputGameScene() <CallbackResponder>
 @property (strong, nonatomic) ORTextField *playerTextField;
 @property (strong, nonatomic) ServerCommunicator *serverCommunicator;
@@ -43,6 +45,7 @@
 @property (strong, nonatomic) ORArrowButton *rightButton;
 @property (strong, nonatomic) ORArrowButton *upButton;
 @property (strong, nonatomic) NSMutableArray *buttonsArray;
+@property (strong, nonatomic) MotionJpegImageView *mjpegViewer;
 
 @end
 
@@ -55,6 +58,7 @@
 @synthesize rightButton = _rightButton;
 @synthesize upButton = _upButton;
 @synthesize buttonsArray = _buttonsArray;
+@synthesize mjpegViewer = _mjpegViewer;
 
 - (id)init
 {
@@ -82,6 +86,12 @@
 	_upButton.name = @"up";
 	[_buttonsArray addObject:_upButton];
 
+	DDLogDebug(@"Initing _mjpegViewer");
+	_mjpegViewer = [[MotionJpegImageView alloc] initWithFrame:CGRectMake(0.0f, self.playerTextField.height + self.playerTextField.y + 15.0f, 310.0f, 235.0f)];
+	_mjpegViewer.url = [NSURL URLWithString:@"http://87.232.128.229/axis-cgi/mjpg/video.cgi"];
+	_mjpegViewer.hidden = NO;
+
+
 	// Event block
 	for (ORArrowButton *button in _buttonsArray) {
 		[button addEventListenerForType:SP_EVENT_TYPE_TRIGGERED block:^(SPEvent *event) {
@@ -89,8 +99,7 @@
 			ORArrowButton *button = (ORArrowButton *) event.target;
 			DDLogInfo(@"Button %@ pressed, rotation: %d", button.name, button.rotation);
 
-			double left, right;
-			left = right = 0;
+			double left = 0, right = 0;
 			
 			Input inputMessage;
 			switch (button.rotation) {
@@ -126,6 +135,8 @@
 			DDLogDebug(@"Pushing message Input");
 			
 			[_serverCommunicator pushMessage:message];
+			[_mjpegViewer pause];
+			[_mjpegViewer play];
 
 		}];
 	}
@@ -141,6 +152,8 @@
 {
 	[self unregisterSelector:@selector(onBackButton:)];
 	[self dispatchEventWithType:EVENT_TYPE_INPUT_SCENE_CLOSING bubbles:YES];
+
+	[_mjpegViewer removeFromSuperview];
 }
 
 - (void)placeObjectInStage
@@ -148,10 +161,14 @@
 	DDLogDebug(@"Inited with robot name: %@", self.robotName);
 	DDLogDebug(@"Inited with player name: %@", self.playerName);
 
+	DDLogDebug(@"Placed mjpegViewer in screen %@", [_mjpegViewer debugDescription]);
+
 	self.playerTextField.text = [NSString stringWithFormat:@"%@ @ %@", self.playerName, self.robotName];
 	self.playerTextField.x = 15.0f;
 	self.playerTextField.y = 10.0f;
 	[self addChild:self.playerTextField];
+
+	[Sparrow.currentController.view addSubview:_mjpegViewer];
 	
 	float downSide = [self getBackButtonY] - self.downButton.height - 15.0f;
 	float separator = 20.0f;
@@ -177,6 +194,7 @@
 - (void)startObjects
 {
 	[_serverCommunicator registerResponder:self forMessage:@"Input"];
+	[_mjpegViewer play];
 }
 
 - (BOOL)messageReceived:(NSDictionary *)message

@@ -157,7 +157,7 @@
 	
 	_response.x = 15.0f;
 	_response.y = usableHeight;
-	usableHeight = _response.y + _response.height + space;
+//	usableHeight = _response.y + _response.height + space;
 	
 	[self addChild:_header];
 	[self addChild:_startButton];
