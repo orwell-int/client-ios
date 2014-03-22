@@ -257,4 +257,22 @@
 	return response;
 }
 
+- (void)setServerIp:(NSString *)serverIp
+{
+	_serverIp = serverIp;
+	DDLogWarn(@"Using provided server IP (broadcast failed?) %@", _serverIp);
+}
+
+- (void)setPusherPort:(NSString *)pusherPort
+{
+	_pusherPort = pusherPort;
+	DDLogWarn(@"Using provided pusher port (broadcast failed?) %@", _pusherPort);
+}
+
+- (void)setSubscriberPort:(NSString *)subscriberPort
+{
+	_subscriberPort = subscriberPort;
+	DDLogWarn(@"Using provided subscriber port (broadcast failed?) %@", _subscriberPort);
+}
+
 @end
