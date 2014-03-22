@@ -90,4 +90,17 @@
 	
 }
 
+- (CGRect)getUsableScreenSize
+{
+	CGRect screenSize;
+
+	screenSize.size.width = Sparrow.stage.width;
+	screenSize.size.height = Sparrow.stage.height - (Sparrow.stage.height - _backButton.y - 5.0f);
+
+	screenSize.origin.x = 0.0f;
+	screenSize.origin.y = 0.0f;
+
+	return screenSize;
+}
+
 @end

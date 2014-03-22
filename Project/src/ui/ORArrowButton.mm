@@ -47,7 +47,8 @@
 	
 	switch (_rotation) {
 		case DOWN:
-			texture = [SPTexture textureWithContentsOfFile:@"button-arrow-down.png"];
+			DDLogInfo(@"Using new ButtonDown.png texture");
+			texture = [SPTexture textureWithContentsOfFile:@"ButtonDown.png"];
 			break;
 		case UP:
 			texture = [SPTexture textureWithContentsOfFile:@"button-arrow-up.png"];
@@ -66,8 +67,6 @@
 	}
 	
 	self = [super initWithUpState:texture];
-	self.width = 60.0f;
-	self.height = 60.0f;
 	return self;
 }
 
