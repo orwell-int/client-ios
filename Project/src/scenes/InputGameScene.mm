@@ -30,11 +30,10 @@
 #import "ServerCommunicator.h"
 #import "CallbackResponder.h"
 #import "ORArrowButton.h"
+#import "ORCameraViewer.h"
 
 #import "robot.pb.h"
 #import "controller.pb.h"
-
-#import <MotionJpegImageView.h>
 
 @interface InputGameScene() <CallbackResponder>
 @property (strong, nonatomic) ORTextField *playerTextField;
@@ -46,7 +45,7 @@
 @property (strong, nonatomic) ORArrowButton *rightButton;
 @property (strong, nonatomic) ORArrowButton *upButton;
 @property (strong, nonatomic) NSMutableArray *buttonsArray;
-@property (strong, nonatomic) MotionJpegImageView *mjpegViewer;
+@property (strong, nonatomic) ORCameraViewer *mjpegViewer;
 
 @end
 
@@ -93,10 +92,7 @@
 	[_buttonsArray addObject:_upButton];
 
 	DDLogDebug(@"Initing _mjpegViewer");
-	_mjpegViewer = [[MotionJpegImageView alloc] initWithFrame:CGRectMake(0.0f, 70.0f, 320.0f, 240.0f)];
-	_mjpegViewer.url = [NSURL URLWithString:@"http://87.232.128.229/axis-cgi/mjpg/video.cgi"];
-	_mjpegViewer.hidden = NO;
-
+	_mjpegViewer = [ORCameraViewer cameraViewerFromURL:[NSURL URLWithString:@"http://87.232.128.229/axis-cgi/mjpg/video.cgi"]];
 
 	// Event block
 	for (ORArrowButton *button in _buttonsArray) {
@@ -141,9 +137,6 @@
 			DDLogDebug(@"Pushing message Input");
 			
 			[_serverCommunicator pushMessage:message];
-			[_mjpegViewer pause];
-			[_mjpegViewer play];
-
 		}];
 	}
 	
@@ -159,8 +152,6 @@
 {
 	[self unregisterSelector:@selector(onBackButton:)];
 	[self dispatchEventWithType:EVENT_TYPE_INPUT_SCENE_CLOSING bubbles:YES];
-
-	[_mjpegViewer removeFromSuperview];
 }
 
 - (void)placeObjectInStage
@@ -174,17 +165,20 @@
 	self.playerTextField.x = 0.0f;
 	self.playerTextField.y = 0.0f;
 	[self addChild:self.playerTextField];
-	[Sparrow.currentController.view addSubview:_mjpegViewer];
+	
+	_mjpegViewer.x = 0.0f;
+	_mjpegViewer.y = 70.0f;
+	[self addChild:_mjpegViewer];
 	
 	_downButton.width = 240.0f;
 	_downButton.height = 40.0f;
 	_downButton.x = 40.0f;
 	_downButton.y = 270.0f;
-	[self addChild:_downButton];
 
 	_feedbackTextField.x = 0.0f;
 	_feedbackTextField.y = 330.0f;
 	[self addChild:_feedbackTextField];
+	[self addChild:_downButton];
 	
 //	[self addChild:self.rightButton];
 //	[self addChild:self.downButton];
@@ -195,17 +189,19 @@
 - (void)startObjects
 {
 	[_serverCommunicator registerResponder:self forMessage:@"Input"];
-	[_mjpegViewer play];
+//	[_mjpegViewer play];
 }
 
 - (BOOL)messageReceived:(NSDictionary *)message
 {
+	static int count = 0;
 	DDLogVerbose(@"Received message : %@", [message debugDescription]);
 	NSNumber *playing = [message objectForKey:CB_GAMESTATE_KEY_PLAYING];
-	if (playing != nil) {
-		_feedbackTextField.text = @"GameState received";
-	}
 	
+	if (playing != nil) {
+		_feedbackTextField.text = [NSString stringWithFormat:@"GameState received (%d)", count++];
+	}
+
 	return YES;
 }
 

@@ -21,6 +21,7 @@
 		CD4C363C18DA495C00FD1F3A /* ORBroadcastRetriever.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4C363B18DA495C00FD1F3A /* ORBroadcastRetriever.m */; };
 		CD4C363F18DA4B6700FD1F3A /* ORIPFour.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4C363E18DA4B6700FD1F3A /* ORIPFour.m */; };
 		CD6625F418DDE5B000802AF0 /* ButtonDown.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6625F318DDE5B000802AF0 /* ButtonDown.png */; };
+		CD6625F718DE132300802AF0 /* ORCameraViewer.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD6625F618DE132300802AF0 /* ORCameraViewer.mm */; };
 		CD910B1118D77BDF00C61610 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1018D77BDF00C61610 /* Foundation.framework */; };
 		CD910B1318D77BDF00C61610 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1218D77BDF00C61610 /* CoreGraphics.framework */; };
 		CD910B1518D77BDF00C61610 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1418D77BDF00C61610 /* UIKit.framework */; };
@@ -98,6 +99,8 @@
 		CD4C363D18DA4B6700FD1F3A /* ORIPFour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORIPFour.h; sourceTree = "<group>"; };
 		CD4C363E18DA4B6700FD1F3A /* ORIPFour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORIPFour.m; sourceTree = "<group>"; };
 		CD6625F318DDE5B000802AF0 /* ButtonDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonDown.png; sourceTree = "<group>"; };
+		CD6625F518DE132300802AF0 /* ORCameraViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORCameraViewer.h; sourceTree = "<group>"; };
+		CD6625F618DE132300802AF0 /* ORCameraViewer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ORCameraViewer.mm; sourceTree = "<group>"; };
 		CD910AD418D77B0D00C61610 /* Callback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Callback.h; sourceTree = "<group>"; };
 		CD910AD518D77B0D00C61610 /* Callback.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Callback.mm; sourceTree = "<group>"; };
 		CD910AD618D77B0D00C61610 /* CallbackGameState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallbackGameState.h; sourceTree = "<group>"; };
@@ -340,6 +343,8 @@
 				CD910B0618D77B0D00C61610 /* ORButton.mm */,
 				CD910B0718D77B0D00C61610 /* ORTextField.h */,
 				CD910B0818D77B0D00C61610 /* ORTextField.mm */,
+				CD6625F518DE132300802AF0 /* ORCameraViewer.h */,
+				CD6625F618DE132300802AF0 /* ORCameraViewer.mm */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -645,6 +650,7 @@
 				CD910B4D18D77C2B00C61610 /* ServerCommunicator.mm in Sources */,
 				CD910B4E18D77C2B00C61610 /* controller.pb.cc in Sources */,
 				CD910B5018D77C2B00C61610 /* robot.pb.cc in Sources */,
+				CD6625F718DE132300802AF0 /* ORCameraViewer.mm in Sources */,
 				CD910B5218D77C2B00C61610 /* server-game.pb.cc in Sources */,
 				CD910B5418D77C2B00C61610 /* server-web.pb.cc in Sources */,
 				CD910B5618D77C2B00C61610 /* BackgroundScene.mm in Sources */,

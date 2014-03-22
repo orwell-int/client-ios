@@ -24,28 +24,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "CallbackGameState.h"
-#import "server-game.pb.h"
+#import <Foundation/Foundation.h>
 
-@implementation CallbackGameState
+@interface ORCameraViewer : SPSprite
 
-@synthesize delegate = _delegate;
-
-- (BOOL)processMessage:(NSData *)message
-{
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-	
-	orwell::messages::GameState gstate;
-	gstate.ParseFromArray([message bytes], [message length]);
-	
-	DDLogVerbose(@"CallbackGameState in");
-	
-	[dict setObject:[NSNumber numberWithBool:gstate.playing()] forKey:CB_GAMESTATE_KEY_PLAYING];
-	
-	if (_delegate)
-		[_delegate messageReceived:dict];
-	
-	return YES;
-}
++ (id) cameraViewerFromURL:(NSURL *)url;
+- (void) play;
+- (void) pause;
+- (void) stop;
 
 @end
