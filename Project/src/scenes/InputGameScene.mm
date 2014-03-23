@@ -81,7 +81,7 @@
 	[_buttonsArray addObject:_upButton];
 
 	DDLogDebug(@"Initing _mjpegViewer");
-	_mjpegViewer = [ORCameraViewer cameraViewerFromURL:[NSURL URLWithString:@"http://87.232.128.229/axis-cgi/mjpg/video.cgi"]];
+	_mjpegViewer = [ORCameraViewer cameraViewerFromURL:[NSURL URLWithString:@"http://mail.bluegreendiamond.net:8084/cgi-bin/faststream.jpg?stream=full&fps=24"]];
 
 	// Event block
 	for (ORArrowButton *button in _buttonsArray) {
@@ -91,6 +91,20 @@
 			__weak ORArrowButton *button = (ORArrowButton *) event.target;
 			DDLogInfo(@"Button %@ pressed, rotation: %d", button.name, button.rotation);
 
+			button.backgroundAlpha = 0.0f;
+			SPTween *alphaAnimator = [SPTween tweenWithTarget:button time:0.5f];
+			[alphaAnimator animateProperty:@"backgroundAlpha" targetValue:1.0f];
+			alphaAnimator.reverse = YES;
+			alphaAnimator.repeatCount = 2;
+			[Sparrow.juggler addObject:alphaAnimator];
+			
+			// Make sure the Tween is removed at the end of the animation
+			__weak SPTween *weakAlphaAnimator = alphaAnimator;
+			[alphaAnimator addEventListenerForType:SP_EVENT_TYPE_COMPLETED block:^(id event){
+				DDLogInfo(@"Removing tween");
+				[Sparrow.juggler removeObject:weakAlphaAnimator];
+			}];
+			
 			double left = 0, right = 0;
 			Input inputMessage;
 			switch (button.rotation) {
@@ -161,10 +175,29 @@
 	_downButton.x = 40.0f;
 	_downButton.y = 270.0f;
 
+	_upButton.width = 240.0f;
+	_upButton.height = 40.0f;
+	_upButton.x = 40.0f;
+	_upButton.y = 70.0f;
+	
+	_leftButton.width = 40.0f;
+	_leftButton.height = 160.0f;
+	_leftButton.x = 0.0f;
+	_leftButton.y = 110.0f;
+	
+	_rightButton.width = 40.0f;
+	_rightButton.height = 160.0f;
+	_rightButton.x = 280.0f;
+	_rightButton.y = 110.0f;
+	
 	_feedbackTextField.x = 0.0f;
 	_feedbackTextField.y = 330.0f;
 	[self addChild:_feedbackTextField];
+	
 	[self addChild:_downButton];
+	[self addChild:_upButton];
+	[self addChild:_leftButton];
+	[self addChild:_rightButton];
 }
 
 - (void)startObjects
@@ -179,11 +212,12 @@
 
 - (BOOL)messageReceived:(NSDictionary *)message
 {
+	static int count = 0;
 	DDLogVerbose(@"Received message : %@", [message debugDescription]);
 	NSNumber *playing = [message objectForKey:CB_GAMESTATE_KEY_PLAYING];
 
 	if (playing != nil) {
-		_feedbackTextField.text = [NSString stringWithFormat:@"GameState received (%d)", 0];
+		_feedbackTextField.text = [NSString stringWithFormat:@"GameState received (%d)", count++];
 	}
 
 	return YES;

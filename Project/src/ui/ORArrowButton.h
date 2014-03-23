@@ -36,6 +36,7 @@ enum Rotation {
 @interface ORArrowButton : SPButton
 
 @property (readonly) Rotation rotation;
+@property (nonatomic) float backgroundAlpha;
 
 -(id)init;
 -(id)initWithRotation:(Rotation)rotation;

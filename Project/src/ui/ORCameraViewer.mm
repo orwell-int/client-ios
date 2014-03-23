@@ -105,12 +105,14 @@
 				SPTexture *texture = [[SPTexture alloc] initWithContentsOfImage:receivedImage];
 				if (![self containsChild:_image]) {
 					_image = [SPImage imageWithTexture:texture];
-					_image.scaleX = 0.9f;
-					_image.scaleY = 0.9f;
 					[self addChild:_image];
+					_image.width = 320.0f;
+					_image.height = 240.0f;
 				}
 				else {
 					_image.texture = texture;
+					_image.width = 320.0f;
+					_image.height = 240.0f;
 				}
 
 			}
