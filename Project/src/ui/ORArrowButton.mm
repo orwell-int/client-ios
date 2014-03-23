@@ -25,16 +25,20 @@
  */
 
 #import "ORArrowButton.h"
+#import <CoreGraphics/CoreGraphics.h>
+
+@interface ORArrowButton()
+@property (strong, nonatomic) SPImage *backgroundImage;
+@end
 
 @implementation ORArrowButton
 @synthesize rotation = _rotation;
+@synthesize backgroundAlpha = _backgroundAlpha;
 
 - (id)init
 {
 	self = [super initWithUpState:[SPTexture textureWithContentsOfFile:@"button-arrow-down.png"]];
-	self.width = 60.0f;
-	self.height = 60.0f;
-	
+	_backgroundAlpha = 0.0f;
 	return self;
 }
 
@@ -47,16 +51,17 @@
 	
 	switch (_rotation) {
 		case DOWN:
-			texture = [SPTexture textureWithContentsOfFile:@"button-arrow-down.png"];
+			DDLogInfo(@"Using new ButtonDown.png texture");
+			texture = [SPTexture textureWithContentsOfFile:@"ButtonDown-2.png"];
 			break;
 		case UP:
-			texture = [SPTexture textureWithContentsOfFile:@"button-arrow-up.png"];
+			texture = [SPTexture textureWithContentsOfFile:@"ButtonUp.png"];
 			break;
 		case LEFT:
-			texture = [SPTexture textureWithContentsOfFile:@"button-arrow-left.png"];
+			texture = [SPTexture textureWithContentsOfFile:@"ButtonLeft.png"];
 			break;
 		case RIGHT:
-			texture = [SPTexture textureWithContentsOfFile:@"button-arrow-right.png"];
+			texture = [SPTexture textureWithContentsOfFile:@"ButtonRight.png"];
 			break;
 
 		default:
@@ -66,9 +71,29 @@
 	}
 	
 	self = [super initWithUpState:texture];
-	self.width = 60.0f;
-	self.height = 60.0f;
+	DDLogInfo(@"Beginning draw with width: %f - height: %f", self.width, self.height);
+	SPTexture *backgroundTexture = [[SPTexture alloc] initWithWidth:self.width/2 height:self.height/2 draw:^(CGContextRef contextRef) {
+		UIColor * redColor = [UIColor colorWithRed:1.0f green:0.0 blue:0.0 alpha:0.5f];
+		
+		CGContextSetFillColorWithColor(contextRef, redColor.CGColor);
+		CGContextFillRect(contextRef, CGRectMake(self.x, self.y, self.width/2, self.height/2));
+	}];
+
+	_backgroundImage = [SPImage imageWithTexture:backgroundTexture];
+	_backgroundImage.alpha = _backgroundAlpha; // background invisible
+	[self addChild:_backgroundImage atIndex:0];
 	return self;
+}
+
+- (void)setBackgroundAlpha:(float)backgroundAlpha
+{
+	_backgroundAlpha = backgroundAlpha;
+	_backgroundImage.alpha = _backgroundAlpha;
+}
+
+- (float)backgroundAlpha
+{
+	return _backgroundImage.alpha;
 }
 
 @end

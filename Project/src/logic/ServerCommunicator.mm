@@ -221,8 +221,7 @@
 
 - (BOOL)registerResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message
 {
-	if ([_callbacks objectForKey:message] != nil)
-	{
+	if ([_callbacks objectForKey:message] != nil) {
 		((Callback *) [_callbacks objectForKey:message]).delegate = responder;
 		return YES;
 	}
@@ -230,10 +229,18 @@
 	return NO;
 }
 
-- (BOOL)deleteResponder:(id<CallbackResponder>)responder
+- (BOOL)deleteResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message
 {
-	// @TODO: implement
-	return YES;
+	DDLogInfo(@"Wanting to remove delegate %@ for message %@", [responder debugDescription], message);
+	Callback *callback = [_callbacks objectForKey:message];
+
+	if (callback != nil) {
+		DDLogInfo(@"Removing delegate from callback %@", [callback debugDescription]);
+		callback.delegate = nil;
+		return YES;
+	}
+	
+	return NO;
 }
 
 - (BOOL)retrieveServerFromBroadcast
@@ -255,6 +262,24 @@
 	}
 
 	return response;
+}
+
+- (void)setServerIp:(NSString *)serverIp
+{
+	_serverIp = serverIp;
+	DDLogWarn(@"Using provided server IP (broadcast failed?) %@", _serverIp);
+}
+
+- (void)setPusherPort:(NSString *)pusherPort
+{
+	_pusherPort = pusherPort;
+	DDLogWarn(@"Using provided pusher port (broadcast failed?) %@", _pusherPort);
+}
+
+- (void)setSubscriberPort:(NSString *)subscriberPort
+{
+	_subscriberPort = subscriberPort;
+	DDLogWarn(@"Using provided subscriber port (broadcast failed?) %@", _subscriberPort);
 }
 
 @end
