@@ -25,39 +25,12 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "Callback.h"
-#import "CallbackResponder.h"
 
-@interface ServerMessage : NSObject
-@property (strong, nonatomic) NSString *tag;
-@property (strong, nonatomic) NSString *receiver;
-@property (strong, nonatomic) NSData *payload;
-@end
+@interface ORCameraViewer : SPSprite
 
-@interface ServerCommunicator : NSObject
-
-@property (strong, nonatomic) NSString* serverIp;
-@property (strong, nonatomic) NSString* pusherPort;
-@property (strong, nonatomic) NSString* subscriberPort;
-
-+ (id) initSingleton;
-
-- (BOOL) retrieveServerFromBroadcast;
-
-- (BOOL) connect;
-- (void) runSubscriber;
-
-// Push messages
-- (BOOL) pushMessageWithPayload:(NSData *)payload
-							tag:(NSString *)tag
-					   receiver:(NSString *)receiver;
-
-- (BOOL) pushMessage:(ServerMessage *)message;
-
-// Register callbacks responders
-- (BOOL) registerResponder:(id<CallbackResponder>)responder
-				forMessage:(NSString *)message;
-
-- (BOOL) deleteResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message;
++ (id) cameraViewerFromURL:(NSURL *)url;
+- (void) play;
+- (void) pause;
+- (void) stop;
 
 @end

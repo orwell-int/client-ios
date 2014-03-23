@@ -41,7 +41,7 @@
 #define CB_INPUT_FIRE_WEAPON2 @"FIRE-WEAPON2"
 
 @interface Callback : NSObject
-@property (strong, nonatomic) id<CallbackResponder> delegate;
+@property (weak, atomic) id<CallbackResponder> delegate;
 
 -(id) init;
 

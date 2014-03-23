@@ -44,5 +44,6 @@
 
 - (void) placeObjectInStage;
 - (void) startObjects;
+- (CGRect) getUsableScreenSize;
 
 @end

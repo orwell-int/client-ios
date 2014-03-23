@@ -30,39 +30,37 @@
 #import "ServerCommunicator.h"
 #import "CallbackResponder.h"
 #import "ORArrowButton.h"
+#import "ORCameraViewer.h"
 
 #import "robot.pb.h"
 #import "controller.pb.h"
 
 @interface InputGameScene() <CallbackResponder>
 @property (strong, nonatomic) ORTextField *playerTextField;
-@property (strong, nonatomic) ServerCommunicator *serverCommunicator;
+@property (strong, nonatomic) ORTextField *feedbackTextField;
+@property (weak, nonatomic) ServerCommunicator *serverCommunicator;
 
 @property (strong, nonatomic) ORArrowButton *leftButton;
 @property (strong, nonatomic) ORArrowButton *downButton;
 @property (strong, nonatomic) ORArrowButton *rightButton;
 @property (strong, nonatomic) ORArrowButton *upButton;
 @property (strong, nonatomic) NSMutableArray *buttonsArray;
+@property (strong, nonatomic) ORCameraViewer *mjpegViewer;
 
 @end
 
 @implementation InputGameScene
 
-@synthesize playerTextField = _playerTextField;
-@synthesize serverCommunicator = _serverCommunicator;
-@synthesize leftButton = _leftButton;
-@synthesize downButton = _downButton;
-@synthesize rightButton = _rightButton;
-@synthesize upButton = _upButton;
-@synthesize buttonsArray = _buttonsArray;
-
 - (id)init
 {
 	self = [super init];
 	[self addBackButton];
-	[self registerSelector:@selector(onBackButton:)];
 	
-	_playerTextField = [ORTextField textFieldWithWidth:Sparrow.stage.width - 30.0f height:40.0f text:@""];
+	DDLogDebug(@"Usable screen size, w = %f - h = %f",
+			   [self getUsableScreenSize].size.width, [self getUsableScreenSize].size.height);
+	
+	_playerTextField = [ORTextField textFieldWithWidth:320.0f height:60.0f text:@""];
+	_feedbackTextField = [ORTextField textFieldWithWidth:320.0f height:60.0f text:@"Feedback area"];
 	
 	_buttonsArray = [NSMutableArray array];
 
@@ -82,16 +80,32 @@
 	_upButton.name = @"up";
 	[_buttonsArray addObject:_upButton];
 
+	DDLogDebug(@"Initing _mjpegViewer");
+	_mjpegViewer = [ORCameraViewer cameraViewerFromURL:[NSURL URLWithString:@"http://mail.bluegreendiamond.net:8084/cgi-bin/faststream.jpg?stream=full&fps=24"]];
+
 	// Event block
 	for (ORArrowButton *button in _buttonsArray) {
+		__weak InputGameScene *wself = self;
 		[button addEventListenerForType:SP_EVENT_TYPE_TRIGGERED block:^(SPEvent *event) {
 			using namespace orwell::messages;
-			ORArrowButton *button = (ORArrowButton *) event.target;
+			__weak ORArrowButton *button = (ORArrowButton *) event.target;
 			DDLogInfo(@"Button %@ pressed, rotation: %d", button.name, button.rotation);
 
-			double left, right;
-			left = right = 0;
+			button.backgroundAlpha = 0.0f;
+			SPTween *alphaAnimator = [SPTween tweenWithTarget:button time:0.5f];
+			[alphaAnimator animateProperty:@"backgroundAlpha" targetValue:1.0f];
+			alphaAnimator.reverse = YES;
+			alphaAnimator.repeatCount = 2;
+			[Sparrow.juggler addObject:alphaAnimator];
 			
+			// Make sure the Tween is removed at the end of the animation
+			__weak SPTween *weakAlphaAnimator = alphaAnimator;
+			[alphaAnimator addEventListenerForType:SP_EVENT_TYPE_COMPLETED block:^(id event){
+				DDLogInfo(@"Removing tween");
+				[Sparrow.juggler removeObject:weakAlphaAnimator];
+			}];
+			
+			double left = 0, right = 0;
 			Input inputMessage;
 			switch (button.rotation) {
 				case UP:
@@ -125,14 +139,9 @@
 			message.payload = [NSData dataWithBytes:inputMessage.SerializeAsString().c_str() length:inputMessage.SerializeAsString().length()];
 			DDLogDebug(@"Pushing message Input");
 			
-			[_serverCommunicator pushMessage:message];
-
+			[wself.serverCommunicator pushMessage:message];
 		}];
 	}
-	
-	// This is active already
-	_serverCommunicator = [ServerCommunicator initSingleton];
-	[_serverCommunicator registerResponder:self forMessage:@"Input"];
 
 	return self;
 }
@@ -141,6 +150,8 @@
 {
 	[self unregisterSelector:@selector(onBackButton:)];
 	[self dispatchEventWithType:EVENT_TYPE_INPUT_SCENE_CLOSING bubbles:YES];
+	[_serverCommunicator deleteResponder:self forMessage:@"GameState"];
+	[_serverCommunicator deleteResponder:self forMessage:@"Input"];
 }
 
 - (void)placeObjectInStage
@@ -148,40 +159,67 @@
 	DDLogDebug(@"Inited with robot name: %@", self.robotName);
 	DDLogDebug(@"Inited with player name: %@", self.playerName);
 
-	self.playerTextField.text = [NSString stringWithFormat:@"%@ @ %@", self.playerName, self.robotName];
-	self.playerTextField.x = 15.0f;
-	self.playerTextField.y = 10.0f;
-	[self addChild:self.playerTextField];
-	
-	float downSide = [self getBackButtonY] - self.downButton.height - 15.0f;
-	float separator = 20.0f;
+	DDLogDebug(@"Placed mjpegViewer in screen %@", [_mjpegViewer debugDescription]);
 
-	self.downButton.x = (Sparrow.stage.width / 2) - (self.downButton.width / 2);
-	self.downButton.y = downSide;
+	_playerTextField.text = [NSString stringWithFormat:@"%@ @ %@", self.playerName, self.robotName];
+	_playerTextField.x = 0.0f;
+	_playerTextField.y = 0.0f;
+	[self addChild:_playerTextField];
 	
-	self.leftButton.x = self.downButton.x - self.leftButton.width - separator;
-	self.leftButton.y = downSide;
+	_mjpegViewer.x = 0.0f;
+	_mjpegViewer.y = 70.0f;
+	[self addChild:_mjpegViewer];
 	
-	self.rightButton.x = self.downButton.x + self.downButton.width + separator;
-	self.rightButton.y = downSide;
+	_downButton.width = 240.0f;
+	_downButton.height = 40.0f;
+	_downButton.x = 40.0f;
+	_downButton.y = 270.0f;
+
+	_upButton.width = 240.0f;
+	_upButton.height = 40.0f;
+	_upButton.x = 40.0f;
+	_upButton.y = 70.0f;
 	
-	self.upButton.x = self.downButton.x;
-	self.upButton.y = downSide - self.downButton.height - separator;
+	_leftButton.width = 40.0f;
+	_leftButton.height = 160.0f;
+	_leftButton.x = 0.0f;
+	_leftButton.y = 110.0f;
 	
-	[self addChild:self.rightButton];
-	[self addChild:self.downButton];
-	[self addChild:self.leftButton];
-	[self addChild:self.upButton];
+	_rightButton.width = 40.0f;
+	_rightButton.height = 160.0f;
+	_rightButton.x = 280.0f;
+	_rightButton.y = 110.0f;
+	
+	_feedbackTextField.x = 0.0f;
+	_feedbackTextField.y = 330.0f;
+	[self addChild:_feedbackTextField];
+	
+	[self addChild:_downButton];
+	[self addChild:_upButton];
+	[self addChild:_leftButton];
+	[self addChild:_rightButton];
 }
 
 - (void)startObjects
 {
+	// This is active already
+	_serverCommunicator = [ServerCommunicator initSingleton];
 	[_serverCommunicator registerResponder:self forMessage:@"Input"];
+	[_serverCommunicator registerResponder:self forMessage:@"GameState"];
+	
+	[self registerSelector:@selector(onBackButton:)];
 }
 
 - (BOOL)messageReceived:(NSDictionary *)message
 {
+	static int count = 0;
 	DDLogVerbose(@"Received message : %@", [message debugDescription]);
+	NSNumber *playing = [message objectForKey:CB_GAMESTATE_KEY_PLAYING];
+
+	if (playing != nil) {
+		_feedbackTextField.text = [NSString stringWithFormat:@"GameState received (%d)", count++];
+	}
+
 	return YES;
 }
 
