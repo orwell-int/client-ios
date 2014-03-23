@@ -38,7 +38,7 @@
 @interface InputGameScene() <CallbackResponder>
 @property (strong, nonatomic) ORTextField *playerTextField;
 @property (strong, nonatomic) ORTextField *feedbackTextField;
-@property (strong, nonatomic) ServerCommunicator *serverCommunicator;
+@property (weak, nonatomic) ServerCommunicator *serverCommunicator;
 
 @property (strong, nonatomic) ORArrowButton *leftButton;
 @property (strong, nonatomic) ORArrowButton *downButton;
@@ -51,21 +51,10 @@
 
 @implementation InputGameScene
 
-@synthesize playerTextField = _playerTextField;
-@synthesize serverCommunicator = _serverCommunicator;
-@synthesize leftButton = _leftButton;
-@synthesize downButton = _downButton;
-@synthesize rightButton = _rightButton;
-@synthesize upButton = _upButton;
-@synthesize buttonsArray = _buttonsArray;
-@synthesize mjpegViewer = _mjpegViewer;
-@synthesize feedbackTextField = _feedbackTextField;
-
 - (id)init
 {
 	self = [super init];
 	[self addBackButton];
-	[self registerSelector:@selector(onBackButton:)];
 	
 	DDLogDebug(@"Usable screen size, w = %f - h = %f",
 			   [self getUsableScreenSize].size.width, [self getUsableScreenSize].size.height);
@@ -95,55 +84,50 @@
 	_mjpegViewer = [ORCameraViewer cameraViewerFromURL:[NSURL URLWithString:@"http://87.232.128.229/axis-cgi/mjpg/video.cgi"]];
 
 	// Event block
-	for (ORArrowButton *button in _buttonsArray) {
-		[button addEventListenerForType:SP_EVENT_TYPE_TRIGGERED block:^(SPEvent *event) {
-			using namespace orwell::messages;
-			ORArrowButton *button = (ORArrowButton *) event.target;
-			DDLogInfo(@"Button %@ pressed, rotation: %d", button.name, button.rotation);
-
-			double left = 0, right = 0;
-			
-			Input inputMessage;
-			switch (button.rotation) {
-				case UP:
-					left = 1;
-					right = 1;
-					break;
-				case DOWN:
-					left = -1;
-					right = -1;
-					break;
-				case LEFT:
-					left = 1;
-					right = -1;
-					break;
-				case RIGHT:
-					left = -1;
-					right = 1;
-					break;
-			}
-			
-			DDLogDebug(@"Sending message with left: %f, right: %f", left, right);
-			
-			inputMessage.mutable_move()->set_left(left);
-			inputMessage.mutable_move()->set_right(right);
-			inputMessage.mutable_fire()->set_weapon1(false);
-			inputMessage.mutable_fire()->set_weapon2(false);
-			
-			ServerMessage *message = [[ServerMessage alloc] init];
-			message.tag = @"Input ";
-			message.receiver = @"iphoneclient ";
-			message.payload = [NSData dataWithBytes:inputMessage.SerializeAsString().c_str() length:inputMessage.SerializeAsString().length()];
-			DDLogDebug(@"Pushing message Input");
-			
-			[_serverCommunicator pushMessage:message];
-		}];
-	}
-	
-	// This is active already
-	_serverCommunicator = [ServerCommunicator initSingleton];
-	[_serverCommunicator registerResponder:self forMessage:@"Input"];
-	[_serverCommunicator registerResponder:self forMessage:@"GameState"];
+//	for (ORArrowButton *button in _buttonsArray) {
+//		[button addEventListenerForType:SP_EVENT_TYPE_TRIGGERED block:^(SPEvent *event) {
+//			using namespace orwell::messages;
+//			ORArrowButton *button = (ORArrowButton *) event.target;
+//			DDLogInfo(@"Button %@ pressed, rotation: %d", button.name, button.rotation);
+//
+//			double left = 0, right = 0;
+//			
+//			Input inputMessage;
+//			switch (button.rotation) {
+//				case UP:
+//					left = 1;
+//					right = 1;
+//					break;
+//				case DOWN:
+//					left = -1;
+//					right = -1;
+//					break;
+//				case LEFT:
+//					left = 1;
+//					right = -1;
+//					break;
+//				case RIGHT:
+//					left = -1;
+//					right = 1;
+//					break;
+//			}
+//			
+//			DDLogDebug(@"Sending message with left: %f, right: %f", left, right);
+//			
+//			inputMessage.mutable_move()->set_left(left);
+//			inputMessage.mutable_move()->set_right(right);
+//			inputMessage.mutable_fire()->set_weapon1(false);
+//			inputMessage.mutable_fire()->set_weapon2(false);
+//			
+//			ServerMessage *message = [[ServerMessage alloc] init];
+//			message.tag = @"Input ";
+//			message.receiver = @"iphoneclient ";
+//			message.payload = [NSData dataWithBytes:inputMessage.SerializeAsString().c_str() length:inputMessage.SerializeAsString().length()];
+//			DDLogDebug(@"Pushing message Input");
+//			
+//			[_serverCommunicator pushMessage:message];
+//		}];
+//	}
 
 	return self;
 }
@@ -152,6 +136,8 @@
 {
 	[self unregisterSelector:@selector(onBackButton:)];
 	[self dispatchEventWithType:EVENT_TYPE_INPUT_SCENE_CLOSING bubbles:YES];
+	[_serverCommunicator deleteResponder:self forMessage:@"GameState"];
+	[_serverCommunicator deleteResponder:self forMessage:@"Input"];
 }
 
 - (void)placeObjectInStage
@@ -161,10 +147,10 @@
 
 	DDLogDebug(@"Placed mjpegViewer in screen %@", [_mjpegViewer debugDescription]);
 
-	self.playerTextField.text = [NSString stringWithFormat:@"%@ @ %@", self.playerName, self.robotName];
-	self.playerTextField.x = 0.0f;
-	self.playerTextField.y = 0.0f;
-	[self addChild:self.playerTextField];
+	_playerTextField.text = [NSString stringWithFormat:@"%@ @ %@", self.playerName, self.robotName];
+	_playerTextField.x = 0.0f;
+	_playerTextField.y = 0.0f;
+	[self addChild:_playerTextField];
 	
 	_mjpegViewer.x = 0.0f;
 	_mjpegViewer.y = 70.0f;
@@ -179,27 +165,25 @@
 	_feedbackTextField.y = 330.0f;
 	[self addChild:_feedbackTextField];
 	[self addChild:_downButton];
-	
-//	[self addChild:self.rightButton];
-//	[self addChild:self.downButton];
-//	[self addChild:self.leftButton];
-//	[self addChild:self.upButton];
 }
 
 - (void)startObjects
 {
+	// This is active already
+	_serverCommunicator = [ServerCommunicator initSingleton];
 	[_serverCommunicator registerResponder:self forMessage:@"Input"];
-//	[_mjpegViewer play];
+	[_serverCommunicator registerResponder:self forMessage:@"GameState"];
+	
+	[self registerSelector:@selector(onBackButton:)];
 }
 
 - (BOOL)messageReceived:(NSDictionary *)message
 {
-	static int count = 0;
 	DDLogVerbose(@"Received message : %@", [message debugDescription]);
 	NSNumber *playing = [message objectForKey:CB_GAMESTATE_KEY_PLAYING];
-	
+
 	if (playing != nil) {
-		_feedbackTextField.text = [NSString stringWithFormat:@"GameState received (%d)", count++];
+		_feedbackTextField.text = [NSString stringWithFormat:@"GameState received (%d)", 0];
 	}
 
 	return YES;

@@ -103,10 +103,16 @@
 			UIImage *receivedImage = [UIImage imageWithData:imageData];
 			if (receivedImage) {
 				SPTexture *texture = [[SPTexture alloc] initWithContentsOfImage:receivedImage];
-				_image = [SPImage imageWithTexture:texture];
-				_image.scaleX = 0.9f;
-				_image.scaleY = 0.9f;
-				[self addChild:_image];
+				if (![self containsChild:_image]) {
+					_image = [SPImage imageWithTexture:texture];
+					_image.scaleX = 0.9f;
+					_image.scaleY = 0.9f;
+					[self addChild:_image];
+				}
+				else {
+					_image.texture = texture;
+				}
+
 			}
 		}
 	}

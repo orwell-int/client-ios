@@ -28,13 +28,11 @@
 #import "ORButton.h"
 
 @interface BackgroundScene()
+@property (strong, nonatomic) SPImage *background;
+@property (strong, nonatomic) ORButton *backButton;
 @end
 
 @implementation BackgroundScene
-{
-	SPImage *_background;
-	ORButton *_backButton;
-}
 
 - (id)init
 {

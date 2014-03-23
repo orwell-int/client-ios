@@ -221,8 +221,7 @@
 
 - (BOOL)registerResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message
 {
-	if ([_callbacks objectForKey:message] != nil)
-	{
+	if ([_callbacks objectForKey:message] != nil) {
 		((Callback *) [_callbacks objectForKey:message]).delegate = responder;
 		return YES;
 	}
@@ -230,10 +229,18 @@
 	return NO;
 }
 
-- (BOOL)deleteResponder:(id<CallbackResponder>)responder
+- (BOOL)deleteResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message
 {
-	// @TODO: implement
-	return YES;
+	DDLogInfo(@"Wanting to remove delegate %@ for message %@", [responder debugDescription], message);
+	Callback *callback = [_callbacks objectForKey:message];
+
+	if (callback != nil) {
+		DDLogInfo(@"Removing delegate from callback %@", [callback debugDescription]);
+		callback.delegate = nil;
+		return YES;
+	}
+	
+	return NO;
 }
 
 - (BOOL)retrieveServerFromBroadcast
