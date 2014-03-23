@@ -9,7 +9,6 @@ pod 'Sparrow-Framework', '~>2.0.1'
 pod 'GoogleProtobuf', '~>2.5.0'
 pod 'libzmq', '~>4.0.4'
 pod 'CocoaLumberjack', '~>1.8.1'
-pod 'MotionJpegImageView', '~>0.0.1'
 
 target :iOrwellTests, :exclusive => true do
 	pod 'OCMock', '~>2.2.3'
