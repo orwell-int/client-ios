@@ -38,7 +38,7 @@
 	orwell::messages::GameState gstate;
 	gstate.ParseFromArray([message bytes], [message length]);
 	
-	DDLogDebug(@"CallbackGameState in");
+	DDLogVerbose(@"CallbackGameState in");
 	
 	[dict setObject:[NSNumber numberWithBool:gstate.playing()] forKey:CB_GAMESTATE_KEY_PLAYING];
 	
