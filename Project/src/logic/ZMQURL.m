@@ -24,43 +24,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Foundation/Foundation.h>
-#import "Callback.h"
-#import "CallbackResponder.h"
+#import "ZMQURL.h"
 
-@protocol ServerCommunicatorDelegate;
-
-@interface ServerMessage : NSObject
-@property (strong, nonatomic) NSString *tag;
-@property (strong, nonatomic) NSString *receiver;
-@property (strong, nonatomic) NSData *payload;
-@end
-
-@interface ServerCommunicator : NSObject
-
-@property (strong, nonatomic) NSString* serverIp;
-@property (strong, nonatomic) NSString* pusherPort;
-@property (strong, nonatomic) NSString* subscriberPort;
-@property (weak, nonatomic) id<ServerCommunicatorDelegate> delegate;
-
-+ (id) initSingleton;
-
-- (BOOL) retrieveServerFromBroadcast;
-
-- (BOOL) connect;
-- (void) runSubscriber;
-
-// Push messages
-- (BOOL) pushMessageWithPayload:(NSData *)payload
-							tag:(NSString *)tag
-					   receiver:(NSString *)receiver;
-
-- (BOOL) pushMessage:(ServerMessage *)message;
-
-// Register callbacks responders
-- (BOOL) registerResponder:(id<CallbackResponder>)responder
-				forMessage:(NSString *)message;
-
-- (BOOL) deleteResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message;
+@implementation ZMQURL
 
 @end

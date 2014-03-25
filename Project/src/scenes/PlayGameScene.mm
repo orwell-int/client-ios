@@ -32,8 +32,9 @@
 #import "InputGameScene.h"
 
 #import "controller.pb.h"
+#import "ServerCommunicatorDelegate.h"
 
-@interface PlayGameScene() <CallbackResponder, UITextFieldDelegate>
+@interface PlayGameScene() <CallbackResponder, UITextFieldDelegate, ServerCommunicatorDelegate>
 @property (strong, nonatomic) ORTextField *header;
 @property (strong, nonatomic) ORTextField *response;
 @property (strong, nonatomic) UITextField *inputPlayerName;
@@ -42,7 +43,9 @@
 @property (strong, nonatomic) InputGameScene *inputGameScene;
 @property (nonatomic) BOOL messageSent;
 
--(void) onSubSceneClosing:(SPEvent *)event;
+-(void)onSubSceneClosing:(SPEvent *)event;
+-(void)server:(ServerCommunicator *)server didRetrieveServerFromBroadcast:(BOOL)retrieve withIP:(NSString *)serverIP;
+-(void)server:(ServerCommunicator *)server didConnectToServer:(BOOL)connect;
 
 @end
 
@@ -63,6 +66,7 @@
 	[self registerSelector:@selector(onBackButton:)];
 	
 	_serverCommunicator = [ServerCommunicator initSingleton];
+	_serverCommunicator.delegate = self;
 	[self.serverCommunicator registerResponder:self forMessage:@"Welcome"];
 	_inputPlayerName = [[UITextField alloc] init];
 	_header = [ORTextField textFieldWithWidth:Sparrow.stage.width - 30 height:40.0f text:@"Welcome to iOrwell"];
@@ -166,10 +170,13 @@
 - (void)startObjects
 {
 	NSLog(@"Starting logic of PlayGameScene");
-	[_serverCommunicator retrieveServerFromBroadcast];
-	[_serverCommunicator connect];
-	[_serverCommunicator runSubscriber];
-	[_serverCommunicator registerResponder:self forMessage:@"Welcome"];
+	
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+		[_serverCommunicator retrieveServerFromBroadcast];
+		[_serverCommunicator connect];
+		[_serverCommunicator runSubscriber];
+		[_serverCommunicator registerResponder:self forMessage:@"Welcome"];
+	});
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -188,6 +195,22 @@
 	}
 
 	[Sparrow.currentController.view addSubview:_inputPlayerName];
+}
+
+-(void)server:(ServerCommunicator *)server didConnectToServer:(BOOL)connect
+{
+	DDLogInfo(@"ServerCommunicator didConnectToServer: %@", @(connect));
+}
+
+-(void)server:(ServerCommunicator *)server didRetrieveServerFromBroadcast:(BOOL)retrieve withIP:(NSString *)serverIP
+{
+	DDLogInfo(@"Server Communicator retrieved server from broadcast: %@ : %@", @(retrieve), serverIP);
+	if (retrieve) {
+		_response.text = [NSString stringWithFormat:@"Retrieved %@", serverIP];
+	}
+	else {
+		_response.text = @"Broadcast Failed";
+	}
 }
 
 @end

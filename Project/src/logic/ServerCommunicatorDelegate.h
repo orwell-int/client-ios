@@ -25,42 +25,17 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "Callback.h"
-#import "CallbackResponder.h"
+@class ServerCommunicator;
+@class ServerMessage;
 
-@protocol ServerCommunicatorDelegate;
+@protocol ServerCommunicatorDelegate <NSObject>
+@optional
+-(void)server:(ServerCommunicator *)server didRetrieveServerFromBroadcast:(BOOL)retrieve withIP:(NSString *)serverIP;
+-(void)server:(ServerCommunicator *)server didConnectToServer:(BOOL)connect;
+-(void)server:(ServerCommunicator *)server didPushMessage:(ServerMessage *)message;
 
-@interface ServerMessage : NSObject
-@property (strong, nonatomic) NSString *tag;
-@property (strong, nonatomic) NSString *receiver;
-@property (strong, nonatomic) NSData *payload;
-@end
-
-@interface ServerCommunicator : NSObject
-
-@property (strong, nonatomic) NSString* serverIp;
-@property (strong, nonatomic) NSString* pusherPort;
-@property (strong, nonatomic) NSString* subscriberPort;
-@property (weak, nonatomic) id<ServerCommunicatorDelegate> delegate;
-
-+ (id) initSingleton;
-
-- (BOOL) retrieveServerFromBroadcast;
-
-- (BOOL) connect;
-- (void) runSubscriber;
-
-// Push messages
-- (BOOL) pushMessageWithPayload:(NSData *)payload
-							tag:(NSString *)tag
-					   receiver:(NSString *)receiver;
-
-- (BOOL) pushMessage:(ServerMessage *)message;
-
-// Register callbacks responders
-- (BOOL) registerResponder:(id<CallbackResponder>)responder
-				forMessage:(NSString *)message;
-
-- (BOOL) deleteResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message;
+// This is just an informative method, clients will need to use the callbacks
+-(void)server:(ServerCommunicator *)server didPullMessage:(NSString *)message;
 
 @end
+

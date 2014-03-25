@@ -39,7 +39,6 @@
 		CD910B4918D77C2B00C61610 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE218D77B0D00C61610 /* main.mm */; };
 		CD910B4B18D77C2B00C61610 /* Media.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE718D77B0D00C61610 /* Media.mm */; };
 		CD910B4C18D77C2B00C61610 /* MessagesWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE918D77B0D00C61610 /* MessagesWrapper.mm */; };
-		CD910B4D18D77C2B00C61610 /* ServerCommunicator.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEB18D77B0D00C61610 /* ServerCommunicator.mm */; };
 		CD910B4E18D77C2B00C61610 /* controller.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AED18D77B0D00C61610 /* controller.pb.cc */; };
 		CD910B5018D77C2B00C61610 /* robot.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEF18D77B0D00C61610 /* robot.pb.cc */; };
 		CD910B5218D77C2B00C61610 /* server-game.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF118D77B0D00C61610 /* server-game.pb.cc */; };
@@ -73,6 +72,9 @@
 		CDDD0B9F18D77FE600979E1E /* tech-button-off.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8818D77FE600979E1E /* tech-button-off.png */; };
 		CDDD0BA118D77FE600979E1E /* tech-button-on.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8A18D77FE600979E1E /* tech-button-on.png */; };
 		CDDD0BA318D77FE600979E1E /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8D18D77FE600979E1E /* README.txt */; };
+		CDFF6C7418E1FB46000E3F22 /* ServerCommunicator.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEB18D77B0D00C61610 /* ServerCommunicator.mm */; };
+		CDFF6C7918E2007A000E3F22 /* ServerConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFF6C7718E2005D000E3F22 /* ServerConnector.m */; };
+		CDFF6C7C18E200A0000E3F22 /* ZMQURL.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFF6C7B18E200A0000E3F22 /* ZMQURL.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,6 +184,11 @@
 		CDDD0B8818D77FE600979E1E /* tech-button-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tech-button-off.png"; sourceTree = "<group>"; };
 		CDDD0B8A18D77FE600979E1E /* tech-button-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tech-button-on.png"; sourceTree = "<group>"; };
 		CDDD0B8D18D77FE600979E1E /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		CDFF6C7518E1FCE0000E3F22 /* ServerCommunicatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerCommunicatorDelegate.h; sourceTree = "<group>"; };
+		CDFF6C7618E2005D000E3F22 /* ServerConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConnector.h; sourceTree = "<group>"; };
+		CDFF6C7718E2005D000E3F22 /* ServerConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConnector.m; sourceTree = "<group>"; };
+		CDFF6C7A18E200A0000E3F22 /* ZMQURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMQURL.h; sourceTree = "<group>"; };
+		CDFF6C7B18E200A0000E3F22 /* ZMQURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMQURL.m; sourceTree = "<group>"; };
 		D1EAEB90F3844352AD4A84D1 /* Pods-iOrwellTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOrwellTests.xcconfig"; path = "Pods/Pods-iOrwellTests.xcconfig"; sourceTree = "<group>"; };
 		E68E9561282D4B5587E7FD82 /* libPods-iOrwellTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOrwellTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -302,8 +309,13 @@
 				CD910AE718D77B0D00C61610 /* Media.mm */,
 				CD910AE818D77B0D00C61610 /* MessagesWrapper.h */,
 				CD910AE918D77B0D00C61610 /* MessagesWrapper.mm */,
+				CDFF6C7518E1FCE0000E3F22 /* ServerCommunicatorDelegate.h */,
 				CD910AEA18D77B0D00C61610 /* ServerCommunicator.h */,
 				CD910AEB18D77B0D00C61610 /* ServerCommunicator.mm */,
+				CDFF6C7618E2005D000E3F22 /* ServerConnector.h */,
+				CDFF6C7718E2005D000E3F22 /* ServerConnector.m */,
+				CDFF6C7A18E200A0000E3F22 /* ZMQURL.h */,
+				CDFF6C7B18E200A0000E3F22 /* ZMQURL.m */,
 			);
 			path = logic;
 			sourceTree = "<group>";
@@ -654,16 +666,18 @@
 			files = (
 				CD910B4318D77C2B00C61610 /* Callback.mm in Sources */,
 				CD333EB518DA21910075E51D /* CallbackInput.mm in Sources */,
+				CDFF6C7918E2007A000E3F22 /* ServerConnector.m in Sources */,
 				CD910B4418D77C2B00C61610 /* CallbackGameState.mm in Sources */,
 				CD4C363C18DA495C00FD1F3A /* ORBroadcastRetriever.m in Sources */,
+				CDFF6C7C18E200A0000E3F22 /* ZMQURL.m in Sources */,
 				CD910B4518D77C2B00C61610 /* CallbackGoodbye.mm in Sources */,
 				CD910B4618D77C2B00C61610 /* CallbackWelcome.mm in Sources */,
+				CDFF6C7418E1FB46000E3F22 /* ServerCommunicator.mm in Sources */,
 				CD910B4718D77C2B00C61610 /* AppDelegate.mm in Sources */,
 				CD910B4818D77C2B00C61610 /* Game.mm in Sources */,
 				CD910B4918D77C2B00C61610 /* main.mm in Sources */,
 				CD910B4B18D77C2B00C61610 /* Media.mm in Sources */,
 				CD910B4C18D77C2B00C61610 /* MessagesWrapper.mm in Sources */,
-				CD910B4D18D77C2B00C61610 /* ServerCommunicator.mm in Sources */,
 				CD910B4E18D77C2B00C61610 /* controller.pb.cc in Sources */,
 				CD910B5018D77C2B00C61610 /* robot.pb.cc in Sources */,
 				CD6625F718DE132300802AF0 /* ORCameraViewer.mm in Sources */,

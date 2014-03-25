@@ -34,6 +34,7 @@
 #import "CallbackGoodbye.h"
 #import "CallbackInput.h"
 #import "ORBroadcastRetriever.h"
+#import "ServerCommunicatorDelegate.h"
 
 @interface ServerCommunicator()
 
@@ -82,6 +83,7 @@
 
 @synthesize callbacks = _callbacks;
 @synthesize broadcastRetriever = _broadcastRetriever;
+@synthesize delegate = _delegate;
 
 + (id)initSingleton
 {
@@ -169,10 +171,13 @@
 
 - (BOOL)connect
 {
-	return [self initContext] and
-	       [self initSockets] and
-	       [self connectPusher] and
-	       [self connectSubscriber];
+	BOOL returnValue = [self initContext] and [self initSockets] and [self connectPusher] and [self connectSubscriber];
+	
+	if ([_delegate respondsToSelector:@selector(server:didConnectToServer:)]) {
+		[_delegate server:self didConnectToServer:returnValue];
+	}
+	
+	return returnValue;
 }
 
 - (void)runSubscriber
@@ -260,6 +265,9 @@
 		
 		response = YES;
 	}
+	
+	if ([_delegate respondsToSelector:@selector(server:didRetrieveServerFromBroadcast:withIP:)])
+		[_delegate server:self didRetrieveServerFromBroadcast:response withIP:_serverIp];
 
 	return response;
 }
