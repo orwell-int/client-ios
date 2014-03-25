@@ -30,6 +30,7 @@
 #import "ServerCommunicator.h"
 #import "ORBroadcastRetriever.h"
 #import "ORIPFour.h"
+#import "ServerCommunicatorDelegate.h"
 
 // Callbacks
 #import "CallbackResponder.h"
@@ -61,7 +62,7 @@
     [super tearDown];
 }
 
-- (void) testIpFour
+- (void)testIpFour
 {
 	ORIPFour *ipFour;
 	uint8_t array[4];
@@ -83,7 +84,7 @@
 	XCTAssert([[ipFour toString] isEqual:@"192.168.1.10"]);
 }
 
-- (void) testBroadcastRetriever
+- (void)testBroadcastRetriever
 {
 	ORBroadcastRetriever *retriever;
 	retriever = [ORBroadcastRetriever retrieverWithTimeout:2];
@@ -107,7 +108,7 @@
 
 }
 
-- (void) testServerCommunicator
+- (void)testServerCommunicator
 {
 	ServerCommunicator *communicator = [ServerCommunicator initSingleton];
 	
@@ -118,10 +119,29 @@
 	XCTAssert(![communicator retrieveServerFromBroadcast]);
 }
 
-- (void) testCallbackWelcome
+- (void)testServerCommunicatorProtocol
 {
-	id protocol_mocker = [OCMockObject mockForProtocol:@protocol(CallbackResponder)];
-	[[[protocol_mocker stub] andDo:^(NSInvocation *invocation) {
+	id protocolMocker = [OCMockObject mockForProtocol:@protocol(ServerCommunicatorDelegate)];
+	
+	// Mockers, this is what we expect
+	[[[protocolMocker stub] andDo:^(NSInvocation *invocation) {
+		XCTAssert(YES);
+	}] server:[OCMArg any] didConnectToServer:NO];
+	
+	// This will be a failure
+	[[[protocolMocker stub] andDo:^(NSInvocation *invocation){
+		XCTAssert(NO);
+	}] server:[OCMArg any] didConnectToServer:YES];
+	
+	ServerCommunicator *communicator = [ServerCommunicator initSingleton];
+	communicator.delegate = protocolMocker;
+	[communicator connect];
+}
+
+- (void)testCallbackWelcome
+{
+	id protocolMocker = [OCMockObject mockForProtocol:@protocol(CallbackResponder)];
+	[[[protocolMocker stub] andDo:^(NSInvocation *invocation) {
 		__unsafe_unretained NSDictionary *dictionary;
 		[invocation getArgument:&dictionary atIndex:2];
 		
@@ -133,7 +153,7 @@
 	}] messageReceived:[OCMArg any]];
 
 	CallbackWelcome *callback = [[CallbackWelcome alloc] init];
-	callback.delegate = protocol_mocker;
+	callback.delegate = protocolMocker;
 	
 	// Create a fake Welcome message
 	orwell::messages::Welcome welcome;
@@ -143,7 +163,7 @@
 	[callback processMessage:message];
 }
 
-- (void) testZMQURL
+- (void)testZMQURL
 {
 	// Basic one
 	ZMQURL *url = [[ZMQURL alloc] initWithString:@"tcp://192.168.1.10:8080"];
@@ -173,7 +193,7 @@
 	XCTAssert([[url toString] isEqual:@"tcp://192.168.1.10:8080"]);
 }
 
-- (void) testZMQURLWithORIPFour
+- (void)testZMQURLWithORIPFour
 {
 	ORIPFour *ipFour = [ORIPFour ipFourFromString:@"192.168.1.10"];
 	[ipFour makeBroadcastIP];
