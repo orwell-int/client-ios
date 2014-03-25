@@ -27,5 +27,86 @@
 #import "ZMQURL.h"
 
 @implementation ZMQURL
+@synthesize valid = _valid;
+
+- (id)init
+{
+	self = [super init];
+	_valid = NO;
+	return self;
+}
+
+- (id)initWithString:(NSString *)string
+{
+	// We can have different things in the string, actually
+	// first format:  'tcp://192.168.1.10:8080', contains everything
+	// second format: 'tcp://192.168.1.10', contains protocol but not port
+	// third format:  '192.168.1.10:8080', contains port but not protocol
+	
+	self = [self init];
+	_valid = NO;
+
+	NSScanner *scanner = [NSScanner scannerWithString:string];
+	if ([scanner scanString:@"tcp://" intoString:nil])
+		_protocol = ZMQTCP;
+	else if ([scanner scanString:@"udp://" intoString:nil])
+		_protocol = ZMQUDP;
+	else
+		_protocol = ZMQUNKNOWN;
+	
+	// Then we have to scan the IP address
+	int byte1, byte2, byte3, byte4, port;
+	if ([scanner scanInt:&byte1] && [scanner scanString:@"." intoString:nil] &&
+		[scanner scanInt:&byte2] && [scanner scanString:@"." intoString:nil] &&
+		[scanner scanInt:&byte3] && [scanner scanString:@"." intoString:nil] &&
+		[scanner scanInt:&byte4])
+		_ip = [NSString stringWithFormat:@"%d.%d.%d.%d", byte1, byte2, byte3, byte4];
+	
+	// Then scan the port
+	if ([scanner scanString:@":" intoString:nil] && [scanner scanInt:&port])
+		_port = [NSNumber numberWithInt:port];
+	
+	if (_protocol != ZMQUNKNOWN && _port != nil && _ip != nil) 
+		_valid = YES;
+	
+	return self;
+}
+
+- (id)initWithString:(NSString *)string andPort:(NSNumber *)port
+{
+	self = [self initWithString:string];
+	_port = port;
+	return self;
+}
+
+- (id)initWithString:(NSString *)string andPort:(NSNumber *)port andProtocol:(ZMQProtocol)protocol
+{
+	self = [self initWithString:string andPort:port];
+	_protocol = protocol;
+	return self;
+}
+
+- (id)initWithORIPFour:(ORIPFour *)ipFour
+{
+	self = [self init];
+	return self;
+}
+
+- (id)initWithORIPFour:(ORIPFour *)ipFour andPort:(NSNumber *)port
+{
+	self = [self init];
+	return self;
+}
+
+- (NSString *)toString
+{
+	return [NSString stringWithFormat:@"%@://%@:%@", _protocol == ZMQTCP? @"tcp" : @"udp", _ip, [_port stringValue]];
+}
+
+- (BOOL)isValid
+{
+	_valid = (_protocol != ZMQUNKNOWN && _port != nil && _ip != nil);
+	return _valid;
+}
 
 @end

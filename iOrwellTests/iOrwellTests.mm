@@ -40,6 +40,9 @@
 // Messages
 #import "server-game.pb.h"
 
+// Utilities
+#import "ZMQURL.h"
+
 @interface iOrwellTests : XCTestCase
 
 @end
@@ -138,6 +141,36 @@
 	welcome.set_team(orwell::messages::RED);
 	NSData *message = [NSData dataWithBytes:welcome.SerializeAsString().c_str()	length:welcome.SerializeAsString().size()];
 	[callback processMessage:message];
+}
+
+- (void) testZMQURL
+{
+	// Basic one
+	ZMQURL *url = [[ZMQURL alloc] initWithString:@"tcp://192.168.1.10:8080"];
+	XCTAssert([url isValid]);
+	XCTAssert(url.protocol == ZMQTCP);
+	XCTAssert([url.port isEqual:@(8080)]);
+	XCTAssert([url.ip isEqual:@"192.168.1.10"]);
+	XCTAssert([[url toString] isEqual:@"tcp://192.168.1.10:8080"]);
+	
+	// Uncomplete url
+	url = [[ZMQURL alloc] initWithString:@"tcp://192.168.1.10"];
+	XCTAssert(![url isValid]);
+	XCTAssert(url.port == nil);
+	XCTAssert([url.ip isEqual:@"192.168.1.10"]);
+	XCTAssert([[url toString] isEqual:@"tcp://192.168.1.10:(null)"]);
+	
+	// Building piece after piece
+	url = [[ZMQURL alloc] init];
+	url.protocol = ZMQTCP;
+	XCTAssert(!url.valid);
+	
+	url.ip = @"192.168.1.10";
+	XCTAssert(!url.valid);
+	
+	url.port = @(8080);
+	XCTAssert(url.valid);
+	XCTAssert([[url toString] isEqual:@"tcp://192.168.1.10:8080"]);
 }
 
 @end

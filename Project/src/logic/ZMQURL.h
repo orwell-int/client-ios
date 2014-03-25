@@ -26,6 +26,30 @@
 
 #import <Foundation/Foundation.h>
 
+@class ORIPFour;
+
+typedef enum {
+	ZMQTCP = 0,
+	ZMQUDP,
+	ZMQUNKNOWN
+} ZMQProtocol;
+
 @interface ZMQURL : NSObject
+
+@property (strong, nonatomic) NSString * ip;
+@property (nonatomic) ZMQProtocol protocol;
+@property (nonatomic, readonly, getter=isValid) BOOL valid;
+@property (strong, nonatomic) NSNumber * port;
+
+
+-(id)init;
+-(id)initWithString:(NSString *)string;
+-(id)initWithString:(NSString *)string andPort:(NSNumber *)port;
+-(id)initWithString:(NSString *)string andPort:(NSNumber *)port andProtocol:(ZMQProtocol)protocol;
+
+-(id)initWithORIPFour:(ORIPFour *)ipFour;
+-(id)initWithORIPFour:(ORIPFour *)ipFour andPort:(NSNumber *)port;
+
+-(NSString *)toString;
 
 @end
