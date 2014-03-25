@@ -25,6 +25,7 @@
  */
 
 #import "ZMQURL.h"
+#import "ORIPFour.h"
 
 @implementation ZMQURL
 @synthesize valid = _valid;
@@ -88,13 +89,19 @@
 
 - (id)initWithORIPFour:(ORIPFour *)ipFour
 {
-	self = [self init];
+	self = [self initWithString:[ipFour toString]];
 	return self;
 }
 
 - (id)initWithORIPFour:(ORIPFour *)ipFour andPort:(NSNumber *)port
 {
-	self = [self init];
+	self = [self initWithString:[ipFour toString] andPort:port];
+	return self;
+}
+
+- (id)initWithORIPFour:(ORIPFour *)ipFour andPort:(NSNumber *)port andProtocol:(ZMQProtocol)protocol
+{
+	self = [self initWithString:[ipFour toString] andPort:port andProtocol:protocol];
 	return self;
 }
 

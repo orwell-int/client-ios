@@ -173,4 +173,27 @@
 	XCTAssert([[url toString] isEqual:@"tcp://192.168.1.10:8080"]);
 }
 
+- (void) testZMQURLWithORIPFour
+{
+	ORIPFour *ipFour = [ORIPFour ipFourFromString:@"192.168.1.10"];
+	[ipFour makeBroadcastIP];
+	
+	ZMQURL *url = [[ZMQURL alloc] initWithORIPFour:ipFour];
+	XCTAssert(!url.valid);
+	
+	url.protocol = ZMQUDP;
+	url.port = @(8080);
+	XCTAssert(url.valid);
+	XCTAssert([[url toString] isEqual:@"udp://192.168.1.255:8080"]);
+	
+	uint8_t bytes[] = { 192, 168, 1, 10 };
+	ipFour = [ORIPFour ipFourFromBytes:bytes];
+	url = [[ZMQURL alloc] initWithORIPFour:ipFour];
+	XCTAssert(!url.valid);
+	
+	url.protocol = ZMQTCP;
+	url.port = @(8080);
+	XCTAssert([[url toString] isEqual:@"tcp://192.168.1.10:8080"]);
+}
+
 @end

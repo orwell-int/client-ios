@@ -49,6 +49,7 @@ typedef enum {
 
 -(id)initWithORIPFour:(ORIPFour *)ipFour;
 -(id)initWithORIPFour:(ORIPFour *)ipFour andPort:(NSNumber *)port;
+-(id)initWithORIPFour:(ORIPFour *)ipFour andPort:(NSNumber *)port andProtocol:(ZMQProtocol)protocol;
 
 -(NSString *)toString;
 
