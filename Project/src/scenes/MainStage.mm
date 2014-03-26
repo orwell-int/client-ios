@@ -95,7 +95,10 @@
 
 -(void)initWelcomeMessage
 {
-	_welcomeMessage = [SPTextField textFieldWithWidth:(Sparrow.stage.width - 30) height:80 text:@"iOrwellcome to you!"];
+	NSString *softwareVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+	_welcomeMessage = [SPTextField textFieldWithWidth:(Sparrow.stage.width - 30)
+											   height:80
+												 text:[NSString stringWithFormat:@"iOrwellcome to you! (%@)", softwareVersion]];
 	_welcomeMessage.fontName = [SPTextField registerBitmapFontFromFile:@"dodger_condensed_condensed_20.fnt"];
 	_welcomeMessage.fontSize = 12;
 	_welcomeMessage.color = 0xffffff;;
