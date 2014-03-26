@@ -32,6 +32,7 @@
 @optional
 -(void)server:(ServerCommunicator *)server didRetrieveServerFromBroadcast:(BOOL)retrieve withIP:(NSString *)serverIP;
 -(void)server:(ServerCommunicator *)server didConnectToServer:(BOOL)connect;
+-(void)serverDidDisconnectFromServer;
 -(void)server:(ServerCommunicator *)server didPushMessage:(ServerMessage *)message;
 
 // This is just an informative method, clients will need to use the callbacks

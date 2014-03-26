@@ -46,17 +46,17 @@
 
 
 // Initialization methods
-- (id) init;
+-(id)init;
 
 // Context initialization
-- (BOOL) initContext;
+-(BOOL)initContext;
 
 // Sockets initialization
-- (BOOL) initSockets;
+-(BOOL)initSockets;
 
 // Sockets connections
-- (BOOL) connectPusher;
-- (BOOL) connectSubscriber;
+-(BOOL)connectPusher;
+-(BOOL)connectSubscriber;
 
 @end
 
@@ -73,19 +73,7 @@
 	BOOL _broadcastRetrieved;
 }
 
-@synthesize zmq_context = _zmq_context;
-@synthesize zmq_socket_pusher = _zmq_socket_pusher;
-@synthesize zmq_socket_subscriber = _zmq_socket_subscriber;
-
-@synthesize serverIp = _serverIp;
-@synthesize pusherPort = _pusherPort;
-@synthesize subscriberPort = _subscriberPort;
-
-@synthesize callbacks = _callbacks;
-@synthesize broadcastRetriever = _broadcastRetriever;
-@synthesize delegate = _delegate;
-
-+ (id)initSingleton
++(id)initSingleton
 {
 	static dispatch_once_t pred;
 	static id shared = nil;
@@ -98,7 +86,7 @@
 	return shared;
 }
 
-- (id)init
+-(id)init
 {
 	self = [super init];
 	
@@ -114,14 +102,14 @@
 	return self;
 }
 
-- (BOOL)initContext
+-(BOOL)initContext
 {
 	_zmq_context = zmq_ctx_new();
 	
 	return (_zmq_context != (void*)0);
 }
 
-- (BOOL)initSockets
+-(BOOL)initSockets
 {
 	_zmq_socket_pusher = zmq_socket(_zmq_context, ZMQ_PUSH);
 	_zmq_socket_subscriber = zmq_socket(_zmq_context, ZMQ_SUB);
@@ -129,30 +117,30 @@
 	return (_zmq_socket_pusher != (void*)0 and _zmq_socket_subscriber != (void*) 0);
 }
 
-- (BOOL)connectPusher
+-(BOOL)connectPusher
 {
-	// _serverUrl should contain something like: "tcp://192.168.1.10", we just have to append the port
-	NSString *_fullUrl = [NSString stringWithFormat:@"%@:%@", _serverIp, _pusherPort];
+	if (_pusherIp != nil)
+		return (zmq_connect(_zmq_socket_pusher, [_pusherIp UTF8String]) == 0);
 	
-	return (zmq_connect(_zmq_socket_pusher, [_fullUrl UTF8String]) == 0);
+	return NO;
 }
 
-- (BOOL)connectSubscriber
+-(BOOL)connectSubscriber
 {
-	// _serverUrl should contain something like: "tcp://192.168.1.10", we just have to append the port
-	NSString *_fullUrl = [NSString stringWithFormat:@"%@:%@", _serverIp, _subscriberPort];
+	if (_pullerIp != nil) {
+		zmq_setsockopt(_zmq_socket_subscriber, ZMQ_SUBSCRIBE, "", 0);
+		return (zmq_connect(_zmq_socket_subscriber, [_pullerIp UTF8String]) == 0);
+	}
 	
-	zmq_setsockopt(_zmq_socket_subscriber, ZMQ_SUBSCRIBE, std::string().c_str(), std::string().length());
-	
-	return (zmq_connect(_zmq_socket_subscriber, [_fullUrl UTF8String]) == 0);
+	return NO;
 }
 
-- (BOOL)pushMessage:(ServerMessage *)message
+-(BOOL)pushMessage:(ServerMessage *)message
 {
 	return [self pushMessageWithPayload:message.payload tag:message.tag receiver:message.receiver];
 }
 
-- (BOOL)pushMessageWithPayload:(NSData *)payload tag:(NSString *)tag receiver:(NSString *)receiver
+-(BOOL)pushMessageWithPayload:(NSData *)payload tag:(NSString *)tag receiver:(NSString *)receiver
 {
 	NSMutableData *_load = [[NSMutableData alloc] init];
 		
@@ -169,7 +157,7 @@
 	return (zmq_msg_send(&zmq_message, _zmq_socket_pusher, 0) == [_load length]);
 }
 
-- (BOOL)connect
+-(BOOL)connect
 {
 	BOOL returnValue = [self initContext] and [self initSockets] and [self connectPusher] and [self connectSubscriber];
 	
@@ -180,14 +168,25 @@
 	return returnValue;
 }
 
-- (void)runSubscriber
+-(void)disconnect
+{
+	_subscriberRunning = NO;
+	zmq_disconnect(_zmq_socket_pusher, [_pusherIp UTF8String]);
+	zmq_disconnect(_zmq_socket_subscriber, [_pullerIp UTF8String]);
+	
+	if ([_delegate respondsToSelector:@selector(serverDidDisconnectFromServer)]) {
+		[_delegate serverDidDisconnectFromServer];
+	}
+}
+
+-(void)runSubscriber
 {
 	if (!_subscriberRunning)
 	{
 		_subscriberRunning = YES;
-		dispatch_queue_t q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+		dispatch_queue_t q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0ul);
 		dispatch_async(q, ^(){
-			while (true)
+			while (_subscriberRunning)
 			{
 				DDLogVerbose(@"Subscriber waiting for a message..");
 				using std::string;
@@ -220,11 +219,13 @@
 					}
 				}
 			}
+			
+			DDLogInfo(@"Subscriber stopped running");
 		});
 	}
 }
 
-- (BOOL)registerResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message
+-(BOOL)registerResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message
 {
 	if ([_callbacks objectForKey:message] != nil) {
 		((Callback *) [_callbacks objectForKey:message]).delegate = responder;
@@ -234,7 +235,7 @@
 	return NO;
 }
 
-- (BOOL)deleteResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message
+-(BOOL)deleteResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message
 {
 	DDLogInfo(@"Wanting to remove delegate %@ for message %@", [responder debugDescription], message);
 	Callback *callback = [_callbacks objectForKey:message];
@@ -248,7 +249,7 @@
 	return NO;
 }
 
-- (BOOL)retrieveServerFromBroadcast
+-(BOOL)retrieveServerFromBroadcast
 {
 	if (_broadcastRetrieved)
 		return YES;
@@ -256,38 +257,22 @@
 	BOOL response = NO;
 	_broadcastRetriever = [ORBroadcastRetriever retrieverWithTimeout:3];
 	
+	NSString *string;
+	
 	if ([_broadcastRetriever retrieveAddress]) {
-		_serverIp = [NSString stringWithFormat:@"tcp://%@", _broadcastRetriever.responderIp];
-		_pusherPort = [_broadcastRetriever.firstPort stringValue];
-		_subscriberPort = [_broadcastRetriever.secondPort stringValue];
-		
-		DDLogInfo(@"Retrieved: %@:%@ and %@:%@", _serverIp, _pusherPort, _serverIp, _subscriberPort);
+		string = [NSString stringWithFormat:@"tcp://%@:%@,%@",
+				  _broadcastRetriever.responderIp,
+				  _broadcastRetriever.firstPort,
+				  _broadcastRetriever.secondPort];
+		DDLogInfo(@"Retrieved: %@", string);
 		
 		response = YES;
 	}
 	
 	if ([_delegate respondsToSelector:@selector(server:didRetrieveServerFromBroadcast:withIP:)])
-		[_delegate server:self didRetrieveServerFromBroadcast:response withIP:_serverIp];
+		[_delegate server:self didRetrieveServerFromBroadcast:response withIP:string];
 
 	return response;
-}
-
-- (void)setServerIp:(NSString *)serverIp
-{
-	_serverIp = serverIp;
-	DDLogWarn(@"Using provided server IP (broadcast failed?) %@", _serverIp);
-}
-
-- (void)setPusherPort:(NSString *)pusherPort
-{
-	_pusherPort = pusherPort;
-	DDLogWarn(@"Using provided pusher port (broadcast failed?) %@", _pusherPort);
-}
-
-- (void)setSubscriberPort:(NSString *)subscriberPort
-{
-	_subscriberPort = subscriberPort;
-	DDLogWarn(@"Using provided subscriber port (broadcast failed?) %@", _subscriberPort);
 }
 
 @end

@@ -166,19 +166,20 @@
 - (void)testZMQURL
 {
 	// Basic one
-	ZMQURL *url = [[ZMQURL alloc] initWithString:@"tcp://192.168.1.10:8080"];
+	ZMQURL *url = [[ZMQURL alloc] initWithString:@"tcp://192.168.1.10:8080,8081"];
 	XCTAssert([url isValid]);
 	XCTAssert(url.protocol == ZMQTCP);
-	XCTAssert([url.port isEqual:@(8080)]);
+	XCTAssert([url.pusherPort isEqual:@(8080)]);
+	XCTAssert([url.pullerPort isEqual:@(8081)]);
 	XCTAssert([url.ip isEqual:@"192.168.1.10"]);
-	XCTAssert([[url toString] isEqual:@"tcp://192.168.1.10:8080"]);
+	XCTAssert([[url pusherToString] isEqual:@"tcp://192.168.1.10:8080"]);
 	
 	// Uncomplete url
 	url = [[ZMQURL alloc] initWithString:@"tcp://192.168.1.10"];
 	XCTAssert(![url isValid]);
-	XCTAssert(url.port == nil);
+	XCTAssert(url.pusherPort == nil);
 	XCTAssert([url.ip isEqual:@"192.168.1.10"]);
-	XCTAssert([[url toString] isEqual:@"tcp://192.168.1.10:(null)"]);
+	XCTAssert([[url pusherToString] isEqual:@"tcp://192.168.1.10:(null)"]);
 	
 	// Building piece after piece
 	url = [[ZMQURL alloc] init];
@@ -188,9 +189,13 @@
 	url.ip = @"192.168.1.10";
 	XCTAssert(!url.valid);
 	
-	url.port = @(8080);
+	url.pusherPort = @(8080);
+	XCTAssert(!url.valid);
+	
+	url.pullerPort = @(8081);
 	XCTAssert(url.valid);
-	XCTAssert([[url toString] isEqual:@"tcp://192.168.1.10:8080"]);
+	XCTAssert([[url pusherToString] isEqual:@"tcp://192.168.1.10:8080"]);
+	XCTAssert([[url pullerToString] isEqual:@"tcp://192.168.1.10:8081"]);
 }
 
 - (void)testZMQURLWithORIPFour
@@ -202,8 +207,12 @@
 	XCTAssert(!url.valid);
 	
 	url.protocol = ZMQUDP;
-	url.port = @(8080);
+	url.pusherPort = @(8080);
+	XCTAssert(!url.valid);
+	
+	url.pullerPort = @(8081);
 	XCTAssert(url.valid);
+	
 	XCTAssert([[url toString] isEqual:@"udp://192.168.1.255:8080"]);
 	
 	uint8_t bytes[] = { 192, 168, 1, 10 };
@@ -212,7 +221,7 @@
 	XCTAssert(!url.valid);
 	
 	url.protocol = ZMQTCP;
-	url.port = @(8080);
+	url.pusherPort = @(8080);
 	XCTAssert([[url toString] isEqual:@"tcp://192.168.1.10:8080"]);
 }
 

@@ -65,9 +65,11 @@
 	[DDTTYLogger sharedInstance].colorsEnabled = YES;
 	
 	DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
-	fileLogger.rollingFrequency = 60 * 15; // Change roll file every 15 minutes
-	fileLogger.logFileManager.maximumNumberOfLogFiles = 3; // Log 45 minutes maximum
+	fileLogger.rollingFrequency = 60 * 60; // Change roll file every 60 minutes
+	fileLogger.logFileManager.maximumNumberOfLogFiles = 3; // Log 3 hours maximum
 	[DDLog addLogger:fileLogger withLogLevel:LOG_LEVEL_VERBOSE];
+	
+	DDLogInfo(@"Log files are in: %@", [fileLogger.logFileManager logsDirectory]);
 	
 	_mainstage = [[MainStage sprite] initMainStage];
 	[self addChild:_mainstage];

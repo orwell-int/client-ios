@@ -51,7 +51,7 @@
 
 @implementation InputGameScene
 
-- (id)init
+-(id)init
 {
 	self = [super init];
 	[self addBackButton];
@@ -146,7 +146,7 @@
 	return self;
 }
 
-- (void)onBackButton:(SPEvent *)event
+-(void)onBackButton:(SPEvent *)event
 {
 	[self unregisterSelector:@selector(onBackButton:)];
 	[self dispatchEventWithType:EVENT_TYPE_INPUT_SCENE_CLOSING bubbles:YES];
@@ -154,7 +154,7 @@
 	[_serverCommunicator deleteResponder:self forMessage:@"Input"];
 }
 
-- (void)placeObjectInStage
+-(void)placeObjectInStage
 {
 	DDLogDebug(@"Inited with robot name: %@", self.robotName);
 	DDLogDebug(@"Inited with player name: %@", self.playerName);
@@ -200,7 +200,7 @@
 	[self addChild:_rightButton];
 }
 
-- (void)startObjects
+-(void)startObjects
 {
 	// This is active already
 	_serverCommunicator = [ServerCommunicator initSingleton];
@@ -210,7 +210,7 @@
 	[self registerSelector:@selector(onBackButton:)];
 }
 
-- (BOOL)messageReceived:(NSDictionary *)message
+-(BOOL)messageReceived:(NSDictionary *)message
 {
 	static int count = 0;
 	DDLogVerbose(@"Received message : %@", [message debugDescription]);

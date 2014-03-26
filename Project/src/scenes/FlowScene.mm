@@ -25,7 +25,6 @@
  */
 
 #import "FlowScene.h"
-#import "MessagesWrapper.h"
 #import "ServerCommunicator.h"
 #import "controller.pb.h"
 #import "CallbackResponder.h"
@@ -45,7 +44,6 @@
 
 @implementation FlowScene
 {
-	MessagesWrapper *_messageWrapper;
 	ServerCommunicator *_serverCommunicator;
 	SPImage *_marvin;
 	SPTween *_loadingAnimator;
@@ -61,7 +59,6 @@
 	[self addBackButton];
 	[self registerSelector:@selector(onBackButton:)];
 	
-	_messageWrapper = [[MessagesWrapper alloc] init];
 	_serverCommunicator = [ServerCommunicator initSingleton];
 	
 	_launchTestButton = [[ORButton alloc] initWithText:@"Launch Test"];
@@ -126,7 +123,7 @@
 	[_serverCommunicator registerResponder:self forMessage:@"GameState"];
 	[_serverCommunicator registerResponder:self forMessage:@"Goodbye"];
 	
-	_response.text = [NSString stringWithFormat:@"IP %@", _serverCommunicator.serverIp];
+//	_response.text = [NSString stringWithFormat:@"IP %@", _serverCommunicator.serverIp];
 	_launchTestButton.touchable = YES;
 
 	[Sparrow.juggler removeObject:_loadingAnimator];
@@ -143,25 +140,23 @@
 
 - (void)launchTest
 {
-	using namespace orwell::messages;
-	[_serverCommunicator runSubscriber];
-	
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-	orwell::messages::Hello *helloMsg = (orwell::messages::Hello *) [MessagesWrapper buildMessage:@"HELLO"
-																				   withDictionary:dict];
-	
-	ServerMessage *msg = [[ServerMessage alloc] init];
-	msg.tag = @"Hello ";
-	msg.receiver = @"randomid ";
-	
-	NSData *data = [NSData dataWithBytes:(const void *) helloMsg->SerializeAsString().c_str()
-								  length:helloMsg->SerializeAsString().size()];
-
-	msg.payload = data;
-	
-	DDLogDebug(@"About to send message: %@,%@,%s", msg.receiver, msg.tag, (const char *) [msg.payload bytes]);
-	
-	[_serverCommunicator pushMessage:msg];
+//	using namespace orwell::messages;
+//	[_serverCommunicator runSubscriber];
+//	
+//	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+//	
+//	ServerMessage *msg = [[ServerMessage alloc] init];
+//	msg.tag = @"Hello ";
+//	msg.receiver = @"randomid ";
+//	
+//	NSData *data = [NSData dataWithBytes:(const void *) helloMsg->SerializeAsString().c_str()
+//								  length:helloMsg->SerializeAsString().size()];
+//
+//	msg.payload = data;
+//	
+//	DDLogDebug(@"About to send message: %@,%@,%s", msg.receiver, msg.tag, (const char *) [msg.payload bytes]);
+//	
+//	[_serverCommunicator pushMessage:msg];
 }
 
 -(void)onBackButton:(SPEvent *)event

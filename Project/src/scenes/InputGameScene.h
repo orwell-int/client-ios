@@ -31,7 +31,7 @@
 @property (strong, nonatomic) NSString *robotName;
 @property (strong, nonatomic) NSString *playerName;
 
-- (id)init;
-- (void)onBackButton:(SPEvent *)event;
+-(id)init;
+-(void)onBackButton:(SPEvent *)event;
 
 @end

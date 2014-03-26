@@ -33,8 +33,8 @@
 
 @interface MainStage : BackgroundScene
 
-- (id) initMainStage;
-- (void) onSceneClosing:(SPEvent *)event;
+-(id)initMainStage;
+-(void)onSceneClosing:(SPEvent *)event;
 
 
 @end

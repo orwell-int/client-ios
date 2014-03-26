@@ -38,9 +38,8 @@
 
 @interface ServerCommunicator : NSObject
 
-@property (strong, nonatomic) NSString* serverIp;
-@property (strong, nonatomic) NSString* pusherPort;
-@property (strong, nonatomic) NSString* subscriberPort;
+@property (strong, nonatomic) NSString *pusherIp;
+@property (strong, nonatomic) NSString *pullerIp;
 @property (weak, nonatomic) id<ServerCommunicatorDelegate> delegate;
 
 + (id) initSingleton;
@@ -48,6 +47,7 @@
 - (BOOL) retrieveServerFromBroadcast;
 
 - (BOOL) connect;
+-(void)disconnect;
 - (void) runSubscriber;
 
 // Push messages

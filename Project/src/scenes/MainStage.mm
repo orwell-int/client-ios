@@ -38,12 +38,12 @@
 @interface MainStage()
 
 // Init functions
--(void) initWelcomeMessage;
--(void) initBackground;
--(void) initButtons;
+-(void)initWelcomeMessage;
+-(void)initBackground;
+-(void)initButtons;
 
 // Events
--(void) onButtonTriggered:(SPEvent *)event;
+-(void)onButtonTriggered:(SPEvent *)event;
 @end
 
 #pragma mark Implementation
@@ -62,7 +62,7 @@
 }
 
 #pragma mark Functions
-- (id)initMainStage
+-(id)initMainStage
 {
 	self = [super init];
 	
@@ -88,12 +88,12 @@
 	return self;
 }
 
-- (void)initBackground
+-(void)initBackground
 {
 	_background = [[SPImage alloc] initWithContentsOfFile:@"background.jpg"];
 }
 
-- (void)initWelcomeMessage
+-(void)initWelcomeMessage
 {
 	_welcomeMessage = [SPTextField textFieldWithWidth:(Sparrow.stage.width - 30) height:80 text:@"iOrwellcome to you!"];
 	_welcomeMessage.fontName = [SPTextField registerBitmapFontFromFile:@"dodger_condensed_condensed_20.fnt"];
@@ -104,7 +104,7 @@
 	_welcomeMessage.y = 5;
 }
 
-- (void)initButtons
+-(void)initButtons
 {	
 	// Test Broadcast Button
 	_testBroadcastButton = [[ORButton alloc] initWithText:@"Test Broadcast"];
@@ -139,7 +139,7 @@
 	
 }
 
-- (void)onButtonTriggered:(SPEvent *)event
+-(void)onButtonTriggered:(SPEvent *)event
 {
 	SPButton *button = (SPButton *)event.target;
 	DDLogDebug(@"Clicked button: %@", button.name);
@@ -168,7 +168,7 @@
 	[_activeScene startObjects];
 }
 
-- (void)onSceneClosing:(SPEvent *)event
+-(void)onSceneClosing:(SPEvent *)event
 {
 	if (_activeScene)
 	{

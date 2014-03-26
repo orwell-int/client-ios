@@ -43,6 +43,7 @@
 	// first format:  'tcp://192.168.1.10:8080', contains everything
 	// second format: 'tcp://192.168.1.10', contains protocol but not port
 	// third format:  '192.168.1.10:8080', contains port but not protocol
+	// fourth format: 'tcp://192.168.1.10:8080,8081, contains pusher and puller port
 	
 	self = [self init];
 	_valid = NO;
@@ -65,24 +66,36 @@
 	
 	// Then scan the port
 	if ([scanner scanString:@":" intoString:nil] && [scanner scanInt:&port])
-		_port = [NSNumber numberWithInt:port];
+		_pusherPort = [NSNumber numberWithInt:port];
 	
-	if (_protocol != ZMQUNKNOWN && _port != nil && _ip != nil) 
+	// Scan for a comma and then the other port
+	if ([scanner scanString:@"," intoString:nil] && [scanner scanInt:&port])
+		_pullerPort = [NSNumber numberWithInt:port];
+	
+	if (_protocol != ZMQUNKNOWN && _pusherPort != nil && _pullerPort != nil && _ip != nil)
 		_valid = YES;
 	
 	return self;
 }
 
-- (id)initWithString:(NSString *)string andPort:(NSNumber *)port
+- (id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port
 {
 	self = [self initWithString:string];
-	_port = port;
+	_pusherPort = port;
 	return self;
 }
 
-- (id)initWithString:(NSString *)string andPort:(NSNumber *)port andProtocol:(ZMQProtocol)protocol
+- (id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort
 {
-	self = [self initWithString:string andPort:port];
+	self = [self initWithString:string];
+	_pusherPort = pusherPort;
+	_pullerPort = port;
+	return self;
+}
+
+- (id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort andProtocol:(ZMQProtocol)protocol
+{
+	self = [self initWithString:string andPullerPort:port andPusherPort:pusherPort];
 	_protocol = protocol;
 	return self;
 }
@@ -93,26 +106,36 @@
 	return self;
 }
 
-- (id)initWithORIPFour:(ORIPFour *)ipFour andPort:(NSNumber *)port
+- (id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port
 {
-	self = [self initWithString:[ipFour toString] andPort:port];
+	self = [self initWithString:[ipFour toString] andPullerPort:port];
 	return self;
 }
 
-- (id)initWithORIPFour:(ORIPFour *)ipFour andPort:(NSNumber *)port andProtocol:(ZMQProtocol)protocol
+- (id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort andProtocol:(ZMQProtocol)protocol
 {
-	self = [self initWithString:[ipFour toString] andPort:port andProtocol:protocol];
+	self = [self initWithString:[ipFour toString] andPullerPort:port andPusherPort:pusherPort andProtocol:protocol];
 	return self;
 }
 
 - (NSString *)toString
 {
-	return [NSString stringWithFormat:@"%@://%@:%@", _protocol == ZMQTCP? @"tcp" : @"udp", _ip, [_port stringValue]];
+	return [NSString stringWithFormat:@"%@://%@:%@", _protocol == ZMQTCP? @"tcp" : @"udp", _ip, [_pusherPort stringValue]];
+}
+
+- (NSString *)pusherToString
+{
+	return [self toString];
+}
+
+- (NSString *)pullerToString
+{
+	return [NSString stringWithFormat:@"%@://%@:%@", _protocol == ZMQTCP? @"tcp" : @"udp", _ip, [_pullerPort stringValue]];
 }
 
 - (BOOL)isValid
 {
-	_valid = (_protocol != ZMQUNKNOWN && _port != nil && _ip != nil);
+	_valid = (_protocol != ZMQUNKNOWN && _pusherPort != nil && _pullerPort != nil && _ip != nil);
 	return _valid;
 }
 

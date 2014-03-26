@@ -39,18 +39,23 @@ typedef enum {
 @property (strong, nonatomic) NSString * ip;
 @property (nonatomic) ZMQProtocol protocol;
 @property (nonatomic, readonly, getter=isValid) BOOL valid;
-@property (strong, nonatomic) NSNumber * port;
+@property (strong, nonatomic) NSNumber * pusherPort;
+@property (strong, nonatomic) NSNumber * pullerPort;
 
 
 -(id)init;
 -(id)initWithString:(NSString *)string;
--(id)initWithString:(NSString *)string andPort:(NSNumber *)port;
--(id)initWithString:(NSString *)string andPort:(NSNumber *)port andProtocol:(ZMQProtocol)protocol;
+-(id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port;
+-(id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort;
+-(id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort andProtocol:(ZMQProtocol)protocol;
 
 -(id)initWithORIPFour:(ORIPFour *)ipFour;
--(id)initWithORIPFour:(ORIPFour *)ipFour andPort:(NSNumber *)port;
--(id)initWithORIPFour:(ORIPFour *)ipFour andPort:(NSNumber *)port andProtocol:(ZMQProtocol)protocol;
+-(id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port;
+-(id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort;
+-(id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort andProtocol:(ZMQProtocol)protocol;
 
 -(NSString *)toString;
+-(NSString *)pusherToString;
+-(NSString *)pullerToString;
 
 @end
