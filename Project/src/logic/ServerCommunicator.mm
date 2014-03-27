@@ -187,9 +187,8 @@
 	if (!_subscriberRunning)
 	{
 		_subscriberRunning = YES;
-		__weak ServerCommunicator *wself = self;
 		dispatch_queue_t q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0ul);
-		dispatch_async(q, ^(){
+		dispatch_async(q, ^{
 			while (_subscriberRunning)
 			{
 				DDLogVerbose(@"Subscriber waiting for a message..");

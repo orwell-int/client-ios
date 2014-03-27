@@ -33,9 +33,9 @@
 
 - (BOOL)processMessage:(NSData *)message
 {
-	__weak NSMutableDictionary *mutableDic = [NSMutableDictionary dictionary];
+	NSMutableDictionary *mutableDic = [NSMutableDictionary dictionary];
 	orwell::messages::Input input;
-	input.ParseFromArray([message bytes], [message length]);
+	input.ParseFromArray([message bytes], (uint32_t) [message length]);
 	DDLogVerbose(@"CallbackInput in");
 
 	if (input.has_move()) {
@@ -52,6 +52,7 @@
 		[_delegate messageReceived:mutableDic];
 	}
 	
+	[mutableDic removeAllObjects];
 	return YES;
 }
 
