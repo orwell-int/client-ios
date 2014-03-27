@@ -139,7 +139,7 @@
 		CD910AFA18D77B0D00C61610 /* FlowScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlowScene.h; sourceTree = "<group>"; };
 		CD910AFB18D77B0D00C61610 /* FlowScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FlowScene.mm; sourceTree = "<group>"; };
 		CD910AFC18D77B0D00C61610 /* InputGameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputGameScene.h; sourceTree = "<group>"; };
-		CD910AFD18D77B0D00C61610 /* InputGameScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = InputGameScene.mm; sourceTree = "<group>"; };
+		CD910AFD18D77B0D00C61610 /* InputGameScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = InputGameScene.mm; sourceTree = "<group>"; usesTabs = 0; };
 		CD910AFE18D77B0D00C61610 /* MainStage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainStage.h; sourceTree = "<group>"; };
 		CD910AFF18D77B0D00C61610 /* MainStage.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MainStage.mm; sourceTree = "<group>"; };
 		CD910B0018D77B0D00C61610 /* PlayGameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayGameScene.h; sourceTree = "<group>"; };

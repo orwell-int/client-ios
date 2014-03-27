@@ -39,6 +39,7 @@
 	self = [super init];
 	
 	_background = [SPImage imageWithContentsOfFile:@"game-bg.png"];
+	_background.touchable = NO;
 	[self addChild:_background];
 	
 	return self;

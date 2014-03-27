@@ -35,8 +35,8 @@
 {
 	NSMutableDictionary *mutableDic = [NSMutableDictionary dictionary];
 	orwell::messages::Input input;
-	input.ParseFromArray([message bytes], [message length]);
-	DDLogDebug(@"CallbackInput in");
+	input.ParseFromArray([message bytes], (uint32_t) [message length]);
+	DDLogVerbose(@"CallbackInput in");
 
 	if (input.has_move()) {
 		[mutableDic setObject:[NSNumber numberWithDouble:input.move().left()] forKey:CB_INPUT_MOVE_LEFT];
@@ -52,6 +52,7 @@
 		[_delegate messageReceived:mutableDic];
 	}
 	
+	[mutableDic removeAllObjects];
 	return YES;
 }
 
