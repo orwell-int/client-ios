@@ -40,5 +40,6 @@ enum Rotation {
 
 -(id)init;
 -(id)initWithRotation:(Rotation)rotation;
+- (NSString *)debugDescription;
 
 @end

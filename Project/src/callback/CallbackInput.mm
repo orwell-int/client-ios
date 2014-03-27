@@ -33,10 +33,10 @@
 
 - (BOOL)processMessage:(NSData *)message
 {
-	NSMutableDictionary *mutableDic = [NSMutableDictionary dictionary];
+	__weak NSMutableDictionary *mutableDic = [NSMutableDictionary dictionary];
 	orwell::messages::Input input;
 	input.ParseFromArray([message bytes], [message length]);
-	DDLogDebug(@"CallbackInput in");
+	DDLogVerbose(@"CallbackInput in");
 
 	if (input.has_move()) {
 		[mutableDic setObject:[NSNumber numberWithDouble:input.move().left()] forKey:CB_INPUT_MOVE_LEFT];

@@ -128,7 +128,7 @@
 -(BOOL)connectSubscriber
 {
 	if (_pullerIp != nil) {
-		zmq_setsockopt(_zmq_socket_subscriber, ZMQ_SUBSCRIBE, "", 0);
+		zmq_setsockopt(_zmq_socket_subscriber, ZMQ_SUBSCRIBE, "", strlen(""));
 		return (zmq_connect(_zmq_socket_subscriber, [_pullerIp UTF8String]) == 0);
 	}
 	
@@ -148,13 +148,16 @@
 	[_load appendData:[tag dataUsingEncoding:NSASCIIStringEncoding]];
 	[_load appendData:payload];
 	
-	DDLogDebug(@"ServerCommunicator: pushing %s \n", (const char *) [_load bytes]);
+	DDLogVerbose(@"ServerCommunicator: pushing %s \n", (const char *) [_load bytes]);
 	
 	zmq_msg_t zmq_message;
 	zmq_msg_init_size(&zmq_message, [_load length]);
 	memcpy(zmq_msg_data(&zmq_message), [_load bytes], [_load length]);
 	
-	return (zmq_msg_send(&zmq_message, _zmq_socket_pusher, 0) == [_load length]);
+	BOOL returnValue = (zmq_msg_send(&zmq_message, _zmq_socket_pusher, 0) == [_load length]);
+	
+	zmq_msg_close(&zmq_message);
+	return returnValue;
 }
 
 -(BOOL)connect
@@ -184,6 +187,7 @@
 	if (!_subscriberRunning)
 	{
 		_subscriberRunning = YES;
+		__weak ServerCommunicator *wself = self;
 		dispatch_queue_t q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0ul);
 		dispatch_async(q, ^(){
 			while (_subscriberRunning)
@@ -210,14 +214,25 @@
 					else
 						payload = [NSString stringWithFormat:@"NO PAYLOAD"];
 
-					Callback *cb = [_callbacks objectForKey:tag];
+					__block NSString *blockClient, *blockTag, *blockPayload;
+					blockClient = [NSString stringWithString:clients];
+					blockTag = [NSString stringWithString:tag];
+					blockPayload = [NSString stringWithString:payload];
 					
-					if (cb != nil)
-					{
-						DDLogVerbose(@"Launching cb %@ (message is for: %@, tag: %@)", [cb description], clients, tag);
-						[cb processMessage:[payload dataUsingEncoding:NSASCIIStringEncoding]];
-					}
+					// Let's to this in the main thread
+					dispatch_async(dispatch_get_main_queue(), ^{
+						Callback *cb = [_callbacks objectForKey:blockTag];
+						
+						if (cb != nil)
+						{
+							DDLogVerbose(@"Launching cb %@ (message is for: %@, tag: %@)", [cb description], blockClient, blockTag);
+							[cb processMessage:[blockPayload dataUsingEncoding:NSASCIIStringEncoding]];
+						}
+					});
+
 				}
+				
+				zmq_msg_close(&zmq_message);
 			}
 			
 			DDLogInfo(@"Subscriber stopped running");
