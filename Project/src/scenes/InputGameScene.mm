@@ -27,7 +27,7 @@
 #import "InputGameScene.h"
 #import "ORButton.h"
 #import "ORTextField.h"
-#import "ServerCommunicator.h"
+#import "ORServerCommunicator.h"
 #import "CallbackResponder.h"
 #import "ORArrowButton.h"
 #import "ORCameraViewer.h"
@@ -35,10 +35,12 @@
 #import "robot.pb.h"
 #import "controller.pb.h"
 
+
+#pragma mark Interface begin
 @interface InputGameScene() <CallbackResponder>
 @property (strong, nonatomic) ORTextField *playerTextField;
 @property (strong, nonatomic) ORTextField *feedbackTextField;
-@property (weak, nonatomic) ServerCommunicator *serverCommunicator;
+@property (weak, nonatomic) ORServerCommunicator *serverCommunicator;
 
 @property (strong, nonatomic) ORArrowButton *leftButton;
 @property (strong, nonatomic) ORArrowButton *downButton;
@@ -54,6 +56,7 @@
 
 @end
 
+#pragma mark Implementation begin
 @implementation InputGameScene
 {
 	BOOL _running;
@@ -61,7 +64,8 @@
 	float _right;
 }
 
--(id)init
+#pragma mark Init methods
+- (id)init
 {
 	self = [super init];
 	[self addBackButton];
@@ -99,15 +103,7 @@
 	return self;
 }
 
--(void)onBackButton:(SPEvent *)event
-{
-	[self unregisterSelector:@selector(onBackButton:)];
-	[self dispatchEventWithType:EVENT_TYPE_INPUT_SCENE_CLOSING bubbles:YES];
-	[_serverCommunicator deleteResponder:self forMessage:@"GameState"];
-	_running = NO;
-}
-
--(void)placeObjectInStage
+- (void)placeObjectInStage
 {
 	DDLogDebug(@"Inited with robot name: %@", self.robotName);
 	DDLogDebug(@"Inited with player name: %@", self.playerName);
@@ -157,14 +153,16 @@
 	[self addChild:_rightButton];
 }
 
--(void)startObjects
+- (void)startObjects
 {
 	// This is active already
-	_serverCommunicator = [ServerCommunicator initSingleton];
+	_serverCommunicator = [ORServerCommunicator singleton];
 	[_serverCommunicator registerResponder:self forMessage:@"GameState"];
+    [_mjpegViewer play];
 	
 	[self registerSelector:@selector(onBackButton:)];
 	
+#pragma mark Background thread for Input messages
 	// Background thread handling the logic of constantly sending a message
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
 		while (_running) {
@@ -173,7 +171,7 @@
             input.mutable_move()->set_left(_left);
             input.mutable_move()->set_right(_right);
 
-            ServerMessage *message = [[ServerMessage alloc] init];
+            ORServerMessage *message = [[ORServerMessage alloc] init];
             message.tag = @"Input ";
             message.receiver = @"targetrobot ";
             message.payload = [NSData dataWithBytes:input.SerializeAsString().c_str()
@@ -185,7 +183,9 @@
 	});
 }
 
--(BOOL)messageReceived:(NSDictionary *)message
+
+#pragma mark Callback responder
+- (BOOL)messageReceived:(NSDictionary *)message
 {
 	static int count = 0;
 	NSNumber *playing = [message objectForKey:CB_GAMESTATE_KEY_PLAYING];
@@ -197,6 +197,7 @@
 	return YES;
 }
 
+#pragma mark Events methods
 - (void)onDownButtonClicked:(SPTouchEvent *)event
 {
     SPTween *alphaAnimator = [SPTween tweenWithTarget:_downButton time:0.5f];
@@ -275,6 +276,14 @@
     }
     
     [Sparrow.juggler addObject:alphaAnimator];
+}
+
+- (void)onBackButton:(SPEvent *)event
+{
+	[self unregisterSelector:@selector(onBackButton:)];
+	[self dispatchEventWithType:EVENT_TYPE_INPUT_SCENE_CLOSING bubbles:YES];
+	[_serverCommunicator deleteResponder:self forMessage:@"GameState"];
+	_running = NO;
 }
 
 @end

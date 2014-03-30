@@ -27,9 +27,6 @@
 #import "MainStage.h"
 #import "SPImage.h"
 #import "Sparrow.h"
-
-#import "BroadcastScene.h"
-#import "FlowScene.h"
 #import "PlayGameScene.h"
 
 #import "ORButton.h"
@@ -37,32 +34,27 @@
 #pragma mark Private Interface
 @interface MainStage()
 
+@property (strong, nonatomic) SPImage *background;
+@property (strong, nonatomic) SPImage *marvin;
+@property (strong, nonatomic) SPTextField *welcomeMessage;
+@property (strong, nonatomic) ORButton *playGameButton;
+@property (strong, nonatomic) BackgroundScene *activeScene;
+
 // Init functions
--(void)initWelcomeMessage;
--(void)initBackground;
--(void)initButtons;
+- (void)initWelcomeMessage;
+- (void)initBackground;
+- (void)initButtons;
 
 // Events
--(void)onButtonTriggered:(SPEvent *)event;
+- (void)onButtonTriggered:(SPEvent *)event;
 @end
 
 #pragma mark Implementation
 @implementation MainStage
-{
-	SPImage *_background;
-	SPImage *_marvin;
-	
-	SPTextField *_welcomeMessage;
 
-	ORButton *_testBroadcastButton;
-	ORButton *_testHelloMessageButton;
-	ORButton *_playGameButton;
-	
-	BackgroundScene *_activeScene;
-}
 
 #pragma mark Functions
--(id)initMainStage
+- (id)initMainStage
 {
 	self = [super init];
 	
@@ -72,8 +64,6 @@
 	
 	// Init buttons
 	[self initButtons];
-	[self addChild:_testBroadcastButton];
-	[self addChild:_testHelloMessageButton];
 	[self addChild:_playGameButton];
 	
 	_marvin = [SPImage imageWithContentsOfFile:@"marvin.png"];
@@ -88,12 +78,12 @@
 	return self;
 }
 
--(void)initBackground
+- (void)initBackground
 {
 	_background = [[SPImage alloc] initWithContentsOfFile:@"background.jpg"];
 }
 
--(void)initWelcomeMessage
+- (void)initWelcomeMessage
 {
 	NSString *softwareVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 	_welcomeMessage = [SPTextField textFieldWithWidth:(Sparrow.stage.width - 30)
@@ -107,34 +97,15 @@
 	_welcomeMessage.y = 5;
 }
 
--(void)initButtons
+- (void)initButtons
 {	
-	// Test Broadcast Button
-	_testBroadcastButton = [[ORButton alloc] initWithText:@"Test Broadcast"];
-	_testBroadcastButton.name = @"BroadcastButton";
-	
-	_testBroadcastButton.x = (Sparrow.stage.width / 2) - (_testBroadcastButton.width / 2);
-	_testBroadcastButton.y = _welcomeMessage.y + _welcomeMessage.height + 5;
-	
-	[_testBroadcastButton addEventListener:@selector(onButtonTriggered:)
-								  atObject:self
-								   forType:SP_EVENT_TYPE_TRIGGERED];
-	
-	_testHelloMessageButton = [[ORButton alloc] initWithText:@"Test Flow"];
-	_testHelloMessageButton.name = @"HelloButton";
-	
-	_testHelloMessageButton.x = (Sparrow.stage.width / 2) - (_testHelloMessageButton.width / 2);
-	_testHelloMessageButton.y = _testBroadcastButton.y + _testBroadcastButton.height + 5;
-	
-	[_testHelloMessageButton addEventListener:@selector(onButtonTriggered:)
-									 atObject:self
-									  forType:SP_EVENT_TYPE_TRIGGERED];
-	
 	_playGameButton = [[ORButton alloc] initWithText:@"Play"];
 	_playGameButton.name = @"PlayButton";
 	
+	// @TODO: redesign interface.
+	// Place it in the middle
 	_playGameButton.x = (Sparrow.stage.width / 2) - (_playGameButton.width / 2);
-	_playGameButton.y = _testHelloMessageButton.y + _testHelloMessageButton.height + 5;
+	_playGameButton.y = (Sparrow.stage.height / 2) - (_playGameButton.height / 2);
 	
 	[_playGameButton addEventListener:@selector(onButtonTriggered:)
 							 atObject:self
@@ -142,28 +113,15 @@
 	
 }
 
--(void)onButtonTriggered:(SPEvent *)event
+- (void)onButtonTriggered:(SPEvent *)event
 {
 	SPButton *button = (SPButton *)event.target;
 	DDLogDebug(@"Clicked button: %@", button.name);
 
 	if (_activeScene) return;
 
-	else if ([button.name isEqualToString:@"BroadcastButton"])
-	{
-		_activeScene = [[BroadcastScene alloc] init];
-	}
-	
-	else if ([button.name isEqualToString:@"HelloButton"])
-	{
-		_activeScene = [[FlowScene alloc] init];
-	}
-	
-	else
-	{
-		DDLogWarn(@"Defaulting to PlayGameScene");
-		_activeScene = [[PlayGameScene alloc] init];
-	}
+	DDLogWarn(@"Defaulting to PlayGameScene (as it is the only one available)");
+	_activeScene = [[PlayGameScene alloc] init];
 	
 	[_activeScene placeObjectInStage];
 
@@ -171,7 +129,7 @@
 	[_activeScene startObjects];
 }
 
--(void)onSceneClosing:(SPEvent *)event
+- (void)onSceneClosing:(SPEvent *)event
 {
 	if (_activeScene)
 	{

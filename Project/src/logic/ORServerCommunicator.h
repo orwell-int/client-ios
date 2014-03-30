@@ -25,16 +25,43 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIDevice.h>
-#import <UIKit/UIKit.h>
-#import "SPSprite.h"
-#import "BackgroundScene.h"
+#import "Callback.h"
+#import "CallbackResponder.h"
 
-#import <string>
+@protocol ORServerCommunicatorDelegate;
 
-@interface BroadcastScene : BackgroundScene <UITextFieldDelegate>
+@interface ORServerMessage : NSObject
+@property (strong, nonatomic) NSString *tag;
+@property (strong, nonatomic) NSString *receiver;
+@property (strong, nonatomic) NSData *payload;
+@end
 
--(id) init;
--(void) onBackButton:(SPEvent*)event;
+@interface ORServerCommunicator : NSObject
+
+@property (strong, nonatomic) NSString *pusherIp;
+@property (strong, nonatomic) NSString *pullerIp;
+@property (weak, nonatomic) id<ORServerCommunicatorDelegate> delegate;
+
++ (id)singleton;
+
+- (BOOL)retrieveServerFromBroadcast;
+
+- (BOOL)connect;
+- (void)disconnect;
+- (void)runSubscriber;
+- (void)stopSubscriber;
+
+// Push messages
+- (BOOL)pushMessageWithPayload:(NSData *)payload
+							tag:(NSString *)tag
+					   receiver:(NSString *)receiver;
+
+- (BOOL)pushMessage:(ORServerMessage *)message;
+
+// Register callbacks responders
+- (BOOL)registerResponder:(id<CallbackResponder>)responder
+				forMessage:(NSString *)message;
+
+- (BOOL)deleteResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message;
 
 @end

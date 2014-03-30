@@ -27,10 +27,10 @@
 #import <XCTest/XCTest.h>
 #import <OCMock.h>
 
-#import "ServerCommunicator.h"
+#import "ORServerCommunicator.h"
 #import "ORBroadcastRetriever.h"
 #import "ORIPFour.h"
-#import "ServerCommunicatorDelegate.h"
+#import "ORServerCommunicatorDelegate.h"
 
 // Callbacks
 #import "CallbackResponder.h"
@@ -42,7 +42,7 @@
 #import "server-game.pb.h"
 
 // Utilities
-#import "ZMQURL.h"
+#import "ORZMQURL.h"
 
 @interface iOrwellTests : XCTestCase
 
@@ -110,7 +110,7 @@
 
 - (void)testServerCommunicator
 {
-	ServerCommunicator *communicator = [ServerCommunicator initSingleton];
+	ORServerCommunicator *communicator = [ORServerCommunicator singleton];
 	
 	// Communicator is not properly set, so it shouldn't work
 	XCTAssert(![communicator connect]);
@@ -121,19 +121,19 @@
 
 - (void)testServerCommunicatorProtocol
 {
-	id protocolMocker = [OCMockObject mockForProtocol:@protocol(ServerCommunicatorDelegate)];
+	id protocolMocker = [OCMockObject mockForProtocol:@protocol(ORServerCommunicatorDelegate)];
 	
 	// Mockers, this is what we expect
 	[[[protocolMocker stub] andDo:^(NSInvocation *invocation) {
 		XCTAssert(YES);
-	}] server:[OCMArg any] didConnectToServer:NO];
+	}] communicator:[OCMArg any] didConnectToServer:NO];
 	
 	// This will be a failure
 	[[[protocolMocker stub] andDo:^(NSInvocation *invocation){
 		XCTAssert(NO);
-	}] server:[OCMArg any] didConnectToServer:YES];
+	}] communicator:[OCMArg any] didConnectToServer:YES];
 	
-	ServerCommunicator *communicator = [ServerCommunicator initSingleton];
+	ORServerCommunicator *communicator = [ORServerCommunicator singleton];
 	communicator.delegate = protocolMocker;
 	[communicator connect];
 }
@@ -166,7 +166,7 @@
 - (void)testZMQURL
 {
 	// Basic one
-	ZMQURL *url = [[ZMQURL alloc] initWithString:@"tcp://192.168.1.10:8080,8081"];
+	ORZMQURL *url = [[ORZMQURL alloc] initWithString:@"tcp://192.168.1.10:8080,8081"];
 	XCTAssert([url isValid]);
 	XCTAssert(url.protocol == ZMQTCP);
 	XCTAssert([url.pusherPort isEqual:@(8080)]);
@@ -175,14 +175,14 @@
 	XCTAssert([[url pusherToString] isEqual:@"tcp://192.168.1.10:8080"]);
 	
 	// Uncomplete url
-	url = [[ZMQURL alloc] initWithString:@"tcp://192.168.1.10"];
+	url = [[ORZMQURL alloc] initWithString:@"tcp://192.168.1.10"];
 	XCTAssert(![url isValid]);
 	XCTAssert(url.pusherPort == nil);
 	XCTAssert([url.ip isEqual:@"192.168.1.10"]);
 	XCTAssert([[url pusherToString] isEqual:@"tcp://192.168.1.10:(null)"]);
 	
 	// Building piece after piece
-	url = [[ZMQURL alloc] init];
+	url = [[ORZMQURL alloc] init];
 	url.protocol = ZMQTCP;
 	XCTAssert(!url.valid);
 	
@@ -203,7 +203,7 @@
 	ORIPFour *ipFour = [ORIPFour ipFourFromString:@"192.168.1.10"];
 	[ipFour makeBroadcastIP];
 	
-	ZMQURL *url = [[ZMQURL alloc] initWithORIPFour:ipFour];
+	ORZMQURL *url = [[ORZMQURL alloc] initWithORIPFour:ipFour];
 	XCTAssert(!url.valid);
 	
 	url.protocol = ZMQUDP;
@@ -217,7 +217,7 @@
 	
 	uint8_t bytes[] = { 192, 168, 1, 10 };
 	ipFour = [ORIPFour ipFourFromBytes:bytes];
-	url = [[ZMQURL alloc] initWithORIPFour:ipFour];
+	url = [[ORZMQURL alloc] initWithORIPFour:ipFour];
 	XCTAssert(!url.valid);
 	
 	url.protocol = ZMQTCP;

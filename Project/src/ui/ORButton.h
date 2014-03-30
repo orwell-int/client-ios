@@ -28,7 +28,7 @@
 
 @interface ORButton : SPButton
 
-- (id) init;
-- (id) initWithText:(NSString *)text;
+- (id)init;
+- (id)initWithText:(NSString *)text;
 
 @end

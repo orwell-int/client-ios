@@ -24,10 +24,10 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ZMQURL.h"
+#import "ORZMQURL.h"
 #import "ORIPFour.h"
 
-@implementation ZMQURL
+@implementation ORZMQURL
 @synthesize valid = _valid;
 
 - (id)init
@@ -93,7 +93,7 @@
 	return self;
 }
 
-- (id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort andProtocol:(ZMQProtocol)protocol
+- (id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort andProtocol:(ORZMQProtocol)protocol
 {
 	self = [self initWithString:string andPullerPort:port andPusherPort:pusherPort];
 	_protocol = protocol;
@@ -111,8 +111,13 @@
 	self = [self initWithString:[ipFour toString] andPullerPort:port];
 	return self;
 }
+- (id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort
+{
+	self = [self initWithString:[ipFour toString] andPullerPort:port andPusherPort:pusherPort];
+	return self;
+}
 
-- (id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort andProtocol:(ZMQProtocol)protocol
+- (id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort andProtocol:(ORZMQProtocol)protocol
 {
 	self = [self initWithString:[ipFour toString] andPullerPort:port andPusherPort:pusherPort andProtocol:protocol];
 	return self;
