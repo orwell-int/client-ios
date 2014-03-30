@@ -25,12 +25,12 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "BackgroundScene.h"
 
+@interface ORCameraViewer : SPSprite
 
-@interface FlowScene : BackgroundScene
-
--(id) init;
-
++ (id) cameraViewerFromURL:(NSURL *)url;
+- (void) play;
+- (void) pause;
+- (void) stop;
 
 @end

@@ -42,7 +42,7 @@
 
 - (BOOL)processMessage:(NSData *)messagePayload
 {
-	NSLog(@"CallbackWelcome in");
+	DDLogDebug(@"CallbackWelcome in");
 	
 	orwell::messages::Welcome *message = new orwell::messages::Welcome();
 	message->ParsePartialFromArray([messagePayload bytes], [messagePayload length]);

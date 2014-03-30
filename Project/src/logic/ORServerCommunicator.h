@@ -25,20 +25,43 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <Sparrow.h>
+#import "Callback.h"
+#import "CallbackResponder.h"
 
-@interface Media : NSObject 
+@protocol ORServerCommunicatorDelegate;
 
-+ (void)initAtlas;
-+ (void)releaseAtlas;
+@interface ORServerMessage : NSObject
+@property (strong, nonatomic) NSString *tag;
+@property (strong, nonatomic) NSString *receiver;
+@property (strong, nonatomic) NSData *payload;
+@end
 
-+ (SPTexture *)atlasTexture:(NSString *)name;
-+ (NSArray *)atlasTexturesWithPrefix:(NSString *)prefix;
+@interface ORServerCommunicator : NSObject
 
-+ (void)initSound;
-+ (void)releaseSound;
+@property (strong, nonatomic) NSString *pusherIp;
+@property (strong, nonatomic) NSString *pullerIp;
+@property (weak, nonatomic) id<ORServerCommunicatorDelegate> delegate;
 
-+ (SPSoundChannel *)soundChannel:(NSString *)soundName;
-+ (void)playSound:(NSString *)soundName;
++ (id)singleton;
+
+- (BOOL)retrieveServerFromBroadcast;
+
+- (BOOL)connect;
+- (void)disconnect;
+- (void)runSubscriber;
+- (void)stopSubscriber;
+
+// Push messages
+- (BOOL)pushMessageWithPayload:(NSData *)payload
+							tag:(NSString *)tag
+					   receiver:(NSString *)receiver;
+
+- (BOOL)pushMessage:(ORServerMessage *)message;
+
+// Register callbacks responders
+- (BOOL)registerResponder:(id<CallbackResponder>)responder
+				forMessage:(NSString *)message;
+
+- (BOOL)deleteResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message;
 
 @end

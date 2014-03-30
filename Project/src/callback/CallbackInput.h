@@ -24,22 +24,22 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Sparrow.h>
+#import <Foundation/Foundation.h>
+#import "Callback.h"
 
-enum Rotation {
-	RIGHT = 0,
-	LEFT,
-	DOWN,
-	UP
-};
+// Notify the state of the inputs to control the robot
+//			message Input {
+//				optional group Move = 1 {
+//					optional double left = 1;
+//					optional double right = 2;
+//				}
+//				optional group Fire = 2 {
+//					optional bool weapon1 = 1;
+//					optional bool weapon2 = 2;
+//				}
+//			}
 
-@interface ORArrowButton : SPButton
 
-@property (readonly) Rotation rotation;
-@property (nonatomic) float backgroundAlpha;
-
-- (id)init;
-- (id)initWithRotation:(Rotation)rotation;
-- (NSString *)debugDescription;
-
+@interface CallbackInput : Callback
+- (BOOL)processMessage:(NSData *)message;
 @end

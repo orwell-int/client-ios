@@ -25,39 +25,21 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "Callback.h"
-#import "CallbackResponder.h"
+#import "ORIPFour.h"
 
-@interface ServerMessage : NSObject
-@property (strong, nonatomic) NSString *tag;
-@property (strong, nonatomic) NSString *receiver;
-@property (strong, nonatomic) NSData *payload;
-@end
+@interface ORBroadcastRetriever : NSObject
+@property (strong, nonatomic, readonly) NSString *firstIp;
+@property (strong, nonatomic, readonly) NSString *secondIp;
+@property (strong, nonatomic, readonly) NSString *responderIp;
+@property (strong, nonatomic, readonly) NSNumber *firstPort;
+@property (strong, nonatomic, readonly) NSNumber *secondPort;
+@property (strong, nonatomic, readonly) ORIPFour *ipFour;
 
-@interface ServerCommunicator : NSObject
-
-@property (strong, nonatomic) NSString* serverIp;
-@property (strong, nonatomic) NSString* pusherPort;
-@property (strong, nonatomic) NSString* subscriberPort;
-
-+ (id) initSingleton;
-
-- (BOOL) retrieveServerFromBroadcast;
-
-- (BOOL) connect;
-- (void) runSubscriber;
-
-// Push messages
-- (BOOL) pushMessageWithPayload:(NSData *)payload
-							tag:(NSString *)tag
-					   receiver:(NSString *)receiver;
-
-- (BOOL) pushMessage:(ServerMessage *)message;
-
-// Register callbacks responders
-- (BOOL) registerResponder:(id<CallbackResponder>)responder
-				forMessage:(NSString *)message;
-
-- (BOOL) deleteResponder:(id<CallbackResponder>)responder;
++ (id) retriever;
++ (id) retrieverWithTimeout:(int)timeout;
+- (BOOL) retrieveAddress;
+- (BOOL) sendMessageToServer:(int *)socket;
+- (NSData *) getResponseFromServer:(int *)socket;
+- (void) parseMessageFromServer:(NSData *)message;
 
 @end

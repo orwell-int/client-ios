@@ -24,13 +24,36 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Foundation/Foundation.h>
+#import "CallbackInput.h"
+#import "controller.pb.h"
 
-/* Wrapper around protobuf messages */
+@implementation CallbackInput
 
-@interface MessagesWrapper : NSObject
+@synthesize delegate = _delegate;
 
-+ (void *) buildMessage:(NSString *)messageType withDictionary:(NSDictionary *)dictionary;
-+ (void *) buildMessage:(NSString *)messageType withPayload:(NSData *)payload;
+- (BOOL)processMessage:(NSData *)message
+{
+	NSMutableDictionary *mutableDic = [NSMutableDictionary dictionary];
+	orwell::messages::Input input;
+	input.ParseFromArray([message bytes], (uint32_t) [message length]);
+	DDLogVerbose(@"CallbackInput in");
+
+	if (input.has_move()) {
+		[mutableDic setObject:[NSNumber numberWithDouble:input.move().left()] forKey:CB_INPUT_MOVE_LEFT];
+		[mutableDic setObject:[NSNumber numberWithDouble:input.move().right()] forKey:CB_INPUT_MOVE_RIGHT];
+	}
+
+	if (input.has_fire()) {
+		[mutableDic setObject:[NSNumber numberWithBool:input.fire().weapon1()] forKey:CB_INPUT_FIRE_WEAPON1];
+		[mutableDic setObject:[NSNumber numberWithBool:input.fire().weapon2()] forKey:CB_INPUT_FIRE_WEAPON2];
+	}
+
+	if (_delegate) {
+		[_delegate messageReceived:mutableDic];
+	}
+	
+	[mutableDic removeAllObjects];
+	return YES;
+}
 
 @end

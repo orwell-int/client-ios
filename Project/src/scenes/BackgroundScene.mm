@@ -28,19 +28,18 @@
 #import "ORButton.h"
 
 @interface BackgroundScene()
+@property (strong, nonatomic) SPImage *background;
+@property (strong, nonatomic) ORButton *backButton;
 @end
 
 @implementation BackgroundScene
-{
-	SPImage *_background;
-	ORButton *_backButton;
-}
 
 - (id)init
 {
 	self = [super init];
 	
 	_background = [SPImage imageWithContentsOfFile:@"game-bg.png"];
+	_background.touchable = NO;
 	[self addChild:_background];
 	
 	return self;
@@ -88,6 +87,19 @@
 - (void)startObjects
 {
 	
+}
+
+- (CGRect)getUsableScreenSize
+{
+	CGRect screenSize;
+
+	screenSize.size.width = Sparrow.stage.width;
+	screenSize.size.height = Sparrow.stage.height - (Sparrow.stage.height - _backButton.y - 5.0f);
+
+	screenSize.origin.x = 0.0f;
+	screenSize.origin.y = 0.0f;
+
+	return screenSize;
 }
 
 @end

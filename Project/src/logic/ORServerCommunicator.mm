@@ -24,7 +24,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ServerCommunicator.h"
+#import "ORServerCommunicator.h"
 #import "CallbackResponder.h"
 #import <string>
 #import <zmq.h>
@@ -32,62 +32,54 @@
 #import "CallbackWelcome.h"
 #import "CallbackGameState.h"
 #import "CallbackGoodbye.h"
-#import "BroadcastRetriever.h"
+#import "CallbackInput.h"
+#import "ORBroadcastRetriever.h"
+#import "ORServerCommunicatorDelegate.h"
 
-@interface ServerCommunicator()
+@interface ORServerCommunicator()
 
 @property (nonatomic) void* zmq_context;
 @property (nonatomic) void* zmq_socket_pusher;
 @property (nonatomic) void* zmq_socket_subscriber;
 @property (strong, nonatomic) NSMutableDictionary* callbacks;
+@property (strong, nonatomic) ORBroadcastRetriever* broadcastRetriever;
 
 
 // Initialization methods
-- (id) init;
+- (id)init;
 
 // Context initialization
-- (BOOL) initContext;
+- (BOOL)initContext;
 
 // Sockets initialization
-- (BOOL) initSockets;
+- (BOOL)initSockets;
 
 // Sockets connections
-- (BOOL) connectPusher;
-- (BOOL) connectSubscriber;
+- (BOOL)connectPusher;
+- (BOOL)connectSubscriber;
 
 @end
 
-@implementation ServerMessage
+@implementation ORServerMessage
 @synthesize payload = _payload;
 @synthesize receiver = _receiver;
 @synthesize tag = _tag;
 @end
 
 
-@implementation ServerCommunicator
+@implementation ORServerCommunicator
 {
-	BroadcastRetriever _broadcastRetriever;
 	BOOL _subscriberRunning;
 	BOOL _broadcastRetrieved;
 }
 
-@synthesize zmq_context = _zmq_context;
-@synthesize zmq_socket_pusher = _zmq_socket_pusher;
-@synthesize zmq_socket_subscriber = _zmq_socket_subscriber;
-
-@synthesize serverIp = _serverIp;
-@synthesize pusherPort = _pusherPort;
-@synthesize subscriberPort = _subscriberPort;
-
-@synthesize callbacks = _callbacks;
-
-+ (id)initSingleton
++ (id)singleton
 {
 	static dispatch_once_t pred;
 	static id shared = nil;
 	
 	dispatch_once(&pred, ^(){
-		NSLog(@"Dispatching once...");
+		DDLogDebug(@"Dispatching once...");
 		shared = [[super alloc] init];
 	});
 	
@@ -105,6 +97,7 @@
 	[_callbacks setObject:[[CallbackWelcome alloc] init] forKey:@"Welcome"];
 	[_callbacks setObject:[[CallbackGameState alloc] init] forKey:@"GameState"];
 	[_callbacks setObject:[[CallbackGoodbye alloc] init] forKey:@"Goodbye"];
+	[_callbacks setObject:[[CallbackInput alloc] init] forKey:@"Input"];
 	
 	return self;
 }
@@ -126,23 +119,23 @@
 
 - (BOOL)connectPusher
 {
-	// _serverUrl should contain something like: "tcp://192.168.1.10", we just have to append the port
-	NSString *_fullUrl = [NSString stringWithFormat:@"%@:%@", _serverIp, _pusherPort];
+	if (_pusherIp != nil)
+		return (zmq_connect(_zmq_socket_pusher, [_pusherIp UTF8String]) == 0);
 	
-	return (zmq_connect(_zmq_socket_pusher, [_fullUrl UTF8String]) == 0);
+	return NO;
 }
 
 - (BOOL)connectSubscriber
 {
-	// _serverUrl should contain something like: "tcp://192.168.1.10", we just have to append the port
-	NSString *_fullUrl = [NSString stringWithFormat:@"%@:%@", _serverIp, _subscriberPort];
+	if (_pullerIp != nil) {
+		zmq_setsockopt(_zmq_socket_subscriber, ZMQ_SUBSCRIBE, "", strlen(""));
+		return (zmq_connect(_zmq_socket_subscriber, [_pullerIp UTF8String]) == 0);
+	}
 	
-	zmq_setsockopt(_zmq_socket_subscriber, ZMQ_SUBSCRIBE, std::string().c_str(), std::string().length());
-	
-	return (zmq_connect(_zmq_socket_subscriber, [_fullUrl UTF8String]) == 0);
+	return NO;
 }
 
-- (BOOL)pushMessage:(ServerMessage *)message
+- (BOOL)pushMessage:(ORServerMessage *)message
 {
 	return [self pushMessageWithPayload:message.payload tag:message.tag receiver:message.receiver];
 }
@@ -155,21 +148,38 @@
 	[_load appendData:[tag dataUsingEncoding:NSASCIIStringEncoding]];
 	[_load appendData:payload];
 	
-	NSLog(@"ServerCommunicator: pushing %s \n", (const char *) [_load bytes]);
+	DDLogVerbose(@"ServerCommunicator: pushing %s \n", (const char *) [_load bytes]);
 	
 	zmq_msg_t zmq_message;
 	zmq_msg_init_size(&zmq_message, [_load length]);
 	memcpy(zmq_msg_data(&zmq_message), [_load bytes], [_load length]);
 	
-	return (zmq_msg_send(&zmq_message, _zmq_socket_pusher, 0) == [_load length]);
+	BOOL returnValue = (zmq_msg_send(&zmq_message, _zmq_socket_pusher, 0) == [_load length]);
+	
+	zmq_msg_close(&zmq_message);
+	return returnValue;
 }
 
 - (BOOL)connect
 {
-	return [self initContext] and
-	       [self initSockets] and
-	       [self connectPusher] and
-	       [self connectSubscriber];
+	BOOL returnValue = [self initContext] and [self initSockets] and [self connectPusher] and [self connectSubscriber];
+	
+	if ([_delegate respondsToSelector:@selector(communicator:didConnectToServer:)]) {
+		[_delegate communicator:self didConnectToServer:returnValue];
+	}
+	
+	return returnValue;
+}
+
+- (void)disconnect
+{
+	_subscriberRunning = NO;
+	zmq_disconnect(_zmq_socket_pusher, [_pusherIp UTF8String]);
+	zmq_disconnect(_zmq_socket_subscriber, [_pullerIp UTF8String]);
+	
+	if ([_delegate respondsToSelector:@selector(communicatorDidDisconnectFromServer)]) {
+		[_delegate communicatorDidDisconnectFromServer];
+	}
 }
 
 - (void)runSubscriber
@@ -177,11 +187,11 @@
 	if (!_subscriberRunning)
 	{
 		_subscriberRunning = YES;
-		dispatch_queue_t q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-		dispatch_async(q, ^(){
-			while (true)
+		dispatch_queue_t q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0ul);
+		dispatch_async(q, ^{
+			while (_subscriberRunning)
 			{
-				NSLog(@"Subscriber waiting for a message..");
+				DDLogVerbose(@"Subscriber waiting for a message..");
 				using std::string;
 				zmq_msg_t zmq_message;
 				zmq_msg_init_size(&zmq_message, 5024);
@@ -198,27 +208,44 @@
 					[scanner scanUpToString:@" " intoString:&clients];
 					[scanner scanUpToString:@" " intoString:&tag];
 					
-					if ([msg length] > [scanner scanLocation]+1)
+					if ([msg length] > [scanner scanLocation] + 1)
 						payload = [NSString stringWithString:[msg substringFromIndex:[scanner scanLocation]+1]];
 					else
 						payload = [NSString stringWithFormat:@"NO PAYLOAD"];
 
-					Callback *cb = [_callbacks objectForKey:tag];
+					__block NSString *blockClient, *blockTag, *blockPayload;
+					blockClient = [NSString stringWithString:clients];
+					blockTag = [NSString stringWithString:tag];
+					blockPayload = [NSString stringWithString:payload];
 					
-					if (cb != nil)
-					{
-						[cb processMessage:[payload dataUsingEncoding:NSASCIIStringEncoding]];
-					}
+					// Let's to this in the main thread
+					dispatch_async(dispatch_get_main_queue(), ^{
+						Callback *cb = [_callbacks objectForKey:blockTag];
+						
+						if (cb != nil)
+						{
+							DDLogVerbose(@"Launching cb %@ (message is for: %@, tag: %@)", [cb description], blockClient, blockTag);
+							[cb processMessage:[blockPayload dataUsingEncoding:NSASCIIStringEncoding]];
+						}
+					});
+
 				}
+				
+				zmq_msg_close(&zmq_message);
 			}
+			
+			DDLogInfo(@"Subscriber stopped running");
 		});
 	}
+}
+- (void)stopSubscriber
+{
+	_subscriberRunning = NO;
 }
 
 - (BOOL)registerResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message
 {
-	if ([_callbacks objectForKey:message] != nil)
-	{
+	if ([_callbacks objectForKey:message] != nil) {
 		((Callback *) [_callbacks objectForKey:message]).delegate = responder;
 		return YES;
 	}
@@ -226,10 +253,18 @@
 	return NO;
 }
 
-- (BOOL)deleteResponder:(id<CallbackResponder>)responder
+- (BOOL)deleteResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message
 {
-	// @TODO: implement
-	return YES;
+	DDLogInfo(@"Wanting to remove delegate %@ for message %@", [responder debugDescription], message);
+	Callback *callback = [_callbacks objectForKey:message];
+
+	if (callback != nil) {
+		DDLogInfo(@"Removing delegate from callback %@", [callback debugDescription]);
+		callback.delegate = nil;
+		return YES;
+	}
+	
+	return NO;
 }
 
 - (BOOL)retrieveServerFromBroadcast
@@ -238,32 +273,23 @@
 		return YES;
 	
 	BOOL response = NO;
-	BroadcastRetriever::BroadcastError error;
-	struct timeval tv;
-	tv.tv_sec = 2;
-	tv.tv_usec = 3000;
-	_broadcastRetriever.setTimeout(tv);
-	error = _broadcastRetriever.launchTest("");
-
-	switch (error)
-	{
-		case BroadcastRetriever::kOk:
-			_serverIp = [NSString stringWithFormat:@"%s", _broadcastRetriever.getResponderIP().c_str()];
-			_serverIp = [NSString stringWithFormat:@"tcp://%@", _serverIp];
-			
-			_pusherPort = [NSString stringWithFormat:@"%s", _broadcastRetriever.getFirstPort().c_str()];
-			_subscriberPort = [NSString stringWithFormat:@"%s", _broadcastRetriever.getSecondPort().c_str()];
-			response = YES;
-			
-			NSLog(@"Retrieved from broadcast: %@:%@ and %@",
-				  _serverIp, _pusherPort, _subscriberPort);
-			
-			break;
-			
-		default:
-			break;
+	_broadcastRetriever = [ORBroadcastRetriever retrieverWithTimeout:3];
+	
+	NSString *string;
+	
+	if ([_broadcastRetriever retrieveAddress]) {
+		string = [NSString stringWithFormat:@"tcp://%@:%@,%@",
+				  _broadcastRetriever.responderIp,
+				  _broadcastRetriever.firstPort,
+				  _broadcastRetriever.secondPort];
+		DDLogInfo(@"Retrieved: %@", string);
+		
+		response = YES;
 	}
 	
+	if ([_delegate respondsToSelector:@selector(communicator:didRetrieveServerFromBroadcast:withIP:)])
+		[_delegate communicator:self didRetrieveServerFromBroadcast:response withIP:string];
+
 	return response;
 }
 
