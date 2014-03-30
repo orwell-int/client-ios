@@ -1,7 +1,10 @@
 [![Stories in Ready](https://badge.waffle.io/orwell-int/client-ios.png?label=ready)](http://waffle.io/orwell-int/client-ios)
 
-client-ios
-==========
+* **develop** branch build
+[![Build Status](https://travis-ci.org/orwell-int/client-ios.png?branch=develop)](https://travis-ci.org/orwell-int/client-ios)
+
+* **master** branch build
+[![Build Status](https://travis-ci.org/orwell-int/client-ios.png?branch=master)](https://travis-ci.org/orwell-int/client-ios)
 
 iOrwell
 =======

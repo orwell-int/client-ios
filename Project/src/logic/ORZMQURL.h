@@ -24,22 +24,38 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Sparrow.h>
+#import <Foundation/Foundation.h>
 
-enum Rotation {
-	RIGHT = 0,
-	LEFT,
-	DOWN,
-	UP
-};
+@class ORIPFour;
 
-@interface ORArrowButton : SPButton
+typedef enum {
+	ZMQTCP = 0,
+	ZMQUDP,
+	ZMQUNKNOWN
+} ORZMQProtocol;
 
-@property (readonly) Rotation rotation;
-@property (nonatomic) float backgroundAlpha;
+@interface ORZMQURL : NSObject
+
+@property (strong, nonatomic) NSString * ip;
+@property (nonatomic) ORZMQProtocol protocol;
+@property (nonatomic, readonly, getter=isValid) BOOL valid;
+@property (strong, nonatomic) NSNumber * pusherPort;
+@property (strong, nonatomic) NSNumber * pullerPort;
+
 
 - (id)init;
-- (id)initWithRotation:(Rotation)rotation;
-- (NSString *)debugDescription;
+- (id)initWithString:(NSString *)string;
+- (id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port;
+- (id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort;
+- (id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort andProtocol:(ORZMQProtocol)protocol;
+
+- (id)initWithORIPFour:(ORIPFour *)ipFour;
+- (id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port;
+- (id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort;
+- (id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort andProtocol:(ORZMQProtocol)protocol;
+
+- (NSString *)toString;
+- (NSString *)pusherToString;
+- (NSString *)pullerToString;
 
 @end

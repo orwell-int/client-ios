@@ -7,7 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06C19FB250114F2EA5DD2F78 /* libPods-iOrwellTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E68E9561282D4B5587E7FD82 /* libPods-iOrwellTests.a */; };
 		C9F74AE22D3E472ABE27E648 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2162E0EDEF7D475B8F6DB092 /* libPods.a */; };
+		CD333EB018DA176A0075E51D /* button-arrow-left.png in Resources */ = {isa = PBXBuildFile; fileRef = CD333EAD18DA176A0075E51D /* button-arrow-left.png */; };
+		CD333EB118DA176A0075E51D /* button-arrow-right.png in Resources */ = {isa = PBXBuildFile; fileRef = CD333EAE18DA176A0075E51D /* button-arrow-right.png */; };
+		CD333EB218DA176A0075E51D /* button-arrow-up.png in Resources */ = {isa = PBXBuildFile; fileRef = CD333EAF18DA176A0075E51D /* button-arrow-up.png */; };
+		CD333EB518DA21910075E51D /* CallbackInput.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD333EB418DA21910075E51D /* CallbackInput.mm */; };
+		CD4C362918DA453100FD1F3A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B2E18D77BDF00C61610 /* XCTest.framework */; };
+		CD4C362A18DA453100FD1F3A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1018D77BDF00C61610 /* Foundation.framework */; };
+		CD4C362B18DA453100FD1F3A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1418D77BDF00C61610 /* UIKit.framework */; };
+		CD4C363118DA453100FD1F3A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD4C362F18DA453100FD1F3A /* InfoPlist.strings */; };
+		CD4C363318DA453100FD1F3A /* iOrwellTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD4C363218DA453100FD1F3A /* iOrwellTests.mm */; };
+		CD4C363C18DA495C00FD1F3A /* ORBroadcastRetriever.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4C363B18DA495C00FD1F3A /* ORBroadcastRetriever.m */; };
+		CD4C363F18DA4B6700FD1F3A /* ORIPFour.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4C363E18DA4B6700FD1F3A /* ORIPFour.m */; };
+		CD6625F418DDE5B000802AF0 /* ButtonDown.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6625F318DDE5B000802AF0 /* ButtonDown.png */; };
+		CD6625F718DE132300802AF0 /* ORCameraViewer.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD6625F618DE132300802AF0 /* ORCameraViewer.mm */; };
+		CD6625F918DF3FEC00802AF0 /* ButtonDown-2.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6625F818DF3FEC00802AF0 /* ButtonDown-2.png */; };
+		CD6625FB18DF45D300802AF0 /* ButtonUp.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6625FA18DF45D300802AF0 /* ButtonUp.png */; };
+		CD6625FE18DF4CD100802AF0 /* ButtonLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6625FC18DF4CD100802AF0 /* ButtonLeft.png */; };
+		CD6625FF18DF4CD100802AF0 /* ButtonRight.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6625FD18DF4CD100802AF0 /* ButtonRight.png */; };
 		CD910B1118D77BDF00C61610 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1018D77BDF00C61610 /* Foundation.framework */; };
 		CD910B1318D77BDF00C61610 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1218D77BDF00C61610 /* CoreGraphics.framework */; };
 		CD910B1518D77BDF00C61610 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1418D77BDF00C61610 /* UIKit.framework */; };
@@ -19,17 +37,11 @@
 		CD910B4718D77C2B00C61610 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910ADF18D77B0D00C61610 /* AppDelegate.mm */; };
 		CD910B4818D77C2B00C61610 /* Game.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE118D77B0D00C61610 /* Game.mm */; };
 		CD910B4918D77C2B00C61610 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE218D77B0D00C61610 /* main.mm */; };
-		CD910B4A18D77C2B00C61610 /* BroadcastRetriever.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE418D77B0D00C61610 /* BroadcastRetriever.cpp */; };
-		CD910B4B18D77C2B00C61610 /* Media.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE718D77B0D00C61610 /* Media.mm */; };
-		CD910B4C18D77C2B00C61610 /* MessagesWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AE918D77B0D00C61610 /* MessagesWrapper.mm */; };
-		CD910B4D18D77C2B00C61610 /* ServerCommunicator.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEB18D77B0D00C61610 /* ServerCommunicator.mm */; };
 		CD910B4E18D77C2B00C61610 /* controller.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AED18D77B0D00C61610 /* controller.pb.cc */; };
 		CD910B5018D77C2B00C61610 /* robot.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEF18D77B0D00C61610 /* robot.pb.cc */; };
 		CD910B5218D77C2B00C61610 /* server-game.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF118D77B0D00C61610 /* server-game.pb.cc */; };
 		CD910B5418D77C2B00C61610 /* server-web.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF318D77B0D00C61610 /* server-web.pb.cc */; };
 		CD910B5618D77C2B00C61610 /* BackgroundScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF718D77B0D00C61610 /* BackgroundScene.mm */; };
-		CD910B5718D77C2B00C61610 /* BroadcastScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF918D77B0D00C61610 /* BroadcastScene.mm */; };
-		CD910B5818D77C2B00C61610 /* FlowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AFB18D77B0D00C61610 /* FlowScene.mm */; };
 		CD910B5918D77C2B00C61610 /* InputGameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AFD18D77B0D00C61610 /* InputGameScene.mm */; };
 		CD910B5A18D77C2B00C61610 /* MainStage.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AFF18D77B0D00C61610 /* MainStage.mm */; };
 		CD910B5B18D77C2B00C61610 /* PlayGameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0118D77B0D00C61610 /* PlayGameScene.mm */; };
@@ -52,18 +64,48 @@
 		CDDD0B9A18D77FE600979E1E /* Metal-background-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8318D77FE600979E1E /* Metal-background-2.jpg */; };
 		CDDD0B9B18D77FE600979E1E /* Metal-background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8418D77FE600979E1E /* Metal-background.jpg */; };
 		CDDD0B9C18D77FE600979E1E /* Metal-background.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8518D77FE600979E1E /* Metal-background.png */; };
-		CDDD0B9D18D77FE600979E1E /* Metal-background.psd in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8618D77FE600979E1E /* Metal-background.psd */; };
 		CDDD0B9E18D77FE600979E1E /* Network-lines-background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8718D77FE600979E1E /* Network-lines-background.jpg */; };
 		CDDD0B9F18D77FE600979E1E /* tech-button-off.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8818D77FE600979E1E /* tech-button-off.png */; };
-		CDDD0BA018D77FE600979E1E /* tech-button-off.psd in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8918D77FE600979E1E /* tech-button-off.psd */; };
 		CDDD0BA118D77FE600979E1E /* tech-button-on.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8A18D77FE600979E1E /* tech-button-on.png */; };
-		CDDD0BA218D77FE600979E1E /* tech-button-on.psd in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8B18D77FE600979E1E /* tech-button-on.psd */; };
 		CDDD0BA318D77FE600979E1E /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8D18D77FE600979E1E /* README.txt */; };
+		CDF0AB5218E8759B004A7D1A /* ORServerCommunicator.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEB18D77B0D00C61610 /* ORServerCommunicator.mm */; };
+		CDF0AB5318E875F0004A7D1A /* ORZMQURL.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFF6C7B18E200A0000E3F22 /* ORZMQURL.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CD4C363518DA453100FD1F3A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD4E0ED718D77ACE00CA8505 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD910B0C18D77BDF00C61610;
+			remoteInfo = iOrwell;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2162E0EDEF7D475B8F6DB092 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE88D42A3C54E55B4666AC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		CD333EAD18DA176A0075E51D /* button-arrow-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-arrow-left.png"; sourceTree = "<group>"; };
+		CD333EAE18DA176A0075E51D /* button-arrow-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-arrow-right.png"; sourceTree = "<group>"; };
+		CD333EAF18DA176A0075E51D /* button-arrow-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-arrow-up.png"; sourceTree = "<group>"; };
+		CD333EB318DA21910075E51D /* CallbackInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallbackInput.h; sourceTree = "<group>"; };
+		CD333EB418DA21910075E51D /* CallbackInput.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CallbackInput.mm; sourceTree = "<group>"; };
+		CD4C362818DA453100FD1F3A /* iOrwellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOrwellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD4C362E18DA453100FD1F3A /* iOrwellTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOrwellTests-Info.plist"; sourceTree = "<group>"; };
+		CD4C363018DA453100FD1F3A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CD4C363218DA453100FD1F3A /* iOrwellTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = iOrwellTests.mm; sourceTree = "<group>"; };
+		CD4C363418DA453100FD1F3A /* iOrwellTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOrwellTests-Prefix.pch"; sourceTree = "<group>"; };
+		CD4C363A18DA495C00FD1F3A /* ORBroadcastRetriever.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORBroadcastRetriever.h; sourceTree = "<group>"; };
+		CD4C363B18DA495C00FD1F3A /* ORBroadcastRetriever.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORBroadcastRetriever.m; sourceTree = "<group>"; };
+		CD4C363D18DA4B6700FD1F3A /* ORIPFour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORIPFour.h; sourceTree = "<group>"; };
+		CD4C363E18DA4B6700FD1F3A /* ORIPFour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORIPFour.m; sourceTree = "<group>"; };
+		CD6625F318DDE5B000802AF0 /* ButtonDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonDown.png; sourceTree = "<group>"; };
+		CD6625F518DE132300802AF0 /* ORCameraViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORCameraViewer.h; sourceTree = "<group>"; };
+		CD6625F618DE132300802AF0 /* ORCameraViewer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ORCameraViewer.mm; sourceTree = "<group>"; };
+		CD6625F818DF3FEC00802AF0 /* ButtonDown-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonDown-2.png"; sourceTree = "<group>"; };
+		CD6625FA18DF45D300802AF0 /* ButtonUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonUp.png; sourceTree = "<group>"; };
+		CD6625FC18DF4CD100802AF0 /* ButtonLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonLeft.png; sourceTree = "<group>"; };
+		CD6625FD18DF4CD100802AF0 /* ButtonRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonRight.png; sourceTree = "<group>"; };
 		CD910AD418D77B0D00C61610 /* Callback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Callback.h; sourceTree = "<group>"; };
 		CD910AD518D77B0D00C61610 /* Callback.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Callback.mm; sourceTree = "<group>"; };
 		CD910AD618D77B0D00C61610 /* CallbackGameState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallbackGameState.h; sourceTree = "<group>"; };
@@ -78,14 +120,8 @@
 		CD910AE018D77B0D00C61610 /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		CD910AE118D77B0D00C61610 /* Game.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Game.mm; sourceTree = "<group>"; };
 		CD910AE218D77B0D00C61610 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
-		CD910AE418D77B0D00C61610 /* BroadcastRetriever.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BroadcastRetriever.cpp; sourceTree = "<group>"; };
-		CD910AE518D77B0D00C61610 /* BroadcastRetriever.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BroadcastRetriever.h; sourceTree = "<group>"; };
-		CD910AE618D77B0D00C61610 /* Media.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Media.h; sourceTree = "<group>"; };
-		CD910AE718D77B0D00C61610 /* Media.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Media.mm; sourceTree = "<group>"; };
-		CD910AE818D77B0D00C61610 /* MessagesWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessagesWrapper.h; sourceTree = "<group>"; };
-		CD910AE918D77B0D00C61610 /* MessagesWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MessagesWrapper.mm; sourceTree = "<group>"; };
-		CD910AEA18D77B0D00C61610 /* ServerCommunicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerCommunicator.h; sourceTree = "<group>"; };
-		CD910AEB18D77B0D00C61610 /* ServerCommunicator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ServerCommunicator.mm; sourceTree = "<group>"; };
+		CD910AEA18D77B0D00C61610 /* ORServerCommunicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORServerCommunicator.h; sourceTree = "<group>"; };
+		CD910AEB18D77B0D00C61610 /* ORServerCommunicator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ORServerCommunicator.mm; sourceTree = "<group>"; };
 		CD910AED18D77B0D00C61610 /* controller.pb.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = controller.pb.cc; sourceTree = "<group>"; };
 		CD910AEE18D77B0D00C61610 /* controller.pb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = controller.pb.h; sourceTree = "<group>"; };
 		CD910AEF18D77B0D00C61610 /* robot.pb.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = robot.pb.cc; sourceTree = "<group>"; };
@@ -96,12 +132,8 @@
 		CD910AF418D77B0D00C61610 /* server-web.pb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "server-web.pb.h"; sourceTree = "<group>"; };
 		CD910AF618D77B0D00C61610 /* BackgroundScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackgroundScene.h; sourceTree = "<group>"; };
 		CD910AF718D77B0D00C61610 /* BackgroundScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BackgroundScene.mm; sourceTree = "<group>"; };
-		CD910AF818D77B0D00C61610 /* BroadcastScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BroadcastScene.h; sourceTree = "<group>"; };
-		CD910AF918D77B0D00C61610 /* BroadcastScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BroadcastScene.mm; sourceTree = "<group>"; };
-		CD910AFA18D77B0D00C61610 /* FlowScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlowScene.h; sourceTree = "<group>"; };
-		CD910AFB18D77B0D00C61610 /* FlowScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FlowScene.mm; sourceTree = "<group>"; };
 		CD910AFC18D77B0D00C61610 /* InputGameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputGameScene.h; sourceTree = "<group>"; };
-		CD910AFD18D77B0D00C61610 /* InputGameScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = InputGameScene.mm; sourceTree = "<group>"; };
+		CD910AFD18D77B0D00C61610 /* InputGameScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = InputGameScene.mm; sourceTree = "<group>"; usesTabs = 0; };
 		CD910AFE18D77B0D00C61610 /* MainStage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainStage.h; sourceTree = "<group>"; };
 		CD910AFF18D77B0D00C61610 /* MainStage.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MainStage.mm; sourceTree = "<group>"; };
 		CD910B0018D77B0D00C61610 /* PlayGameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayGameScene.h; sourceTree = "<group>"; };
@@ -135,16 +167,29 @@
 		CDDD0B8318D77FE600979E1E /* Metal-background-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal-background-2.jpg"; sourceTree = "<group>"; };
 		CDDD0B8418D77FE600979E1E /* Metal-background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal-background.jpg"; sourceTree = "<group>"; };
 		CDDD0B8518D77FE600979E1E /* Metal-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Metal-background.png"; sourceTree = "<group>"; };
-		CDDD0B8618D77FE600979E1E /* Metal-background.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metal-background.psd"; sourceTree = "<group>"; };
 		CDDD0B8718D77FE600979E1E /* Network-lines-background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Network-lines-background.jpg"; sourceTree = "<group>"; };
 		CDDD0B8818D77FE600979E1E /* tech-button-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tech-button-off.png"; sourceTree = "<group>"; };
-		CDDD0B8918D77FE600979E1E /* tech-button-off.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = "tech-button-off.psd"; sourceTree = "<group>"; };
 		CDDD0B8A18D77FE600979E1E /* tech-button-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tech-button-on.png"; sourceTree = "<group>"; };
-		CDDD0B8B18D77FE600979E1E /* tech-button-on.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = "tech-button-on.psd"; sourceTree = "<group>"; };
 		CDDD0B8D18D77FE600979E1E /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		CDFF6C7518E1FCE0000E3F22 /* ORServerCommunicatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORServerCommunicatorDelegate.h; sourceTree = "<group>"; };
+		CDFF6C7A18E200A0000E3F22 /* ORZMQURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORZMQURL.h; sourceTree = "<group>"; };
+		CDFF6C7B18E200A0000E3F22 /* ORZMQURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORZMQURL.m; sourceTree = "<group>"; };
+		D1EAEB90F3844352AD4A84D1 /* Pods-iOrwellTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOrwellTests.xcconfig"; path = "Pods/Pods-iOrwellTests.xcconfig"; sourceTree = "<group>"; };
+		E68E9561282D4B5587E7FD82 /* libPods-iOrwellTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOrwellTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CD4C362518DA453100FD1F3A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD4C362918DA453100FD1F3A /* XCTest.framework in Frameworks */,
+				CD4C362B18DA453100FD1F3A /* UIKit.framework in Frameworks */,
+				CD4C362A18DA453100FD1F3A /* Foundation.framework in Frameworks */,
+				06C19FB250114F2EA5DD2F78 /* libPods-iOrwellTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD910B0A18D77BDF00C61610 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -160,6 +205,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CD4C362C18DA453100FD1F3A /* iOrwellTests */ = {
+			isa = PBXGroup;
+			children = (
+				CD4C363218DA453100FD1F3A /* iOrwellTests.mm */,
+				CD4C362D18DA453100FD1F3A /* Supporting Files */,
+			);
+			path = iOrwellTests;
+			sourceTree = "<group>";
+		};
+		CD4C362D18DA453100FD1F3A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CD4C362E18DA453100FD1F3A /* iOrwellTests-Info.plist */,
+				CD4C362F18DA453100FD1F3A /* InfoPlist.strings */,
+				CD4C363418DA453100FD1F3A /* iOrwellTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		CD4E0ED618D77ACE00CA8505 = {
 			isa = PBXGroup;
 			children = (
@@ -167,7 +231,9 @@
 				CD910AD218D77B0D00C61610 /* Sources */,
 				CD910B0F18D77BDF00C61610 /* Frameworks */,
 				CD910B0E18D77BDF00C61610 /* Products */,
+				CD4C362C18DA453100FD1F3A /* iOrwellTests */,
 				9FE88D42A3C54E55B4666AC5 /* Pods.xcconfig */,
+				D1EAEB90F3844352AD4A84D1 /* Pods-iOrwellTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -199,6 +265,8 @@
 				CD910ADA18D77B0D00C61610 /* CallbackResponder.h */,
 				CD910ADB18D77B0D00C61610 /* CallbackWelcome.h */,
 				CD910ADC18D77B0D00C61610 /* CallbackWelcome.mm */,
+				CD333EB318DA21910075E51D /* CallbackInput.h */,
+				CD333EB418DA21910075E51D /* CallbackInput.mm */,
 			);
 			path = callback;
 			sourceTree = "<group>";
@@ -218,14 +286,15 @@
 		CD910AE318D77B0D00C61610 /* logic */ = {
 			isa = PBXGroup;
 			children = (
-				CD910AE418D77B0D00C61610 /* BroadcastRetriever.cpp */,
-				CD910AE518D77B0D00C61610 /* BroadcastRetriever.h */,
-				CD910AE618D77B0D00C61610 /* Media.h */,
-				CD910AE718D77B0D00C61610 /* Media.mm */,
-				CD910AE818D77B0D00C61610 /* MessagesWrapper.h */,
-				CD910AE918D77B0D00C61610 /* MessagesWrapper.mm */,
-				CD910AEA18D77B0D00C61610 /* ServerCommunicator.h */,
-				CD910AEB18D77B0D00C61610 /* ServerCommunicator.mm */,
+				CD4C363D18DA4B6700FD1F3A /* ORIPFour.h */,
+				CD4C363E18DA4B6700FD1F3A /* ORIPFour.m */,
+				CD4C363A18DA495C00FD1F3A /* ORBroadcastRetriever.h */,
+				CD4C363B18DA495C00FD1F3A /* ORBroadcastRetriever.m */,
+				CDFF6C7518E1FCE0000E3F22 /* ORServerCommunicatorDelegate.h */,
+				CD910AEA18D77B0D00C61610 /* ORServerCommunicator.h */,
+				CD910AEB18D77B0D00C61610 /* ORServerCommunicator.mm */,
+				CDFF6C7A18E200A0000E3F22 /* ORZMQURL.h */,
+				CDFF6C7B18E200A0000E3F22 /* ORZMQURL.m */,
 			);
 			path = logic;
 			sourceTree = "<group>";
@@ -250,10 +319,6 @@
 			children = (
 				CD910AF618D77B0D00C61610 /* BackgroundScene.h */,
 				CD910AF718D77B0D00C61610 /* BackgroundScene.mm */,
-				CD910AF818D77B0D00C61610 /* BroadcastScene.h */,
-				CD910AF918D77B0D00C61610 /* BroadcastScene.mm */,
-				CD910AFA18D77B0D00C61610 /* FlowScene.h */,
-				CD910AFB18D77B0D00C61610 /* FlowScene.mm */,
 				CD910AFC18D77B0D00C61610 /* InputGameScene.h */,
 				CD910AFD18D77B0D00C61610 /* InputGameScene.mm */,
 				CD910AFE18D77B0D00C61610 /* MainStage.h */,
@@ -273,6 +338,8 @@
 				CD910B0618D77B0D00C61610 /* ORButton.mm */,
 				CD910B0718D77B0D00C61610 /* ORTextField.h */,
 				CD910B0818D77B0D00C61610 /* ORTextField.mm */,
+				CD6625F518DE132300802AF0 /* ORCameraViewer.h */,
+				CD6625F618DE132300802AF0 /* ORCameraViewer.mm */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -281,6 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				CD910B0D18D77BDF00C61610 /* iOrwell.app */,
+				CD4C362818DA453100FD1F3A /* iOrwellTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -294,6 +362,7 @@
 				CD910B1618D77BDF00C61610 /* CoreData.framework */,
 				CD910B2E18D77BDF00C61610 /* XCTest.framework */,
 				2162E0EDEF7D475B8F6DB092 /* libPods.a */,
+				E68E9561282D4B5587E7FD82 /* libPods-iOrwellTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -344,20 +413,25 @@
 		CDDD0B7D18D77FE600979E1E /* 1x */ = {
 			isa = PBXGroup;
 			children = (
+				CD6625F818DF3FEC00802AF0 /* ButtonDown-2.png */,
+				CD6625F318DDE5B000802AF0 /* ButtonDown.png */,
+				CD6625FA18DF45D300802AF0 /* ButtonUp.png */,
+				CD6625FC18DF4CD100802AF0 /* ButtonLeft.png */,
+				CD6625FD18DF4CD100802AF0 /* ButtonRight.png */,
 				CDDD0B7E18D77FE600979E1E /* black-dialog.png */,
 				CDDD0B7F18D77FE600979E1E /* button-arrow-down.png */,
+				CD333EAD18DA176A0075E51D /* button-arrow-left.png */,
+				CD333EAE18DA176A0075E51D /* button-arrow-right.png */,
+				CD333EAF18DA176A0075E51D /* button-arrow-up.png */,
 				CDDD0B8018D77FE600979E1E /* cut-metal.jpg */,
 				CDDD0B8118D77FE600979E1E /* game-bg.png */,
 				CDDD0B8218D77FE600979E1E /* marvin.png */,
 				CDDD0B8318D77FE600979E1E /* Metal-background-2.jpg */,
 				CDDD0B8418D77FE600979E1E /* Metal-background.jpg */,
 				CDDD0B8518D77FE600979E1E /* Metal-background.png */,
-				CDDD0B8618D77FE600979E1E /* Metal-background.psd */,
 				CDDD0B8718D77FE600979E1E /* Network-lines-background.jpg */,
 				CDDD0B8818D77FE600979E1E /* tech-button-off.png */,
-				CDDD0B8918D77FE600979E1E /* tech-button-off.psd */,
 				CDDD0B8A18D77FE600979E1E /* tech-button-on.png */,
-				CDDD0B8B18D77FE600979E1E /* tech-button-on.psd */,
 			);
 			path = 1x;
 			sourceTree = "<group>";
@@ -373,6 +447,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CD4C362718DA453100FD1F3A /* iOrwellTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD4C363918DA453100FD1F3A /* Build configuration list for PBXNativeTarget "iOrwellTests" */;
+			buildPhases = (
+				F70BFA72AD12409C9AC2FCA3 /* Check Pods Manifest.lock */,
+				CD4C362418DA453100FD1F3A /* Sources */,
+				CD4C362518DA453100FD1F3A /* Frameworks */,
+				CD4C362618DA453100FD1F3A /* Resources */,
+				11D47938745A49908AA03B8F /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD4C363618DA453100FD1F3A /* PBXTargetDependency */,
+			);
+			name = iOrwellTests;
+			productName = iOrwellTests;
+			productReference = CD4C362818DA453100FD1F3A /* iOrwellTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		CD910B0C18D77BDF00C61610 /* iOrwell */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD910B3D18D77BDF00C61610 /* Build configuration list for PBXNativeTarget "iOrwell" */;
@@ -399,6 +493,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
+				TargetAttributes = {
+					CD4C362718DA453100FD1F3A = {
+						TestTargetID = CD910B0C18D77BDF00C61610;
+					};
+				};
 			};
 			buildConfigurationList = CD4E0EDA18D77ACE00CA8505 /* Build configuration list for PBXProject "iOrwell" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -413,11 +512,20 @@
 			projectRoot = "";
 			targets = (
 				CD910B0C18D77BDF00C61610 /* iOrwell */,
+				CD4C362718DA453100FD1F3A /* iOrwellTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CD4C362618DA453100FD1F3A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD4C363118DA453100FD1F3A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD910B0B18D77BDF00C61610 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -425,25 +533,30 @@
 				CDDD0B9A18D77FE600979E1E /* Metal-background-2.jpg in Resources */,
 				CDDD0B9418D77FE600979E1E /* dodger_shadow_shadow_20.PNG in Resources */,
 				CD924DB818D78F2400DE0A59 /* App-Info.plist in Resources */,
+				CD6625FE18DF4CD100802AF0 /* ButtonLeft.png in Resources */,
 				CDDD0BA318D77FE600979E1E /* README.txt in Resources */,
+				CD333EB018DA176A0075E51D /* button-arrow-left.png in Resources */,
+				CD6625F918DF3FEC00802AF0 /* ButtonDown-2.png in Resources */,
 				CDDD0B8F18D77FE600979E1E /* bordersprite_regular_20.fnt in Resources */,
+				CD6625FF18DF4CD100802AF0 /* ButtonRight.png in Resources */,
 				CDDD0B9B18D77FE600979E1E /* Metal-background.jpg in Resources */,
 				CDDD0BA118D77FE600979E1E /* tech-button-on.png in Resources */,
 				CDDD0B9718D77FE600979E1E /* cut-metal.jpg in Resources */,
+				CD333EB118DA176A0075E51D /* button-arrow-right.png in Resources */,
+				CD6625F418DDE5B000802AF0 /* ButtonDown.png in Resources */,
 				CDDD0B9C18D77FE600979E1E /* Metal-background.png in Resources */,
 				CDDD0B9818D77FE600979E1E /* game-bg.png in Resources */,
 				CDDD0B8E18D77FE600979E1E /* sound.caf in Resources */,
 				CDDD0B9618D77FE600979E1E /* button-arrow-down.png in Resources */,
-				CDDD0B9D18D77FE600979E1E /* Metal-background.psd in Resources */,
 				CDDD0B9218D77FE600979E1E /* dodger_condensed_condensed_20.PNG in Resources */,
 				CDDD0B9318D77FE600979E1E /* dodger_shadow_shadow_20.fnt in Resources */,
 				CDDD0B9518D77FE600979E1E /* black-dialog.png in Resources */,
-				CDDD0BA018D77FE600979E1E /* tech-button-off.psd in Resources */,
+				CD333EB218DA176A0075E51D /* button-arrow-up.png in Resources */,
 				CDDD0B9F18D77FE600979E1E /* tech-button-off.png in Resources */,
 				CDDD0B9E18D77FE600979E1E /* Network-lines-background.jpg in Resources */,
 				CDDD0B9018D77FE600979E1E /* bordersprite_regular_20.PNG in Resources */,
 				CDDD0B9918D77FE600979E1E /* marvin.png in Resources */,
-				CDDD0BA218D77FE600979E1E /* tech-button-on.psd in Resources */,
+				CD6625FB18DF45D300802AF0 /* ButtonUp.png in Resources */,
 				CDDD0B9118D77FE600979E1E /* dodger_condensed_condensed_20.fnt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -451,6 +564,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		11D47938745A49908AA03B8F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-iOrwellTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		64294D5C993B4EF7B418EED4 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -481,31 +609,54 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		F70BFA72AD12409C9AC2FCA3 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CD4C362418DA453100FD1F3A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD4C363318DA453100FD1F3A /* iOrwellTests.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD910B0918D77BDF00C61610 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				CD910B4318D77C2B00C61610 /* Callback.mm in Sources */,
+				CD333EB518DA21910075E51D /* CallbackInput.mm in Sources */,
 				CD910B4418D77C2B00C61610 /* CallbackGameState.mm in Sources */,
+				CD4C363C18DA495C00FD1F3A /* ORBroadcastRetriever.m in Sources */,
 				CD910B4518D77C2B00C61610 /* CallbackGoodbye.mm in Sources */,
 				CD910B4618D77C2B00C61610 /* CallbackWelcome.mm in Sources */,
 				CD910B4718D77C2B00C61610 /* AppDelegate.mm in Sources */,
 				CD910B4818D77C2B00C61610 /* Game.mm in Sources */,
 				CD910B4918D77C2B00C61610 /* main.mm in Sources */,
-				CD910B4A18D77C2B00C61610 /* BroadcastRetriever.cpp in Sources */,
-				CD910B4B18D77C2B00C61610 /* Media.mm in Sources */,
-				CD910B4C18D77C2B00C61610 /* MessagesWrapper.mm in Sources */,
-				CD910B4D18D77C2B00C61610 /* ServerCommunicator.mm in Sources */,
 				CD910B4E18D77C2B00C61610 /* controller.pb.cc in Sources */,
 				CD910B5018D77C2B00C61610 /* robot.pb.cc in Sources */,
+				CDF0AB5318E875F0004A7D1A /* ORZMQURL.m in Sources */,
+				CD6625F718DE132300802AF0 /* ORCameraViewer.mm in Sources */,
 				CD910B5218D77C2B00C61610 /* server-game.pb.cc in Sources */,
 				CD910B5418D77C2B00C61610 /* server-web.pb.cc in Sources */,
 				CD910B5618D77C2B00C61610 /* BackgroundScene.mm in Sources */,
-				CD910B5718D77C2B00C61610 /* BroadcastScene.mm in Sources */,
-				CD910B5818D77C2B00C61610 /* FlowScene.mm in Sources */,
+				CD4C363F18DA4B6700FD1F3A /* ORIPFour.m in Sources */,
+				CDF0AB5218E8759B004A7D1A /* ORServerCommunicator.mm in Sources */,
 				CD910B5918D77C2B00C61610 /* InputGameScene.mm in Sources */,
 				CD910B5A18D77C2B00C61610 /* MainStage.mm in Sources */,
 				CD910B5B18D77C2B00C61610 /* PlayGameScene.mm in Sources */,
@@ -517,7 +668,120 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		CD4C363618DA453100FD1F3A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD910B0C18D77BDF00C61610 /* iOrwell */;
+			targetProxy = CD4C363518DA453100FD1F3A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CD4C362F18DA453100FD1F3A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD4C363018DA453100FD1F3A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		CD4C363718DA453100FD1F3A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1EAEB90F3844352AD4A84D1 /* Pods-iOrwellTests.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOrwell.app/iOrwell";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOrwellTests/iOrwellTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "iOrwellTests/iOrwellTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		CD4C363818DA453100FD1F3A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1EAEB90F3844352AD4A84D1 /* Pods-iOrwellTests.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOrwell.app/iOrwell";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOrwellTests/iOrwellTests-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "iOrwellTests/iOrwellTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 		CD4E0EDB18D77ACE00CA8505 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -627,6 +891,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CD4C363918DA453100FD1F3A /* Build configuration list for PBXNativeTarget "iOrwellTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD4C363718DA453100FD1F3A /* Debug */,
+				CD4C363818DA453100FD1F3A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CD4E0EDA18D77ACE00CA8505 /* Build configuration list for PBXProject "iOrwell" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

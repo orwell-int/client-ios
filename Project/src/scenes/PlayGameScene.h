@@ -29,7 +29,7 @@
 
 @interface PlayGameScene : BackgroundScene
 
--(id) init;
--(void) onBackButton:(SPEvent *)event;
+- (id)init;
+- (void)onBackButton:(SPEvent *)event;
 
 @end

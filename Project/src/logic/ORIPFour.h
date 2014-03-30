@@ -25,16 +25,21 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIDevice.h>
-#import <UIKit/UIKit.h>
-#import "SPSprite.h"
-#import "BackgroundScene.h"
 
-#import <string>
+@interface ORIPFour : NSObject
+@property (strong, nonatomic, readonly) NSNumber *byte1;
+@property (strong, nonatomic, readonly) NSNumber *byte2;
+@property (strong, nonatomic, readonly) NSNumber *byte3;
+@property (strong, nonatomic, readonly) NSNumber *byte4;
 
-@interface BroadcastScene : BackgroundScene <UITextFieldDelegate>
++ (id) ipFour;
++ (id) ipFourFromString:(NSString *)ip;
++ (id) ipFourFromBytes:(uint8_t[4])bytes;
 
--(id) init;
--(void) onBackButton:(SPEvent*)event;
+- (id) init;
+- (BOOL) isValid;
+- (NSString *)toString;
+- (NSString *)debugDescription;
+- (void) makeBroadcastIP;
 
 @end

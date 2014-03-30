@@ -34,7 +34,7 @@
 {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	
-	NSLog(@"CallbackGoodbye in");
+	DDLogDebug(@"CallbackGoodbye in");
 	
 	[dict setObject:@"YES" forKey:CB_GOODBYE_KEY_GOODBYE];
 	

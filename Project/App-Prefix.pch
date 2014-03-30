@@ -30,6 +30,12 @@
 #import <UIKit/UIKit.h>
 
 #import "Sparrow.h"
-#import "Media.h"
+#import <DDLog.h>
+
+#ifdef DEBUG
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#else
+static const int ddLogLevel = LOG_LEVEL_INFO;
+#endif
 
 #endif
