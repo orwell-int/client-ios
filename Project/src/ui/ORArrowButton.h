@@ -38,7 +38,8 @@ enum Rotation {
 @property (readonly) Rotation rotation;
 @property (nonatomic) float backgroundAlpha;
 
--(id)init;
--(id)initWithRotation:(Rotation)rotation;
+- (id)init;
+- (id)initWithRotation:(Rotation)rotation;
+- (NSString *)debugDescription;
 
 @end

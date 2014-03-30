@@ -1,12 +1,8 @@
 language: objective-c
-#xcode_workspace: iOrwell.xcworkspace
-#xcode_scheme: iOrwell
-#xcode_sdk: iphonesimulator
+xcode_workspace: iOrwell.xcworkspace
+xcode_scheme: iOrwell
+xcode_sdk: iphonesimulator
 
 before_install:
   - gem install cocoapods
-  - gem install xcpretty
-
-script:
-  - xcodebuild -workspace iOrwell.xcworkspace -sdk iphonesimulator -scheme iOrwell build test | xcpretty
 

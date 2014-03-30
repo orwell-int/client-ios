@@ -61,9 +61,6 @@
 {
 	ORCameraViewer *cameraViewer = [[ORCameraViewer alloc] init];
 	cameraViewer->_url = url;
-	cameraViewer->_urlConnection = [NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:url]
-																 delegate:cameraViewer];
-	[cameraViewer->_urlConnection start];
 	return cameraViewer;
 }
 
@@ -78,12 +75,12 @@
 
 - (void)pause
 {
-	
+	_urlConnection = nil;
 }
 
 - (void)stop
 {
-	
+	_urlConnection = nil;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -105,6 +102,7 @@
 				SPTexture *texture = [[SPTexture alloc] initWithContentsOfImage:receivedImage];
 				if (![self containsChild:_image]) {
 					_image = [SPImage imageWithTexture:texture];
+					_image.touchable = NO;
 					[self addChild:_image];
 					_image.width = 320.0f;
 					_image.height = 240.0f;

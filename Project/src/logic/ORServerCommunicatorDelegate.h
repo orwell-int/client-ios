@@ -25,39 +25,18 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "Callback.h"
-#import "CallbackResponder.h"
+@class ORServerCommunicator;
+@class ORServerMessage;
 
-@interface ServerMessage : NSObject
-@property (strong, nonatomic) NSString *tag;
-@property (strong, nonatomic) NSString *receiver;
-@property (strong, nonatomic) NSData *payload;
-@end
+@protocol ORServerCommunicatorDelegate<NSObject>
+@optional
+- (void)communicator:(ORServerCommunicator *)communicator didRetrieveServerFromBroadcast:(BOOL)retrieve withIP:(NSString *)serverIP;
+- (void)communicator:(ORServerCommunicator *)communicator didConnectToServer:(BOOL)connect;
+- (void)communicatorDidDisconnectFromServer;
+- (void)communicator:(ORServerCommunicator *)communicator didPushMessage:(ORServerMessage *)message;
 
-@interface ServerCommunicator : NSObject
-
-@property (strong, nonatomic) NSString* serverIp;
-@property (strong, nonatomic) NSString* pusherPort;
-@property (strong, nonatomic) NSString* subscriberPort;
-
-+ (id) initSingleton;
-
-- (BOOL) retrieveServerFromBroadcast;
-
-- (BOOL) connect;
-- (void) runSubscriber;
-
-// Push messages
-- (BOOL) pushMessageWithPayload:(NSData *)payload
-							tag:(NSString *)tag
-					   receiver:(NSString *)receiver;
-
-- (BOOL) pushMessage:(ServerMessage *)message;
-
-// Register callbacks responders
-- (BOOL) registerResponder:(id<CallbackResponder>)responder
-				forMessage:(NSString *)message;
-
-- (BOOL) deleteResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message;
+// This is just an informative method, clients will need to use the callbacks
+- (void)communicator:(ORServerCommunicator *)communicator didPullMessage:(NSString *)message;
 
 @end
+

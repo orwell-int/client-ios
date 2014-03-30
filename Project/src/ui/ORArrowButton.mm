@@ -96,4 +96,9 @@
 	return _backgroundImage.alpha;
 }
 
+- (NSString *)debugDescription
+{
+	return [NSString stringWithFormat:@"ORArrowButton with rotation: %d", _rotation];
+}
+
 @end

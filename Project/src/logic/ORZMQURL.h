@@ -25,16 +25,37 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIDevice.h>
-#import <UIKit/UIKit.h>
-#import "SPSprite.h"
-#import "BackgroundScene.h"
 
-#import <string>
+@class ORIPFour;
 
-@interface BroadcastScene : BackgroundScene <UITextFieldDelegate>
+typedef enum {
+	ZMQTCP = 0,
+	ZMQUDP,
+	ZMQUNKNOWN
+} ORZMQProtocol;
 
--(id) init;
--(void) onBackButton:(SPEvent*)event;
+@interface ORZMQURL : NSObject
+
+@property (strong, nonatomic) NSString * ip;
+@property (nonatomic) ORZMQProtocol protocol;
+@property (nonatomic, readonly, getter=isValid) BOOL valid;
+@property (strong, nonatomic) NSNumber * pusherPort;
+@property (strong, nonatomic) NSNumber * pullerPort;
+
+
+- (id)init;
+- (id)initWithString:(NSString *)string;
+- (id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port;
+- (id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort;
+- (id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort andProtocol:(ORZMQProtocol)protocol;
+
+- (id)initWithORIPFour:(ORIPFour *)ipFour;
+- (id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port;
+- (id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort;
+- (id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort andProtocol:(ORZMQProtocol)protocol;
+
+- (NSString *)toString;
+- (NSString *)pusherToString;
+- (NSString *)pullerToString;
 
 @end

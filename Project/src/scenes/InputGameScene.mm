@@ -27,7 +27,7 @@
 #import "InputGameScene.h"
 #import "ORButton.h"
 #import "ORTextField.h"
-#import "ServerCommunicator.h"
+#import "ORServerCommunicator.h"
 #import "CallbackResponder.h"
 #import "ORArrowButton.h"
 #import "ORCameraViewer.h"
@@ -35,10 +35,12 @@
 #import "robot.pb.h"
 #import "controller.pb.h"
 
+
+#pragma mark Interface begin
 @interface InputGameScene() <CallbackResponder>
 @property (strong, nonatomic) ORTextField *playerTextField;
 @property (strong, nonatomic) ORTextField *feedbackTextField;
-@property (weak, nonatomic) ServerCommunicator *serverCommunicator;
+@property (weak, nonatomic) ORServerCommunicator *serverCommunicator;
 
 @property (strong, nonatomic) ORArrowButton *leftButton;
 @property (strong, nonatomic) ORArrowButton *downButton;
@@ -47,14 +49,29 @@
 @property (strong, nonatomic) NSMutableArray *buttonsArray;
 @property (strong, nonatomic) ORCameraViewer *mjpegViewer;
 
+- (void)onDownButtonClicked:(SPTouchEvent *)event;
+- (void)onUpButtonClicked:(SPTouchEvent *)event;
+- (void)onLeftButtonClicked:(SPTouchEvent *)event;
+- (void)onRightButtonClicked:(SPTouchEvent *)event;
+
 @end
 
+#pragma mark Implementation begin
 @implementation InputGameScene
+{
+	BOOL _running;
+	float _left;
+	float _right;
+}
 
+#pragma mark Init methods
 - (id)init
 {
 	self = [super init];
 	[self addBackButton];
+	_left = 0;
+	_right = 0;
+	_running = YES;
 	
 	DDLogDebug(@"Usable screen size, w = %f - h = %f",
 			   [self getUsableScreenSize].size.width, [self getUsableScreenSize].size.height);
@@ -83,75 +100,7 @@
 	DDLogDebug(@"Initing _mjpegViewer");
 	_mjpegViewer = [ORCameraViewer cameraViewerFromURL:[NSURL URLWithString:@"http://mail.bluegreendiamond.net:8084/cgi-bin/faststream.jpg?stream=full&fps=24"]];
 
-	// Event block
-	for (ORArrowButton *button in _buttonsArray) {
-		__weak InputGameScene *wself = self;
-		[button addEventListenerForType:SP_EVENT_TYPE_TRIGGERED block:^(SPEvent *event) {
-			using namespace orwell::messages;
-			__weak ORArrowButton *button = (ORArrowButton *) event.target;
-			DDLogInfo(@"Button %@ pressed, rotation: %d", button.name, button.rotation);
-
-			button.backgroundAlpha = 0.0f;
-			SPTween *alphaAnimator = [SPTween tweenWithTarget:button time:0.5f];
-			[alphaAnimator animateProperty:@"backgroundAlpha" targetValue:1.0f];
-			alphaAnimator.reverse = YES;
-			alphaAnimator.repeatCount = 2;
-			[Sparrow.juggler addObject:alphaAnimator];
-			
-			// Make sure the Tween is removed at the end of the animation
-			__weak SPTween *weakAlphaAnimator = alphaAnimator;
-			[alphaAnimator addEventListenerForType:SP_EVENT_TYPE_COMPLETED block:^(id event){
-				DDLogInfo(@"Removing tween");
-				[Sparrow.juggler removeObject:weakAlphaAnimator];
-			}];
-			
-			double left = 0, right = 0;
-			Input inputMessage;
-			switch (button.rotation) {
-				case UP:
-					left = 1;
-					right = 1;
-					break;
-				case DOWN:
-					left = -1;
-					right = -1;
-					break;
-				case LEFT:
-					left = 1;
-					right = -1;
-					break;
-				case RIGHT:
-					left = -1;
-					right = 1;
-					break;
-			}
-			
-			DDLogDebug(@"Sending message with left: %f, right: %f", left, right);
-			
-			inputMessage.mutable_move()->set_left(left);
-			inputMessage.mutable_move()->set_right(right);
-			inputMessage.mutable_fire()->set_weapon1(false);
-			inputMessage.mutable_fire()->set_weapon2(false);
-			
-			ServerMessage *message = [[ServerMessage alloc] init];
-			message.tag = @"Input ";
-			message.receiver = @"iphoneclient ";
-			message.payload = [NSData dataWithBytes:inputMessage.SerializeAsString().c_str() length:inputMessage.SerializeAsString().length()];
-			DDLogDebug(@"Pushing message Input");
-			
-			[wself.serverCommunicator pushMessage:message];
-		}];
-	}
-
 	return self;
-}
-
-- (void)onBackButton:(SPEvent *)event
-{
-	[self unregisterSelector:@selector(onBackButton:)];
-	[self dispatchEventWithType:EVENT_TYPE_INPUT_SCENE_CLOSING bubbles:YES];
-	[_serverCommunicator deleteResponder:self forMessage:@"GameState"];
-	[_serverCommunicator deleteResponder:self forMessage:@"Input"];
 }
 
 - (void)placeObjectInStage
@@ -174,21 +123,25 @@
 	_downButton.height = 40.0f;
 	_downButton.x = 40.0f;
 	_downButton.y = 270.0f;
+    [_downButton addEventListener:@selector(onDownButtonClicked:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
 
 	_upButton.width = 240.0f;
 	_upButton.height = 40.0f;
 	_upButton.x = 40.0f;
 	_upButton.y = 70.0f;
+    [_upButton addEventListener:@selector(onUpButtonClicked:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
 	
 	_leftButton.width = 40.0f;
 	_leftButton.height = 160.0f;
 	_leftButton.x = 0.0f;
 	_leftButton.y = 110.0f;
+    [_leftButton addEventListener:@selector(onLeftButtonClicked:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
 	
 	_rightButton.width = 40.0f;
 	_rightButton.height = 160.0f;
 	_rightButton.x = 280.0f;
 	_rightButton.y = 110.0f;
+    [_rightButton addEventListener:@selector(onRightButtonClicked:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
 	
 	_feedbackTextField.x = 0.0f;
 	_feedbackTextField.y = 330.0f;
@@ -203,17 +156,38 @@
 - (void)startObjects
 {
 	// This is active already
-	_serverCommunicator = [ServerCommunicator initSingleton];
-	[_serverCommunicator registerResponder:self forMessage:@"Input"];
+	_serverCommunicator = [ORServerCommunicator singleton];
 	[_serverCommunicator registerResponder:self forMessage:@"GameState"];
+    [_mjpegViewer play];
 	
 	[self registerSelector:@selector(onBackButton:)];
+	
+#pragma mark Background thread for Input messages
+	// Background thread handling the logic of constantly sending a message
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+		while (_running) {
+            using namespace orwell::messages;
+            Input input;
+            input.mutable_move()->set_left(_left);
+            input.mutable_move()->set_right(_right);
+
+            ORServerMessage *message = [[ORServerMessage alloc] init];
+            message.tag = @"Input ";
+            message.receiver = @"targetrobot ";
+            message.payload = [NSData dataWithBytes:input.SerializeAsString().c_str()
+                                             length:input.SerializeAsString().length()];
+            [_serverCommunicator pushMessage:message];
+		}
+		
+		DDLogInfo(@"Leaving background thread");
+	});
 }
 
+
+#pragma mark Callback responder
 - (BOOL)messageReceived:(NSDictionary *)message
 {
 	static int count = 0;
-	DDLogVerbose(@"Received message : %@", [message debugDescription]);
 	NSNumber *playing = [message objectForKey:CB_GAMESTATE_KEY_PLAYING];
 
 	if (playing != nil) {
@@ -221,6 +195,95 @@
 	}
 
 	return YES;
+}
+
+#pragma mark Events methods
+- (void)onDownButtonClicked:(SPTouchEvent *)event
+{
+    SPTween *alphaAnimator = [SPTween tweenWithTarget:_downButton time:0.5f];
+    
+    if ([[event touchesWithTarget:_downButton andPhase:SPTouchPhaseBegan] allObjects].count) {
+        DDLogInfo(@"Down button started");
+        _left = -1;
+        _right = -1;
+        [alphaAnimator animateProperty:@"backgroundAlpha" targetValue:1.0f];
+    }
+    else {
+        DDLogInfo(@"Down button finished");
+        _left = 0;
+        _right = 0;
+        [alphaAnimator animateProperty:@"backgroundAlpha" targetValue:0.0f];
+    }
+    
+    [Sparrow.juggler addObject:alphaAnimator];
+}
+
+- (void)onUpButtonClicked:(SPTouchEvent *)event
+{
+    SPTween *alphaAnimator = [SPTween tweenWithTarget:_upButton time:0.5f];
+    
+    if ([[event touchesWithTarget:_upButton andPhase:SPTouchPhaseBegan] allObjects].count) {
+        DDLogInfo(@"Up button started");
+        _left = 1;
+        _right = 1;
+        [alphaAnimator animateProperty:@"backgroundAlpha" targetValue:1.0f];
+    }
+    else {
+        DDLogInfo(@"Up button finished");
+        _left = 0;
+        _right = 0;
+        [alphaAnimator animateProperty:@"backgroundAlpha" targetValue:0.0f];
+    }
+    
+    [Sparrow.juggler addObject:alphaAnimator];
+}
+
+- (void)onLeftButtonClicked:(SPTouchEvent *)event
+{
+    SPTween *alphaAnimator = [SPTween tweenWithTarget:_leftButton time:0.5f];
+    
+    if ([[event touchesWithTarget:_leftButton andPhase:SPTouchPhaseBegan] allObjects].count) {
+        DDLogInfo(@"Left button started");
+        _left = 1;
+        _right = -1;
+        [alphaAnimator animateProperty:@"backgroundAlpha" targetValue:1.0f];
+    }
+    else {
+        DDLogInfo(@"Left button finished");
+        _left = 0;
+        _right = 0;
+        [alphaAnimator animateProperty:@"backgroundAlpha" targetValue:0.0f];
+    }
+    
+    [Sparrow.juggler addObject:alphaAnimator];
+}
+
+- (void)onRightButtonClicked:(SPTouchEvent *)event
+{
+    SPTween *alphaAnimator = [SPTween tweenWithTarget:_rightButton time:0.5f];
+    
+    if ([[event touchesWithTarget:_rightButton andPhase:SPTouchPhaseBegan] allObjects].count) {
+        DDLogInfo(@"Right button started");
+        _left = -1;
+        _right = 1;
+        [alphaAnimator animateProperty:@"backgroundAlpha" targetValue:1.0f];
+    }
+    else {
+        DDLogInfo(@"Right button finished");
+        _left = 0;
+        _right = 0;
+        [alphaAnimator animateProperty:@"backgroundAlpha" targetValue:0.0f];
+    }
+    
+    [Sparrow.juggler addObject:alphaAnimator];
+}
+
+- (void)onBackButton:(SPEvent *)event
+{
+	[self unregisterSelector:@selector(onBackButton:)];
+	[self dispatchEventWithType:EVENT_TYPE_INPUT_SCENE_CLOSING bubbles:YES];
+	[_serverCommunicator deleteResponder:self forMessage:@"GameState"];
+	_running = NO;
 }
 
 @end
