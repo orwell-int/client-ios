@@ -87,24 +87,36 @@
 
 -(BOOL)messageReceived:(NSDictionary *)message
 {
-	NSLog(@"Welcome message received");
+	DDLogDebug(@"Message received");
 	
 	_messageSent = YES;
 	
-	// This has to be done in the main thread
-	dispatch_async(dispatch_get_main_queue(), ^(){
-		if (_inputGameScene == nil) {
-			_inputGameScene = [[InputGameScene alloc] init];
+	if ([message objectForKey:CB_WELCOME_KEY_ROBOT] != nil) {
+		// This has to be done in the main thread
+		dispatch_async(dispatch_get_main_queue(), ^(){
+			if (_inputGameScene == nil) {
+				_inputGameScene = [[InputGameScene alloc] init];
 
-			_inputGameScene.robotName = [message objectForKey:CB_WELCOME_KEY_ROBOT];
-			_inputGameScene.playerName = [NSString stringWithString:_inputPlayerName.text];
-			[_inputGameScene placeObjectInStage];
-			[_inputGameScene startObjects];
-			[self addChild:_inputGameScene];
-			[_inputPlayerName removeFromSuperview];
-			[_inputServerInfo removeFromSuperview];
-		}
-	});
+				_inputGameScene.robotName = [message objectForKey:CB_WELCOME_KEY_ROBOT];
+				_inputGameScene.playerName = [NSString stringWithString:_inputPlayerName.text];
+				[_inputGameScene placeObjectInStage];
+				[_inputGameScene startObjects];
+				[self addChild:_inputGameScene];
+				[_inputPlayerName removeFromSuperview];
+				[_inputServerInfo removeFromSuperview];
+
+				// Unregister callbacks
+				[_serverCommunicator deleteResponder:self forMessage:@"Welcome"];
+				[_serverCommunicator deleteResponder:self forMessage:@"Goodbye"];
+			}
+		});
+	}
+	else {
+		// We have received a Goodbye message, notify the user
+		dispatch_async(dispatch_get_main_queue(), ^{
+			_header.text = @"Goodbye message received";
+		});
+	}
 	
 	return YES;
 }
@@ -216,6 +228,7 @@
 		if (connect) {
 			[_serverCommunicator runSubscriber];
 			[_serverCommunicator registerResponder:self forMessage:@"Welcome"];
+			[_serverCommunicator registerResponder:self forMessage:@"Goodbye"];
 			_header.text = @"Connected!";
 			_startButton.text = @"Play!";
 			_startButton.name = @"play";
