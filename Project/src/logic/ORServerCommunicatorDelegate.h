@@ -25,37 +25,18 @@
  */
 
 #import <Foundation/Foundation.h>
+@class ORServerCommunicator;
+@class ORServerMessage;
 
-@class ORIPFour;
+@protocol ORServerCommunicatorDelegate<NSObject>
+@optional
+- (void)communicator:(ORServerCommunicator *)communicator didRetrieveServerFromBroadcast:(BOOL)retrieve withIP:(NSString *)serverIP;
+- (void)communicator:(ORServerCommunicator *)communicator didConnectToServer:(BOOL)connect;
+- (void)communicatorDidDisconnectFromServer;
+- (void)communicator:(ORServerCommunicator *)communicator didPushMessage:(ORServerMessage *)message;
 
-typedef enum {
-	ZMQTCP = 0,
-	ZMQUDP,
-	ZMQUNKNOWN
-} ZMQProtocol;
-
-@interface ZMQURL : NSObject
-
-@property (strong, nonatomic) NSString * ip;
-@property (nonatomic) ZMQProtocol protocol;
-@property (nonatomic, readonly, getter=isValid) BOOL valid;
-@property (strong, nonatomic) NSNumber * pusherPort;
-@property (strong, nonatomic) NSNumber * pullerPort;
-
-
--(id)init;
--(id)initWithString:(NSString *)string;
--(id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port;
--(id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort;
--(id)initWithString:(NSString *)string andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort andProtocol:(ZMQProtocol)protocol;
-
--(id)initWithORIPFour:(ORIPFour *)ipFour;
--(id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port;
--(id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort;
--(id)initWithORIPFour:(ORIPFour *)ipFour andPullerPort:(NSNumber *)port andPusherPort:(NSNumber *)pusherPort andProtocol:(ZMQProtocol)protocol;
-
--(NSString *)toString;
--(NSString *)pusherToString;
--(NSString *)pullerToString;
+// This is just an informative method, clients will need to use the callbacks
+- (void)communicator:(ORServerCommunicator *)communicator didPullMessage:(NSString *)message;
 
 @end
+

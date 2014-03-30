@@ -43,8 +43,8 @@
 @interface Callback : NSObject
 @property (weak, atomic) id<CallbackResponder> delegate;
 
--(id) init;
+- (id)init;
 
--(BOOL) processMessage: (NSData *)message;
+- (BOOL)processMessage: (NSData *)message;
 
 @end

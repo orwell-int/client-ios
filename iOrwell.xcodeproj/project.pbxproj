@@ -42,8 +42,6 @@
 		CD910B5218D77C2B00C61610 /* server-game.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF118D77B0D00C61610 /* server-game.pb.cc */; };
 		CD910B5418D77C2B00C61610 /* server-web.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF318D77B0D00C61610 /* server-web.pb.cc */; };
 		CD910B5618D77C2B00C61610 /* BackgroundScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF718D77B0D00C61610 /* BackgroundScene.mm */; };
-		CD910B5718D77C2B00C61610 /* BroadcastScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF918D77B0D00C61610 /* BroadcastScene.mm */; };
-		CD910B5818D77C2B00C61610 /* FlowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AFB18D77B0D00C61610 /* FlowScene.mm */; };
 		CD910B5918D77C2B00C61610 /* InputGameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AFD18D77B0D00C61610 /* InputGameScene.mm */; };
 		CD910B5A18D77C2B00C61610 /* MainStage.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AFF18D77B0D00C61610 /* MainStage.mm */; };
 		CD910B5B18D77C2B00C61610 /* PlayGameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0118D77B0D00C61610 /* PlayGameScene.mm */; };
@@ -70,8 +68,8 @@
 		CDDD0B9F18D77FE600979E1E /* tech-button-off.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8818D77FE600979E1E /* tech-button-off.png */; };
 		CDDD0BA118D77FE600979E1E /* tech-button-on.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8A18D77FE600979E1E /* tech-button-on.png */; };
 		CDDD0BA318D77FE600979E1E /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8D18D77FE600979E1E /* README.txt */; };
-		CDFF6C7418E1FB46000E3F22 /* ServerCommunicator.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEB18D77B0D00C61610 /* ServerCommunicator.mm */; };
-		CDFF6C7C18E200A0000E3F22 /* ZMQURL.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFF6C7B18E200A0000E3F22 /* ZMQURL.m */; };
+		CDF0AB5218E8759B004A7D1A /* ORServerCommunicator.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEB18D77B0D00C61610 /* ORServerCommunicator.mm */; };
+		CDF0AB5318E875F0004A7D1A /* ORZMQURL.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFF6C7B18E200A0000E3F22 /* ORZMQURL.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,8 +120,8 @@
 		CD910AE018D77B0D00C61610 /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		CD910AE118D77B0D00C61610 /* Game.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Game.mm; sourceTree = "<group>"; };
 		CD910AE218D77B0D00C61610 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
-		CD910AEA18D77B0D00C61610 /* ServerCommunicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerCommunicator.h; sourceTree = "<group>"; };
-		CD910AEB18D77B0D00C61610 /* ServerCommunicator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ServerCommunicator.mm; sourceTree = "<group>"; };
+		CD910AEA18D77B0D00C61610 /* ORServerCommunicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORServerCommunicator.h; sourceTree = "<group>"; };
+		CD910AEB18D77B0D00C61610 /* ORServerCommunicator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ORServerCommunicator.mm; sourceTree = "<group>"; };
 		CD910AED18D77B0D00C61610 /* controller.pb.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = controller.pb.cc; sourceTree = "<group>"; };
 		CD910AEE18D77B0D00C61610 /* controller.pb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = controller.pb.h; sourceTree = "<group>"; };
 		CD910AEF18D77B0D00C61610 /* robot.pb.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = robot.pb.cc; sourceTree = "<group>"; };
@@ -134,10 +132,6 @@
 		CD910AF418D77B0D00C61610 /* server-web.pb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "server-web.pb.h"; sourceTree = "<group>"; };
 		CD910AF618D77B0D00C61610 /* BackgroundScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackgroundScene.h; sourceTree = "<group>"; };
 		CD910AF718D77B0D00C61610 /* BackgroundScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BackgroundScene.mm; sourceTree = "<group>"; };
-		CD910AF818D77B0D00C61610 /* BroadcastScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BroadcastScene.h; sourceTree = "<group>"; };
-		CD910AF918D77B0D00C61610 /* BroadcastScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BroadcastScene.mm; sourceTree = "<group>"; };
-		CD910AFA18D77B0D00C61610 /* FlowScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlowScene.h; sourceTree = "<group>"; };
-		CD910AFB18D77B0D00C61610 /* FlowScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FlowScene.mm; sourceTree = "<group>"; };
 		CD910AFC18D77B0D00C61610 /* InputGameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputGameScene.h; sourceTree = "<group>"; };
 		CD910AFD18D77B0D00C61610 /* InputGameScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = InputGameScene.mm; sourceTree = "<group>"; usesTabs = 0; };
 		CD910AFE18D77B0D00C61610 /* MainStage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainStage.h; sourceTree = "<group>"; };
@@ -177,9 +171,9 @@
 		CDDD0B8818D77FE600979E1E /* tech-button-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tech-button-off.png"; sourceTree = "<group>"; };
 		CDDD0B8A18D77FE600979E1E /* tech-button-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tech-button-on.png"; sourceTree = "<group>"; };
 		CDDD0B8D18D77FE600979E1E /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		CDFF6C7518E1FCE0000E3F22 /* ServerCommunicatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerCommunicatorDelegate.h; sourceTree = "<group>"; };
-		CDFF6C7A18E200A0000E3F22 /* ZMQURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMQURL.h; sourceTree = "<group>"; };
-		CDFF6C7B18E200A0000E3F22 /* ZMQURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMQURL.m; sourceTree = "<group>"; };
+		CDFF6C7518E1FCE0000E3F22 /* ORServerCommunicatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORServerCommunicatorDelegate.h; sourceTree = "<group>"; };
+		CDFF6C7A18E200A0000E3F22 /* ORZMQURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORZMQURL.h; sourceTree = "<group>"; };
+		CDFF6C7B18E200A0000E3F22 /* ORZMQURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORZMQURL.m; sourceTree = "<group>"; };
 		D1EAEB90F3844352AD4A84D1 /* Pods-iOrwellTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOrwellTests.xcconfig"; path = "Pods/Pods-iOrwellTests.xcconfig"; sourceTree = "<group>"; };
 		E68E9561282D4B5587E7FD82 /* libPods-iOrwellTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOrwellTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -296,11 +290,11 @@
 				CD4C363E18DA4B6700FD1F3A /* ORIPFour.m */,
 				CD4C363A18DA495C00FD1F3A /* ORBroadcastRetriever.h */,
 				CD4C363B18DA495C00FD1F3A /* ORBroadcastRetriever.m */,
-				CDFF6C7518E1FCE0000E3F22 /* ServerCommunicatorDelegate.h */,
-				CD910AEA18D77B0D00C61610 /* ServerCommunicator.h */,
-				CD910AEB18D77B0D00C61610 /* ServerCommunicator.mm */,
-				CDFF6C7A18E200A0000E3F22 /* ZMQURL.h */,
-				CDFF6C7B18E200A0000E3F22 /* ZMQURL.m */,
+				CDFF6C7518E1FCE0000E3F22 /* ORServerCommunicatorDelegate.h */,
+				CD910AEA18D77B0D00C61610 /* ORServerCommunicator.h */,
+				CD910AEB18D77B0D00C61610 /* ORServerCommunicator.mm */,
+				CDFF6C7A18E200A0000E3F22 /* ORZMQURL.h */,
+				CDFF6C7B18E200A0000E3F22 /* ORZMQURL.m */,
 			);
 			path = logic;
 			sourceTree = "<group>";
@@ -325,10 +319,6 @@
 			children = (
 				CD910AF618D77B0D00C61610 /* BackgroundScene.h */,
 				CD910AF718D77B0D00C61610 /* BackgroundScene.mm */,
-				CD910AF818D77B0D00C61610 /* BroadcastScene.h */,
-				CD910AF918D77B0D00C61610 /* BroadcastScene.mm */,
-				CD910AFA18D77B0D00C61610 /* FlowScene.h */,
-				CD910AFB18D77B0D00C61610 /* FlowScene.mm */,
 				CD910AFC18D77B0D00C61610 /* InputGameScene.h */,
 				CD910AFD18D77B0D00C61610 /* InputGameScene.mm */,
 				CD910AFE18D77B0D00C61610 /* MainStage.h */,
@@ -653,22 +643,20 @@
 				CD333EB518DA21910075E51D /* CallbackInput.mm in Sources */,
 				CD910B4418D77C2B00C61610 /* CallbackGameState.mm in Sources */,
 				CD4C363C18DA495C00FD1F3A /* ORBroadcastRetriever.m in Sources */,
-				CDFF6C7C18E200A0000E3F22 /* ZMQURL.m in Sources */,
 				CD910B4518D77C2B00C61610 /* CallbackGoodbye.mm in Sources */,
 				CD910B4618D77C2B00C61610 /* CallbackWelcome.mm in Sources */,
-				CDFF6C7418E1FB46000E3F22 /* ServerCommunicator.mm in Sources */,
 				CD910B4718D77C2B00C61610 /* AppDelegate.mm in Sources */,
 				CD910B4818D77C2B00C61610 /* Game.mm in Sources */,
 				CD910B4918D77C2B00C61610 /* main.mm in Sources */,
 				CD910B4E18D77C2B00C61610 /* controller.pb.cc in Sources */,
 				CD910B5018D77C2B00C61610 /* robot.pb.cc in Sources */,
+				CDF0AB5318E875F0004A7D1A /* ORZMQURL.m in Sources */,
 				CD6625F718DE132300802AF0 /* ORCameraViewer.mm in Sources */,
 				CD910B5218D77C2B00C61610 /* server-game.pb.cc in Sources */,
 				CD910B5418D77C2B00C61610 /* server-web.pb.cc in Sources */,
 				CD910B5618D77C2B00C61610 /* BackgroundScene.mm in Sources */,
-				CD910B5718D77C2B00C61610 /* BroadcastScene.mm in Sources */,
 				CD4C363F18DA4B6700FD1F3A /* ORIPFour.m in Sources */,
-				CD910B5818D77C2B00C61610 /* FlowScene.mm in Sources */,
+				CDF0AB5218E8759B004A7D1A /* ORServerCommunicator.mm in Sources */,
 				CD910B5918D77C2B00C61610 /* InputGameScene.mm in Sources */,
 				CD910B5A18D77C2B00C61610 /* MainStage.mm in Sources */,
 				CD910B5B18D77C2B00C61610 /* PlayGameScene.mm in Sources */,

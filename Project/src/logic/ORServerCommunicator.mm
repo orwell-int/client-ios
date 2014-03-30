@@ -24,7 +24,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ServerCommunicator.h"
+#import "ORServerCommunicator.h"
 #import "CallbackResponder.h"
 #import <string>
 #import <zmq.h>
@@ -34,9 +34,9 @@
 #import "CallbackGoodbye.h"
 #import "CallbackInput.h"
 #import "ORBroadcastRetriever.h"
-#import "ServerCommunicatorDelegate.h"
+#import "ORServerCommunicatorDelegate.h"
 
-@interface ServerCommunicator()
+@interface ORServerCommunicator()
 
 @property (nonatomic) void* zmq_context;
 @property (nonatomic) void* zmq_socket_pusher;
@@ -46,34 +46,34 @@
 
 
 // Initialization methods
--(id)init;
+- (id)init;
 
 // Context initialization
--(BOOL)initContext;
+- (BOOL)initContext;
 
 // Sockets initialization
--(BOOL)initSockets;
+- (BOOL)initSockets;
 
 // Sockets connections
--(BOOL)connectPusher;
--(BOOL)connectSubscriber;
+- (BOOL)connectPusher;
+- (BOOL)connectSubscriber;
 
 @end
 
-@implementation ServerMessage
+@implementation ORServerMessage
 @synthesize payload = _payload;
 @synthesize receiver = _receiver;
 @synthesize tag = _tag;
 @end
 
 
-@implementation ServerCommunicator
+@implementation ORServerCommunicator
 {
 	BOOL _subscriberRunning;
 	BOOL _broadcastRetrieved;
 }
 
-+(id)initSingleton
++ (id)singleton
 {
 	static dispatch_once_t pred;
 	static id shared = nil;
@@ -86,7 +86,7 @@
 	return shared;
 }
 
--(id)init
+- (id)init
 {
 	self = [super init];
 	
@@ -102,14 +102,14 @@
 	return self;
 }
 
--(BOOL)initContext
+- (BOOL)initContext
 {
 	_zmq_context = zmq_ctx_new();
 	
 	return (_zmq_context != (void*)0);
 }
 
--(BOOL)initSockets
+- (BOOL)initSockets
 {
 	_zmq_socket_pusher = zmq_socket(_zmq_context, ZMQ_PUSH);
 	_zmq_socket_subscriber = zmq_socket(_zmq_context, ZMQ_SUB);
@@ -117,7 +117,7 @@
 	return (_zmq_socket_pusher != (void*)0 and _zmq_socket_subscriber != (void*) 0);
 }
 
--(BOOL)connectPusher
+- (BOOL)connectPusher
 {
 	if (_pusherIp != nil)
 		return (zmq_connect(_zmq_socket_pusher, [_pusherIp UTF8String]) == 0);
@@ -125,7 +125,7 @@
 	return NO;
 }
 
--(BOOL)connectSubscriber
+- (BOOL)connectSubscriber
 {
 	if (_pullerIp != nil) {
 		zmq_setsockopt(_zmq_socket_subscriber, ZMQ_SUBSCRIBE, "", strlen(""));
@@ -135,12 +135,12 @@
 	return NO;
 }
 
--(BOOL)pushMessage:(ServerMessage *)message
+- (BOOL)pushMessage:(ORServerMessage *)message
 {
 	return [self pushMessageWithPayload:message.payload tag:message.tag receiver:message.receiver];
 }
 
--(BOOL)pushMessageWithPayload:(NSData *)payload tag:(NSString *)tag receiver:(NSString *)receiver
+- (BOOL)pushMessageWithPayload:(NSData *)payload tag:(NSString *)tag receiver:(NSString *)receiver
 {
 	NSMutableData *_load = [[NSMutableData alloc] init];
 		
@@ -160,29 +160,29 @@
 	return returnValue;
 }
 
--(BOOL)connect
+- (BOOL)connect
 {
 	BOOL returnValue = [self initContext] and [self initSockets] and [self connectPusher] and [self connectSubscriber];
 	
-	if ([_delegate respondsToSelector:@selector(server:didConnectToServer:)]) {
-		[_delegate server:self didConnectToServer:returnValue];
+	if ([_delegate respondsToSelector:@selector(communicator:didConnectToServer:)]) {
+		[_delegate communicator:self didConnectToServer:returnValue];
 	}
 	
 	return returnValue;
 }
 
--(void)disconnect
+- (void)disconnect
 {
 	_subscriberRunning = NO;
 	zmq_disconnect(_zmq_socket_pusher, [_pusherIp UTF8String]);
 	zmq_disconnect(_zmq_socket_subscriber, [_pullerIp UTF8String]);
 	
-	if ([_delegate respondsToSelector:@selector(serverDidDisconnectFromServer)]) {
-		[_delegate serverDidDisconnectFromServer];
+	if ([_delegate respondsToSelector:@selector(communicatorDidDisconnectFromServer)]) {
+		[_delegate communicatorDidDisconnectFromServer];
 	}
 }
 
--(void)runSubscriber
+- (void)runSubscriber
 {
 	if (!_subscriberRunning)
 	{
@@ -208,7 +208,7 @@
 					[scanner scanUpToString:@" " intoString:&clients];
 					[scanner scanUpToString:@" " intoString:&tag];
 					
-					if ([msg length] > [scanner scanLocation]+1)
+					if ([msg length] > [scanner scanLocation] + 1)
 						payload = [NSString stringWithString:[msg substringFromIndex:[scanner scanLocation]+1]];
 					else
 						payload = [NSString stringWithFormat:@"NO PAYLOAD"];
@@ -238,8 +238,12 @@
 		});
 	}
 }
+- (void)stopSubscriber
+{
+	_subscriberRunning = NO;
+}
 
--(BOOL)registerResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message
+- (BOOL)registerResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message
 {
 	if ([_callbacks objectForKey:message] != nil) {
 		((Callback *) [_callbacks objectForKey:message]).delegate = responder;
@@ -249,7 +253,7 @@
 	return NO;
 }
 
--(BOOL)deleteResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message
+- (BOOL)deleteResponder:(id<CallbackResponder>)responder forMessage:(NSString *)message
 {
 	DDLogInfo(@"Wanting to remove delegate %@ for message %@", [responder debugDescription], message);
 	Callback *callback = [_callbacks objectForKey:message];
@@ -263,7 +267,7 @@
 	return NO;
 }
 
--(BOOL)retrieveServerFromBroadcast
+- (BOOL)retrieveServerFromBroadcast
 {
 	if (_broadcastRetrieved)
 		return YES;
@@ -283,8 +287,8 @@
 		response = YES;
 	}
 	
-	if ([_delegate respondsToSelector:@selector(server:didRetrieveServerFromBroadcast:withIP:)])
-		[_delegate server:self didRetrieveServerFromBroadcast:response withIP:string];
+	if ([_delegate respondsToSelector:@selector(communicator:didRetrieveServerFromBroadcast:withIP:)])
+		[_delegate communicator:self didRetrieveServerFromBroadcast:response withIP:string];
 
 	return response;
 }
