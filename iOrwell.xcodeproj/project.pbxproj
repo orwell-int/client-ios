@@ -70,6 +70,7 @@
 		CDDD0BA318D77FE600979E1E /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8D18D77FE600979E1E /* README.txt */; };
 		CDF0AB5218E8759B004A7D1A /* ORServerCommunicator.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEB18D77B0D00C61610 /* ORServerCommunicator.mm */; };
 		CDF0AB5318E875F0004A7D1A /* ORZMQURL.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFF6C7B18E200A0000E3F22 /* ORZMQURL.m */; };
+		CDF0AB5618E9DD50004A7D1A /* ORViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF0AB5518E9DD50004A7D1A /* ORViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +172,8 @@
 		CDDD0B8818D77FE600979E1E /* tech-button-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tech-button-off.png"; sourceTree = "<group>"; };
 		CDDD0B8A18D77FE600979E1E /* tech-button-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tech-button-on.png"; sourceTree = "<group>"; };
 		CDDD0B8D18D77FE600979E1E /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		CDF0AB5418E9DD50004A7D1A /* ORViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORViewController.h; sourceTree = "<group>"; };
+		CDF0AB5518E9DD50004A7D1A /* ORViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORViewController.m; sourceTree = "<group>"; };
 		CDFF6C7518E1FCE0000E3F22 /* ORServerCommunicatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORServerCommunicatorDelegate.h; sourceTree = "<group>"; };
 		CDFF6C7A18E200A0000E3F22 /* ORZMQURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORZMQURL.h; sourceTree = "<group>"; };
 		CDFF6C7B18E200A0000E3F22 /* ORZMQURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORZMQURL.m; sourceTree = "<group>"; };
@@ -276,6 +279,8 @@
 			children = (
 				CD910ADE18D77B0D00C61610 /* AppDelegate.h */,
 				CD910ADF18D77B0D00C61610 /* AppDelegate.mm */,
+				CDF0AB5418E9DD50004A7D1A /* ORViewController.h */,
+				CDF0AB5518E9DD50004A7D1A /* ORViewController.m */,
 				CD910AE018D77B0D00C61610 /* Game.h */,
 				CD910AE118D77B0D00C61610 /* Game.mm */,
 				CD910AE218D77B0D00C61610 /* main.mm */,
@@ -650,6 +655,7 @@
 				CD910B4918D77C2B00C61610 /* main.mm in Sources */,
 				CD910B4E18D77C2B00C61610 /* controller.pb.cc in Sources */,
 				CD910B5018D77C2B00C61610 /* robot.pb.cc in Sources */,
+				CDF0AB5618E9DD50004A7D1A /* ORViewController.m in Sources */,
 				CDF0AB5318E875F0004A7D1A /* ORZMQURL.m in Sources */,
 				CD6625F718DE132300802AF0 /* ORCameraViewer.mm in Sources */,
 				CD910B5218D77C2B00C61610 /* server-game.pb.cc in Sources */,
@@ -799,7 +805,6 @@
 			baseConfigurationReference = 9FE88D42A3C54E55B4666AC5 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -849,7 +854,6 @@
 			baseConfigurationReference = 9FE88D42A3C54E55B4666AC5 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
