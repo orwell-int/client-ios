@@ -26,6 +26,10 @@
 
 #import "AppDelegate.h"
 #import "Game.h"
+#import <DDLog.h>
+#import <DDTTYLogger.h>
+#import <DDASLLogger.h>
+#import <DDFileLogger.h>
 
 // --- c functions ---
 
@@ -45,7 +49,11 @@ void onUncaughtException(NSException *exception)
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSSetUncaughtExceptionHandler(&onUncaughtException);
-    
+	
+	// Setup CocoaLumberjack for logging
+	[DDLog addLogger:[DDTTYLogger sharedInstance] withLogLevel:LOG_LEVEL_DEBUG];
+	[DDTTYLogger sharedInstance].colorsEnabled = YES;
+
     CGRect screenBounds = [UIScreen mainScreen].bounds;
     _window = [[UIWindow alloc] initWithFrame:screenBounds];
     
