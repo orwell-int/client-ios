@@ -27,10 +27,6 @@
 #import "Game.h" 
 #import "SPStage.h"
 #import "MainStage.h"
-#import <DDLog.h>
-#import <DDTTYLogger.h>
-#import <DDASLLogger.h>
-#import <DDFileLogger.h>
 
 // --- private interface ---------------------------------------------------------------------------
 
@@ -59,13 +55,8 @@
 
 - (void)setup
 {
-	// Setup CocoaLumberjack for logging
-	[DDLog addLogger:[DDTTYLogger sharedInstance] withLogLevel:LOG_LEVEL_DEBUG];
-	[DDTTYLogger sharedInstance].colorsEnabled = YES;
-
 	_mainstage = [[MainStage sprite] initMainStage];
 	[self addChild:_mainstage];
 }
-
 
 @end
