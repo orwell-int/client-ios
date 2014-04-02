@@ -24,35 +24,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ORViewController.h"
-#import "OREventOrientation.h"
+#import "SPEvent.h"
 
-@implementation ORViewController
-@synthesize supportedOrientations = _supportedOrientations;
+#define OR_EVENT_ORIENTATION_CHANGED @"orientationChanged"
 
-- (id)init
-{
-	self = [super init];
-	_supportedOrientations = UIInterfaceOrientationMaskPortrait;
-	return self;
-}
+@interface OREventOrientation : SPEvent
+@property (nonatomic, readonly) UIInterfaceOrientation orientation;
 
-- (NSUInteger)supportedInterfaceOrientations
-{
-	return _supportedOrientations;
-}
-
-- (BOOL)shouldAutorotate
-{
-	return YES;
-}
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-	SPEvent *event = [[OREventOrientation alloc] initWithType:OR_EVENT_ORIENTATION_CHANGED
-													  bubbles:NO
-												toOrientation:toInterfaceOrientation];
-	[[Sparrow stage] broadcastEvent:event];
-}
++ (id)eventWithType:(NSString *)type toOrientation:(UIInterfaceOrientation)toOrientation;
+- (id)initWithType:(NSString *)type bubbles:(BOOL)bubbles toOrientation:(UIInterfaceOrientation)toOrientation;
 
 @end

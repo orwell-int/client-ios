@@ -68,6 +68,7 @@
 		CDDD0B9F18D77FE600979E1E /* tech-button-off.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8818D77FE600979E1E /* tech-button-off.png */; };
 		CDDD0BA118D77FE600979E1E /* tech-button-on.png in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8A18D77FE600979E1E /* tech-button-on.png */; };
 		CDDD0BA318D77FE600979E1E /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B8D18D77FE600979E1E /* README.txt */; };
+		CDE900D818EC7B27003423E1 /* OREventOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE900D718EC7B27003423E1 /* OREventOrientation.m */; };
 		CDF0AB5218E8759B004A7D1A /* ORServerCommunicator.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AEB18D77B0D00C61610 /* ORServerCommunicator.mm */; };
 		CDF0AB5318E875F0004A7D1A /* ORZMQURL.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFF6C7B18E200A0000E3F22 /* ORZMQURL.m */; };
 		CDF0AB5618E9DD50004A7D1A /* ORViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF0AB5518E9DD50004A7D1A /* ORViewController.m */; };
@@ -172,6 +173,8 @@
 		CDDD0B8818D77FE600979E1E /* tech-button-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tech-button-off.png"; sourceTree = "<group>"; };
 		CDDD0B8A18D77FE600979E1E /* tech-button-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tech-button-on.png"; sourceTree = "<group>"; };
 		CDDD0B8D18D77FE600979E1E /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		CDE900D618EC7B27003423E1 /* OREventOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OREventOrientation.h; sourceTree = "<group>"; };
+		CDE900D718EC7B27003423E1 /* OREventOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OREventOrientation.m; sourceTree = "<group>"; };
 		CDF0AB5418E9DD50004A7D1A /* ORViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORViewController.h; sourceTree = "<group>"; };
 		CDF0AB5518E9DD50004A7D1A /* ORViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORViewController.m; sourceTree = "<group>"; };
 		CDFF6C7518E1FCE0000E3F22 /* ORServerCommunicatorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORServerCommunicatorDelegate.h; sourceTree = "<group>"; };
@@ -281,6 +284,8 @@
 				CD910ADF18D77B0D00C61610 /* AppDelegate.mm */,
 				CDF0AB5418E9DD50004A7D1A /* ORViewController.h */,
 				CDF0AB5518E9DD50004A7D1A /* ORViewController.m */,
+				CDE900D618EC7B27003423E1 /* OREventOrientation.h */,
+				CDE900D718EC7B27003423E1 /* OREventOrientation.m */,
 				CD910AE018D77B0D00C61610 /* Game.h */,
 				CD910AE118D77B0D00C61610 /* Game.mm */,
 				CD910AE218D77B0D00C61610 /* main.mm */,
@@ -650,6 +655,7 @@
 				CD4C363C18DA495C00FD1F3A /* ORBroadcastRetriever.m in Sources */,
 				CD910B4518D77C2B00C61610 /* CallbackGoodbye.mm in Sources */,
 				CD910B4618D77C2B00C61610 /* CallbackWelcome.mm in Sources */,
+				CDE900D818EC7B27003423E1 /* OREventOrientation.m in Sources */,
 				CD910B4718D77C2B00C61610 /* AppDelegate.mm in Sources */,
 				CD910B4818D77C2B00C61610 /* Game.mm in Sources */,
 				CD910B4918D77C2B00C61610 /* main.mm in Sources */,
@@ -841,7 +847,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Project/App-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -884,7 +890,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Project/App-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

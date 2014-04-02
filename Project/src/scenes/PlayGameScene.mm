@@ -34,6 +34,8 @@
 #import "controller.pb.h"
 #import "ORServerCommunicatorDelegate.h"
 #import "ORZMQURL.h"
+#import "ORViewController.h"
+#import "OREventOrientation.h"
 
 #pragma mark Interface begins
 @interface PlayGameScene() <CallbackResponder, UITextFieldDelegate, ORServerCommunicatorDelegate>
@@ -73,8 +75,19 @@
 	_startButton.name = @"connect";
 	
 	_messageSent = NO;
+
+	// Register selectors
+	[self addEventListener:@selector(onSubSceneClosing:)
+				  atObject:self
+				   forType:EVENT_TYPE_INPUT_SCENE_CLOSING];
+
+	[self addEventListener:@selector(onOrientationChanged:)
+				  atObject:self
+				   forType:OR_EVENT_ORIENTATION_CHANGED];
 	
-	[self addEventListener:@selector(onSubSceneClosing:) atObject:self forType:EVENT_TYPE_INPUT_SCENE_CLOSING];
+	// Tell to the viewController that I'm supporting all the orientations.
+	ORViewController *viewController = (ORViewController *) [Sparrow currentController];
+	viewController.supportedOrientations = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape | UIInterfaceOrientationPortraitUpsideDown;
 	
 	return self;
 }
@@ -82,6 +95,7 @@
 - (void)placeObjectInStage
 {
 	DDLogInfo(@"Placing object in stage for PlayGameScene");
+	
 	_header.x = 0.0f;
 	_header.y = 0.0f;
 	[self addChild:_header];
@@ -142,6 +156,7 @@
 			}
 		}
 	}];
+	
 }
 
 - (void)startObjects
@@ -224,6 +239,18 @@
 	
 	[_inputPlayerName removeFromSuperview];
 	[_inputServerInfo removeFromSuperview];
+	
+	// Stop supporting landscape..
+	ORViewController *viewController = (ORViewController *) [Sparrow currentController];
+	viewController.supportedOrientations = UIInterfaceOrientationMaskPortrait;
+}
+
+- (void)onOrientationChanged:(SPEvent *)event
+{
+	OREventOrientation *orientationEvent = (OREventOrientation *)event;
+	DDLogInfo(@"Orientation is changing to: %d", orientationEvent.orientation);
+
+	[self placeObjectInStage];
 }
 
 #pragma mark Communicator delegate methods

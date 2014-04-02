@@ -27,5 +27,5 @@
 #import "SPViewController.h"
 
 @interface ORViewController : SPViewController
-
+@property (nonatomic, readwrite) NSUInteger supportedOrientations;
 @end
