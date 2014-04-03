@@ -54,4 +54,10 @@
 	return ret;
 }
 
+- (void)setWidth:(float)width
+{
+	[super setWidth:width];
+	_background.width = width;
+}
+
 @end

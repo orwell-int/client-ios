@@ -51,6 +51,7 @@
 - (void)communicator:(ORServerCommunicator *)server didRetrieveServerFromBroadcast:(BOOL)retrieve withIP:(NSString *)serverIP;
 - (void)communicator:(ORServerCommunicator *)server didConnectToServer:(BOOL)connect;
 - (void)serverDidDisconnectFromServer;
+- (void)onConnectButtonPressed:(SPEvent *)event;
 
 @end
 
@@ -116,47 +117,9 @@
 	_startButton.y = 220.0f;
 	[self addChild:_startButton];
 	
-	// I am weak.
-	__weak PlayGameScene *wself = self;
-	[_startButton addEventListenerForType:SP_EVENT_TYPE_TRIGGERED block:^(SPEvent *event) {
-		DDLogVerbose(@"StartButton handling..");
-		ORButton *startButton = (ORButton *) event.target;
-		
-		if ([startButton.name isEqualToString:@"play"]) {
-			DDLogInfo(@"Handling the play logic");
-			if ([wself.inputPlayerName.text isEqualToString:@""]) {
-				wself.header.text = @"Name is not valid!";
-				return;
-			}
-			
-			orwell::messages::Hello hello;
-			DDLogDebug(@"Player name will be: %@", wself.inputPlayerName.text);
-			hello.set_name([wself.inputPlayerName.text cStringUsingEncoding:NSASCIIStringEncoding]);
-			hello.set_ip("0");
-			hello.set_port(0);
-			
-			ORServerMessage *msg = [[ORServerMessage alloc] init];
-			msg.payload = [NSData dataWithBytes:hello.SerializeAsString().c_str() length:hello.SerializeAsString().size()];
-			msg.receiver = @"iphoneclient ";
-			msg.tag = @"Hello " ;
-			
-			[wself.serverCommunicator pushMessage:msg];
-		}
-		else {
-			DDLogInfo(@"Handling the connect logic");
-			ORZMQURL *url = [[ORZMQURL alloc] initWithString:wself.inputServerInfo.text];
-			url.protocol = ZMQTCP;
-			if ([url isValid]) {
-				wself.serverCommunicator.pusherIp = [url pusherToString];
-				wself.serverCommunicator.pullerIp = [url pullerToString];
-				[wself.serverCommunicator connect];
-			}
-			else {
-				wself.header.text = @"IP is not valid";
-			}
-		}
-	}];
-	
+	// Avoid having multiple blocks
+	if (![_startButton hasEventListenerForType:SP_EVENT_TYPE_TRIGGERED])
+		[_startButton addEventListener:@selector(onConnectButtonPressed:) atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
 }
 
 - (void)startObjects
@@ -245,10 +208,54 @@
 	viewController.supportedOrientations = UIInterfaceOrientationMaskPortrait;
 }
 
+- (void)onConnectButtonPressed:(SPEvent *)event
+{
+	DDLogVerbose(@"StartButton handling..");
+	if ([_startButton.name isEqualToString:@"play"]) {
+		DDLogInfo(@"Handling the play logic");
+		if ([_inputPlayerName.text isEqualToString:@""]) {
+			_header.text = @"Name is not valid!";
+			return;
+		}
+		
+		orwell::messages::Hello hello;
+		DDLogDebug(@"Player name will be: %@", _inputPlayerName.text);
+		hello.set_name([_inputPlayerName.text cStringUsingEncoding:NSASCIIStringEncoding]);
+		hello.set_ip("0");
+		hello.set_port(0);
+		
+		ORServerMessage *msg = [[ORServerMessage alloc] init];
+		msg.payload = [NSData dataWithBytes:hello.SerializeAsString().c_str() length:hello.SerializeAsString().size()];
+		msg.receiver = @"iphoneclient ";
+		msg.tag = @"Hello " ;
+		
+		[_serverCommunicator pushMessage:msg];
+	}
+	else {
+		DDLogInfo(@"Handling the connect logic");
+		ORZMQURL *url = [[ORZMQURL alloc] initWithString:_inputServerInfo.text];
+		url.protocol = ZMQTCP;
+		if ([url isValid]) {
+			_serverCommunicator.pusherIp = [url pusherToString];
+			_serverCommunicator.pullerIp = [url pullerToString];
+			[_serverCommunicator connect];
+		}
+		else {
+			_header.text = @"IP is not valid";
+		}
+	}
+}
+
 - (void)onOrientationChanged:(SPEvent *)event
 {
 	OREventOrientation *orientationEvent = (OREventOrientation *)event;
 	DDLogInfo(@"Orientation is changing to: %d", orientationEvent.orientation);
+	if (orientationEvent.orientation == UIInterfaceOrientationPortrait) {
+		_header.width = 320.0f;
+	}
+	else {
+		_header.width = 480.0f;
+	}
 
 	[self placeObjectInStage];
 }
