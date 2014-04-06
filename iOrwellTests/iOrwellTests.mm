@@ -225,4 +225,14 @@
 	XCTAssert([[url toString] isEqual:@"tcp://192.168.1.10:8080"]);
 }
 
+- (void)testIpFourRetrieving
+{
+	ORBroadcastRetriever *broadcastRetriever = [ORBroadcastRetriever retrieverWithTimeout:2];
+	NSArray *array = [broadcastRetriever retrieveAddresses];
+	
+	XCTAssert(array != nil, @"Array is nil");
+	
+	NSLog(@"%@", [array debugDescription]);
+}
+
 @end

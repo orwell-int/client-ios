@@ -33,8 +33,8 @@
 #include <unistd.h>
 
 @interface ORBroadcastRetriever()
-- (BOOL) retrieveIPFour;
-- (id) init;
+- (BOOL)retrieveIPFour;
+- (id)init;
 @end
 
 @implementation ORBroadcastRetriever {
@@ -47,6 +47,7 @@
 @synthesize secondPort = _secondPort;
 @synthesize responderIp = _responderIp;
 @synthesize ipFour = _ipFour;
+@synthesize ipFourArray = _ipFourArray;
 
 - (id)init
 {
@@ -78,18 +79,43 @@
 	
 	if(gethostname(szBuffer, sizeof(szBuffer)) == -1)
 	{
+		DDLogError(@"gethostname failed");
 		return NO;
 	}
 	
 	struct hostent *host = gethostbyname(szBuffer);
 	if(host == NULL)
 	{
+		DDLogError(@"gethostbyname failed, using hostname: %s", szBuffer);
 		return NO;
 	}
 
 	_ipFour = [ORIPFour ipFourFromBytes:(uint8_t *) host->h_addr_list[0]];
 	
 	return YES;
+}
+
+- (NSArray *)retrieveAddresses
+{
+	NSMutableArray *returnValue = nil;
+	char szBuffer[1024];
+	
+	if (gethostname(szBuffer, sizeof szBuffer) != -1) {
+		struct hostent *host = gethostbyname(szBuffer);
+		if (host != NULL) {
+			returnValue = [[NSMutableArray alloc] init];
+			
+			for (uint8_t i = 0; /* No verification */ ; i++) {
+				if (host->h_addr_list[i] == NULL) {
+					break;
+				}
+				
+				[returnValue addObject:[ORIPFour ipFourFromBytes:(uint8_t *)host->h_addr_list[i]]];
+			}
+		}
+	}
+	
+	return (NSArray *)returnValue;
 }
 
 - (BOOL)retrieveAddress
@@ -109,6 +135,7 @@
 	if (! [self retrieveIPFour])
 	{
 		DDLogError(@"Error while retrieving IP4");
+		return NO;
 	}
 	
 	// IPFour should set the last byte to 255
