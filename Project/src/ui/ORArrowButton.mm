@@ -52,7 +52,7 @@
 	switch (_rotation) {
 		case DOWN:
 			DDLogInfo(@"Using new ButtonDown.png texture");
-			texture = [SPTexture textureWithContentsOfFile:@"ButtonDown-2.png"];
+			texture = [SPTexture textureWithContentsOfFile:@"ButtonDown.png"];
 			break;
 		case UP:
 			texture = [SPTexture textureWithContentsOfFile:@"ButtonUp.png"];
