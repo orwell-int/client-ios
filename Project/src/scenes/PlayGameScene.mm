@@ -81,14 +81,6 @@
 	[self addEventListener:@selector(onSubSceneClosing:)
 				  atObject:self
 				   forType:EVENT_TYPE_INPUT_SCENE_CLOSING];
-
-	[self addEventListener:@selector(onOrientationChanged:)
-				  atObject:self
-				   forType:OR_EVENT_ORIENTATION_CHANGED];
-	
-	// Tell to the viewController that I'm supporting all the orientations.
-	ORViewController *viewController = (ORViewController *) [Sparrow currentController];
-	viewController.supportedOrientations = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape | UIInterfaceOrientationPortraitUpsideDown;
 	
 	return self;
 }
@@ -202,10 +194,6 @@
 	
 	[_inputPlayerName removeFromSuperview];
 	[_inputServerInfo removeFromSuperview];
-	
-	// Stop supporting landscape..
-	ORViewController *viewController = (ORViewController *) [Sparrow currentController];
-	viewController.supportedOrientations = UIInterfaceOrientationMaskPortrait;
 }
 
 - (void)onConnectButtonPressed:(SPEvent *)event
@@ -244,20 +232,6 @@
 			_header.text = @"IP is not valid";
 		}
 	}
-}
-
-- (void)onOrientationChanged:(SPEvent *)event
-{
-	OREventOrientation *orientationEvent = (OREventOrientation *)event;
-	DDLogInfo(@"Orientation is changing to: %d", orientationEvent.orientation);
-	if (orientationEvent.orientation == UIInterfaceOrientationPortrait) {
-		_header.width = 320.0f;
-	}
-	else {
-		_header.width = 480.0f;
-	}
-
-	[self placeObjectInStage];
 }
 
 #pragma mark Communicator delegate methods

@@ -27,11 +27,15 @@
 #import "SPEvent.h"
 
 #define OR_EVENT_ORIENTATION_CHANGED @"orientationChanged"
+#define OR_EVENT_ORIENTATION_ANIMATION_CHANGED @"orientationAnimationChanged"
+#define OR_EVENT_ORIENTATION_FROM_CHANGED @"orientationFromChanged"
 
 @interface OREventOrientation : SPEvent
 @property (nonatomic, readonly) UIInterfaceOrientation orientation;
+@property (nonatomic, readonly) UIInterfaceOrientation fromOrientation;
 
 + (id)eventWithType:(NSString *)type toOrientation:(UIInterfaceOrientation)toOrientation;
 - (id)initWithType:(NSString *)type bubbles:(BOOL)bubbles toOrientation:(UIInterfaceOrientation)toOrientation;
+- (id)initWithType:(NSString *)type bubbles:(BOOL)bubbles fromOrientation:(UIInterfaceOrientation)fromOrientation;
 
 @end

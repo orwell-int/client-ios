@@ -50,10 +50,15 @@
 	_backButton = [[ORButton alloc] initWithText:@"Back"];;
 	_backButton.name = @"Back";
 	
-	_backButton.x = (Sparrow.stage.width / 2) - (_backButton.width / 2);
-	_backButton.y = (Sparrow.stage.height) - _backButton.height - 10;
+	_backButton.x = 90.0f;
+	_backButton.y = 400.0f;
 	
 	[self addChild:_backButton];
+}
+
+- (void)removeBackButton
+{
+	[self removeChild:_backButton];
 }
 
 - (void)registerSelector:(SEL)selector
@@ -100,6 +105,18 @@
 	screenSize.origin.y = 0.0f;
 
 	return screenSize;
+}
+
+- (void)resetBackground
+{
+	_background = [SPImage imageWithContentsOfFile:@"game-bg.png"];
+	_background.touchable = NO;
+}
+
+- (void)setBlackBackground
+{
+	_background = [[SPImage alloc] initWithWidth:320.0f height:480.0f color:0];
+	_background.touchable = NO;
 }
 
 @end

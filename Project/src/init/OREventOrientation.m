@@ -29,6 +29,7 @@
 @implementation OREventOrientation
 
 @synthesize orientation = _orientation;
+@synthesize fromOrientation = _fromOrientation;
 
 + (id)eventWithType:(NSString *)type toOrientation:(UIInterfaceOrientation)toOrientation
 {
@@ -41,6 +42,15 @@
 {
 	if (self = [super initWithType:type bubbles:NO]) {
 		_orientation = toOrientation;
+	}
+	
+	return self;
+}
+
+- (id)initWithType:(NSString *)type bubbles:(BOOL)bubbles fromOrientation:(UIInterfaceOrientation)fromOrientation
+{
+	if (self = [super initWithType:type bubbles:NO]) {
+		_fromOrientation = fromOrientation;
 	}
 	
 	return self;

@@ -33,6 +33,8 @@
 @property (strong, nonatomic) NSMutableData *mutableData;
 @property (strong, readonly) NSData *endData;
 @property (strong, nonatomic) SPImage *image;
+@property (nonatomic) float imageWidth;
+@property (nonatomic) float imageHeight;
 
 -(id) init;
 @end
@@ -50,11 +52,25 @@
 	self = [super init];
 	self.width = 320.0f;
 	self.height = 240.0f;
-	
+	_imageWidth = 320.0f;
+	_imageHeight = 240.0f;
+
 	uint8_t endMarker[2] = END_MARKER_BYTES;
 	_endData = [[NSData alloc] initWithBytes:endMarker length:2];
 
 	return self;
+}
+
+- (void)setWidth:(float)width
+{
+	[super setWidth:width];
+	_imageWidth = width;
+}
+
+- (void)setHeight:(float)height
+{
+	[super setHeight:height];
+	_imageHeight = height;
 }
 
 + (id)cameraViewerFromURL:(NSURL *)url
@@ -76,11 +92,15 @@
 - (void)pause
 {
 	_urlConnection = nil;
+	_image = nil;
+	_mutableData = nil;
 }
 
 - (void)stop
 {
 	_urlConnection = nil;
+	_image = nil;
+	_mutableData = nil;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -99,20 +119,20 @@
 			NSData *imageData = [_mutableData subdataWithRange:NSMakeRange(0, (uint32_t) endLocation)];
 			UIImage *receivedImage = [UIImage imageWithData:imageData];
 			if (receivedImage) {
-				SPTexture *texture = [[SPTexture alloc] initWithContentsOfImage:receivedImage];
+				SPTexture *texture = [[SPTexture alloc] initWithContentsOfImage:receivedImage];				
 				if (![self containsChild:_image]) {
 					_image = [SPImage imageWithTexture:texture];
 					_image.touchable = NO;
-					[self addChild:_image];
-					_image.width = 320.0f;
-					_image.height = 240.0f;
+					[self addChild:_image atIndex:0];
 				}
 				else {
 					_image.texture = texture;
-					_image.width = 320.0f;
-					_image.height = 240.0f;
 				}
 
+				_image.width = _imageWidth;
+				_image.height = _imageHeight;
+				self.width = _imageWidth;
+				self.height = _imageHeight;
 			}
 		}
 	}

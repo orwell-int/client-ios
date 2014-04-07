@@ -52,6 +52,27 @@
 	SPEvent *event = [[OREventOrientation alloc] initWithType:OR_EVENT_ORIENTATION_CHANGED
 													  bubbles:NO
 												toOrientation:toInterfaceOrientation];
+	
+	[[UIApplication sharedApplication] setStatusBarOrientation:toInterfaceOrientation animated:YES];
+	[[Sparrow stage] broadcastEvent:event];
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	SPEvent *event = [[OREventOrientation alloc] initWithType:OR_EVENT_ORIENTATION_ANIMATION_CHANGED
+													  bubbles:NO
+												toOrientation:toInterfaceOrientation];
+
+	[[UIApplication sharedApplication] setStatusBarOrientation:toInterfaceOrientation animated:YES];
+	[[Sparrow stage] broadcastEvent:event];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	SPEvent *event = [[OREventOrientation alloc] initWithType:OR_EVENT_ORIENTATION_FROM_CHANGED
+													  bubbles:NO
+											  fromOrientation:fromInterfaceOrientation];
+	
 	[[Sparrow stage] broadcastEvent:event];
 }
 
