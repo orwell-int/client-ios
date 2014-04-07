@@ -183,6 +183,8 @@
 		_inputGameScene = nil;
 	}
 
+	[_serverCommunicator registerResponder:self forMessage:@"Welcome"];
+	[_serverCommunicator registerResponder:self forMessage:@"Goodbye"];
 	[Sparrow.currentController.view addSubview:_inputPlayerName];
 	[Sparrow.currentController.view addSubview:_inputServerInfo];
 }

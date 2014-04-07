@@ -64,14 +64,16 @@
 - (void)registerSelector:(SEL)selector
 {
 	if (_backButton)
-	{
-		[_backButton addEventListener:selector atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
-	}
+		[_backButton addEventListener:selector
+							 atObject:self
+							  forType:SP_EVENT_TYPE_TRIGGERED];
 }
 
 - (void)unregisterSelector:(SEL)selector
 {
-	[_backButton removeEventListener:selector atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
+	[_backButton removeEventListener:selector
+							atObject:self
+							 forType:SP_EVENT_TYPE_TRIGGERED];
 }
 
 - (float)getBackButtonY

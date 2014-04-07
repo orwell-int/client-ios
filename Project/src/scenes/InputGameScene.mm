@@ -171,7 +171,8 @@
             [self addChild:_leftButton];
             [self addChild:_rightButton];
             [self addBackButton];
-            
+            [self registerSelector:@selector(onBackButton:)];
+
             _mjpegViewer.rotation = 0;
 
             break;
@@ -337,6 +338,7 @@
 
 - (void)onBackButton:(SPEvent *)event
 {
+    DDLogInfo(@"Back button pressed");
 	[self unregisterSelector:@selector(onBackButton:)];
     [self unregisterSelector:@selector(onOrientationChanged:)];
 	[self dispatchEventWithType:EVENT_TYPE_INPUT_SCENE_CLOSING bubbles:YES];
