@@ -52,7 +52,7 @@
 	SPEvent *event = [[OREventOrientation alloc] initWithType:OR_EVENT_ORIENTATION_CHANGED
 													  bubbles:NO
 												toOrientation:toInterfaceOrientation];
-	
+
 	[[UIApplication sharedApplication] setStatusBarOrientation:toInterfaceOrientation animated:YES];
 	[[Sparrow stage] broadcastEvent:event];
 }
@@ -72,7 +72,7 @@
 	SPEvent *event = [[OREventOrientation alloc] initWithType:OR_EVENT_ORIENTATION_FROM_CHANGED
 													  bubbles:NO
 											  fromOrientation:fromInterfaceOrientation];
-	
+
 	[[Sparrow stage] broadcastEvent:event];
 }
 

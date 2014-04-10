@@ -50,21 +50,21 @@ void onUncaughtException(NSException *exception)
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSSetUncaughtExceptionHandler(&onUncaughtException);
-	
+
 	// Setup CocoaLumberjack for logging
 	[DDLog addLogger:[DDTTYLogger sharedInstance] withLogLevel:LOG_LEVEL_DEBUG];
 	[DDTTYLogger sharedInstance].colorsEnabled = YES;
 
     CGRect screenBounds = [UIScreen mainScreen].bounds;
     _window = [[UIWindow alloc] initWithFrame:screenBounds];
-    
+
     _viewController = [[ORViewController alloc] init];
 	_viewController.showStats = NO;
 	_viewController.multitouchEnabled = YES;
 	_viewController.preferredFramesPerSecond = 60;
-    
+
     [_viewController startWithRoot:[Game class]];
-    
+
     [_window setRootViewController:_viewController];
     [_window makeKeyAndVisible];
 

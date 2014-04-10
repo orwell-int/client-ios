@@ -64,7 +64,7 @@
 	self = [super init];
 	[self addBackButton];
 	[self registerSelector:@selector(onBackButton:)];
-	
+
 	_serverCommunicator = [ORServerCommunicator singleton];
 	_serverCommunicator.delegate = self;
 	[self.serverCommunicator registerResponder:self forMessage:@"Welcome"];
@@ -74,41 +74,41 @@
 	_header = [ORTextField textFieldWithWidth:320.0f height:60.0f text:@"Connect to a server"];
 	_startButton = [[ORButton alloc] initWithText:@"Connect"];
 	_startButton.name = @"connect";
-	
+
 	_messageSent = NO;
 
 	// Register selectors
 	[self addEventListener:@selector(onSubSceneClosing:)
 				  atObject:self
 				   forType:EVENT_TYPE_INPUT_SCENE_CLOSING];
-	
+
 	return self;
 }
 
 - (void)placeObjectInStage
 {
 	DDLogInfo(@"Placing object in stage for PlayGameScene");
-	
+
 	_header.x = 0.0f;
 	_header.y = 0.0f;
 	[self addChild:_header];
-	
+
 	_inputPlayerName.frame = CGRectMake(20.0f, 80.0f, 280.0f, 40.0f);
 	_inputPlayerName.placeholder = @"Type your name";
 	_inputPlayerName.delegate = self;
 	_inputPlayerName.borderStyle = UITextBorderStyleRoundedRect;
 	[Sparrow.currentController.view addSubview:_inputPlayerName];
-	
+
 	_inputServerInfo.frame = CGRectMake(20.0f, 140.0f, 280.0f, 40.0f);
 	_inputServerInfo.placeholder = @"server:puller,pusher";
 	_inputServerInfo.delegate = self;
 	_inputServerInfo.borderStyle = UITextBorderStyleRoundedRect;
 	[Sparrow.currentController.view addSubview:_inputServerInfo];
-	
+
 	_startButton.x = Sparrow.stage.width / 2 - (_startButton.width / 2);
 	_startButton.y = 220.0f;
 	[self addChild:_startButton];
-	
+
 	// Avoid having multiple blocks
 	if (![_startButton hasEventListenerForType:SP_EVENT_TYPE_TRIGGERED])
 		[_startButton addEventListener:@selector(onConnectButtonPressed:) atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
@@ -117,7 +117,7 @@
 - (void)startObjects
 {
 	NSLog(@"Starting logic of PlayGameScene");
-	
+
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
 		[_serverCommunicator retrieveServerFromBroadcast];
 	});
@@ -127,9 +127,9 @@
 - (BOOL)messageReceived:(NSDictionary *)message
 {
 	DDLogDebug(@"Message received");
-	
+
 	_messageSent = YES;
-	
+
 	if ([message objectForKey:CB_WELCOME_KEY_ROBOT] != nil) {
 		// This has to be done in the main thread
 		dispatch_async(dispatch_get_main_queue(), ^(){
@@ -156,7 +156,7 @@
 			_header.text = @"Goodbye message received";
 		});
 	}
-	
+
 	return YES;
 }
 
@@ -193,7 +193,7 @@
 {
 	[self unregisterSelector:@selector(onBackButton:)];
 	[self dispatchEventWithType:EVENT_TYPE_SCENE_CLOSING bubbles:YES];
-	
+
 	[_inputPlayerName removeFromSuperview];
 	[_inputServerInfo removeFromSuperview];
 }
@@ -207,18 +207,18 @@
 			_header.text = @"Name is not valid!";
 			return;
 		}
-		
+
 		orwell::messages::Hello hello;
 		DDLogDebug(@"Player name will be: %@", _inputPlayerName.text);
 		hello.set_name([_inputPlayerName.text cStringUsingEncoding:NSASCIIStringEncoding]);
 		hello.set_ip("0");
 		hello.set_port(0);
-		
+
 		ORServerMessage *msg = [[ORServerMessage alloc] init];
 		msg.payload = [NSData dataWithBytes:hello.SerializeAsString().c_str() length:hello.SerializeAsString().size()];
 		msg.receiver = @"iphoneclient ";
 		msg.tag = @"Hello " ;
-		
+
 		[_serverCommunicator pushMessage:msg];
 	}
 	else {
@@ -265,7 +265,7 @@
 		}
 		else {
 			_header.text = @"Broadcast Failed";
-		}	
+		}
 	});
 }
 

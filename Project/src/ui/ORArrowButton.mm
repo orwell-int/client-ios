@@ -46,9 +46,9 @@
 {
 	SPTexture *texture;
 	DDLogInfo(@"Calling ORArrowButton with rotation: %d", rotation);
-	
+
 	_rotation = rotation;
-	
+
 	switch (_rotation) {
 		case DOWN:
 			DDLogInfo(@"Using new ButtonDown.png texture");
@@ -69,12 +69,12 @@
 			texture = [SPTexture textureWithContentsOfFile:@"button-arrow-down.png"];
 			break;
 	}
-	
+
 	self = [super initWithUpState:texture];
 	DDLogInfo(@"Beginning draw with width: %f - height: %f", self.width, self.height);
 	SPTexture *backgroundTexture = [[SPTexture alloc] initWithWidth:self.width/2 height:self.height/2 draw:^(CGContextRef contextRef) {
 		UIColor * redColor = [UIColor colorWithRed:1.0f green:0.0 blue:0.0 alpha:0.5f];
-		
+
 		CGContextSetFillColorWithColor(contextRef, redColor.CGColor);
 		CGContextFillRect(contextRef, CGRectMake(self.x, self.y, self.width/2, self.height/2));
 	}];

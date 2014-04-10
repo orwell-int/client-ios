@@ -43,7 +43,7 @@
 	if (self = [super initWithType:type bubbles:NO]) {
 		_orientation = toOrientation;
 	}
-	
+
 	return self;
 }
 
@@ -52,7 +52,7 @@
 	if (self = [super initWithType:type bubbles:NO]) {
 		_fromOrientation = fromOrientation;
 	}
-	
+
 	return self;
 }
 

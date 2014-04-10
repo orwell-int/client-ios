@@ -33,13 +33,15 @@
 #import "ORCameraViewer.h"
 #import "ORViewController.h"
 #import "OREventOrientation.h"
+#import "ORSlider.h"
+#import "ORSliderDelegate.h"
 
 #import "robot.pb.h"
 #import "controller.pb.h"
 
 
 #pragma mark Interface begin
-@interface InputGameScene() <CallbackResponder>
+@interface InputGameScene() <CallbackResponder, ORSliderDelegate>
 @property (strong, nonatomic) ORTextField *playerTextField;
 @property (strong, nonatomic) ORTextField *feedbackTextField;
 @property (weak, nonatomic) ORServerCommunicator *serverCommunicator;
@@ -50,6 +52,8 @@
 @property (strong, nonatomic) ORArrowButton *upButton;
 @property (strong, nonatomic) NSMutableArray *buttonsArray;
 @property (strong, nonatomic) ORCameraViewer *mjpegViewer;
+@property (strong, nonatomic) ORSlider *leftSlider;
+@property (strong, nonatomic) ORSlider *rightSlider;
 
 - (void)onDownButtonClicked:(SPTouchEvent *)event;
 - (void)onUpButtonClicked:(SPTouchEvent *)event;
@@ -102,9 +106,14 @@
 	_upButton.name = @"up";
 	[_buttonsArray addObject:_upButton];
 
-	DDLogDebug(@"Initing _mjpegViewer");
 	_mjpegViewer = [ORCameraViewer cameraViewerFromURL:[NSURL URLWithString:@"http://mail.bluegreendiamond.net:8084/cgi-bin/faststream.jpg?stream=full&fps=24"]];
     
+    _leftSlider = [ORSlider verticalSliderWithMarkerPosition:ORSLIDER_MP_RIGHT];
+    _leftSlider.delegate = self;
+
+    _rightSlider = [ORSlider verticalSliderWithMarkerPosition:ORSLIDER_MP_LEFT];
+    _rightSlider.delegate = self;
+
     // Tell the controller I'm a good guy.
     ORViewController *viewController = (ORViewController *)[Sparrow currentController];
     viewController.supportedOrientations = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
@@ -123,8 +132,21 @@
     [self removeChild:_upButton];
     [self removeChild:_leftButton];
     [self removeChild:_rightButton];
+    [self removeChild:_leftSlider];
+    [self removeChild:_rightSlider];
     [self removeBackButton];
-    
+
+    // It's not like we're really going to change these values..
+    _leftSlider.width = 40.0f;
+    _leftSlider.height = 480.0f;
+    _leftSlider.x = 0.0f;
+    _leftSlider.y = 0.0f;
+
+    _rightSlider.width = 40.0f;
+    _rightSlider.height = 480.0f;
+    _rightSlider.x = 280.0f;
+    _rightSlider.y = 0.0f;
+
     [self addChild:_mjpegViewer];
 
     switch (forOrientation) {
@@ -173,6 +195,10 @@
             [self addBackButton];
             [self registerSelector:@selector(onBackButton:)];
 
+            // Do not hide the status bar
+            [[UIApplication sharedApplication] setStatusBarHidden:NO
+                                                    withAnimation:UIStatusBarAnimationSlide];
+
             _mjpegViewer.rotation = 0;
 
             break;
@@ -185,11 +211,17 @@
             // is now called 'width' it is 'height' in Landscape, and viceversa.
             _mjpegViewer.width = 320.0f;
             _mjpegViewer.height = 480.0f;
-            
+
             // While x and y coordinates do change, as they are relative to the status bar.
             _mjpegViewer.x = 0.0f;
             _mjpegViewer.y = 0.0f;
 
+            [self addChild:_rightSlider];
+            [self addChild:_leftSlider];
+
+            // Hide the status bar
+            [[UIApplication sharedApplication] setStatusBarHidden:YES
+                                                    withAnimation:UIStatusBarAnimationSlide];
             // I give up.
             break;
     }
@@ -235,6 +267,7 @@
             message.payload = [NSData dataWithBytes:input.SerializeAsString().c_str()
                                              length:input.SerializeAsString().length()];
             [_serverCommunicator pushMessage:message];
+            usleep(1000 * 250); // Send 4 messages per second
 		}
 		
 		DDLogInfo(@"Leaving background thread");
@@ -355,6 +388,18 @@
     OREventOrientation *eventOrientation = (OREventOrientation *)event;
     
     [self replaceObjectsInStage:eventOrientation.orientation];
+}
+
+- (void)slider:(ORSlider *)slider didChangeValue:(float)newValue
+{
+    if (slider == _leftSlider) {
+        _left = newValue;
+    }
+    else {
+        _right = newValue;
+    }
+
+    DDLogInfo(@"Slider changed value: %f - %f", _left, _right);
 }
 
 @end

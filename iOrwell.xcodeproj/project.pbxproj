@@ -18,6 +18,8 @@
 		CD4C363C18DA495C00FD1F3A /* ORBroadcastRetriever.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4C363B18DA495C00FD1F3A /* ORBroadcastRetriever.m */; };
 		CD4C363F18DA4B6700FD1F3A /* ORIPFour.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4C363E18DA4B6700FD1F3A /* ORIPFour.m */; };
 		CD51E89718F2AA9100633CC7 /* ORSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = CD51E89618F2AA9100633CC7 /* ORSlider.m */; };
+		CD51E89B18F3135000633CC7 /* SliderBar.png in Resources */ = {isa = PBXBuildFile; fileRef = CD51E89918F3135000633CC7 /* SliderBar.png */; };
+		CD51E89C18F3135000633CC7 /* SliderDot.png in Resources */ = {isa = PBXBuildFile; fileRef = CD51E89A18F3135000633CC7 /* SliderDot.png */; };
 		CD6625F718DE132300802AF0 /* ORCameraViewer.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD6625F618DE132300802AF0 /* ORCameraViewer.mm */; };
 		CD6625F918DF3FEC00802AF0 /* ButtonDown.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6625F818DF3FEC00802AF0 /* ButtonDown.png */; };
 		CD6625FB18DF45D300802AF0 /* ButtonUp.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6625FA18DF45D300802AF0 /* ButtonUp.png */; };
@@ -79,6 +81,7 @@
 /* Begin PBXFileReference section */
 		2162E0EDEF7D475B8F6DB092 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE88D42A3C54E55B4666AC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		CD09711318F711FA001FE206 /* ORSliderDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORSliderDelegate.h; sourceTree = "<group>"; };
 		CD333EB318DA21910075E51D /* CallbackInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallbackInput.h; sourceTree = "<group>"; };
 		CD333EB418DA21910075E51D /* CallbackInput.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CallbackInput.mm; sourceTree = "<group>"; };
 		CD4C362818DA453100FD1F3A /* iOrwellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOrwellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +95,8 @@
 		CD4C363E18DA4B6700FD1F3A /* ORIPFour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORIPFour.m; sourceTree = "<group>"; };
 		CD51E89518F2AA9100633CC7 /* ORSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORSlider.h; sourceTree = "<group>"; };
 		CD51E89618F2AA9100633CC7 /* ORSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORSlider.m; sourceTree = "<group>"; };
+		CD51E89918F3135000633CC7 /* SliderBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SliderBar.png; sourceTree = "<group>"; };
+		CD51E89A18F3135000633CC7 /* SliderDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SliderDot.png; sourceTree = "<group>"; };
 		CD6625F518DE132300802AF0 /* ORCameraViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORCameraViewer.h; sourceTree = "<group>"; };
 		CD6625F618DE132300802AF0 /* ORCameraViewer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ORCameraViewer.mm; sourceTree = "<group>"; };
 		CD6625F818DF3FEC00802AF0 /* ButtonDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonDown.png; sourceTree = "<group>"; };
@@ -329,6 +334,7 @@
 			children = (
 				CD910B0318D77B0D00C61610 /* ORArrowButton.h */,
 				CD910B0418D77B0D00C61610 /* ORArrowButton.mm */,
+				CD09711318F711FA001FE206 /* ORSliderDelegate.h */,
 				CD51E89518F2AA9100633CC7 /* ORSlider.h */,
 				CD51E89618F2AA9100633CC7 /* ORSlider.m */,
 				CD910B0518D77B0D00C61610 /* ORButton.h */,
@@ -418,6 +424,8 @@
 				CDDD0B8118D77FE600979E1E /* game-bg.png */,
 				CDDD0B8218D77FE600979E1E /* marvin.png */,
 				CDDD0B8518D77FE600979E1E /* Metal-background.png */,
+				CD51E89918F3135000633CC7 /* SliderBar.png */,
+				CD51E89A18F3135000633CC7 /* SliderDot.png */,
 				CDDD0B8818D77FE600979E1E /* tech-button-off.png */,
 				CDDD0B8A18D77FE600979E1E /* tech-button-on.png */,
 			);
@@ -519,6 +527,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDDD0B9418D77FE600979E1E /* dodger_shadow_shadow_20.PNG in Resources */,
+				CD51E89C18F3135000633CC7 /* SliderDot.png in Resources */,
 				CD924DB818D78F2400DE0A59 /* App-Info.plist in Resources */,
 				CD6625FE18DF4CD100802AF0 /* ButtonLeft.png in Resources */,
 				CDDD0BA318D77FE600979E1E /* README.txt in Resources */,
@@ -526,6 +535,7 @@
 				CDDD0B8F18D77FE600979E1E /* bordersprite_regular_20.fnt in Resources */,
 				CD6625FF18DF4CD100802AF0 /* ButtonRight.png in Resources */,
 				CDDD0BA118D77FE600979E1E /* tech-button-on.png in Resources */,
+				CD51E89B18F3135000633CC7 /* SliderBar.png in Resources */,
 				CDDD0B9C18D77FE600979E1E /* Metal-background.png in Resources */,
 				CDDD0B9818D77FE600979E1E /* game-bg.png in Resources */,
 				CDDD0B8E18D77FE600979E1E /* sound.caf in Resources */,

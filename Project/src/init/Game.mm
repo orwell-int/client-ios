@@ -24,7 +24,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "Game.h" 
+#import "Game.h"
 #import "SPStage.h"
 #import "MainStage.h"
 

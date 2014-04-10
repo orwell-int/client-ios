@@ -202,24 +202,25 @@
 {
 	ORIPFour *ipFour = [ORIPFour ipFourFromString:@"192.168.1.10"];
 	[ipFour makeBroadcastIP];
-	
+
 	ORZMQURL *url = [[ORZMQURL alloc] initWithORIPFour:ipFour];
 	XCTAssert(!url.valid);
-	
+
 	url.protocol = ZMQUDP;
 	url.pusherPort = @(8080);
 	XCTAssert(!url.valid);
-	
+
 	url.pullerPort = @(8081);
 	XCTAssert(url.valid);
-	
+
 	XCTAssert([[url toString] isEqual:@"udp://192.168.1.255:8080"]);
-	
+
 	uint8_t bytes[] = { 192, 168, 1, 10 };
 	ipFour = [ORIPFour ipFourFromBytes:bytes];
 	url = [[ORZMQURL alloc] initWithORIPFour:ipFour];
 	XCTAssert(!url.valid);
-	
+
+
 	url.protocol = ZMQTCP;
 	url.pusherPort = @(8080);
 	XCTAssert([[url toString] isEqual:@"tcp://192.168.1.10:8080"]);

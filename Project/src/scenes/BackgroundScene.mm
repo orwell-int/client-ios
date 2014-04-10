@@ -37,11 +37,11 @@
 - (id)init
 {
 	self = [super init];
-	
+
 	_background = [SPImage imageWithContentsOfFile:@"game-bg.png"];
 	_background.touchable = NO;
 	[self addChild:_background];
-	
+
 	return self;
 }
 
@@ -49,10 +49,10 @@
 {
 	_backButton = [[ORButton alloc] initWithText:@"Back"];;
 	_backButton.name = @"Back";
-	
+
 	_backButton.x = 90.0f;
 	_backButton.y = 400.0f;
-	
+
 	[self addChild:_backButton];
 }
 
@@ -88,12 +88,12 @@
 
 - (void)placeObjectInStage
 {
-	
+
 }
 
 - (void)startObjects
 {
-	
+
 }
 
 - (CGRect)getUsableScreenSize

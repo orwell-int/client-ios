@@ -25,12 +25,33 @@
  */
 
 #import "SPSprite.h"
+#import "ORSliderDelegate.h"
+
+typedef enum {
+	ORSLIDER_MP_TOP,
+	ORSLIDER_MP_BOTTOM,
+	ORSLIDER_MP_LEFT,
+	ORSLIDER_MP_RIGHT
+} ORSliderMarkerPosition;
+
+typedef enum {
+	ORSLIDER_VERTICAL,
+	ORSLIDER_HORIZONTAL
+} ORSliderOrientation;
 
 @interface ORSlider : SPSprite
 @property (nonatomic, readonly) float value;
 @property (nonatomic) float sliderAlpha;
+@property (nonatomic) ORSliderOrientation orientation;
+@property (nonatomic) ORSliderMarkerPosition markerPosition;
+@property (nonatomic) id<ORSliderDelegate> delegate;
 
++ (id)verticalSlider;
++ (id)horizontalSlider;
 - (id)initVerticalSlider; // To be used in landscape mode
-- (id)initHorizontalSilder; // To be used in portrait
+- (id)initHorizontalSlider; // To be used in portrait
+
++ (id)verticalSliderWithMarkerPosition:(ORSliderMarkerPosition)position;
++ (id)horizontalSliderWithMarkerPosition:(ORSliderMarkerPosition)position;
 
 @end

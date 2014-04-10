@@ -114,12 +114,12 @@
 		[_mutableData appendData:data];
 		NSRange endRange = [_mutableData rangeOfData:_endData options:0 range:NSMakeRange(0, _mutableData.length)];
 		long long endLocation = endRange.location + endRange.length;
-		
+
 		if (_mutableData.length >= endLocation) {
 			NSData *imageData = [_mutableData subdataWithRange:NSMakeRange(0, (uint32_t) endLocation)];
 			UIImage *receivedImage = [UIImage imageWithData:imageData];
 			if (receivedImage) {
-				SPTexture *texture = [[SPTexture alloc] initWithContentsOfImage:receivedImage];				
+				SPTexture *texture = [[SPTexture alloc] initWithContentsOfImage:receivedImage];
 				if (![self containsChild:_image]) {
 					_image = [SPImage imageWithTexture:texture];
 					_image.touchable = NO;
