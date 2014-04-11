@@ -44,7 +44,7 @@ typedef enum {
 @property (nonatomic) float sliderAlpha;
 @property (nonatomic) ORSliderOrientation orientation;
 @property (nonatomic) ORSliderMarkerPosition markerPosition;
-@property (nonatomic) id<ORSliderDelegate> delegate;
+@property (nonatomic, weak) id<ORSliderDelegate> delegate;
 
 + (id)verticalSlider;
 + (id)horizontalSlider;
