@@ -38,7 +38,7 @@
 {
 	self = [super init];
 
-	_background = [SPImage imageWithContentsOfFile:@"game-bg.png"];
+	_background = [SPImage imageWithContentsOfFile:@"StageBackground.png"];
 	_background.touchable = NO;
 	[self addChild:_background];
 

@@ -28,16 +28,18 @@
 #import "SPImage.h"
 #import "Sparrow.h"
 #import "PlayGameScene.h"
-
-#import "ORButton.h"
+#import "ORAlternativeButton.h"
 
 #pragma mark Private Interface
 @interface MainStage()
 
 @property (strong, nonatomic) SPImage *background;
-@property (strong, nonatomic) SPImage *marvin;
+@property (strong, nonatomic) SPImage *logo;
 @property (strong, nonatomic) SPTextField *welcomeMessage;
-@property (strong, nonatomic) ORButton *playGameButton;
+@property (strong, nonatomic) SPTextField *versionNumber;
+@property (strong, nonatomic) ORAlternativeButton *playButton;
+@property (strong, nonatomic) ORAlternativeButton *informationButton;
+@property (strong, nonatomic) ORAlternativeButton *creditsButton;
 @property (strong, nonatomic) BackgroundScene *activeScene;
 
 // Init functions
@@ -61,15 +63,18 @@
 	// Init welcome message
 	[self initWelcomeMessage];
 	[self addChild:_welcomeMessage];
+	[self addChild:_versionNumber];
+
+	_logo = [[SPImage alloc] initWithContentsOfFile:@"LogoBig.png"];
+	_logo.x = 10.0f;
+	_logo.y = 40.0f;
+	[self addChild:_logo];
 
 	// Init buttons
 	[self initButtons];
-	[self addChild:_playGameButton];
-
-	_marvin = [SPImage imageWithContentsOfFile:@"marvin.png"];
-	_marvin.x = (Sparrow.stage.width / 2) - (_marvin.width / 2);
-	_marvin.y = Sparrow.stage.height - _marvin.height - 10.0f;
-	[self addChild:_marvin];
+	[self addChild:_playButton];
+	[self addChild:_informationButton];
+	[self addChild:_creditsButton];
 
 	[self addEventListener:@selector(onSceneClosing:)
 				  atObject:self
@@ -81,36 +86,56 @@
 - (void)initBackground
 {
 	_background = [[SPImage alloc] initWithContentsOfFile:@"background.jpg"];
+
 }
 
 - (void)initWelcomeMessage
 {
 	NSString *softwareVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 	_welcomeMessage = [SPTextField textFieldWithWidth:(Sparrow.stage.width - 30)
-											   height:80
-												 text:[NSString stringWithFormat:@"iOrwellcome to you! (%@)", softwareVersion]];
+											   height:20
+												 text:@"iOrwell"];
+	_versionNumber = [SPTextField textFieldWithWidth:Sparrow.stage.width - 30
+											  height:20
+												text:[NSString stringWithFormat:@"Version %@", softwareVersion]];
+
 	_welcomeMessage.fontName = [SPTextField registerBitmapFontFromFile:@"dodger_condensed_condensed_20.fnt"];
-	_welcomeMessage.fontSize = 12;
-	_welcomeMessage.color = 0xffffff;;
+	_welcomeMessage.fontName = @"Helvetica Neue";
+	_welcomeMessage.fontSize = 23;
+	_welcomeMessage.color = 0xffffff;
+
+	_versionNumber.fontName = @"Helvetica Neue";
+	_versionNumber.fontSize = 17;
+	_versionNumber.color = 0xffffff;
 
 	_welcomeMessage.x = (Sparrow.stage.width / 2) - (_welcomeMessage.width / 2);
-	_welcomeMessage.y = 5;
+	_welcomeMessage.y = 20.0f;
+
+	_versionNumber.x = 15.0f;
+	_versionNumber.y = 440.0f;
 }
 
 - (void)initButtons
 {
-	_playGameButton = [[ORButton alloc] initWithText:@"Play"];
-	_playGameButton.name = @"PlayButton";
+	_playButton = [[ORAlternativeButton alloc] initWithType:OR_BUTTON_PLAY];
+	_playButton.name = @"PlayButton";
 
-	// @TODO: redesign interface.
-	// Place it in the middle
-	_playGameButton.x = (Sparrow.stage.width / 2) - (_playGameButton.width / 2);
-	_playGameButton.y = (Sparrow.stage.height / 2) - (_playGameButton.height / 2);
+	_playButton.x = 70.0f;
+	_playButton.y = 270.0f;
 
-	[_playGameButton addEventListener:@selector(onButtonTriggered:)
+	[_playButton addEventListener:@selector(onButtonTriggered:)
 							 atObject:self
 							  forType:SP_EVENT_TYPE_TRIGGERED];
 
+	_informationButton = [[ORAlternativeButton alloc] initWithType:OR_BUTTON_INFORMATIONS];
+	_informationButton.name = @"InformationButton";
+	_informationButton.x = 70.0f;
+	_informationButton.y = 325.0f;
+
+	_creditsButton = [[ORAlternativeButton alloc] initWithType:OR_BUTTON_CREDITS];
+	_creditsButton.name = @"CreditsButton";
+	_creditsButton.x = 70.0f;
+	_creditsButton.y = 380.0f;
 }
 
 - (void)onButtonTriggered:(SPEvent *)event
