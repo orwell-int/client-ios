@@ -13,4 +13,3 @@ pod 'CocoaLumberjack', '~>1.8.1'
 target :iOrwellTests, :exclusive => true do
 	pod 'OCMock', '~>2.2.3'
 end
-

@@ -33,17 +33,21 @@
 
 @interface BackgroundScene : SPSprite
 
-- (id) init;
-- (void) addBackButton;
+- (id)init;
+- (void)addBackButton;
+- (void)removeBackButton;
 
-- (void) registerSelector:(SEL)selector;
-- (void) unregisterSelector:(SEL)selector;
+- (void)registerSelector:(SEL)selector;
+- (void)unregisterSelector:(SEL)selector;
 
-- (float) getBackButtonY;
-- (float) getBackButtonHeight;
+- (float)getBackButtonY;
+- (float)getBackButtonHeight;
 
-- (void) placeObjectInStage;
-- (void) startObjects;
-- (CGRect) getUsableScreenSize;
+- (void)placeObjectInStage;
+- (void)startObjects;
+- (CGRect)getUsableScreenSize;
+
+- (void)resetBackground;
+- (void)setBlackBackground;
 
 @end

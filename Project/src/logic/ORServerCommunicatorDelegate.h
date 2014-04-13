@@ -39,4 +39,3 @@
 - (void)communicator:(ORServerCommunicator *)communicator didPullMessage:(NSString *)message;
 
 @end
-

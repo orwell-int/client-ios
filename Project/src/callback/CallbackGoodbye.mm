@@ -33,14 +33,14 @@
 - (BOOL)processMessage:(NSData *)message
 {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-	
+
 	DDLogDebug(@"CallbackGoodbye in");
-	
+
 	[dict setObject:@"YES" forKey:CB_GOODBYE_KEY_GOODBYE];
-	
+
 	if (_delegate)
 		[_delegate messageReceived:dict];
-		
+
 	return YES;
 }
 
