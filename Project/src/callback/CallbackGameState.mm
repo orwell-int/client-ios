@@ -34,17 +34,17 @@
 - (BOOL)processMessage:(NSData *)message
 {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-	
+
 	orwell::messages::GameState gstate;
 	gstate.ParseFromArray([message bytes], [message length]);
-	
+
 	DDLogVerbose(@"CallbackGameState in");
-	
+
 	[dict setObject:[NSNumber numberWithBool:gstate.playing()] forKey:CB_GAMESTATE_KEY_PLAYING];
-	
+
 	if (_delegate)
 		[_delegate messageReceived:dict];
-	
+
 	return YES;
 }
 

@@ -31,13 +31,17 @@
 #import "CallbackResponder.h"
 #import "ORArrowButton.h"
 #import "ORCameraViewer.h"
+#import "ORViewController.h"
+#import "OREventOrientation.h"
+#import "ORSlider.h"
+#import "ORSliderDelegate.h"
 
 #import "robot.pb.h"
 #import "controller.pb.h"
 
 
 #pragma mark Interface begin
-@interface InputGameScene() <CallbackResponder>
+@interface InputGameScene() <CallbackResponder, ORSliderDelegate>
 @property (strong, nonatomic) ORTextField *playerTextField;
 @property (strong, nonatomic) ORTextField *feedbackTextField;
 @property (weak, nonatomic) ORServerCommunicator *serverCommunicator;
@@ -48,17 +52,22 @@
 @property (strong, nonatomic) ORArrowButton *upButton;
 @property (strong, nonatomic) NSMutableArray *buttonsArray;
 @property (strong, nonatomic) ORCameraViewer *mjpegViewer;
+@property (strong, nonatomic) ORSlider *leftSlider;
+@property (strong, nonatomic) ORSlider *rightSlider;
 
 - (void)onDownButtonClicked:(SPTouchEvent *)event;
 - (void)onUpButtonClicked:(SPTouchEvent *)event;
 - (void)onLeftButtonClicked:(SPTouchEvent *)event;
 - (void)onRightButtonClicked:(SPTouchEvent *)event;
+- (void)onOrientationChanged:(SPEvent *)event;
+- (void)replaceObjectsInStage:(UIInterfaceOrientation)forOrientation;
 
 @end
 
 #pragma mark Implementation begin
 @implementation InputGameScene
 {
+    BOOL _selectorsConfigured;
 	BOOL _running;
 	float _left;
 	float _right;
@@ -97,60 +106,138 @@
 	_upButton.name = @"up";
 	[_buttonsArray addObject:_upButton];
 
-	DDLogDebug(@"Initing _mjpegViewer");
 	_mjpegViewer = [ORCameraViewer cameraViewerFromURL:[NSURL URLWithString:@"http://mail.bluegreendiamond.net:8084/cgi-bin/faststream.jpg?stream=full&fps=24"]];
+    
+    _leftSlider = [ORSlider verticalSliderWithMarkerPosition:ORSLIDER_MP_RIGHT];
+    _leftSlider.delegate = self;
 
+    _rightSlider = [ORSlider verticalSliderWithMarkerPosition:ORSLIDER_MP_LEFT];
+    _rightSlider.delegate = self;
+
+    // Tell the controller I'm a good guy.
+    ORViewController *viewController = (ORViewController *)[Sparrow currentController];
+    viewController.supportedOrientations = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+    _selectorsConfigured = NO;
+    
 	return self;
 }
 
-- (void)placeObjectInStage
+- (void)replaceObjectsInStage:(UIInterfaceOrientation)forOrientation
 {
-	DDLogDebug(@"Inited with robot name: %@", self.robotName);
-	DDLogDebug(@"Inited with player name: %@", self.playerName);
+    DDLogVerbose(@"Organizing objects for orientation: %d", [[Sparrow currentController] interfaceOrientation]);
 
-	DDLogDebug(@"Placed mjpegViewer in screen %@", [_mjpegViewer debugDescription]);
+    [self removeChild:_playerTextField];
+    [self removeChild:_feedbackTextField];
+    [self removeChild:_downButton];
+    [self removeChild:_upButton];
+    [self removeChild:_leftButton];
+    [self removeChild:_rightButton];
+    [self removeChild:_leftSlider];
+    [self removeChild:_rightSlider];
+    [self removeBackButton];
 
-	_playerTextField.text = [NSString stringWithFormat:@"%@ @ %@", self.playerName, self.robotName];
-	_playerTextField.x = 0.0f;
-	_playerTextField.y = 0.0f;
-	[self addChild:_playerTextField];
-	
-	_mjpegViewer.x = 0.0f;
-	_mjpegViewer.y = 70.0f;
-	[self addChild:_mjpegViewer];
-	
-	_downButton.width = 240.0f;
-	_downButton.height = 40.0f;
-	_downButton.x = 40.0f;
-	_downButton.y = 270.0f;
-    [_downButton addEventListener:@selector(onDownButtonClicked:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
+    // It's not like we're really going to change these values..
+    _leftSlider.width = 40.0f;
+    _leftSlider.height = 480.0f;
+    _leftSlider.x = 0.0f;
+    _leftSlider.y = 0.0f;
 
-	_upButton.width = 240.0f;
-	_upButton.height = 40.0f;
-	_upButton.x = 40.0f;
-	_upButton.y = 70.0f;
-    [_upButton addEventListener:@selector(onUpButtonClicked:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
-	
-	_leftButton.width = 40.0f;
-	_leftButton.height = 160.0f;
-	_leftButton.x = 0.0f;
-	_leftButton.y = 110.0f;
-    [_leftButton addEventListener:@selector(onLeftButtonClicked:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
-	
-	_rightButton.width = 40.0f;
-	_rightButton.height = 160.0f;
-	_rightButton.x = 280.0f;
-	_rightButton.y = 110.0f;
-    [_rightButton addEventListener:@selector(onRightButtonClicked:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
-	
-	_feedbackTextField.x = 0.0f;
-	_feedbackTextField.y = 330.0f;
-	[self addChild:_feedbackTextField];
-	
-	[self addChild:_downButton];
-	[self addChild:_upButton];
-	[self addChild:_leftButton];
-	[self addChild:_rightButton];
+    _rightSlider.width = 40.0f;
+    _rightSlider.height = 480.0f;
+    _rightSlider.x = 280.0f;
+    _rightSlider.y = 0.0f;
+
+    [self addChild:_mjpegViewer];
+
+    switch (forOrientation) {
+        case UIInterfaceOrientationPortrait:
+        case UIInterfaceOrientationPortraitUpsideDown:
+            DDLogInfo(@"Portrait - %f x %f", Sparrow.stage.width, Sparrow.stage.height);
+            
+            _playerTextField.text = [NSString stringWithFormat:@"%@ @ %@", self.playerName, self.robotName];
+            _playerTextField.x = 0.0f;
+            _playerTextField.y = 0.0f;
+            
+            _mjpegViewer.x = 0.0f;
+            _mjpegViewer.y = 70.0f;
+            _mjpegViewer.width = 320.0f;
+            _mjpegViewer.height = 240.0f;
+            
+            _downButton.width = 240.0f;
+            _downButton.height = 40.0f;
+            _downButton.x = 40.0f;
+            _downButton.y = 270.0f;
+            
+            _upButton.width = 240.0f;
+            _upButton.height = 40.0f;
+            _upButton.x = 40.0f;
+            _upButton.y = 70.0f;
+            
+            _leftButton.width = 40.0f;
+            _leftButton.height = 160.0f;
+            _leftButton.x = 0.0f;
+            _leftButton.y = 110.0f;
+            
+            _rightButton.width = 40.0f;
+            _rightButton.height = 160.0f;
+            _rightButton.x = 280.0f;
+            _rightButton.y = 110.0f;
+            
+            _feedbackTextField.x = 0.0f;
+            _feedbackTextField.y = 330.0f;
+            
+            [self addChild:_playerTextField];
+            [self addChild:_feedbackTextField];
+            [self addChild:_downButton];
+            [self addChild:_upButton];
+            [self addChild:_leftButton];
+            [self addChild:_rightButton];
+            [self addBackButton];
+            [self registerSelector:@selector(onBackButton:)];
+
+            // Do not hide the status bar
+            [[UIApplication sharedApplication] setStatusBarHidden:NO
+                                                    withAnimation:UIStatusBarAnimationSlide];
+
+            _mjpegViewer.rotation = 0;
+
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+        case UIInterfaceOrientationLandscapeRight:
+            DDLogInfo(@"Landscape - %f x %f", Sparrow.stage.width, Sparrow.stage.height);
+
+            // It is completely stupid, but width and height in Sparrow don't change, so
+            // we have to think as if we were in portrait, with the exception that what
+            // is now called 'width' it is 'height' in Landscape, and viceversa.
+            _mjpegViewer.width = 320.0f;
+            _mjpegViewer.height = 480.0f;
+
+            // While x and y coordinates do change, as they are relative to the status bar.
+            _mjpegViewer.x = 0.0f;
+            _mjpegViewer.y = 0.0f;
+
+            [self addChild:_rightSlider];
+            [self addChild:_leftSlider];
+
+            // Hide the status bar
+            [[UIApplication sharedApplication] setStatusBarHidden:YES
+                                                    withAnimation:UIStatusBarAnimationSlide];
+            // I give up.
+            break;
+    }
+}
+
+- (void)placeObjectInStage
+{  
+    [self replaceObjectsInStage:[[Sparrow currentController] interfaceOrientation]];
+
+    if (!_selectorsConfigured) {
+        [_rightButton addEventListener:@selector(onRightButtonClicked:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
+        [_leftButton addEventListener:@selector(onLeftButtonClicked:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
+        [_upButton addEventListener:@selector(onUpButtonClicked:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
+        [_downButton addEventListener:@selector(onDownButtonClicked:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
+        _selectorsConfigured = YES;
+    }
 }
 
 - (void)startObjects
@@ -161,6 +248,9 @@
     [_mjpegViewer play];
 	
 	[self registerSelector:@selector(onBackButton:)];
+    [self addEventListener:@selector(onOrientationChanged:)
+                  atObject:self
+                   forType:OR_EVENT_ORIENTATION_ANIMATION_CHANGED];
 	
 #pragma mark Background thread for Input messages
 	// Background thread handling the logic of constantly sending a message
@@ -177,6 +267,7 @@
             message.payload = [NSData dataWithBytes:input.SerializeAsString().c_str()
                                              length:input.SerializeAsString().length()];
             [_serverCommunicator pushMessage:message];
+            usleep(1000 * 250); // Send 4 messages per second
 		}
 		
 		DDLogInfo(@"Leaving background thread");
@@ -280,10 +371,35 @@
 
 - (void)onBackButton:(SPEvent *)event
 {
+    DDLogInfo(@"Back button pressed");
 	[self unregisterSelector:@selector(onBackButton:)];
+    [self unregisterSelector:@selector(onOrientationChanged:)];
 	[self dispatchEventWithType:EVENT_TYPE_INPUT_SCENE_CLOSING bubbles:YES];
 	[_serverCommunicator deleteResponder:self forMessage:@"GameState"];
 	_running = NO;
+    
+    ORViewController *viewController = (ORViewController *)[Sparrow currentController];
+    viewController.supportedOrientations = UIInterfaceOrientationPortrait;
+}
+
+- (void)onOrientationChanged:(SPEvent *)event
+{
+    DDLogInfo(@"Orientation changed");
+    OREventOrientation *eventOrientation = (OREventOrientation *)event;
+    
+    [self replaceObjectsInStage:eventOrientation.orientation];
+}
+
+- (void)slider:(ORSlider *)slider didChangeValue:(float)newValue
+{
+    if (slider == _leftSlider) {
+        _left = newValue;
+    }
+    else {
+        _right = newValue;
+    }
+
+    DDLogInfo(@"Slider changed value: %f - %f", _left, _right);
 }
 
 @end

@@ -34,6 +34,8 @@
 #import "controller.pb.h"
 #import "ORServerCommunicatorDelegate.h"
 #import "ORZMQURL.h"
+#import "ORViewController.h"
+#import "OREventOrientation.h"
 
 #pragma mark Interface begins
 @interface PlayGameScene() <CallbackResponder, UITextFieldDelegate, ORServerCommunicatorDelegate>
@@ -49,6 +51,7 @@
 - (void)communicator:(ORServerCommunicator *)server didRetrieveServerFromBroadcast:(BOOL)retrieve withIP:(NSString *)serverIP;
 - (void)communicator:(ORServerCommunicator *)server didConnectToServer:(BOOL)connect;
 - (void)serverDidDisconnectFromServer;
+- (void)onConnectButtonPressed:(SPEvent *)event;
 
 @end
 
@@ -61,7 +64,7 @@
 	self = [super init];
 	[self addBackButton];
 	[self registerSelector:@selector(onBackButton:)];
-	
+
 	_serverCommunicator = [ORServerCommunicator singleton];
 	_serverCommunicator.delegate = self;
 	[self.serverCommunicator registerResponder:self forMessage:@"Welcome"];
@@ -71,83 +74,50 @@
 	_header = [ORTextField textFieldWithWidth:320.0f height:60.0f text:@"Connect to a server"];
 	_startButton = [[ORButton alloc] initWithText:@"Connect"];
 	_startButton.name = @"connect";
-	
+
 	_messageSent = NO;
-	
-	[self addEventListener:@selector(onSubSceneClosing:) atObject:self forType:EVENT_TYPE_INPUT_SCENE_CLOSING];
-	
+
+	// Register selectors
+	[self addEventListener:@selector(onSubSceneClosing:)
+				  atObject:self
+				   forType:EVENT_TYPE_INPUT_SCENE_CLOSING];
+
 	return self;
 }
 
 - (void)placeObjectInStage
 {
 	DDLogInfo(@"Placing object in stage for PlayGameScene");
+
 	_header.x = 0.0f;
 	_header.y = 0.0f;
 	[self addChild:_header];
-	
+
 	_inputPlayerName.frame = CGRectMake(20.0f, 80.0f, 280.0f, 40.0f);
 	_inputPlayerName.placeholder = @"Type your name";
 	_inputPlayerName.delegate = self;
 	_inputPlayerName.borderStyle = UITextBorderStyleRoundedRect;
 	[Sparrow.currentController.view addSubview:_inputPlayerName];
-	
+
 	_inputServerInfo.frame = CGRectMake(20.0f, 140.0f, 280.0f, 40.0f);
 	_inputServerInfo.placeholder = @"server:puller,pusher";
 	_inputServerInfo.delegate = self;
 	_inputServerInfo.borderStyle = UITextBorderStyleRoundedRect;
 	[Sparrow.currentController.view addSubview:_inputServerInfo];
-	
+
 	_startButton.x = Sparrow.stage.width / 2 - (_startButton.width / 2);
 	_startButton.y = 220.0f;
 	[self addChild:_startButton];
-	
-	// I am weak.
-	__weak PlayGameScene *wself = self;
-	[_startButton addEventListenerForType:SP_EVENT_TYPE_TRIGGERED block:^(SPEvent *event) {
-		DDLogVerbose(@"StartButton handling..");
-		ORButton *startButton = (ORButton *) event.target;
-		
-		if ([startButton.name isEqualToString:@"play"]) {
-			DDLogInfo(@"Handling the play logic");
-			if ([wself.inputPlayerName.text isEqualToString:@""]) {
-				wself.header.text = @"Name is not valid!";
-				return;
-			}
-			
-			orwell::messages::Hello hello;
-			DDLogDebug(@"Player name will be: %@", wself.inputPlayerName.text);
-			hello.set_name([wself.inputPlayerName.text cStringUsingEncoding:NSASCIIStringEncoding]);
-			hello.set_ip("0");
-			hello.set_port(0);
-			
-			ORServerMessage *msg = [[ORServerMessage alloc] init];
-			msg.payload = [NSData dataWithBytes:hello.SerializeAsString().c_str() length:hello.SerializeAsString().size()];
-			msg.receiver = @"iphoneclient ";
-			msg.tag = @"Hello " ;
-			
-			[wself.serverCommunicator pushMessage:msg];
-		}
-		else {
-			DDLogInfo(@"Handling the connect logic");
-			ORZMQURL *url = [[ORZMQURL alloc] initWithString:wself.inputServerInfo.text];
-			url.protocol = ZMQTCP;
-			if ([url isValid]) {
-				wself.serverCommunicator.pusherIp = [url pusherToString];
-				wself.serverCommunicator.pullerIp = [url pullerToString];
-				[wself.serverCommunicator connect];
-			}
-			else {
-				wself.header.text = @"IP is not valid";
-			}
-		}
-	}];
+
+	// Avoid having multiple blocks
+	if (![_startButton hasEventListenerForType:SP_EVENT_TYPE_TRIGGERED])
+		[_startButton addEventListener:@selector(onConnectButtonPressed:) atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
 }
 
 - (void)startObjects
 {
 	NSLog(@"Starting logic of PlayGameScene");
-	
+
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
 		[_serverCommunicator retrieveServerFromBroadcast];
 	});
@@ -157,9 +127,9 @@
 - (BOOL)messageReceived:(NSDictionary *)message
 {
 	DDLogDebug(@"Message received");
-	
+
 	_messageSent = YES;
-	
+
 	if ([message objectForKey:CB_WELCOME_KEY_ROBOT] != nil) {
 		// This has to be done in the main thread
 		dispatch_async(dispatch_get_main_queue(), ^(){
@@ -186,7 +156,7 @@
 			_header.text = @"Goodbye message received";
 		});
 	}
-	
+
 	return YES;
 }
 
@@ -213,6 +183,8 @@
 		_inputGameScene = nil;
 	}
 
+	[_serverCommunicator registerResponder:self forMessage:@"Welcome"];
+	[_serverCommunicator registerResponder:self forMessage:@"Goodbye"];
 	[Sparrow.currentController.view addSubview:_inputPlayerName];
 	[Sparrow.currentController.view addSubview:_inputServerInfo];
 }
@@ -221,9 +193,47 @@
 {
 	[self unregisterSelector:@selector(onBackButton:)];
 	[self dispatchEventWithType:EVENT_TYPE_SCENE_CLOSING bubbles:YES];
-	
+
 	[_inputPlayerName removeFromSuperview];
 	[_inputServerInfo removeFromSuperview];
+}
+
+- (void)onConnectButtonPressed:(SPEvent *)event
+{
+	DDLogVerbose(@"StartButton handling..");
+	if ([_startButton.name isEqualToString:@"play"]) {
+		DDLogInfo(@"Handling the play logic");
+		if ([_inputPlayerName.text isEqualToString:@""]) {
+			_header.text = @"Name is not valid!";
+			return;
+		}
+
+		orwell::messages::Hello hello;
+		DDLogDebug(@"Player name will be: %@", _inputPlayerName.text);
+		hello.set_name([_inputPlayerName.text cStringUsingEncoding:NSASCIIStringEncoding]);
+		hello.set_ip("0");
+		hello.set_port(0);
+
+		ORServerMessage *msg = [[ORServerMessage alloc] init];
+		msg.payload = [NSData dataWithBytes:hello.SerializeAsString().c_str() length:hello.SerializeAsString().size()];
+		msg.receiver = @"iphoneclient ";
+		msg.tag = @"Hello " ;
+
+		[_serverCommunicator pushMessage:msg];
+	}
+	else {
+		DDLogInfo(@"Handling the connect logic");
+		ORZMQURL *url = [[ORZMQURL alloc] initWithString:_inputServerInfo.text];
+		url.protocol = ZMQTCP;
+		if ([url isValid]) {
+			_serverCommunicator.pusherIp = [url pusherToString];
+			_serverCommunicator.pullerIp = [url pullerToString];
+			[_serverCommunicator connect];
+		}
+		else {
+			_header.text = @"IP is not valid";
+		}
+	}
 }
 
 #pragma mark Communicator delegate methods
@@ -255,7 +265,7 @@
 		}
 		else {
 			_header.text = @"Broadcast Failed";
-		}	
+		}
 	});
 }
 
