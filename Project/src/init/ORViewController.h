@@ -24,32 +24,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ORButton.h"
-#import <SPTextField.h>
-#import <SPTexture.h>
+#import "SPViewController.h"
 
-#define UP_STATE @"tech-button-off.png"
-#define DOWN_STATE @"tech-button-on.png"
-
-@implementation ORButton
-
-- (id)init
-{
-	self = [super initWithUpState:[SPTexture textureWithContentsOfFile:UP_STATE] downState:[SPTexture textureWithContentsOfFile:DOWN_STATE]];
-
-	return self;
-}
-
-- (id)initWithText:(NSString *)text
-{
-	self = [self init];
-
-	self.fontName = [SPTextField registerBitmapFontFromFile:@"dodger_condensed_condensed_20.fnt"];
-	self.fontSize = 10;
-	self.fontColor = 0xffffff;
-	self.text = text;
-
-	return self;
-}
-
+@interface ORViewController : SPViewController
+@property (nonatomic, readwrite) NSUInteger supportedOrientations;
 @end

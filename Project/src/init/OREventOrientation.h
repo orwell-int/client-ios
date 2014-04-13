@@ -24,32 +24,18 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ORButton.h"
-#import <SPTextField.h>
-#import <SPTexture.h>
+#import "SPEvent.h"
 
-#define UP_STATE @"tech-button-off.png"
-#define DOWN_STATE @"tech-button-on.png"
+#define OR_EVENT_ORIENTATION_CHANGED @"orientationChanged"
+#define OR_EVENT_ORIENTATION_ANIMATION_CHANGED @"orientationAnimationChanged"
+#define OR_EVENT_ORIENTATION_FROM_CHANGED @"orientationFromChanged"
 
-@implementation ORButton
+@interface OREventOrientation : SPEvent
+@property (nonatomic, readonly) UIInterfaceOrientation orientation;
+@property (nonatomic, readonly) UIInterfaceOrientation fromOrientation;
 
-- (id)init
-{
-	self = [super initWithUpState:[SPTexture textureWithContentsOfFile:UP_STATE] downState:[SPTexture textureWithContentsOfFile:DOWN_STATE]];
-
-	return self;
-}
-
-- (id)initWithText:(NSString *)text
-{
-	self = [self init];
-
-	self.fontName = [SPTextField registerBitmapFontFromFile:@"dodger_condensed_condensed_20.fnt"];
-	self.fontSize = 10;
-	self.fontColor = 0xffffff;
-	self.text = text;
-
-	return self;
-}
++ (id)eventWithType:(NSString *)type toOrientation:(UIInterfaceOrientation)toOrientation;
+- (id)initWithType:(NSString *)type bubbles:(BOOL)bubbles toOrientation:(UIInterfaceOrientation)toOrientation;
+- (id)initWithType:(NSString *)type bubbles:(BOOL)bubbles fromOrientation:(UIInterfaceOrientation)fromOrientation;
 
 @end

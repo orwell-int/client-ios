@@ -43,20 +43,20 @@
 - (BOOL)processMessage:(NSData *)messagePayload
 {
 	DDLogDebug(@"CallbackWelcome in");
-	
+
 	orwell::messages::Welcome *message = new orwell::messages::Welcome();
 	message->ParsePartialFromArray([messagePayload bytes], [messagePayload length]);
-	
+
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-	
-	
+
+
 	[dict setObject:[NSString stringWithCString:message->robot().c_str()
 									   encoding:NSASCIIStringEncoding]
 			 forKey:CB_WELCOME_KEY_ROBOT];
-	
+
 	[dict setObject:[NSNumber numberWithUnsignedInt:message->team()]
 			 forKey:CB_WELCOKE_KEY_TEAM];
-	
+
 	if (message->has_game_state()) {
 		orwell::messages::GameState const & gstate = message->game_state();
 		[dict setObject:[NSNumber numberWithBool:gstate.playing()] forKey:CB_WELCOME_KEY_PLAYING];
@@ -64,7 +64,7 @@
 
 	if (_delegate)
 		[_delegate messageReceived:dict];
-	
+
 	delete message;
 	return YES;
 }

@@ -44,7 +44,7 @@
 	// second format: 'tcp://192.168.1.10', contains protocol but not port
 	// third format:  '192.168.1.10:8080', contains port but not protocol
 	// fourth format: 'tcp://192.168.1.10:8080,8081, contains pusher and puller port
-	
+
 	self = [self init];
 	_valid = NO;
 
@@ -55,7 +55,7 @@
 		_protocol = ZMQUDP;
 	else
 		_protocol = ZMQUNKNOWN;
-	
+
 	// Then we have to scan the IP address
 	int byte1, byte2, byte3, byte4, port;
 	if ([scanner scanInt:&byte1] && [scanner scanString:@"." intoString:nil] &&
@@ -63,18 +63,18 @@
 		[scanner scanInt:&byte3] && [scanner scanString:@"." intoString:nil] &&
 		[scanner scanInt:&byte4])
 		_ip = [NSString stringWithFormat:@"%d.%d.%d.%d", byte1, byte2, byte3, byte4];
-	
+
 	// Then scan the port
 	if ([scanner scanString:@":" intoString:nil] && [scanner scanInt:&port])
 		_pusherPort = [NSNumber numberWithInt:port];
-	
+
 	// Scan for a comma and then the other port
 	if ([scanner scanString:@"," intoString:nil] && [scanner scanInt:&port])
 		_pullerPort = [NSNumber numberWithInt:port];
-	
+
 	if (_protocol != ZMQUNKNOWN && _pusherPort != nil && _pullerPort != nil && _ip != nil)
 		_valid = YES;
-	
+
 	return self;
 }
 
