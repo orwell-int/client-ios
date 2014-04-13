@@ -24,32 +24,34 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ORButton.h"
-#import <SPTextField.h>
-#import <SPTexture.h>
+#import "SPSprite.h"
+#import "ORSliderDelegate.h"
 
-#define UP_STATE @"tech-button-off.png"
-#define DOWN_STATE @"tech-button-on.png"
+typedef enum {
+	ORSLIDER_MP_TOP,
+	ORSLIDER_MP_BOTTOM,
+	ORSLIDER_MP_LEFT,
+	ORSLIDER_MP_RIGHT
+} ORSliderMarkerPosition;
 
-@implementation ORButton
+typedef enum {
+	ORSLIDER_VERTICAL,
+	ORSLIDER_HORIZONTAL
+} ORSliderOrientation;
 
-- (id)init
-{
-	self = [super initWithUpState:[SPTexture textureWithContentsOfFile:UP_STATE] downState:[SPTexture textureWithContentsOfFile:DOWN_STATE]];
+@interface ORSlider : SPSprite
+@property (nonatomic, readonly) float value;
+@property (nonatomic) float sliderAlpha;
+@property (nonatomic) ORSliderOrientation orientation;
+@property (nonatomic) ORSliderMarkerPosition markerPosition;
+@property (nonatomic, weak) id<ORSliderDelegate> delegate;
 
-	return self;
-}
++ (id)verticalSlider;
++ (id)horizontalSlider;
+- (id)initVerticalSlider; // To be used in landscape mode
+- (id)initHorizontalSlider; // To be used in portrait
 
-- (id)initWithText:(NSString *)text
-{
-	self = [self init];
-
-	self.fontName = [SPTextField registerBitmapFontFromFile:@"dodger_condensed_condensed_20.fnt"];
-	self.fontSize = 10;
-	self.fontColor = 0xffffff;
-	self.text = text;
-
-	return self;
-}
++ (id)verticalSliderWithMarkerPosition:(ORSliderMarkerPosition)position;
++ (id)horizontalSliderWithMarkerPosition:(ORSliderMarkerPosition)position;
 
 @end

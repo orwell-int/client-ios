@@ -47,15 +47,15 @@
 	if ([scanner scanInt:&byte1])
 		ipFour->_byte1 = [NSNumber numberWithInt:byte1];
 	[scanner scanString:@"." intoString:nil];
-	
+
 	if ([scanner scanInt:&byte2])
 		ipFour->_byte2 = [NSNumber numberWithInt:byte2];
 	[scanner scanString:@"." intoString:nil];
-	
+
 	if ([scanner scanInt:&byte3])
 		ipFour->_byte3 = [NSNumber numberWithInt:byte3];
 	[scanner scanString:@"." intoString:nil];
-	
+
 	if ([scanner scanInt:&byte4])
 		ipFour->_byte4 = [NSNumber numberWithInt:byte4];
 
@@ -97,7 +97,7 @@
 	if (_byte1 != nil && _byte2 != nil && _byte3 != nil && _byte4 != nil) {
 		return YES;
 	}
-	
+
 	return NO;
 }
 - (void)makeBroadcastIP

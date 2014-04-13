@@ -24,32 +24,56 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ORButton.h"
-#import <SPTextField.h>
-#import <SPTexture.h>
+#import "ORViewController.h"
+#import "OREventOrientation.h"
 
-#define UP_STATE @"tech-button-off.png"
-#define DOWN_STATE @"tech-button-on.png"
-
-@implementation ORButton
+@implementation ORViewController
+@synthesize supportedOrientations = _supportedOrientations;
 
 - (id)init
 {
-	self = [super initWithUpState:[SPTexture textureWithContentsOfFile:UP_STATE] downState:[SPTexture textureWithContentsOfFile:DOWN_STATE]];
-
+	self = [super init];
+	_supportedOrientations = UIInterfaceOrientationMaskPortrait;
 	return self;
 }
 
-- (id)initWithText:(NSString *)text
+- (NSUInteger)supportedInterfaceOrientations
 {
-	self = [self init];
+	return _supportedOrientations;
+}
 
-	self.fontName = [SPTextField registerBitmapFontFromFile:@"dodger_condensed_condensed_20.fnt"];
-	self.fontSize = 10;
-	self.fontColor = 0xffffff;
-	self.text = text;
+- (BOOL)shouldAutorotate
+{
+	return YES;
+}
 
-	return self;
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	SPEvent *event = [[OREventOrientation alloc] initWithType:OR_EVENT_ORIENTATION_CHANGED
+													  bubbles:NO
+												toOrientation:toInterfaceOrientation];
+
+	[[UIApplication sharedApplication] setStatusBarOrientation:toInterfaceOrientation animated:YES];
+	[[Sparrow stage] broadcastEvent:event];
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	SPEvent *event = [[OREventOrientation alloc] initWithType:OR_EVENT_ORIENTATION_ANIMATION_CHANGED
+													  bubbles:NO
+												toOrientation:toInterfaceOrientation];
+
+	[[UIApplication sharedApplication] setStatusBarOrientation:toInterfaceOrientation animated:YES];
+	[[Sparrow stage] broadcastEvent:event];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	SPEvent *event = [[OREventOrientation alloc] initWithType:OR_EVENT_ORIENTATION_FROM_CHANGED
+													  bubbles:NO
+											  fromOrientation:fromInterfaceOrientation];
+
+	[[Sparrow stage] broadcastEvent:event];
 }
 
 @end

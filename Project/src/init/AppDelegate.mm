@@ -26,6 +26,11 @@
 
 #import "AppDelegate.h"
 #import "Game.h"
+#import "ORViewController.h"
+#import <DDLog.h>
+#import <DDTTYLogger.h>
+#import <DDASLLogger.h>
+#import <DDFileLogger.h>
 
 // --- c functions ---
 
@@ -38,28 +43,37 @@ void onUncaughtException(NSException *exception)
 
 @implementation AppDelegate
 {
-    SPViewController *_viewController;
-    UIWindow *_window;
+	ORViewController *_viewController;
+	UIWindow *_window;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSSetUncaughtExceptionHandler(&onUncaughtException);
-    
+
+	// Setup CocoaLumberjack for logging
+	[DDLog addLogger:[DDTTYLogger sharedInstance] withLogLevel:LOG_LEVEL_DEBUG];
+	[DDTTYLogger sharedInstance].colorsEnabled = YES;
+
     CGRect screenBounds = [UIScreen mainScreen].bounds;
     _window = [[UIWindow alloc] initWithFrame:screenBounds];
-    
-    _viewController = [[SPViewController alloc] init];
+
+    _viewController = [[ORViewController alloc] init];
 	_viewController.showStats = NO;
-	_viewController.multitouchEnabled = NO;
+	_viewController.multitouchEnabled = YES;
 	_viewController.preferredFramesPerSecond = 60;
-    
-    [_viewController startWithRoot:[Game class] supportHighResolutions:YES doubleOnPad:YES];
-    
+
+    [_viewController startWithRoot:[Game class]];
+
     [_window setRootViewController:_viewController];
     [_window makeKeyAndVisible];
-    
+
     return YES;
+}
+
+- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+	return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
 }
 
 @end

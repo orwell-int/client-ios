@@ -28,9 +28,12 @@
 
 @interface ORCameraViewer : SPSprite
 
-+ (id) cameraViewerFromURL:(NSURL *)url;
-- (void) play;
-- (void) pause;
-- (void) stop;
++ (id)cameraViewerFromURL:(NSURL *)url;
+- (void)play;
+- (void)pause;
+- (void)stop;
+
+- (void)setHeight:(float)height;
+- (void)setWidth:(float)width;
 
 @end

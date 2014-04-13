@@ -51,7 +51,7 @@
 	if (_delegate) {
 		[_delegate messageReceived:mutableDic];
 	}
-	
+
 	[mutableDic removeAllObjects];
 	return YES;
 }

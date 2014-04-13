@@ -57,20 +57,20 @@
 - (id)initMainStage
 {
 	self = [super init];
-	
+
 	// Init welcome message
 	[self initWelcomeMessage];
 	[self addChild:_welcomeMessage];
-	
+
 	// Init buttons
 	[self initButtons];
 	[self addChild:_playGameButton];
-	
+
 	_marvin = [SPImage imageWithContentsOfFile:@"marvin.png"];
 	_marvin.x = (Sparrow.stage.width / 2) - (_marvin.width / 2);
 	_marvin.y = Sparrow.stage.height - _marvin.height - 10.0f;
 	[self addChild:_marvin];
-	
+
 	[self addEventListener:@selector(onSceneClosing:)
 				  atObject:self
 				   forType:EVENT_TYPE_SCENE_CLOSING];
@@ -92,25 +92,25 @@
 	_welcomeMessage.fontName = [SPTextField registerBitmapFontFromFile:@"dodger_condensed_condensed_20.fnt"];
 	_welcomeMessage.fontSize = 12;
 	_welcomeMessage.color = 0xffffff;;
-	
+
 	_welcomeMessage.x = (Sparrow.stage.width / 2) - (_welcomeMessage.width / 2);
 	_welcomeMessage.y = 5;
 }
 
 - (void)initButtons
-{	
+{
 	_playGameButton = [[ORButton alloc] initWithText:@"Play"];
 	_playGameButton.name = @"PlayButton";
-	
+
 	// @TODO: redesign interface.
 	// Place it in the middle
 	_playGameButton.x = (Sparrow.stage.width / 2) - (_playGameButton.width / 2);
 	_playGameButton.y = (Sparrow.stage.height / 2) - (_playGameButton.height / 2);
-	
+
 	[_playGameButton addEventListener:@selector(onButtonTriggered:)
 							 atObject:self
 							  forType:SP_EVENT_TYPE_TRIGGERED];
-	
+
 }
 
 - (void)onButtonTriggered:(SPEvent *)event
@@ -122,7 +122,7 @@
 
 	DDLogWarn(@"Defaulting to PlayGameScene (as it is the only one available)");
 	_activeScene = [[PlayGameScene alloc] init];
-	
+  
 	[_activeScene placeObjectInStage];
 
 	[self addChild:_activeScene];

@@ -32,7 +32,7 @@
 - (id)init
 {
 	self = [super init];
-	
+
 	_delegate = nil;
 	return self;
 }
