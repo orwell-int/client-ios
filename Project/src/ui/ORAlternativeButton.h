@@ -29,7 +29,8 @@
 typedef enum {
 	OR_BUTTON_PLAY,
 	OR_BUTTON_CREDITS,
-	OR_BUTTON_INFORMATIONS
+	OR_BUTTON_INFORMATIONS,
+	OR_BUTTON_CONNECT
 } ORIconType;
 
 @interface ORAlternativeButton : SPButton

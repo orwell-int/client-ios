@@ -24,33 +24,28 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ORAlternativeButton.h"
+#import "ORInputTextField.h"
 
-@implementation ORAlternativeButton {
-	SPImage *_iconImage;
+@implementation ORInputTextField {
+	UIImage *_background;
 }
-- (id)initWithType:(ORIconType)iconType
+
+- (id)initWithFrame:(CGRect)frame
 {
-	NSString *buttonImage;
-	_icon = iconType;
-	switch (_icon) {
-		case OR_BUTTON_PLAY:
-			buttonImage = @"PlayButton.png";
-			break;
-		case OR_BUTTON_INFORMATIONS:
-			buttonImage = @"InformationsButton.png";
-			break;
-		case OR_BUTTON_CREDITS:
-			buttonImage = @"CreditsButton.png";
-			break;
-		case OR_BUTTON_CONNECT:
-			buttonImage = @"ConnectButton.png";
-			break;
-	}
-
-	SPTexture *buttonBackground = [SPTexture textureWithContentsOfFile:buttonImage];
-
-	self = [super initWithUpState:buttonBackground];
-	return self;
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+    }
+    return self;
 }
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+}
+*/
+
 @end

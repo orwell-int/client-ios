@@ -24,33 +24,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ORAlternativeButton.h"
+#import <Foundation/Foundation.h>
 
-@implementation ORAlternativeButton {
-	SPImage *_iconImage;
-}
-- (id)initWithType:(ORIconType)iconType
-{
-	NSString *buttonImage;
-	_icon = iconType;
-	switch (_icon) {
-		case OR_BUTTON_PLAY:
-			buttonImage = @"PlayButton.png";
-			break;
-		case OR_BUTTON_INFORMATIONS:
-			buttonImage = @"InformationsButton.png";
-			break;
-		case OR_BUTTON_CREDITS:
-			buttonImage = @"CreditsButton.png";
-			break;
-		case OR_BUTTON_CONNECT:
-			buttonImage = @"ConnectButton.png";
-			break;
-	}
+@protocol BackgroundSceneDelegate <NSObject>
 
-	SPTexture *buttonBackground = [SPTexture textureWithContentsOfFile:buttonImage];
-
-	self = [super initWithUpState:buttonBackground];
-	return self;
-}
 @end

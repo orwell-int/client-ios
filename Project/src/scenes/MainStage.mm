@@ -28,6 +28,7 @@
 #import "SPImage.h"
 #import "Sparrow.h"
 #import "PlayGameScene.h"
+#import "ServerConnectionScene.h"
 #import "ORAlternativeButton.h"
 
 #pragma mark Private Interface
@@ -62,12 +63,12 @@
 
 	// Init welcome message
 	[self initWelcomeMessage];
-	[self addChild:_welcomeMessage];
+//	[self addChild:_welcomeMessage];
 	[self addChild:_versionNumber];
 
 	_logo = [[SPImage alloc] initWithContentsOfFile:@"LogoBig.png"];
 	_logo.x = 10.0f;
-	_logo.y = 40.0f;
+	_logo.y = 55.0f;
 	[self addChild:_logo];
 
 	// Init buttons
@@ -80,6 +81,8 @@
 				  atObject:self
 				   forType:EVENT_TYPE_SCENE_CLOSING];
 
+	self.backButtonVisible = NO;
+	self.topBarText = @"Welcome to iOrwell!";
 	return self;
 }
 
@@ -146,7 +149,7 @@
 	if (_activeScene) return;
 
 	DDLogWarn(@"Defaulting to PlayGameScene (as it is the only one available)");
-	_activeScene = [[PlayGameScene alloc] init];
+	_activeScene = [[ServerConnectionScene alloc] init];
   
 	[_activeScene placeObjectInStage];
 
@@ -156,8 +159,7 @@
 
 - (void)onSceneClosing:(SPEvent *)event
 {
-	if (_activeScene)
-	{
+	if (_activeScene) {
 		[_activeScene removeFromParent];
 		_activeScene = nil;
 	}
