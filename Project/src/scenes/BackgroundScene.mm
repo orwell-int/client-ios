@@ -67,8 +67,8 @@
 												height:18.0f
 												  text:@"iOrwell"];
 
-	_topBarTextField.fontName = @"Helvetica Neue";
-	_topBarTextField.fontSize = 18;
+	_topBarTextField.fontName = @"HelveticaNeue-Light";
+	_topBarTextField.fontSize = 17;
 	_topBarTextField.color = 0xffffff;
 	_topBarTextField.x = 50.0f;
 	_topBarTextField.y = 20.0f;
@@ -110,17 +110,17 @@
 
 - (void)registerSelector:(SEL)selector
 {
-	if (_backButton)
-		[_backButton addEventListener:selector
-							 atObject:self
-							  forType:SP_EVENT_TYPE_TRIGGERED];
+//	if (_backButton)
+//		[_backButton addEventListener:selector
+//							 atObject:self
+//							  forType:SP_EVENT_TYPE_TRIGGERED];
 }
 
 - (void)unregisterSelector:(SEL)selector
 {
-	[_backButton removeEventListener:selector
-							atObject:self
-							 forType:SP_EVENT_TYPE_TRIGGERED];
+//	[_backButton removeEventListener:selector
+//							atObject:self
+//							 forType:SP_EVENT_TYPE_TRIGGERED];
 }
 
 - (float)getBackButtonY
@@ -158,14 +158,14 @@
 
 - (void)resetBackground
 {
-	_background = [SPImage imageWithContentsOfFile:@"game-bg.png"];
-	_background.touchable = NO;
+//	_background = [SPImage imageWithContentsOfFile:@"game-bg.png"];
+//	_background.touchable = NO;
 }
 
 - (void)setBlackBackground
 {
-	_background = [[SPImage alloc] initWithWidth:320.0f height:480.0f color:0];
-	_background.touchable = NO;
+//	_background = [[SPImage alloc] initWithWidth:320.0f height:480.0f color:0];
+//	_background.touchable = NO;
 }
 
 - (void)setTopBarText:(NSString *)topBarText

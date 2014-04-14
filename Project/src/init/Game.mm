@@ -55,7 +55,7 @@
 
 - (void)setup
 {
-	_mainstage = [[MainStage sprite] initMainStage];
+	_mainstage = [[MainStage sprite] init];
 	[self addChild:_mainstage];
 }
 

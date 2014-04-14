@@ -71,7 +71,7 @@
 		_inputPlayerName = [[UITextField alloc] initWithFrame:CGRectMake(31, 83, 260, 38)];
 		_inputPlayerName.background = [[UIImage imageNamed:@"InputField.png"] stretchableImageWithLeftCapWidth:20
 																								  topCapHeight:0];
-		_inputPlayerName.font = [UIFont fontWithName:@"Helvetica Neue" size:12];
+		_inputPlayerName.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
 		_inputPlayerName.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:1.0f];
 		_inputPlayerName.leftView = _padding;
 		_inputPlayerName.leftViewMode = UITextFieldViewModeAlways;
@@ -83,7 +83,7 @@
 		_inputServerInfo = [[UITextField alloc] initWithFrame:CGRectMake(31, 134, 260, 38)];
 		_inputServerInfo.background = [[UIImage imageNamed:@"InputField.png"] stretchableImageWithLeftCapWidth:10
 																								  topCapHeight:0];
-		_inputServerInfo.font = [UIFont fontWithName:@"Helvetica Neue" size:12];
+		_inputServerInfo.font = [UIFont fontWithName:@"AmericanTypewriter" size:12];
 		_inputServerInfo.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:1.0f];
 		_inputServerInfo.leftView = _paddingActive;
 		_inputServerInfo.leftViewMode = UITextFieldViewModeAlways;
@@ -91,6 +91,8 @@
 		_inputServerInfo.rightViewMode = UITextFieldViewModeAlways;
 		_inputServerInfo.delegate = self;
 		_inputServerInfo.placeholder = @"server:puller,pusher";
+		_inputServerInfo.autocorrectionType = UITextAutocorrectionTypeNo;
+		_inputServerInfo.autocapitalizationType = UITextAutocapitalizationTypeNone;
 
 		[self addChild:_techStuff];
 		[self addChild:_connectButton];
