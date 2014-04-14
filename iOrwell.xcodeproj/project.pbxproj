@@ -74,6 +74,9 @@
 		CDB5DE3D18FAF478000B48E6 /* SelectedInputField.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE3718FAF478000B48E6 /* SelectedInputField.png */; };
 		CDB5DE3E18FAF478000B48E6 /* SelectedInputField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE3818FAF478000B48E6 /* SelectedInputField@2x.png */; };
 		CDB5DE4118FAF4BD000B48E6 /* ServerConnectionScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB5DE4018FAF4BD000B48E6 /* ServerConnectionScene.m */; };
+		CDB5DE4D18FC6EA3000B48E6 /* DialogBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE4B18FC6EA3000B48E6 /* DialogBackground.png */; };
+		CDB5DE4E18FC6EA3000B48E6 /* DialogBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE4C18FC6EA3000B48E6 /* DialogBackground@2x.png */; };
+		CDB5DE5118FC6F31000B48E6 /* ORDialogBox.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB5DE5018FC6F31000B48E6 /* ORDialogBox.m */; };
 		CDDD0B8E18D77FE600979E1E /* sound.caf in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7418D77FE600979E1E /* sound.caf */; };
 		CDDD0B8F18D77FE600979E1E /* bordersprite_regular_20.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7618D77FE600979E1E /* bordersprite_regular_20.fnt */; };
 		CDDD0B9018D77FE600979E1E /* bordersprite_regular_20.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7718D77FE600979E1E /* bordersprite_regular_20.PNG */; };
@@ -205,6 +208,11 @@
 		CDB5DE3F18FAF4BD000B48E6 /* ServerConnectionScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConnectionScene.h; sourceTree = "<group>"; };
 		CDB5DE4018FAF4BD000B48E6 /* ServerConnectionScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConnectionScene.m; sourceTree = "<group>"; };
 		CDB5DE4218FAFAF6000B48E6 /* BackgroundSceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundSceneDelegate.h; sourceTree = "<group>"; };
+		CDB5DE4B18FC6EA3000B48E6 /* DialogBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DialogBackground.png; sourceTree = "<group>"; };
+		CDB5DE4C18FC6EA3000B48E6 /* DialogBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DialogBackground@2x.png"; path = "1x/DialogBackground@2x.png"; sourceTree = "<group>"; };
+		CDB5DE4F18FC6F31000B48E6 /* ORDialogBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORDialogBox.h; sourceTree = "<group>"; };
+		CDB5DE5018FC6F31000B48E6 /* ORDialogBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORDialogBox.m; sourceTree = "<group>"; };
+		CDB5DE5218FC7646000B48E6 /* ORDialogBoxDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORDialogBoxDelegate.h; sourceTree = "<group>"; };
 		CDDD0B7418D77FE600979E1E /* sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.caf; sourceTree = "<group>"; };
 		CDDD0B7618D77FE600979E1E /* bordersprite_regular_20.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bordersprite_regular_20.fnt; sourceTree = "<group>"; };
 		CDDD0B7718D77FE600979E1E /* bordersprite_regular_20.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bordersprite_regular_20.PNG; sourceTree = "<group>"; };
@@ -392,6 +400,9 @@
 			isa = PBXGroup;
 			children = (
 				CDB5DE2418FAE446000B48E6 /* ORInputTextField.h */,
+				CDB5DE5218FC7646000B48E6 /* ORDialogBoxDelegate.h */,
+				CDB5DE4F18FC6F31000B48E6 /* ORDialogBox.h */,
+				CDB5DE5018FC6F31000B48E6 /* ORDialogBox.m */,
 				CDB5DE2518FAE446000B48E6 /* ORInputTextField.m */,
 				CDB5DE1018FABE50000B48E6 /* ORAlternativeButton.h */,
 				CDB5DE1118FABE50000B48E6 /* ORAlternativeButton.m */,
@@ -436,6 +447,7 @@
 		CDB5DE1518FAC1EE000B48E6 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				CDB5DE4C18FC6EA3000B48E6 /* DialogBackground@2x.png */,
 				CDB5DE3418FAF478000B48E6 /* BackButton@2x.png */,
 				CDB5DE3618FAF478000B48E6 /* InputField@2x.png */,
 				CDB5DE3818FAF478000B48E6 /* SelectedInputField@2x.png */,
@@ -497,6 +509,7 @@
 		CDDD0B7D18D77FE600979E1E /* 1x */ = {
 			isa = PBXGroup;
 			children = (
+				CDB5DE4B18FC6EA3000B48E6 /* DialogBackground.png */,
 				CDB5DE3318FAF478000B48E6 /* BackButton.png */,
 				CDB5DE3518FAF478000B48E6 /* InputField.png */,
 				CDB5DE3718FAF478000B48E6 /* SelectedInputField.png */,
@@ -630,6 +643,7 @@
 				CDB5DE1718FAC206000B48E6 /* PlayButton@2x.png in Resources */,
 				CDB5DE3918FAF478000B48E6 /* BackButton.png in Resources */,
 				CDB5DE0B18FABC6D000B48E6 /* StageBackground.png in Resources */,
+				CDB5DE4E18FC6EA3000B48E6 /* DialogBackground@2x.png in Resources */,
 				CDB5DE2218FAD1C1000B48E6 /* LogoBig.png in Resources */,
 				CDDD0BA318D77FE600979E1E /* README.txt in Resources */,
 				CD6625F918DF3FEC00802AF0 /* ButtonDown.png in Resources */,
@@ -649,6 +663,7 @@
 				CDDD0B9218D77FE600979E1E /* dodger_condensed_condensed_20.PNG in Resources */,
 				CDB5DE3E18FAF478000B48E6 /* SelectedInputField@2x.png in Resources */,
 				CDB5DE3C18FAF478000B48E6 /* InputField@2x.png in Resources */,
+				CDB5DE4D18FC6EA3000B48E6 /* DialogBackground.png in Resources */,
 				CDDD0B9318D77FE600979E1E /* dodger_shadow_shadow_20.fnt in Resources */,
 				CDDD0B9518D77FE600979E1E /* black-dialog.png in Resources */,
 				CDB5DE3A18FAF478000B48E6 /* BackButton@2x.png in Resources */,
@@ -759,6 +774,7 @@
 				CD910B4918D77C2B00C61610 /* main.mm in Sources */,
 				CD910B4E18D77C2B00C61610 /* controller.pb.cc in Sources */,
 				CD910B5018D77C2B00C61610 /* robot.pb.cc in Sources */,
+				CDB5DE5118FC6F31000B48E6 /* ORDialogBox.m in Sources */,
 				CDF0AB5618E9DD50004A7D1A /* ORViewController.m in Sources */,
 				CDF0AB5318E875F0004A7D1A /* ORZMQURL.m in Sources */,
 				CD6625F718DE132300802AF0 /* ORCameraViewer.mm in Sources */,

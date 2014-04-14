@@ -30,9 +30,11 @@
 #import "PlayGameScene.h"
 #import "ServerConnectionScene.h"
 #import "ORAlternativeButton.h"
+#import "ORDialogBox.h"
+#import "ORDialogBoxDelegate.h"
 
 #pragma mark Private Interface
-@interface MainStage()
+@interface MainStage() <ORDialogBoxDelegate>
 
 @property (strong, nonatomic) SPImage *logo;
 @property (strong, nonatomic) SPTextField *versionNumber;
@@ -46,8 +48,11 @@
 @end
 
 #pragma mark Implementation
-@implementation MainStage
-
+@implementation MainStage {
+	ORDialogBox *_dialogBox;
+	float _deltaX;
+	float _deltaY;
+}
 
 #pragma mark Initialization
 - (id)init
@@ -82,11 +87,18 @@
 	_informationButton.name = @"InformationButton";
 	_informationButton.x = 70.0f;
 	_informationButton.y = 325.0f;
+	[_informationButton addEventListener:@selector(onButtonTriggered:)
+								atObject:self
+								 forType:SP_EVENT_TYPE_TRIGGERED];
 
 	_creditsButton = [[ORAlternativeButton alloc] initWithType:OR_BUTTON_CREDITS];
 	_creditsButton.name = @"CreditsButton";
 	_creditsButton.x = 70.0f;
 	_creditsButton.y = 380.0f;
+	[_creditsButton addEventListener:@selector(onButtonTriggered:)
+							atObject:self
+							 forType:SP_EVENT_TYPE_TRIGGERED];
+
 	[self addChild:_playButton];
 	[self addChild:_informationButton];
 	[self addChild:_creditsButton];
@@ -97,6 +109,7 @@
 
 	self.backButtonVisible = NO;
 	self.topBarText = @"Welcome to iOrwell!";
+
 	return self;
 }
 
@@ -106,13 +119,64 @@
 	SPButton *button = (SPButton *)event.target;
 	DDLogDebug(@"Clicked button: %@", button.name);
 
-	if (!_activeScene) {
-		_activeScene = [[ServerConnectionScene alloc] init];
-		[_activeScene placeObjectInStage];
-
-		[self addChild:_activeScene];
-		[_activeScene startObjects];
+	if (_dialogBox) {
+		[self removeChild:_dialogBox];
+		_dialogBox = nil;
 	}
+
+	if ([button.name isEqualToString:@"PlayButton"]) {
+		if (!_activeScene) {
+			_activeScene = [[ServerConnectionScene alloc] init];
+			[_activeScene placeObjectInStage];
+
+			[self addChild:_activeScene];
+			[_activeScene startObjects];
+		}
+	}
+	else if ([button.name isEqualToString:@"InformationButton"]) {
+		_dialogBox = [[ORDialogBox alloc] initWithHeader:@"Information"
+												 andBody:@"Very long body\n"
+					  " with a lot of text that is actually even spanning on multiple \n"
+					  "lines, hence creating something that should be scrollable...."];
+		_dialogBox.x = 15.0f;
+		_dialogBox.y = 45.0f;
+		_dialogBox.delegate = self;
+		[self addChild:_dialogBox];
+	}
+	else if ([button.name isEqualToString:@"CreditsButton"]) {
+		_dialogBox = [[ORDialogBox alloc] initWithHeader:@"Credits"
+												 andBody:@"Very long body\n"
+					  " with a lot of text that is actually even spanning on multiple \n"
+					  "lines, hence creating something that should be scrollable...."];
+		_dialogBox.x = 15.0f;
+		_dialogBox.y = 45.0f;
+		_dialogBox.delegate = self;
+		[self addChild:_dialogBox];
+	}
+}
+
+- (void)dialogBox:(ORDialogBox *)dialogBox didMoveAtX:(float)x andY:(float)y
+{
+	_deltaX = 0;
+	_deltaY = 0;
+}
+
+- (void)dialogBox:(ORDialogBox *)dialogBox startedMoveAtX:(float)x andY:(float)y
+{
+	_deltaX = x;
+	_deltaY = y;
+}
+
+- (void)dialogBox:(ORDialogBox *)dialogBox continuedMovingAtX:(float)x andY:(float)y
+{
+	_deltaX -= x;
+	dialogBox.x -= _deltaX;
+
+	_deltaY -= y;
+	dialogBox.y -= _deltaY;
+
+	_deltaX = x;
+	_deltaY = y;
 }
 
 - (void)onSceneClosing:(SPEvent *)event
