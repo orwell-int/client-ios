@@ -24,28 +24,15 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ORInputTextField.h"
+#import "SPSprite.h"
+#define OR_EVENT_BACKBUTTON_TRIGGERED @"backButtonTriggered"
 
-@implementation ORInputTextField {
-	UIImage *_background;
-}
+@interface ORTopBar : SPSprite
+@property (nonatomic) BOOL backButtonVisible;
+@property (nonatomic) BOOL busyIndicatorVisible;
+@property (nonatomic, strong) NSString *text;
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+- (void)animateBusyIndicatorWithDelay:(float)delay;
+- (void)stopBusyIndicator;
 
 @end

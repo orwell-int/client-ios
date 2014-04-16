@@ -25,6 +25,11 @@
 		CD6625FB18DF45D300802AF0 /* ButtonUp.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6625FA18DF45D300802AF0 /* ButtonUp.png */; };
 		CD6625FE18DF4CD100802AF0 /* ButtonLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6625FC18DF4CD100802AF0 /* ButtonLeft.png */; };
 		CD6625FF18DF4CD100802AF0 /* ButtonRight.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6625FD18DF4CD100802AF0 /* ButtonRight.png */; };
+		CD85EEA118FEE908005C3C12 /* ORTopBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CD85EEA018FEE908005C3C12 /* ORTopBar.m */; };
+		CD85EEA418FEEECE005C3C12 /* MegaphoneIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = CD85EEA218FEEECD005C3C12 /* MegaphoneIcon.png */; };
+		CD85EEA518FEEECE005C3C12 /* MegaphoneIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD85EEA318FEEECD005C3C12 /* MegaphoneIcon@2x.png */; };
+		CD85EEA818FEF505005C3C12 /* BusyIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = CD85EEA618FEF505005C3C12 /* BusyIndicator.png */; };
+		CD85EEA918FEF505005C3C12 /* BusyIndicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD85EEA718FEF505005C3C12 /* BusyIndicator@2x.png */; };
 		CD910B1118D77BDF00C61610 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1018D77BDF00C61610 /* Foundation.framework */; };
 		CD910B1318D77BDF00C61610 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1218D77BDF00C61610 /* CoreGraphics.framework */; };
 		CD910B1518D77BDF00C61610 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD910B1418D77BDF00C61610 /* UIKit.framework */; };
@@ -60,7 +65,6 @@
 		CDB5DE1F18FACA12000B48E6 /* CreditsButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE1D18FACA12000B48E6 /* CreditsButton@2x.png */; };
 		CDB5DE2218FAD1C1000B48E6 /* LogoBig.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE2018FAD1C1000B48E6 /* LogoBig.png */; };
 		CDB5DE2318FAD1C1000B48E6 /* LogoBig@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE2118FAD1C1000B48E6 /* LogoBig@2x.png */; };
-		CDB5DE2618FAE446000B48E6 /* ORInputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB5DE2518FAE446000B48E6 /* ORInputTextField.m */; };
 		CDB5DE2918FAF249000B48E6 /* ConnectButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE2718FAF249000B48E6 /* ConnectButton.png */; };
 		CDB5DE2A18FAF249000B48E6 /* ConnectButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE2818FAF249000B48E6 /* ConnectButton@2x.png */; };
 		CDB5DE2D18FAF2D7000B48E6 /* TechStuff.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE2B18FAF2D7000B48E6 /* TechStuff.png */; };
@@ -132,6 +136,12 @@
 		CD6625FA18DF45D300802AF0 /* ButtonUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonUp.png; sourceTree = "<group>"; };
 		CD6625FC18DF4CD100802AF0 /* ButtonLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonLeft.png; sourceTree = "<group>"; };
 		CD6625FD18DF4CD100802AF0 /* ButtonRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonRight.png; sourceTree = "<group>"; };
+		CD85EE9F18FEE908005C3C12 /* ORTopBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORTopBar.h; sourceTree = "<group>"; };
+		CD85EEA018FEE908005C3C12 /* ORTopBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORTopBar.m; sourceTree = "<group>"; };
+		CD85EEA218FEEECD005C3C12 /* MegaphoneIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MegaphoneIcon.png; sourceTree = "<group>"; };
+		CD85EEA318FEEECD005C3C12 /* MegaphoneIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MegaphoneIcon@2x.png"; path = "1x/MegaphoneIcon@2x.png"; sourceTree = "<group>"; };
+		CD85EEA618FEF505005C3C12 /* BusyIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BusyIndicator.png; sourceTree = "<group>"; };
+		CD85EEA718FEF505005C3C12 /* BusyIndicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BusyIndicator@2x.png"; path = "1x/BusyIndicator@2x.png"; sourceTree = "<group>"; };
 		CD910AD418D77B0D00C61610 /* Callback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Callback.h; sourceTree = "<group>"; };
 		CD910AD518D77B0D00C61610 /* Callback.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Callback.mm; sourceTree = "<group>"; };
 		CD910AD618D77B0D00C61610 /* CallbackGameState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallbackGameState.h; sourceTree = "<group>"; };
@@ -191,8 +201,6 @@
 		CDB5DE1D18FACA12000B48E6 /* CreditsButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "CreditsButton@2x.png"; path = "1x/CreditsButton@2x.png"; sourceTree = "<group>"; };
 		CDB5DE2018FAD1C1000B48E6 /* LogoBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoBig.png; sourceTree = "<group>"; };
 		CDB5DE2118FAD1C1000B48E6 /* LogoBig@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LogoBig@2x.png"; path = "1x/LogoBig@2x.png"; sourceTree = "<group>"; };
-		CDB5DE2418FAE446000B48E6 /* ORInputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORInputTextField.h; sourceTree = "<group>"; };
-		CDB5DE2518FAE446000B48E6 /* ORInputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORInputTextField.m; sourceTree = "<group>"; };
 		CDB5DE2718FAF249000B48E6 /* ConnectButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ConnectButton.png; sourceTree = "<group>"; };
 		CDB5DE2818FAF249000B48E6 /* ConnectButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ConnectButton@2x.png"; path = "1x/ConnectButton@2x.png"; sourceTree = "<group>"; };
 		CDB5DE2B18FAF2D7000B48E6 /* TechStuff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TechStuff.png; sourceTree = "<group>"; };
@@ -399,11 +407,11 @@
 		CD910B0218D77B0D00C61610 /* ui */ = {
 			isa = PBXGroup;
 			children = (
-				CDB5DE2418FAE446000B48E6 /* ORInputTextField.h */,
 				CDB5DE5218FC7646000B48E6 /* ORDialogBoxDelegate.h */,
 				CDB5DE4F18FC6F31000B48E6 /* ORDialogBox.h */,
+				CD85EE9F18FEE908005C3C12 /* ORTopBar.h */,
+				CD85EEA018FEE908005C3C12 /* ORTopBar.m */,
 				CDB5DE5018FC6F31000B48E6 /* ORDialogBox.m */,
-				CDB5DE2518FAE446000B48E6 /* ORInputTextField.m */,
 				CDB5DE1018FABE50000B48E6 /* ORAlternativeButton.h */,
 				CDB5DE1118FABE50000B48E6 /* ORAlternativeButton.m */,
 				CD910B0318D77B0D00C61610 /* ORArrowButton.h */,
@@ -447,11 +455,13 @@
 		CDB5DE1518FAC1EE000B48E6 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				CD85EEA718FEF505005C3C12 /* BusyIndicator@2x.png */,
 				CDB5DE4C18FC6EA3000B48E6 /* DialogBackground@2x.png */,
 				CDB5DE3418FAF478000B48E6 /* BackButton@2x.png */,
 				CDB5DE3618FAF478000B48E6 /* InputField@2x.png */,
 				CDB5DE3818FAF478000B48E6 /* SelectedInputField@2x.png */,
 				CDB5DE2818FAF249000B48E6 /* ConnectButton@2x.png */,
+				CD85EEA318FEEECD005C3C12 /* MegaphoneIcon@2x.png */,
 				CDB5DE2118FAD1C1000B48E6 /* LogoBig@2x.png */,
 				CDB5DE1D18FACA12000B48E6 /* CreditsButton@2x.png */,
 				CDB5DE1618FAC206000B48E6 /* PlayButton@2x.png */,
@@ -509,6 +519,7 @@
 		CDDD0B7D18D77FE600979E1E /* 1x */ = {
 			isa = PBXGroup;
 			children = (
+				CD85EEA618FEF505005C3C12 /* BusyIndicator.png */,
 				CDB5DE4B18FC6EA3000B48E6 /* DialogBackground.png */,
 				CDB5DE3318FAF478000B48E6 /* BackButton.png */,
 				CDB5DE3518FAF478000B48E6 /* InputField.png */,
@@ -527,6 +538,7 @@
 				CDB5DE1818FAC2B0000B48E6 /* InformationsButton.png */,
 				CDB5DE1318FABF6C000B48E6 /* LikeIcon.png */,
 				CDB5DE2018FAD1C1000B48E6 /* LogoBig.png */,
+				CD85EEA218FEEECD005C3C12 /* MegaphoneIcon.png */,
 				CDDD0B8218D77FE600979E1E /* marvin.png */,
 				CDDD0B8518D77FE600979E1E /* Metal-background.png */,
 				CDB5DE0C18FABE14000B48E6 /* PlayButton.png */,
@@ -642,6 +654,7 @@
 				CDB5DE1F18FACA12000B48E6 /* CreditsButton@2x.png in Resources */,
 				CDB5DE1718FAC206000B48E6 /* PlayButton@2x.png in Resources */,
 				CDB5DE3918FAF478000B48E6 /* BackButton.png in Resources */,
+				CD85EEA918FEF505005C3C12 /* BusyIndicator@2x.png in Resources */,
 				CDB5DE0B18FABC6D000B48E6 /* StageBackground.png in Resources */,
 				CDB5DE4E18FC6EA3000B48E6 /* DialogBackground@2x.png in Resources */,
 				CDB5DE2218FAD1C1000B48E6 /* LogoBig.png in Resources */,
@@ -663,6 +676,7 @@
 				CDDD0B9218D77FE600979E1E /* dodger_condensed_condensed_20.PNG in Resources */,
 				CDB5DE3E18FAF478000B48E6 /* SelectedInputField@2x.png in Resources */,
 				CDB5DE3C18FAF478000B48E6 /* InputField@2x.png in Resources */,
+				CD85EEA518FEEECE005C3C12 /* MegaphoneIcon@2x.png in Resources */,
 				CDB5DE4D18FC6EA3000B48E6 /* DialogBackground.png in Resources */,
 				CDDD0B9318D77FE600979E1E /* dodger_shadow_shadow_20.fnt in Resources */,
 				CDDD0B9518D77FE600979E1E /* black-dialog.png in Resources */,
@@ -676,8 +690,10 @@
 				CDDD0B9918D77FE600979E1E /* marvin.png in Resources */,
 				CD6625FB18DF45D300802AF0 /* ButtonUp.png in Resources */,
 				CDB5DE0D18FABE14000B48E6 /* PlayButton.png in Resources */,
+				CD85EEA418FEEECE005C3C12 /* MegaphoneIcon.png in Resources */,
 				CDB5DE3118FAF34E000B48E6 /* TopBar.png in Resources */,
 				CDDD0B9118D77FE600979E1E /* dodger_condensed_condensed_20.fnt in Resources */,
+				CD85EEA818FEF505005C3C12 /* BusyIndicator.png in Resources */,
 				CDB5DE1B18FAC2B7000B48E6 /* InformationsButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -774,6 +790,7 @@
 				CD910B4918D77C2B00C61610 /* main.mm in Sources */,
 				CD910B4E18D77C2B00C61610 /* controller.pb.cc in Sources */,
 				CD910B5018D77C2B00C61610 /* robot.pb.cc in Sources */,
+				CD85EEA118FEE908005C3C12 /* ORTopBar.m in Sources */,
 				CDB5DE5118FC6F31000B48E6 /* ORDialogBox.m in Sources */,
 				CDF0AB5618E9DD50004A7D1A /* ORViewController.m in Sources */,
 				CDF0AB5318E875F0004A7D1A /* ORZMQURL.m in Sources */,
@@ -787,7 +804,6 @@
 				CD910B5918D77C2B00C61610 /* InputGameScene.mm in Sources */,
 				CD910B5A18D77C2B00C61610 /* MainStage.mm in Sources */,
 				CD910B5B18D77C2B00C61610 /* PlayGameScene.mm in Sources */,
-				CDB5DE2618FAE446000B48E6 /* ORInputTextField.m in Sources */,
 				CD910B5C18D77C2B00C61610 /* ORArrowButton.mm in Sources */,
 				CD910B5D18D77C2B00C61610 /* ORButton.mm in Sources */,
 				CD910B5E18D77C2B00C61610 /* ORTextField.mm in Sources */,

@@ -26,12 +26,9 @@
 
 #import "BackgroundScene.h"
 #import "ORButton.h"
+#import "ORTopBar.h"
 
 @interface BackgroundScene()
-@property (strong, nonatomic) SPImage *topBar;
-@property (strong, nonatomic) SPButton *nbackButton;
-@property (strong, nonatomic) SPTextField *topBarTextField; // x50 y20
-
 @property (strong, nonatomic) SPImage *background;
 @property (strong, nonatomic) ORButton *backButton;
 @end
@@ -48,35 +45,13 @@
 	_background.touchable = NO;
 
 	// Init Top Bar
-	_topBar = [SPImage imageWithContentsOfFile:@"TopBar.png"];
-	_topBar.x = 0;
-	_topBar.y = 0;
-
-	// Init back button
-	_nbackButton = [SPButton buttonWithUpState:[SPTexture textureWithContentsOfFile:@"BackButton.png"]];
-	_nbackButton.x = 12.0f;
-	_nbackButton.y = 17.0f;
-	_nbackButton.width = 23.0f;
-	_nbackButton.height = 23.0f;
-	[_nbackButton addEventListener:@selector(onBackButtonPressed:)
-						  atObject:self
-						   forType:SP_EVENT_TYPE_TRIGGERED];
-
-	// Init TextField
-	_topBarTextField = [SPTextField textFieldWithWidth:218.0f
-												height:18.0f
-												  text:@"iOrwell"];
-
-	_topBarTextField.fontName = @"HelveticaNeue-Light";
-	_topBarTextField.fontSize = 17;
-	_topBarTextField.color = 0xffffff;
-	_topBarTextField.x = 50.0f;
-	_topBarTextField.y = 20.0f;
+	_topBar = [[ORTopBar alloc] init];
+	[_topBar addEventListener:@selector(onBackButtonPressed:)
+					 atObject:self
+					  forType:OR_EVENT_BACKBUTTON_TRIGGERED];
 
 	[self addChild:_background atIndex:0];
 	[self addChild:_topBar];
-	[self addChild:_nbackButton];
-	[self addChild:_topBarTextField];
 
 	return self;
 }
@@ -170,22 +145,17 @@
 
 - (void)setTopBarText:(NSString *)topBarText
 {
-	_topBarText = topBarText;
-	_topBarTextField.text = topBarText;
+	_topBar.text = topBarText;
 }
 
 - (void)setTopBarVisible:(BOOL)topBarVisible
 {
-	_topBarVisible = topBarVisible;
 	_topBar.visible = topBarVisible;
-	_topBarTextField.visible = topBarVisible;
-	self.backButtonVisible = topBarVisible;
 }
 
 - (void)setBackButtonVisible:(BOOL)backButtonVisible
 {
-	_backButtonVisible = backButtonVisible;
-	_nbackButton.visible = backButtonVisible;
+	_topBar.backButtonVisible = backButtonVisible;
 }
 
 @end

@@ -26,7 +26,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Sparrow.h>
-
+#import "ORTopBar.h"
 
 #define EVENT_TYPE_SCENE_CLOSING @"closing"
 #define EVENT_TYPE_INPUT_SCENE_CLOSING @"inputclosing"
@@ -35,6 +35,7 @@
 @property (nonatomic, strong) NSString *topBarText;
 @property (nonatomic) BOOL topBarVisible;
 @property (nonatomic) BOOL backButtonVisible;
+@property (nonatomic, strong) ORTopBar *topBar;
 
 - (id)init;
 - (void)addBackButton;
