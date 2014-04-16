@@ -179,6 +179,11 @@
 	_deltaY = y;
 }
 
+- (void)dialogBoxWantsToLeave:(ORDialogBox *)dialogBox
+{
+	[self removeChild:dialogBox];
+}
+
 - (void)onSceneClosing:(SPEvent *)event
 {
 	if (_activeScene) {

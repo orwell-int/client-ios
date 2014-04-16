@@ -32,7 +32,7 @@
 	SPImage *_background;
 	SPTextField *_headerTextField;
 	SPTextField *_textMessageTextField;
-	ORAlternativeButton *_dismissButton;
+	SPButton *_dismissButton;
 }
 
 - (id)init
@@ -60,9 +60,23 @@
 		_textMessageTextField.vAlign = SPVAlignTop;
 		_textMessageTextField.hAlign = SPHAlignLeft;
 
+		_dismissButton = [SPButton buttonWithUpState:[SPTexture textureWithContentsOfFile:@"BackButton.png"]];
+		_dismissButton.x = 20.0f;
+		_dismissButton.y = 20.0f;
+		_dismissButton.height = 20.0f;
+		_dismissButton.width = 20.0f;
+
 		[self addChild:_background atIndex:0];
 		[self addChild:_headerTextField];
 		[self addChild:_textMessageTextField];
+		[self addChild:_dismissButton];
+
+		__weak ORDialogBox * wself = self;
+		[_dismissButton addEventListenerForType:SP_EVENT_TYPE_TRIGGERED block:^(id event){
+			if (wself.delegate) {
+				[wself.delegate dialogBoxWantsToLeave:wself];
+			}
+		}];
 
 		[self addEventListener:@selector(onDragged:)
 					  atObject:self
@@ -119,17 +133,6 @@
 		if (_delegate)
 			[_delegate dialogBox:self didMoveAtX:touch.globalX andY:touch.globalY];
 	}
-
-//	NSSet *touches = event.touches;
-//	for (SPTouch *touch in touches) {
-//		if (touch.target == event.target) {
-//			if (_delegate) {
-//				[_delegate dialogBox:self
-//						  didMoveAtX:touch.globalX
-//								andY:touch.globalY];
-//			}
-//		}
-//	}
 }
 
 @end

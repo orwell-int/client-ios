@@ -31,4 +31,5 @@
 - (void)dialogBox:(ORDialogBox *)dialogBox didMoveAtX:(float)x andY:(float)y;
 - (void)dialogBox:(ORDialogBox *)dialogBox startedMoveAtX:(float)x andY:(float)y;
 - (void)dialogBox:(ORDialogBox *)dialogBox continuedMovingAtX:(float)x andY:(float)y;
+- (void)dialogBoxWantsToLeave:(ORDialogBox *)dialogBox;
 @end
