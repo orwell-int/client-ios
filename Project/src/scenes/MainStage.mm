@@ -27,7 +27,6 @@
 #import "MainStage.h"
 #import "SPImage.h"
 #import "Sparrow.h"
-#import "PlayGameScene.h"
 #import "ServerConnectionScene.h"
 #import "ORAlternativeButton.h"
 #import "ORDialogBox.h"
@@ -123,8 +122,8 @@
 				  atObject:self
 				   forType:EVENT_TYPE_SCENE_CLOSING];
 
-	self.backButtonVisible = NO;
-	self.topBarText = @"Welcome to iOrwell!";
+	self.topBar.backButtonVisible = NO;
+	self.topBar.text = @"Welcome to iOrwell!";
 
 	return self;
 }

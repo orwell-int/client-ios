@@ -54,9 +54,9 @@
 - (id)init
 {
 	if (self = [super init]) {
-		self.topBarVisible = YES;
-		self.backButtonVisible = YES;
-		self.topBarText = @"Choose a server";
+		self.topBar.visible = YES;
+		self.topBar.backButtonVisible = YES;
+		self.topBar.text = @"Choose a server";
 
 		_communicator = [ORServerCommunicator singleton];
 		_communicator.delegate = self;

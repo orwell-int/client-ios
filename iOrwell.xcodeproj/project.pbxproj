@@ -48,7 +48,6 @@
 		CD910B5618D77C2B00C61610 /* BackgroundScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AF718D77B0D00C61610 /* BackgroundScene.mm */; };
 		CD910B5918D77C2B00C61610 /* InputGameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AFD18D77B0D00C61610 /* InputGameScene.mm */; };
 		CD910B5A18D77C2B00C61610 /* MainStage.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AFF18D77B0D00C61610 /* MainStage.mm */; };
-		CD910B5B18D77C2B00C61610 /* PlayGameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0118D77B0D00C61610 /* PlayGameScene.mm */; };
 		CD910B5C18D77C2B00C61610 /* ORArrowButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0418D77B0D00C61610 /* ORArrowButton.mm */; };
 		CD910B5D18D77C2B00C61610 /* ORButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0618D77B0D00C61610 /* ORButton.mm */; };
 		CD910B5E18D77C2B00C61610 /* ORTextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0818D77B0D00C61610 /* ORTextField.mm */; };
@@ -172,8 +171,6 @@
 		CD910AFD18D77B0D00C61610 /* InputGameScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = InputGameScene.mm; sourceTree = "<group>"; usesTabs = 0; };
 		CD910AFE18D77B0D00C61610 /* MainStage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainStage.h; sourceTree = "<group>"; };
 		CD910AFF18D77B0D00C61610 /* MainStage.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MainStage.mm; sourceTree = "<group>"; };
-		CD910B0018D77B0D00C61610 /* PlayGameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayGameScene.h; sourceTree = "<group>"; };
-		CD910B0118D77B0D00C61610 /* PlayGameScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlayGameScene.mm; sourceTree = "<group>"; };
 		CD910B0318D77B0D00C61610 /* ORArrowButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORArrowButton.h; sourceTree = "<group>"; };
 		CD910B0418D77B0D00C61610 /* ORArrowButton.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ORArrowButton.mm; sourceTree = "<group>"; };
 		CD910B0518D77B0D00C61610 /* ORButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORButton.h; sourceTree = "<group>"; };
@@ -215,7 +212,6 @@
 		CDB5DE3818FAF478000B48E6 /* SelectedInputField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SelectedInputField@2x.png"; path = "1x/SelectedInputField@2x.png"; sourceTree = "<group>"; };
 		CDB5DE3F18FAF4BD000B48E6 /* ServerConnectionScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConnectionScene.h; sourceTree = "<group>"; };
 		CDB5DE4018FAF4BD000B48E6 /* ServerConnectionScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ServerConnectionScene.mm; sourceTree = "<group>"; };
-		CDB5DE4218FAFAF6000B48E6 /* BackgroundSceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundSceneDelegate.h; sourceTree = "<group>"; };
 		CDB5DE4B18FC6EA3000B48E6 /* DialogBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DialogBackground.png; sourceTree = "<group>"; };
 		CDB5DE4C18FC6EA3000B48E6 /* DialogBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DialogBackground@2x.png"; path = "1x/DialogBackground@2x.png"; sourceTree = "<group>"; };
 		CDB5DE4F18FC6F31000B48E6 /* ORDialogBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORDialogBox.h; sourceTree = "<group>"; };
@@ -391,13 +387,10 @@
 			children = (
 				CD910AF618D77B0D00C61610 /* BackgroundScene.h */,
 				CD910AF718D77B0D00C61610 /* BackgroundScene.mm */,
-				CDB5DE4218FAFAF6000B48E6 /* BackgroundSceneDelegate.h */,
 				CD910AFC18D77B0D00C61610 /* InputGameScene.h */,
 				CD910AFD18D77B0D00C61610 /* InputGameScene.mm */,
 				CD910AFE18D77B0D00C61610 /* MainStage.h */,
 				CD910AFF18D77B0D00C61610 /* MainStage.mm */,
-				CD910B0018D77B0D00C61610 /* PlayGameScene.h */,
-				CD910B0118D77B0D00C61610 /* PlayGameScene.mm */,
 				CDB5DE3F18FAF4BD000B48E6 /* ServerConnectionScene.h */,
 				CDB5DE4018FAF4BD000B48E6 /* ServerConnectionScene.mm */,
 			);
@@ -803,7 +796,6 @@
 				CDF0AB5218E8759B004A7D1A /* ORServerCommunicator.mm in Sources */,
 				CD910B5918D77C2B00C61610 /* InputGameScene.mm in Sources */,
 				CD910B5A18D77C2B00C61610 /* MainStage.mm in Sources */,
-				CD910B5B18D77C2B00C61610 /* PlayGameScene.mm in Sources */,
 				CD910B5C18D77C2B00C61610 /* ORArrowButton.mm in Sources */,
 				CD910B5D18D77C2B00C61610 /* ORButton.mm in Sources */,
 				CD910B5E18D77C2B00C61610 /* ORTextField.mm in Sources */,

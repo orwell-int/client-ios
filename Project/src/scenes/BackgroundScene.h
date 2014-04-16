@@ -32,27 +32,12 @@
 #define EVENT_TYPE_INPUT_SCENE_CLOSING @"inputclosing"
 
 @interface BackgroundScene : SPSprite
-@property (nonatomic, strong) NSString *topBarText;
-@property (nonatomic) BOOL topBarVisible;
-@property (nonatomic) BOOL backButtonVisible;
 @property (nonatomic, strong) ORTopBar *topBar;
 
 - (id)init;
-- (void)addBackButton;
-- (void)removeBackButton;
 - (void)willGoBack;
-
-- (void)registerSelector:(SEL)selector;
-- (void)unregisterSelector:(SEL)selector;
-
-- (float)getBackButtonY;
-- (float)getBackButtonHeight;
 
 - (void)placeObjectInStage;
 - (void)startObjects;
-- (CGRect)getUsableScreenSize;
-
-- (void)resetBackground;
-- (void)setBlackBackground;
 
 @end

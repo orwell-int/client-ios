@@ -75,13 +75,9 @@
 - (id)init
 {
 	self = [super init];
-	[self addBackButton];
 	_left = 0;
 	_right = 0;
 	_running = YES;
-	
-	DDLogDebug(@"Usable screen size, w = %f - h = %f",
-			   [self getUsableScreenSize].size.width, [self getUsableScreenSize].size.height);
 
 	_buttonsArray = [NSMutableArray array];
 
@@ -127,7 +123,6 @@
     [self removeChild:_rightButton];
     [self removeChild:_leftSlider];
     [self removeChild:_rightSlider];
-    [self removeBackButton];
 
     // It's not like we're really going to change these values..
     _leftSlider.width = 40.0f;
@@ -360,7 +355,6 @@
 - (void)willGoBack
 {
     DDLogInfo(@"Back button pressed");
-    [self unregisterSelector:@selector(onOrientationChanged:)];
 	[_serverCommunicator deleteResponder:self forMessage:@"GameState"];
 	_running = NO;
     

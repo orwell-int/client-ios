@@ -38,8 +38,6 @@
 - (id)init
 {
 	self = [super init];
-	_backButtonVisible = YES;
-	_topBarVisible = YES;
 
 	_background = [SPImage imageWithContentsOfFile:@"StageBackground.png"];
 	_background.touchable = NO;
@@ -67,47 +65,6 @@
 	[self dispatchEventWithType:EVENT_TYPE_SCENE_CLOSING bubbles:YES];
 }
 
-- (void)addBackButton
-{
-//	_backButton = [[ORButton alloc] initWithText:@"Back"];;
-//	_backButton.name = @"Back";
-
-//	_backButton.x = 90.0f;
-//	_backButton.y = 400.0f;
-
-//	[self addChild:_backButton];
-}
-
-- (void)removeBackButton
-{
-//	[self removeChild:_backButton];
-}
-
-- (void)registerSelector:(SEL)selector
-{
-//	if (_backButton)
-//		[_backButton addEventListener:selector
-//							 atObject:self
-//							  forType:SP_EVENT_TYPE_TRIGGERED];
-}
-
-- (void)unregisterSelector:(SEL)selector
-{
-//	[_backButton removeEventListener:selector
-//							atObject:self
-//							 forType:SP_EVENT_TYPE_TRIGGERED];
-}
-
-- (float)getBackButtonY
-{
-	return _backButton.y;
-}
-
-- (float)getBackButtonHeight
-{
-	return _backButton.height;
-}
-
 - (void)placeObjectInStage
 {
 
@@ -116,46 +73,6 @@
 - (void)startObjects
 {
 
-}
-
-- (CGRect)getUsableScreenSize
-{
-	CGRect screenSize;
-
-	screenSize.size.width = Sparrow.stage.width;
-	screenSize.size.height = Sparrow.stage.height - (Sparrow.stage.height - _backButton.y - 5.0f);
-
-	screenSize.origin.x = 0.0f;
-	screenSize.origin.y = 0.0f;
-
-	return screenSize;
-}
-
-- (void)resetBackground
-{
-//	_background = [SPImage imageWithContentsOfFile:@"game-bg.png"];
-//	_background.touchable = NO;
-}
-
-- (void)setBlackBackground
-{
-//	_background = [[SPImage alloc] initWithWidth:320.0f height:480.0f color:0];
-//	_background.touchable = NO;
-}
-
-- (void)setTopBarText:(NSString *)topBarText
-{
-	_topBar.text = topBarText;
-}
-
-- (void)setTopBarVisible:(BOOL)topBarVisible
-{
-	_topBar.visible = topBarVisible;
-}
-
-- (void)setBackButtonVisible:(BOOL)backButtonVisible
-{
-	_topBar.backButtonVisible = backButtonVisible;
 }
 
 @end
