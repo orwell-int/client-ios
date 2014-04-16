@@ -49,7 +49,7 @@
 		_headerTextField.fontSize = 16;
 
 
-		_textMessageTextField = [SPTextField textFieldWithWidth:_background.width - 30
+		_textMessageTextField = [SPTextField textFieldWithWidth:_background.width - 40
 														 height:_background.height - 30
 														   text:@""];
 		_textMessageTextField.x = 25.0f;

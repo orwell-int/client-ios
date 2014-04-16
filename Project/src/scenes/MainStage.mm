@@ -33,6 +33,22 @@
 #import "ORDialogBox.h"
 #import "ORDialogBoxDelegate.h"
 
+#define INFORMATION_BODY \
+@"Welcome to iOrwell, visitor!\n" \
+"This part of the project, as long as all the other parts composing the " \
+"totality of Orwell, is still under heavy development. You are currently " \
+"looking at a pre-pre-pre-alpha application. The whole Orwell project is " \
+"actively developed by the T.I.T.S. team, you can follow the progress " \
+"on github.\nThanks for visiting!\n" \
+" -- the Orwell developers."
+
+#define CREDIS_BODY \
+@"iOrwell is developed using the following frameworks or libraries:\n" \
+"* Protocol Buffers : https://code.google.com/p/protobuf\n" \
+"* ZeroMQ : http://zeromq.org\n" \
+"* Sparrow : http://sparrow-framework.org\n\n" \
+"Graphic kit (Polaris UI Kit) is a courtesy of Designmodo.com"
+
 #pragma mark Private Interface
 @interface MainStage() <ORDialogBoxDelegate>
 
@@ -134,10 +150,8 @@
 		}
 	}
 	else if ([button.name isEqualToString:@"InformationButton"]) {
-		_dialogBox = [[ORDialogBox alloc] initWithHeader:@"Information"
-												 andBody:@"Very long body\n"
-					  " with a lot of text that is actually even spanning on multiple \n"
-					  "lines, hence creating something that should be scrollable...."];
+		_dialogBox = [[ORDialogBox alloc] initWithHeader:@"About Orwell"
+												 andBody:INFORMATION_BODY];
 		_dialogBox.x = 15.0f;
 		_dialogBox.y = 45.0f;
 		_dialogBox.delegate = self;
@@ -145,9 +159,7 @@
 	}
 	else if ([button.name isEqualToString:@"CreditsButton"]) {
 		_dialogBox = [[ORDialogBox alloc] initWithHeader:@"Credits"
-												 andBody:@"Very long body\n"
-					  " with a lot of text that is actually even spanning on multiple \n"
-					  "lines, hence creating something that should be scrollable...."];
+												 andBody:CREDIS_BODY];
 		_dialogBox.x = 15.0f;
 		_dialogBox.y = 45.0f;
 		_dialogBox.delegate = self;
