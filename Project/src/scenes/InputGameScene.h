@@ -32,6 +32,5 @@
 @property (strong, nonatomic) NSString *playerName;
 
 - (id)init;
-- (void)onBackButton:(SPEvent *)event;
 
 @end

@@ -77,7 +77,7 @@
 		CDB5DE3C18FAF478000B48E6 /* InputField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE3618FAF478000B48E6 /* InputField@2x.png */; };
 		CDB5DE3D18FAF478000B48E6 /* SelectedInputField.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE3718FAF478000B48E6 /* SelectedInputField.png */; };
 		CDB5DE3E18FAF478000B48E6 /* SelectedInputField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE3818FAF478000B48E6 /* SelectedInputField@2x.png */; };
-		CDB5DE4118FAF4BD000B48E6 /* ServerConnectionScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB5DE4018FAF4BD000B48E6 /* ServerConnectionScene.m */; };
+		CDB5DE4118FAF4BD000B48E6 /* ServerConnectionScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDB5DE4018FAF4BD000B48E6 /* ServerConnectionScene.mm */; };
 		CDB5DE4D18FC6EA3000B48E6 /* DialogBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE4B18FC6EA3000B48E6 /* DialogBackground.png */; };
 		CDB5DE4E18FC6EA3000B48E6 /* DialogBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE4C18FC6EA3000B48E6 /* DialogBackground@2x.png */; };
 		CDB5DE5118FC6F31000B48E6 /* ORDialogBox.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB5DE5018FC6F31000B48E6 /* ORDialogBox.m */; };
@@ -214,7 +214,7 @@
 		CDB5DE3718FAF478000B48E6 /* SelectedInputField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SelectedInputField.png; sourceTree = "<group>"; };
 		CDB5DE3818FAF478000B48E6 /* SelectedInputField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SelectedInputField@2x.png"; path = "1x/SelectedInputField@2x.png"; sourceTree = "<group>"; };
 		CDB5DE3F18FAF4BD000B48E6 /* ServerConnectionScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConnectionScene.h; sourceTree = "<group>"; };
-		CDB5DE4018FAF4BD000B48E6 /* ServerConnectionScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConnectionScene.m; sourceTree = "<group>"; };
+		CDB5DE4018FAF4BD000B48E6 /* ServerConnectionScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ServerConnectionScene.mm; sourceTree = "<group>"; };
 		CDB5DE4218FAFAF6000B48E6 /* BackgroundSceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundSceneDelegate.h; sourceTree = "<group>"; };
 		CDB5DE4B18FC6EA3000B48E6 /* DialogBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DialogBackground.png; sourceTree = "<group>"; };
 		CDB5DE4C18FC6EA3000B48E6 /* DialogBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DialogBackground@2x.png"; path = "1x/DialogBackground@2x.png"; sourceTree = "<group>"; };
@@ -399,7 +399,7 @@
 				CD910B0018D77B0D00C61610 /* PlayGameScene.h */,
 				CD910B0118D77B0D00C61610 /* PlayGameScene.mm */,
 				CDB5DE3F18FAF4BD000B48E6 /* ServerConnectionScene.h */,
-				CDB5DE4018FAF4BD000B48E6 /* ServerConnectionScene.m */,
+				CDB5DE4018FAF4BD000B48E6 /* ServerConnectionScene.mm */,
 			);
 			path = scenes;
 			sourceTree = "<group>";
@@ -781,7 +781,7 @@
 				CD333EB518DA21910075E51D /* CallbackInput.mm in Sources */,
 				CD910B4418D77C2B00C61610 /* CallbackGameState.mm in Sources */,
 				CD4C363C18DA495C00FD1F3A /* ORBroadcastRetriever.m in Sources */,
-				CDB5DE4118FAF4BD000B48E6 /* ServerConnectionScene.m in Sources */,
+				CDB5DE4118FAF4BD000B48E6 /* ServerConnectionScene.mm in Sources */,
 				CD910B4518D77C2B00C61610 /* CallbackGoodbye.mm in Sources */,
 				CD910B4618D77C2B00C61610 /* CallbackWelcome.mm in Sources */,
 				CDE900D818EC7B27003423E1 /* OREventOrientation.m in Sources */,

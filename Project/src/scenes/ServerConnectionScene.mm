@@ -28,8 +28,12 @@
 #import "ORAlternativeButton.h"
 #import "ORServerCommunicator.h"
 #import "ORServerCommunicatorDelegate.h"
+#import "ORZMQURL.h"
+#import "controller.pb.h"
+#import "CallbackResponder.h"
+#import "InputGameScene.h"
 
-@interface ServerConnectionScene() <UITextFieldDelegate, ORServerCommunicatorDelegate>
+@interface ServerConnectionScene() <UITextFieldDelegate, ORServerCommunicatorDelegate, CallbackResponder>
 @end
 
 @implementation ServerConnectionScene {
@@ -41,6 +45,7 @@
 	UITextField *_inputServerInfo;
 	ORAlternativeButton *_connectButton;
 	SPImage *_techStuff;
+	InputGameScene *_inputGameScene;
 
 	ORServerCommunicator *_communicator;
 }
@@ -55,6 +60,8 @@
 
 		_communicator = [ORServerCommunicator singleton];
 		_communicator.delegate = self;
+		[_communicator registerResponder:self forMessage:@"Welcome"];
+		[_communicator registerResponder:self forMessage:@"Goodbye"];
 		_techStuff = [SPImage imageWithContentsOfFile:@"TechStuff.png"];
 		_techStuff.x = 75.0f;
 		_techStuff.y = 320.0f;
@@ -62,7 +69,9 @@
 		_connectButton = [[ORAlternativeButton alloc] initWithType:OR_BUTTON_CONNECT];
 		_connectButton.x = 66.0f;
 		_connectButton.y = 240.0f;
-		[_connectButton addEventListener:@selector(onConnectButton:) atObject:self forType:SP_EVENT_TYPE_TRIGGERED];
+		[_connectButton addEventListener:@selector(onConnectButton:)
+								atObject:self
+								 forType:SP_EVENT_TYPE_TRIGGERED];
 
 		// Init the textfields
 		_fieldsBackground = [[UIImage imageNamed:@"InputField.png"] stretchableImageWithLeftCapWidth:20
@@ -166,10 +175,64 @@
 	});
 }
 
+- (void)communicator:(ORServerCommunicator *)communicator didConnectToServer:(BOOL)connect
+{
+	if (connect) {
+		[_communicator runSubscriber];
+		orwell::messages::Hello hello;
+		hello.set_name([_inputPlayerName.text UTF8String]);
+		hello.set_port(0);
+		hello.set_ip("localhost");
+
+		ORServerMessage *msg = [[ORServerMessage alloc] init];
+		msg.receiver = @"iphoneclient ";
+		msg.tag = @"Hello ";
+		msg.payload = [NSData dataWithBytes:hello.SerializeAsString().c_str()
+									 length:hello.SerializeAsString().size()];
+
+		[_communicator pushMessage:msg];
+	}
+}
+
+- (BOOL)messageReceived:(NSDictionary *)dictionary
+{
+	NSString *robotName = [dictionary objectForKey:CB_WELCOME_KEY_ROBOT];
+
+	if (robotName != nil) {
+		DDLogInfo(@"Robot name: %@", robotName);
+		_inputGameScene = [[InputGameScene alloc] init];
+		_inputGameScene.robotName = robotName;
+		_inputGameScene.playerName = _inputPlayerName.text;
+		[_inputGameScene placeObjectInStage];
+		[_inputGameScene startObjects];
+		[self willGoBack];
+
+		[self addChild:_inputGameScene];
+	}
+	else {
+		DDLogInfo(@"Goodby received");
+	}
+	return YES;
+}
+
 #pragma mark - Button handling
 - (void)onConnectButton:(SPEvent *)event
 {
 	DDLogInfo(@"On connect button");
+	ORZMQURL *zmqUrl = [[ORZMQURL alloc] initWithString:_inputServerInfo.text];
+	zmqUrl.protocol = ZMQTCP;
+
+	if ([_inputPlayerName.text isEqualToString:@""]) {
+		[_inputPlayerName becomeFirstResponder];
+	}
+	else if (! zmqUrl.valid) {
+		[_inputServerInfo becomeFirstResponder];
+	}
+	else {
+		_communicator.pullerIp = [zmqUrl pullerToString];
+		_communicator.pusherIp = [zmqUrl pusherToString];
+		[_communicator connect];
+	}
 }
 
 @end

@@ -42,8 +42,6 @@
 
 #pragma mark Interface begin
 @interface InputGameScene() <CallbackResponder, ORSliderDelegate>
-@property (strong, nonatomic) ORTextField *playerTextField;
-@property (strong, nonatomic) ORTextField *feedbackTextField;
 @property (weak, nonatomic) ORServerCommunicator *serverCommunicator;
 
 @property (strong, nonatomic) ORArrowButton *leftButton;
@@ -84,10 +82,7 @@
 	
 	DDLogDebug(@"Usable screen size, w = %f - h = %f",
 			   [self getUsableScreenSize].size.width, [self getUsableScreenSize].size.height);
-	
-	_playerTextField = [ORTextField textFieldWithWidth:320.0f height:60.0f text:@""];
-	_feedbackTextField = [ORTextField textFieldWithWidth:320.0f height:60.0f text:@"Feedback area"];
-	
+
 	_buttonsArray = [NSMutableArray array];
 
 	_leftButton = [[ORArrowButton alloc] initWithRotation:LEFT];
@@ -126,8 +121,6 @@
 {
     DDLogVerbose(@"Organizing objects for orientation: %d", [[Sparrow currentController] interfaceOrientation]);
 
-    [self removeChild:_playerTextField];
-    [self removeChild:_feedbackTextField];
     [self removeChild:_downButton];
     [self removeChild:_upButton];
     [self removeChild:_leftButton];
@@ -153,11 +146,13 @@
         case UIInterfaceOrientationPortrait:
         case UIInterfaceOrientationPortraitUpsideDown:
             DDLogInfo(@"Portrait - %f x %f", Sparrow.stage.width, Sparrow.stage.height);
+            _left = 0;
+            _right = 0;
             
-            _playerTextField.text = [NSString stringWithFormat:@"%@ @ %@", self.playerName, self.robotName];
-            _playerTextField.x = 0.0f;
-            _playerTextField.y = 0.0f;
-            
+            self.topBar.text = [NSString stringWithFormat:@"%@", self.robotName];
+            self.topBar.backButtonVisible = YES;
+            self.topBar.visible = YES;
+
             _mjpegViewer.x = 0.0f;
             _mjpegViewer.y = 70.0f;
             _mjpegViewer.width = 320.0f;
@@ -183,17 +178,10 @@
             _rightButton.x = 280.0f;
             _rightButton.y = 110.0f;
             
-            _feedbackTextField.x = 0.0f;
-            _feedbackTextField.y = 330.0f;
-            
-            [self addChild:_playerTextField];
-            [self addChild:_feedbackTextField];
             [self addChild:_downButton];
             [self addChild:_upButton];
             [self addChild:_leftButton];
             [self addChild:_rightButton];
-            [self addBackButton];
-            [self registerSelector:@selector(onBackButton:)];
 
             // Do not hide the status bar
             [[UIApplication sharedApplication] setStatusBarHidden:NO
@@ -205,6 +193,7 @@
         case UIInterfaceOrientationLandscapeLeft:
         case UIInterfaceOrientationLandscapeRight:
             DDLogInfo(@"Landscape - %f x %f", Sparrow.stage.width, Sparrow.stage.height);
+            self.topBar.visible = NO;
 
             // It is completely stupid, but width and height in Sparrow don't change, so
             // we have to think as if we were in portrait, with the exception that what
@@ -247,7 +236,6 @@
 	[_serverCommunicator registerResponder:self forMessage:@"GameState"];
     [_mjpegViewer play];
 	
-	[self registerSelector:@selector(onBackButton:)];
     [self addEventListener:@selector(onOrientationChanged:)
                   atObject:self
                    forType:OR_EVENT_ORIENTATION_ANIMATION_CHANGED];
@@ -282,7 +270,7 @@
 	NSNumber *playing = [message objectForKey:CB_GAMESTATE_KEY_PLAYING];
 
 	if (playing != nil) {
-		_feedbackTextField.text = [NSString stringWithFormat:@"GameState received (%d)", count++];
+        self.topBar.text = [NSString stringWithFormat:@"%@ (%d)", _robotName, count++];
 	}
 
 	return YES;
@@ -369,12 +357,10 @@
     [Sparrow.juggler addObject:alphaAnimator];
 }
 
-- (void)onBackButton:(SPEvent *)event
+- (void)willGoBack
 {
     DDLogInfo(@"Back button pressed");
-	[self unregisterSelector:@selector(onBackButton:)];
     [self unregisterSelector:@selector(onOrientationChanged:)];
-	[self dispatchEventWithType:EVENT_TYPE_INPUT_SCENE_CLOSING bubbles:YES];
 	[_serverCommunicator deleteResponder:self forMessage:@"GameState"];
 	_running = NO;
     
