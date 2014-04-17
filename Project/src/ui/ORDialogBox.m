@@ -60,7 +60,8 @@
 		_textMessageTextField.vAlign = SPVAlignTop;
 		_textMessageTextField.hAlign = SPHAlignLeft;
 
-		_dismissButton = [SPButton buttonWithUpState:[SPTexture textureWithContentsOfFile:@"BackButton.png"]];
+		_dismissButton = [SPButton buttonWithUpState:[SPTexture textureWithContentsOfFile:@"BackButton.png"]
+										   downState:[SPTexture textureWithContentsOfFile:@"BackButton-down.png"]];
 		_dismissButton.x = 20.0f;
 		_dismissButton.y = 20.0f;
 		_dismissButton.height = 20.0f;

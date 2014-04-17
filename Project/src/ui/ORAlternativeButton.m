@@ -32,25 +32,32 @@
 - (id)initWithType:(ORIconType)iconType
 {
 	NSString *buttonImage;
+	NSString *buttonImageDown;
 	_icon = iconType;
 	switch (_icon) {
 		case OR_BUTTON_PLAY:
 			buttonImage = @"PlayButton.png";
+			buttonImageDown = @"PlayButton-down.png";
 			break;
 		case OR_BUTTON_INFORMATIONS:
 			buttonImage = @"InformationsButton.png";
+			buttonImageDown = @"InformationsButton-down.png";
 			break;
 		case OR_BUTTON_CREDITS:
 			buttonImage = @"CreditsButton.png";
+			buttonImageDown = @"CreditsButton-down.png";
 			break;
 		case OR_BUTTON_CONNECT:
 			buttonImage = @"ConnectButton.png";
+			buttonImageDown = @"ConnectButton-down.png";
 			break;
 	}
 
 	SPTexture *buttonBackground = [SPTexture textureWithContentsOfFile:buttonImage];
+	SPTexture *buttonBackgroundDown = [SPTexture textureWithContentsOfFile:buttonImageDown];
 
-	self = [super initWithUpState:buttonBackground];
+	self = [super initWithUpState:buttonBackground
+						downState:buttonBackgroundDown];
 	return self;
 }
 @end

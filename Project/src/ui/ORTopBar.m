@@ -51,7 +51,8 @@
 		_textField.y = 20.0f;
 
 		// Init back button
-		_backButton = [SPButton buttonWithUpState:[SPTexture textureWithContentsOfFile:@"BackButton.png"]];
+		_backButton = [SPButton buttonWithUpState:[SPTexture textureWithContentsOfFile:@"BackButton.png"]
+										downState:[SPTexture textureWithContentsOfFile:@"BackButton-down.png"]];
 		_backButton.x = 12.0f;
 		_backButton.y = 22.0f;
 		_backButton.width = 23.0f;
