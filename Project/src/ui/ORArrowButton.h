@@ -33,12 +33,11 @@ enum Rotation {
 	UP
 };
 
-@interface ORArrowButton : SPButton
+@interface ORArrowButton : SPSprite
 
 @property (readonly) Rotation rotation;
 @property (nonatomic) float backgroundAlpha;
 
-- (id)init;
 - (id)initWithRotation:(Rotation)rotation;
 - (NSString *)debugDescription;
 

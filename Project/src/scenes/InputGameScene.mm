@@ -149,29 +149,22 @@
             self.topBar.visible = YES;
 
             _mjpegViewer.x = 0.0f;
-            _mjpegViewer.y = 70.0f;
+            _mjpegViewer.y = 53.0f;
             _mjpegViewer.width = 320.0f;
             _mjpegViewer.height = 240.0f;
             
-            _downButton.width = 240.0f;
-            _downButton.height = 40.0f;
-            _downButton.x = 40.0f;
-            _downButton.y = 270.0f;
+
+            _downButton.x = 45.0f;
+            _downButton.y = 245.0f;
             
-            _upButton.width = 240.0f;
-            _upButton.height = 40.0f;
-            _upButton.x = 40.0f;
-            _upButton.y = 70.0f;
+            _upButton.x = 45.0f;
+            _upButton.y = 53.0f;
             
-            _leftButton.width = 40.0f;
-            _leftButton.height = 160.0f;
             _leftButton.x = 0.0f;
-            _leftButton.y = 110.0f;
+            _leftButton.y = 53.0f;
             
-            _rightButton.width = 40.0f;
-            _rightButton.height = 160.0f;
             _rightButton.x = 280.0f;
-            _rightButton.y = 110.0f;
+            _rightButton.y = 53.0f;
             
             [self addChild:_downButton];
             [self addChild:_upButton];
@@ -280,7 +273,7 @@
         DDLogInfo(@"Down button started");
         _left = -1;
         _right = -1;
-        [alphaAnimator animateProperty:@"backgroundAlpha" targetValue:1.0f];
+        [alphaAnimator animateProperty:@"backgroundAlpha" targetValue:0.75f];
     }
     else {
         DDLogInfo(@"Down button finished");

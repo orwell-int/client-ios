@@ -223,15 +223,24 @@
 	zmqUrl.protocol = ZMQTCP;
 
 	if ([_inputPlayerName.text isEqualToString:@""]) {
-		[_inputPlayerName becomeFirstResponder];
+//		[_inputPlayerName becomeFirstResponder];
+		_inputPlayerName.text = @"Ludmann";
 	}
 	else if (! zmqUrl.valid) {
-		[_inputServerInfo becomeFirstResponder];
+//		[_inputServerInfo becomeFirstResponder];
+		_inputServerInfo.text = @"tcp://127.0.0.1:8000,8001";
 	}
 	else {
-		_communicator.pullerIp = [zmqUrl pullerToString];
-		_communicator.pusherIp = [zmqUrl pusherToString];
-		[_communicator connect];
+//		_communicator.pullerIp = [zmqUrl pullerToString];
+//		_communicator.pusherIp = [zmqUrl pusherToString];
+//		[_communicator connect];
+		_inputGameScene = [[InputGameScene alloc] init];
+		_inputGameScene.robotName = @"Test Robot";
+		_inputGameScene.playerName = @"Ludmann";
+		[_inputGameScene placeObjectInStage];
+		[_inputGameScene startObjects];
+		[self willGoBack];
+		[self addChild:_inputGameScene];
 	}
 }
 
