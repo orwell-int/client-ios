@@ -105,6 +105,10 @@
 		CDCCFA7519027A5900EB0CA0 /* Submenu.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA7319027A5900EB0CA0 /* Submenu.png */; };
 		CDCCFA7619027A5900EB0CA0 /* Submenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA7419027A5900EB0CA0 /* Submenu@2x.png */; };
 		CDCCFA7919027D1B00EB0CA0 /* ORSubmenu.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCCFA7819027D1B00EB0CA0 /* ORSubmenu.m */; };
+		CDCCFA7E1902A29C00EB0CA0 /* ShowMapButton-down.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA7A1902A29C00EB0CA0 /* ShowMapButton-down.png */; };
+		CDCCFA7F1902A29C00EB0CA0 /* ShowMapButton-down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA7B1902A29C00EB0CA0 /* ShowMapButton-down@2x.png */; };
+		CDCCFA801902A29C00EB0CA0 /* ShowMapButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA7C1902A29C00EB0CA0 /* ShowMapButton.png */; };
+		CDCCFA811902A29C00EB0CA0 /* ShowMapButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA7D1902A29C00EB0CA0 /* ShowMapButton@2x.png */; };
 		CDDD0B8E18D77FE600979E1E /* sound.caf in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7418D77FE600979E1E /* sound.caf */; };
 		CDDD0B8F18D77FE600979E1E /* bordersprite_regular_20.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7618D77FE600979E1E /* bordersprite_regular_20.fnt */; };
 		CDDD0B9018D77FE600979E1E /* bordersprite_regular_20.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7718D77FE600979E1E /* bordersprite_regular_20.PNG */; };
@@ -263,6 +267,10 @@
 		CDCCFA7419027A5900EB0CA0 /* Submenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Submenu@2x.png"; path = "1x/Submenu@2x.png"; sourceTree = "<group>"; };
 		CDCCFA7719027D1B00EB0CA0 /* ORSubmenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORSubmenu.h; sourceTree = "<group>"; };
 		CDCCFA7819027D1B00EB0CA0 /* ORSubmenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORSubmenu.m; sourceTree = "<group>"; };
+		CDCCFA7A1902A29C00EB0CA0 /* ShowMapButton-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShowMapButton-down.png"; sourceTree = "<group>"; };
+		CDCCFA7B1902A29C00EB0CA0 /* ShowMapButton-down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ShowMapButton-down@2x.png"; path = "1x/ShowMapButton-down@2x.png"; sourceTree = "<group>"; };
+		CDCCFA7C1902A29C00EB0CA0 /* ShowMapButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShowMapButton.png; sourceTree = "<group>"; };
+		CDCCFA7D1902A29C00EB0CA0 /* ShowMapButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ShowMapButton@2x.png"; path = "1x/ShowMapButton@2x.png"; sourceTree = "<group>"; };
 		CDDD0B7418D77FE600979E1E /* sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.caf; sourceTree = "<group>"; };
 		CDDD0B7618D77FE600979E1E /* bordersprite_regular_20.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bordersprite_regular_20.fnt; sourceTree = "<group>"; };
 		CDDD0B7718D77FE600979E1E /* bordersprite_regular_20.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bordersprite_regular_20.PNG; sourceTree = "<group>"; };
@@ -492,6 +500,8 @@
 			isa = PBXGroup;
 			children = (
 				CD85EEAD19004721005C3C12 /* BackButton-down@2x.png */,
+				CDCCFA7B1902A29C00EB0CA0 /* ShowMapButton-down@2x.png */,
+				CDCCFA7D1902A29C00EB0CA0 /* ShowMapButton@2x.png */,
 				CDB5DE3418FAF478000B48E6 /* BackButton@2x.png */,
 				CD85EEA718FEF505005C3C12 /* BusyIndicator@2x.png */,
 				CD85EEC8190052EA005C3C12 /* ButtonDown@2x.png */,
@@ -569,6 +579,8 @@
 		CDDD0B7D18D77FE600979E1E /* 1x */ = {
 			isa = PBXGroup;
 			children = (
+				CDCCFA7A1902A29C00EB0CA0 /* ShowMapButton-down.png */,
+				CDCCFA7C1902A29C00EB0CA0 /* ShowMapButton.png */,
 				CD85EEAC19004721005C3C12 /* BackButton-down.png */,
 				CDB5DE3318FAF478000B48E6 /* BackButton.png */,
 				CD85EEA618FEF505005C3C12 /* BusyIndicator.png */,
@@ -723,6 +735,8 @@
 				CDB5DE4E18FC6EA3000B48E6 /* DialogBackground@2x.png in Resources */,
 				CD85EEAB190043D1005C3C12 /* StageBackground@2x.png in Resources */,
 				CDCCFA7519027A5900EB0CA0 /* Submenu.png in Resources */,
+				CDCCFA801902A29C00EB0CA0 /* ShowMapButton.png in Resources */,
+				CDCCFA7E1902A29C00EB0CA0 /* ShowMapButton-down.png in Resources */,
 				CDB5DE2218FAD1C1000B48E6 /* LogoBig.png in Resources */,
 				CDDD0BA318D77FE600979E1E /* README.txt in Resources */,
 				CD6625F918DF3FEC00802AF0 /* ButtonDown.png in Resources */,
@@ -741,6 +755,8 @@
 				CDDD0B8E18D77FE600979E1E /* sound.caf in Resources */,
 				CD85EEC019004851005C3C12 /* StarButton-down.png in Resources */,
 				CDDD0B9218D77FE600979E1E /* dodger_condensed_condensed_20.PNG in Resources */,
+				CDCCFA811902A29C00EB0CA0 /* ShowMapButton@2x.png in Resources */,
+				CDCCFA7F1902A29C00EB0CA0 /* ShowMapButton-down@2x.png in Resources */,
 				CDB5DE3E18FAF478000B48E6 /* SelectedInputField@2x.png in Resources */,
 				CD85EEBF19004851005C3C12 /* PlayButton-down@2x.png in Resources */,
 				CD85EEBD19004851005C3C12 /* InformationsButton-down@2x.png in Resources */,

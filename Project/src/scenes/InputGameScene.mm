@@ -41,12 +41,12 @@
 #import "controller.pb.h"
 
 
-#pragma mark Interface begin
+#pragma mark - Interface begin
 @interface InputGameScene() <CallbackResponder, ORSliderDelegate>
 
 @end
 
-#pragma mark Implementation begin
+#pragma mark - Implementation begin
 @implementation InputGameScene {
     BOOL _selectorsConfigured;
 	BOOL _running;
@@ -66,9 +66,11 @@
 
     SPButton *_starButton;
     ORSubmenu *_submenu;
+
+    SPButton *_showMapButton;
 }
 
-#pragma mark Init methods
+#pragma mark - Init methods
 - (id)init
 {
 	self = [super init];
@@ -129,6 +131,12 @@
                        forType:OR_EVENT_SUBMENU_THIRD_BUTTON_TRIGGERED];
     _submenu.visible = NO;
 
+    _showMapButton = [SPButton buttonWithUpState:[SPTexture textureWithContentsOfFile:@"ShowMapButton.png"]
+                                       downState:[SPTexture textureWithContentsOfFile:@"ShowMapButton-down.png"]];
+    [_showMapButton addEventListener:@selector(onShowMapButtonClicked:)
+                            atObject:self
+                             forType:SP_EVENT_TYPE_TRIGGERED];
+
 	return self;
 }
 
@@ -144,6 +152,7 @@
     [self removeChild:_rightSlider];
     [self removeChild:_starButton];
     [self removeChild:_submenu];
+    [self removeChild:_showMapButton];
 
     // It's not like we're really going to change these values..
     _leftSlider.width = 40.0f;
@@ -192,12 +201,16 @@
 
             _submenu.x = 89.0f;
             _submenu.y = 319.0f;
+
+            _showMapButton.x = 157.0f;
+            _showMapButton.y = 338.0f;
             
             [self addChild:_downButton];
             [self addChild:_upButton];
             [self addChild:_leftButton];
             [self addChild:_rightButton];
             [self addChild:_starButton];
+            [self addChild:_showMapButton];
             [self addChild:_submenu];
 
             // Do not hide the status bar
@@ -257,7 +270,7 @@
                   atObject:self
                    forType:OR_EVENT_ORIENTATION_ANIMATION_CHANGED];
 	
-#pragma mark Background thread for Input messages
+#pragma mark - Background thread for Input messages
 	// Background thread handling the logic of constantly sending a message
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
 		while (_running) {
@@ -280,7 +293,7 @@
 }
 
 
-#pragma mark Callback responder
+#pragma mark - Callback responder
 - (BOOL)messageReceived:(NSDictionary *)message
 {
 	static int count = 0;
@@ -293,7 +306,7 @@
 	return YES;
 }
 
-#pragma mark Events methods
+#pragma mark - Events methods
 - (void)onDownButtonClicked:(SPTouchEvent *)event
 {
     SPTween *alphaAnimator = [SPTween tweenWithTarget:_downButton time:0.5f];
@@ -391,6 +404,11 @@
         _starButton.downState = _starButton.upState;
         _starButton.upState = tmp;
     }
+}
+
+- (void)onShowMapButtonClicked:(SPEvent *)event
+{
+    DDLogInfo(@"Show map");
 }
 
 - (void)onFireLeft:(SPEvent *)event
