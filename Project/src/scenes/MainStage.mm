@@ -45,6 +45,7 @@
 @"iOrwell is developed using the following frameworks or libraries:\n" \
 "* Protocol Buffers : https://code.google.com/p/protobuf\n" \
 "* ZeroMQ : http://zeromq.org\n" \
+"* LARSBar : https://github.com/larsacus/LARSBar\n" \
 "* Sparrow : http://sparrow-framework.org\n\n" \
 "Graphic kit (Polaris UI Kit) is a courtesy of Designmodo.com"
 
