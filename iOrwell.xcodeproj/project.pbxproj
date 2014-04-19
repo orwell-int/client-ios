@@ -71,7 +71,6 @@
 		CD910B5918D77C2B00C61610 /* InputGameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AFD18D77B0D00C61610 /* InputGameScene.mm */; };
 		CD910B5A18D77C2B00C61610 /* MainStage.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AFF18D77B0D00C61610 /* MainStage.mm */; };
 		CD910B5C18D77C2B00C61610 /* ORArrowButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0418D77B0D00C61610 /* ORArrowButton.mm */; };
-		CD924DB818D78F2400DE0A59 /* App-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD924DB618D78F2400DE0A59 /* App-Info.plist */; };
 		CDB5DE0B18FABC6D000B48E6 /* StageBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE0A18FABC6D000B48E6 /* StageBackground.png */; };
 		CDB5DE0D18FABE14000B48E6 /* PlayButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE0C18FABE14000B48E6 /* PlayButton.png */; };
 		CDB5DE0F18FABE41000B48E6 /* ButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE0E18FABE41000B48E6 /* ButtonBackground.png */; };
@@ -701,7 +700,6 @@
 				CDDD0B9418D77FE600979E1E /* dodger_shadow_shadow_20.PNG in Resources */,
 				CD85EECD190052EA005C3C12 /* ButtonLeft@2x.png in Resources */,
 				CD51E89C18F3135000633CC7 /* SliderDot.png in Resources */,
-				CD924DB818D78F2400DE0A59 /* App-Info.plist in Resources */,
 				CD85EED7190056A1005C3C12 /* VerticalBackground@2x.png in Resources */,
 				CD6625FE18DF4CD100802AF0 /* ButtonLeft.png in Resources */,
 				CDB5DE2918FAF249000B48E6 /* ConnectButton.png in Resources */,
@@ -999,6 +997,7 @@
 		CD4E0EDB18D77ACE00CA8505 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
