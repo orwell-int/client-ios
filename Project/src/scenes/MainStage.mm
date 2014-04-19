@@ -86,7 +86,7 @@
 	[self addChild:_versionNumber];
 
 	_logo = [[SPImage alloc] initWithContentsOfFile:@"LogoBig.png"];
-	_logo.x = 10.0f;
+	_logo.x = 0.0f;
 	_logo.y = 55.0f;
 	[self addChild:_logo];
 

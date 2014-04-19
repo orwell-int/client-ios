@@ -222,6 +222,18 @@
 	ORZMQURL *zmqUrl = [[ORZMQURL alloc] initWithString:_inputServerInfo.text];
 	zmqUrl.protocol = ZMQTCP;
 
+	// Skip connection
+	if ([_inputServerInfo.text isEqualToString:@"skip"]) {
+		_inputGameScene = [[InputGameScene alloc] init];
+		_inputGameScene.robotName = @"Test Robot";
+		_inputGameScene.playerName = @"Ludmann";
+		[_inputGameScene placeObjectInStage];
+		[_inputGameScene startObjects];
+		[self willGoBack];
+		[self addChild:_inputGameScene];
+		return;
+	}
+
 	if ([_inputPlayerName.text isEqualToString:@""]) {
 		[_inputPlayerName becomeFirstResponder];
 	}
