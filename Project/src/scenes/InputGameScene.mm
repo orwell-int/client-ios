@@ -35,6 +35,7 @@
 #import "OREventOrientation.h"
 #import "ORSlider.h"
 #import "ORSliderDelegate.h"
+#import "ORSubmenu.h"
 
 #import "robot.pb.h"
 #import "controller.pb.h"
@@ -42,33 +43,29 @@
 
 #pragma mark Interface begin
 @interface InputGameScene() <CallbackResponder, ORSliderDelegate>
-@property (weak, nonatomic) ORServerCommunicator *serverCommunicator;
-
-@property (strong, nonatomic) ORArrowButton *leftButton;
-@property (strong, nonatomic) ORArrowButton *downButton;
-@property (strong, nonatomic) ORArrowButton *rightButton;
-@property (strong, nonatomic) ORArrowButton *upButton;
-@property (strong, nonatomic) NSMutableArray *buttonsArray;
-@property (strong, nonatomic) ORCameraViewer *mjpegViewer;
-@property (strong, nonatomic) ORSlider *leftSlider;
-@property (strong, nonatomic) ORSlider *rightSlider;
-
-- (void)onDownButtonClicked:(SPTouchEvent *)event;
-- (void)onUpButtonClicked:(SPTouchEvent *)event;
-- (void)onLeftButtonClicked:(SPTouchEvent *)event;
-- (void)onRightButtonClicked:(SPTouchEvent *)event;
-- (void)onOrientationChanged:(SPEvent *)event;
-- (void)replaceObjectsInStage:(UIInterfaceOrientation)forOrientation;
 
 @end
 
 #pragma mark Implementation begin
-@implementation InputGameScene
-{
+@implementation InputGameScene {
     BOOL _selectorsConfigured;
 	BOOL _running;
 	float _left;
 	float _right;
+
+    __weak ORServerCommunicator *_serverCommunicator;
+    ORArrowButton *_leftButton;
+    ORArrowButton *_rightButton;
+    ORArrowButton *_downButton;
+    ORArrowButton *_upButton;
+    NSMutableArray *_buttonsArray;
+
+    ORCameraViewer *_mjpegViewer;
+    ORSlider *_leftSlider;
+    ORSlider *_rightSlider;
+
+    SPButton *_starButton;
+    ORSubmenu *_submenu;
 }
 
 #pragma mark Init methods
@@ -109,7 +106,29 @@
     ORViewController *viewController = (ORViewController *)[Sparrow currentController];
     viewController.supportedOrientations = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
     _selectorsConfigured = NO;
-    
+
+    _starButton = [SPButton buttonWithUpState:[SPTexture textureWithContentsOfFile:@"StarButton.png"]
+                                    downState:[SPTexture textureWithContentsOfFile:@"StarButton-down.png"]];
+    [_starButton addEventListener:@selector(onStarButtonClicked:)
+                         atObject:self
+                          forType:SP_EVENT_TYPE_TRIGGERED];
+    _submenu = [[ORSubmenu alloc] init];
+    _submenu.firstButtonText = @"Fire Left";
+    _submenu.secondButtonText = @"Fire Right";
+    _submenu.thirdButtonText = @"Reset controls";
+    [_submenu addEventListener:@selector(onFireLeft:)
+                      atObject:self
+                       forType:OR_EVENT_SUBMENU_FIRST_BUTTON_TRIGGERED];
+
+    [_submenu addEventListener:@selector(onFireRight:)
+                      atObject:self
+                       forType:OR_EVENT_SUBMENU_SECOND_BUTTON_TRIGGERED];
+
+    [_submenu addEventListener:@selector(onResetControls:)
+                      atObject:self
+                       forType:OR_EVENT_SUBMENU_THIRD_BUTTON_TRIGGERED];
+    _submenu.visible = NO;
+
 	return self;
 }
 
@@ -123,6 +142,8 @@
     [self removeChild:_rightButton];
     [self removeChild:_leftSlider];
     [self removeChild:_rightSlider];
+    [self removeChild:_starButton];
+    [self removeChild:_submenu];
 
     // It's not like we're really going to change these values..
     _leftSlider.width = 40.0f;
@@ -165,11 +186,19 @@
             
             _rightButton.x = 280.0f;
             _rightButton.y = 53.0f;
+
+            _starButton.x = 20.0f;
+            _starButton.y = 366.0f;
+
+            _submenu.x = 89.0f;
+            _submenu.y = 319.0f;
             
             [self addChild:_downButton];
             [self addChild:_upButton];
             [self addChild:_leftButton];
             [self addChild:_rightButton];
+            [self addChild:_starButton];
+            [self addChild:_submenu];
 
             // Do not hide the status bar
             [[UIApplication sharedApplication] setStatusBarHidden:NO
@@ -343,6 +372,40 @@
     }
     
     [Sparrow.juggler addObject:alphaAnimator];
+}
+
+- (void)onStarButtonClicked:(SPEvent *)event
+{
+    DDLogInfo(@"StarButton clicked");
+
+    if (!_submenu.visible) {
+        [_submenu animateAppear:0.50f];
+        SPTexture *tmp = _starButton.upState;
+        _starButton.upState = _starButton.downState;
+        _starButton.downState = tmp;
+    }
+
+    else {
+        [_submenu animateDisappear:0.50f];
+        SPTexture *tmp = _starButton.downState;
+        _starButton.downState = _starButton.upState;
+        _starButton.upState = tmp;
+    }
+}
+
+- (void)onFireLeft:(SPEvent *)event
+{
+    DDLogInfo(@"Fire left");
+}
+
+- (void)onFireRight:(SPEvent *)event
+{
+    DDLogInfo(@"Fire right");
+}
+
+- (void)onResetControls:(SPEvent *)event
+{
+    DDLogInfo(@"Reset controls");
 }
 
 - (void)willGoBack

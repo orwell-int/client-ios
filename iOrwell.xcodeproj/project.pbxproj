@@ -102,6 +102,9 @@
 		CDB5DE4D18FC6EA3000B48E6 /* DialogBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE4B18FC6EA3000B48E6 /* DialogBackground.png */; };
 		CDB5DE4E18FC6EA3000B48E6 /* DialogBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE4C18FC6EA3000B48E6 /* DialogBackground@2x.png */; };
 		CDB5DE5118FC6F31000B48E6 /* ORDialogBox.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB5DE5018FC6F31000B48E6 /* ORDialogBox.m */; };
+		CDCCFA7519027A5900EB0CA0 /* Submenu.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA7319027A5900EB0CA0 /* Submenu.png */; };
+		CDCCFA7619027A5900EB0CA0 /* Submenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA7419027A5900EB0CA0 /* Submenu@2x.png */; };
+		CDCCFA7919027D1B00EB0CA0 /* ORSubmenu.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCCFA7819027D1B00EB0CA0 /* ORSubmenu.m */; };
 		CDDD0B8E18D77FE600979E1E /* sound.caf in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7418D77FE600979E1E /* sound.caf */; };
 		CDDD0B8F18D77FE600979E1E /* bordersprite_regular_20.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7618D77FE600979E1E /* bordersprite_regular_20.fnt */; };
 		CDDD0B9018D77FE600979E1E /* bordersprite_regular_20.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7718D77FE600979E1E /* bordersprite_regular_20.PNG */; };
@@ -256,6 +259,10 @@
 		CDB5DE4F18FC6F31000B48E6 /* ORDialogBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORDialogBox.h; sourceTree = "<group>"; };
 		CDB5DE5018FC6F31000B48E6 /* ORDialogBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORDialogBox.m; sourceTree = "<group>"; };
 		CDB5DE5218FC7646000B48E6 /* ORDialogBoxDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORDialogBoxDelegate.h; sourceTree = "<group>"; };
+		CDCCFA7319027A5900EB0CA0 /* Submenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Submenu.png; sourceTree = "<group>"; };
+		CDCCFA7419027A5900EB0CA0 /* Submenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Submenu@2x.png"; path = "1x/Submenu@2x.png"; sourceTree = "<group>"; };
+		CDCCFA7719027D1B00EB0CA0 /* ORSubmenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORSubmenu.h; sourceTree = "<group>"; };
+		CDCCFA7819027D1B00EB0CA0 /* ORSubmenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORSubmenu.m; sourceTree = "<group>"; };
 		CDDD0B7418D77FE600979E1E /* sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.caf; sourceTree = "<group>"; };
 		CDDD0B7618D77FE600979E1E /* bordersprite_regular_20.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bordersprite_regular_20.fnt; sourceTree = "<group>"; };
 		CDDD0B7718D77FE600979E1E /* bordersprite_regular_20.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bordersprite_regular_20.PNG; sourceTree = "<group>"; };
@@ -434,24 +441,26 @@
 		CD910B0218D77B0D00C61610 /* ui */ = {
 			isa = PBXGroup;
 			children = (
-				CDB5DE5218FC7646000B48E6 /* ORDialogBoxDelegate.h */,
-				CDB5DE4F18FC6F31000B48E6 /* ORDialogBox.h */,
-				CD85EE9F18FEE908005C3C12 /* ORTopBar.h */,
-				CD85EEA018FEE908005C3C12 /* ORTopBar.m */,
-				CDB5DE5018FC6F31000B48E6 /* ORDialogBox.m */,
 				CDB5DE1018FABE50000B48E6 /* ORAlternativeButton.h */,
 				CDB5DE1118FABE50000B48E6 /* ORAlternativeButton.m */,
 				CD910B0318D77B0D00C61610 /* ORArrowButton.h */,
 				CD910B0418D77B0D00C61610 /* ORArrowButton.mm */,
-				CD09711318F711FA001FE206 /* ORSliderDelegate.h */,
-				CD51E89518F2AA9100633CC7 /* ORSlider.h */,
-				CD51E89618F2AA9100633CC7 /* ORSlider.m */,
 				CD910B0518D77B0D00C61610 /* ORButton.h */,
 				CD910B0618D77B0D00C61610 /* ORButton.mm */,
-				CD910B0718D77B0D00C61610 /* ORTextField.h */,
-				CD910B0818D77B0D00C61610 /* ORTextField.mm */,
 				CD6625F518DE132300802AF0 /* ORCameraViewer.h */,
 				CD6625F618DE132300802AF0 /* ORCameraViewer.mm */,
+				CDB5DE4F18FC6F31000B48E6 /* ORDialogBox.h */,
+				CDB5DE5018FC6F31000B48E6 /* ORDialogBox.m */,
+				CDB5DE5218FC7646000B48E6 /* ORDialogBoxDelegate.h */,
+				CD51E89518F2AA9100633CC7 /* ORSlider.h */,
+				CD51E89618F2AA9100633CC7 /* ORSlider.m */,
+				CD09711318F711FA001FE206 /* ORSliderDelegate.h */,
+				CDCCFA7719027D1B00EB0CA0 /* ORSubmenu.h */,
+				CDCCFA7819027D1B00EB0CA0 /* ORSubmenu.m */,
+				CD910B0718D77B0D00C61610 /* ORTextField.h */,
+				CD910B0818D77B0D00C61610 /* ORTextField.mm */,
+				CD85EE9F18FEE908005C3C12 /* ORTopBar.h */,
+				CD85EEA018FEE908005C3C12 /* ORTopBar.m */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -482,20 +491,19 @@
 		CDB5DE1518FAC1EE000B48E6 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
-				CD85EED1190056A1005C3C12 /* HorizontalBackground@2x.png */,
-				CD85EED3190056A1005C3C12 /* VerticalBackground@2x.png */,
+				CD85EEAD19004721005C3C12 /* BackButton-down@2x.png */,
+				CDB5DE3418FAF478000B48E6 /* BackButton@2x.png */,
+				CD85EEA718FEF505005C3C12 /* BusyIndicator@2x.png */,
 				CD85EEC8190052EA005C3C12 /* ButtonDown@2x.png */,
 				CD85EEC9190052EA005C3C12 /* ButtonLeft@2x.png */,
 				CD85EECA190052EA005C3C12 /* ButtonRight@2x.png */,
 				CD85EECB190052EA005C3C12 /* ButtonUp@2x.png */,
-				CD85EEAD19004721005C3C12 /* BackButton-down@2x.png */,
-				CDB5DE3418FAF478000B48E6 /* BackButton@2x.png */,
-				CD85EEA718FEF505005C3C12 /* BusyIndicator@2x.png */,
 				CD85EEC5190048E3005C3C12 /* ConnectButton-down@2x.png */,
 				CDB5DE2818FAF249000B48E6 /* ConnectButton@2x.png */,
 				CD85EEB119004851005C3C12 /* CreditsButton-down@2x.png */,
 				CDB5DE1D18FACA12000B48E6 /* CreditsButton@2x.png */,
 				CDB5DE4C18FC6EA3000B48E6 /* DialogBackground@2x.png */,
+				CD85EED1190056A1005C3C12 /* HorizontalBackground@2x.png */,
 				CD85EEB319004851005C3C12 /* InformationsButton-down@2x.png */,
 				CDB5DE1A18FAC2B7000B48E6 /* InformationsButton@2x.png */,
 				CDB5DE3618FAF478000B48E6 /* InputField@2x.png */,
@@ -506,8 +514,10 @@
 				CDB5DE3818FAF478000B48E6 /* SelectedInputField@2x.png */,
 				CD85EEAA190043D1005C3C12 /* StageBackground@2x.png */,
 				CD85EEB719004851005C3C12 /* StarButton-down@2x.png */,
+				CDCCFA7419027A5900EB0CA0 /* Submenu@2x.png */,
 				CDB5DE2C18FAF2D7000B48E6 /* TechStuff@2x.png */,
 				CDB5DE3018FAF34E000B48E6 /* TopBar@2x.png */,
+				CD85EED3190056A1005C3C12 /* VerticalBackground@2x.png */,
 			);
 			name = 2x;
 			sourceTree = "<group>";
@@ -559,8 +569,6 @@
 		CDDD0B7D18D77FE600979E1E /* 1x */ = {
 			isa = PBXGroup;
 			children = (
-				CD85EED0190056A1005C3C12 /* HorizontalBackground.png */,
-				CD85EED2190056A1005C3C12 /* VerticalBackground.png */,
 				CD85EEAC19004721005C3C12 /* BackButton-down.png */,
 				CDB5DE3318FAF478000B48E6 /* BackButton.png */,
 				CD85EEA618FEF505005C3C12 /* BusyIndicator.png */,
@@ -574,6 +582,7 @@
 				CD85EEB019004851005C3C12 /* CreditsButton-down.png */,
 				CDB5DE1C18FACA12000B48E6 /* CreditsButton.png */,
 				CDB5DE4B18FC6EA3000B48E6 /* DialogBackground.png */,
+				CD85EED0190056A1005C3C12 /* HorizontalBackground.png */,
 				CD85EEB219004851005C3C12 /* InformationsButton-down.png */,
 				CDB5DE1818FAC2B0000B48E6 /* InformationsButton.png */,
 				CDB5DE3518FAF478000B48E6 /* InputField.png */,
@@ -589,8 +598,10 @@
 				CD85EEB619004851005C3C12 /* StarButton-down.png */,
 				CD85EEB819004851005C3C12 /* StarButton.png */,
 				CD85EEB919004851005C3C12 /* StarButton@2x.png */,
+				CDCCFA7319027A5900EB0CA0 /* Submenu.png */,
 				CDB5DE2B18FAF2D7000B48E6 /* TechStuff.png */,
 				CDB5DE2F18FAF34E000B48E6 /* TopBar.png */,
+				CD85EED2190056A1005C3C12 /* VerticalBackground.png */,
 			);
 			path = 1x;
 			sourceTree = "<group>";
@@ -707,9 +718,11 @@
 				CDB5DE1718FAC206000B48E6 /* PlayButton@2x.png in Resources */,
 				CDB5DE3918FAF478000B48E6 /* BackButton.png in Resources */,
 				CD85EEA918FEF505005C3C12 /* BusyIndicator@2x.png in Resources */,
+				CDCCFA7619027A5900EB0CA0 /* Submenu@2x.png in Resources */,
 				CDB5DE0B18FABC6D000B48E6 /* StageBackground.png in Resources */,
 				CDB5DE4E18FC6EA3000B48E6 /* DialogBackground@2x.png in Resources */,
 				CD85EEAB190043D1005C3C12 /* StageBackground@2x.png in Resources */,
+				CDCCFA7519027A5900EB0CA0 /* Submenu.png in Resources */,
 				CDB5DE2218FAD1C1000B48E6 /* LogoBig.png in Resources */,
 				CDDD0BA318D77FE600979E1E /* README.txt in Resources */,
 				CD6625F918DF3FEC00802AF0 /* ButtonDown.png in Resources */,
@@ -864,6 +877,7 @@
 				CDF0AB5218E8759B004A7D1A /* ORServerCommunicator.mm in Sources */,
 				CD910B5918D77C2B00C61610 /* InputGameScene.mm in Sources */,
 				CD910B5A18D77C2B00C61610 /* MainStage.mm in Sources */,
+				CDCCFA7919027D1B00EB0CA0 /* ORSubmenu.m in Sources */,
 				CD910B5C18D77C2B00C61610 /* ORArrowButton.mm in Sources */,
 				CD910B5D18D77C2B00C61610 /* ORButton.mm in Sources */,
 				CD910B5E18D77C2B00C61610 /* ORTextField.mm in Sources */,
