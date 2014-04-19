@@ -25,27 +25,24 @@
  */
 
 #import "InputGameScene.h"
-#import "ORButton.h"
-#import "ORTextField.h"
 #import "ORServerCommunicator.h"
 #import "CallbackResponder.h"
 #import "ORArrowButton.h"
 #import "ORCameraViewer.h"
 #import "ORViewController.h"
 #import "OREventOrientation.h"
-#import "ORSlider.h"
-#import "ORSliderDelegate.h"
 #import "ORSubmenu.h"
 #import "ORAlternativeButton.h"
 #import "ORDialogBox.h"
 #import "ORDialogBoxDelegate.h"
+#import <LARSBar.h>
 
 #import "robot.pb.h"
 #import "controller.pb.h"
 
 
 #pragma mark - Interface begin
-@interface InputGameScene() <CallbackResponder, ORSliderDelegate, ORDialogBoxDelegate>
+@interface InputGameScene() <CallbackResponder, ORDialogBoxDelegate>
 
 @end
 
@@ -53,6 +50,7 @@
 @implementation InputGameScene {
     BOOL _selectorsConfigured;
 	BOOL _running;
+    BOOL _isLandscape;
 	float _left;
 	float _right;
 
@@ -64,8 +62,8 @@
     NSMutableArray *_buttonsArray;
 
     ORCameraViewer *_mjpegViewer;
-    ORSlider *_leftSlider;
-    ORSlider *_rightSlider;
+    LARSBar *_lbLeft;
+    LARSBar *_lbRight;
 
     ORAlternativeButton *_starButton;
     ORAlternativeButton *_gamestateButton;
@@ -101,12 +99,6 @@
 	[_buttonsArray addObject:_upButton];
 
 	_mjpegViewer = [ORCameraViewer cameraViewerFromURL:[NSURL URLWithString:@"http://mail.bluegreendiamond.net:8084/cgi-bin/faststream.jpg?stream=full&fps=24"]];
-    
-    _leftSlider = [ORSlider verticalSliderWithMarkerPosition:ORSLIDER_MP_RIGHT];
-    _leftSlider.delegate = self;
-
-    _rightSlider = [ORSlider verticalSliderWithMarkerPosition:ORSLIDER_MP_LEFT];
-    _rightSlider.delegate = self;
 
     // Tell the controller I'm a good guy.
     ORViewController *viewController = (ORViewController *)[Sparrow currentController];
@@ -143,6 +135,22 @@
                                                       andBody:@"To be set"];
     _gamestateDialogBox.delegate = self;
 
+    _lbLeft = [[LARSBar alloc] init];
+    _lbLeft.transform = CGAffineTransformMakeRotation(M_PI * 1.5);
+    _lbLeft.frame = CGRectMake(0, 0, 40, 320);
+    _lbLeft.minimumValue = 0.0f;
+    _lbLeft.maximumValue = 2.0f;
+    _lbLeft.leftChannelLevel = 2.0f;
+    _lbLeft.rightChannelLevel = 2.0f;
+
+    _lbRight = [[LARSBar alloc] init];
+    _lbRight.transform = CGAffineTransformMakeRotation(M_PI * 1.5);
+    _lbRight.frame = CGRectMake(440, 0, 40, 320);
+    _lbRight.minimumValue = 0.0f;
+    _lbRight.maximumValue = 2.0f;
+    _lbRight.leftChannelLevel = 2.0f;
+    _lbRight.rightChannelLevel = 2.0f;
+
 	return self;
 }
 
@@ -154,23 +162,12 @@
     [self removeChild:_upButton];
     [self removeChild:_leftButton];
     [self removeChild:_rightButton];
-    [self removeChild:_leftSlider];
-    [self removeChild:_rightSlider];
     [self removeChild:_starButton];
     [self removeChild:_submenu];
     [self removeChild:_gamestateButton];
     [self removeChild:_gamestateDialogBox];
-
-    // It's not like we're really going to change these values..
-    _leftSlider.width = 40.0f;
-    _leftSlider.height = 480.0f;
-    _leftSlider.x = 0.0f;
-    _leftSlider.y = 0.0f;
-
-    _rightSlider.width = 40.0f;
-    _rightSlider.height = 480.0f;
-    _rightSlider.x = 280.0f;
-    _rightSlider.y = 0.0f;
+    [_lbLeft removeFromSuperview];
+    [_lbRight removeFromSuperview];
 
     [self addChild:_mjpegViewer];
 
@@ -180,6 +177,7 @@
             DDLogInfo(@"Portrait - %f x %f", Sparrow.stage.width, Sparrow.stage.height);
             _left = 0;
             _right = 0;
+            _isLandscape = NO;
             
             self.topBar.text = [NSString stringWithFormat:@"%@", self.robotName];
             self.topBar.backButtonVisible = YES;
@@ -189,7 +187,6 @@
             _mjpegViewer.y = 53.0f;
             _mjpegViewer.width = 320.0f;
             _mjpegViewer.height = 240.0f;
-            
 
             _downButton.x = 45.0f;
             _downButton.y = 245.0f;
@@ -231,6 +228,7 @@
         case UIInterfaceOrientationLandscapeRight:
             DDLogInfo(@"Landscape - %f x %f", Sparrow.stage.width, Sparrow.stage.height);
             self.topBar.visible = NO;
+            _isLandscape = YES;
 
             // It is completely stupid, but width and height in Sparrow don't change, so
             // we have to think as if we were in portrait, with the exception that what
@@ -242,8 +240,8 @@
             _mjpegViewer.x = 0.0f;
             _mjpegViewer.y = 0.0f;
 
-            [self addChild:_rightSlider];
-            [self addChild:_leftSlider];
+            [[Sparrow currentController].view addSubview:_lbLeft];
+            [[Sparrow currentController].view addSubview:_lbRight];
 
             // Hide the status bar
             [[UIApplication sharedApplication] setStatusBarHidden:YES
@@ -283,6 +281,13 @@
 		while (_running) {
             using namespace orwell::messages;
             Input input;
+
+            if (_isLandscape) {
+                _left = _lbLeft.value - 1.0f;
+                _right = _lbRight.value - 1.0f;
+                DDLogInfo(@"In landscape: _left = %.2f - _right = %.2f", _left, _right);
+            }
+
             input.mutable_move()->set_left(_left);
             input.mutable_move()->set_right(_right);
 
@@ -441,6 +446,9 @@
     DDLogInfo(@"Back button pressed");
 	[_serverCommunicator deleteResponder:self forMessage:@"GameState"];
 	_running = NO;
+
+    [_lbLeft removeFromSuperview];
+    [_lbRight removeFromSuperview];
     
     ORViewController *viewController = (ORViewController *)[Sparrow currentController];
     viewController.supportedOrientations = UIInterfaceOrientationPortrait;
@@ -452,18 +460,6 @@
     OREventOrientation *eventOrientation = (OREventOrientation *)event;
     
     [self replaceObjectsInStage:eventOrientation.orientation];
-}
-
-- (void)slider:(ORSlider *)slider didChangeValue:(float)newValue
-{
-    if (slider == _leftSlider) {
-        _left = newValue;
-    }
-    else {
-        _right = newValue;
-    }
-
-    DDLogInfo(@"Slider changed value: %f - %f", _left, _right);
 }
 
 #pragma mark - Dialog box delegate methods

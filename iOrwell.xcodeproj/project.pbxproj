@@ -17,7 +17,6 @@
 		CD4C363318DA453100FD1F3A /* iOrwellTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD4C363218DA453100FD1F3A /* iOrwellTests.mm */; };
 		CD4C363C18DA495C00FD1F3A /* ORBroadcastRetriever.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4C363B18DA495C00FD1F3A /* ORBroadcastRetriever.m */; };
 		CD4C363F18DA4B6700FD1F3A /* ORIPFour.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4C363E18DA4B6700FD1F3A /* ORIPFour.m */; };
-		CD51E89718F2AA9100633CC7 /* ORSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = CD51E89618F2AA9100633CC7 /* ORSlider.m */; };
 		CD51E89B18F3135000633CC7 /* SliderBar.png in Resources */ = {isa = PBXBuildFile; fileRef = CD51E89918F3135000633CC7 /* SliderBar.png */; };
 		CD51E89C18F3135000633CC7 /* SliderDot.png in Resources */ = {isa = PBXBuildFile; fileRef = CD51E89A18F3135000633CC7 /* SliderDot.png */; };
 		CD6625F718DE132300802AF0 /* ORCameraViewer.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD6625F618DE132300802AF0 /* ORCameraViewer.mm */; };
@@ -72,8 +71,6 @@
 		CD910B5918D77C2B00C61610 /* InputGameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AFD18D77B0D00C61610 /* InputGameScene.mm */; };
 		CD910B5A18D77C2B00C61610 /* MainStage.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910AFF18D77B0D00C61610 /* MainStage.mm */; };
 		CD910B5C18D77C2B00C61610 /* ORArrowButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0418D77B0D00C61610 /* ORArrowButton.mm */; };
-		CD910B5D18D77C2B00C61610 /* ORButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0618D77B0D00C61610 /* ORButton.mm */; };
-		CD910B5E18D77C2B00C61610 /* ORTextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD910B0818D77B0D00C61610 /* ORTextField.mm */; };
 		CD924DB818D78F2400DE0A59 /* App-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD924DB618D78F2400DE0A59 /* App-Info.plist */; };
 		CDB5DE0B18FABC6D000B48E6 /* StageBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE0A18FABC6D000B48E6 /* StageBackground.png */; };
 		CDB5DE0D18FABE14000B48E6 /* PlayButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB5DE0C18FABE14000B48E6 /* PlayButton.png */; };
@@ -137,7 +134,6 @@
 /* Begin PBXFileReference section */
 		2162E0EDEF7D475B8F6DB092 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE88D42A3C54E55B4666AC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		CD09711318F711FA001FE206 /* ORSliderDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORSliderDelegate.h; sourceTree = "<group>"; };
 		CD333EB318DA21910075E51D /* CallbackInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallbackInput.h; sourceTree = "<group>"; };
 		CD333EB418DA21910075E51D /* CallbackInput.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CallbackInput.mm; sourceTree = "<group>"; };
 		CD4C362818DA453100FD1F3A /* iOrwellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOrwellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,8 +145,6 @@
 		CD4C363B18DA495C00FD1F3A /* ORBroadcastRetriever.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORBroadcastRetriever.m; sourceTree = "<group>"; };
 		CD4C363D18DA4B6700FD1F3A /* ORIPFour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORIPFour.h; sourceTree = "<group>"; };
 		CD4C363E18DA4B6700FD1F3A /* ORIPFour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORIPFour.m; sourceTree = "<group>"; };
-		CD51E89518F2AA9100633CC7 /* ORSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORSlider.h; sourceTree = "<group>"; };
-		CD51E89618F2AA9100633CC7 /* ORSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORSlider.m; sourceTree = "<group>"; };
 		CD51E89918F3135000633CC7 /* SliderBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SliderBar.png; sourceTree = "<group>"; };
 		CD51E89A18F3135000633CC7 /* SliderDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SliderDot.png; sourceTree = "<group>"; };
 		CD6625F518DE132300802AF0 /* ORCameraViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORCameraViewer.h; sourceTree = "<group>"; };
@@ -220,10 +214,6 @@
 		CD910AFF18D77B0D00C61610 /* MainStage.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MainStage.mm; sourceTree = "<group>"; };
 		CD910B0318D77B0D00C61610 /* ORArrowButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORArrowButton.h; sourceTree = "<group>"; };
 		CD910B0418D77B0D00C61610 /* ORArrowButton.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ORArrowButton.mm; sourceTree = "<group>"; };
-		CD910B0518D77B0D00C61610 /* ORButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORButton.h; sourceTree = "<group>"; };
-		CD910B0618D77B0D00C61610 /* ORButton.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ORButton.mm; sourceTree = "<group>"; };
-		CD910B0718D77B0D00C61610 /* ORTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORTextField.h; sourceTree = "<group>"; };
-		CD910B0818D77B0D00C61610 /* ORTextField.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ORTextField.mm; sourceTree = "<group>"; };
 		CD910B0D18D77BDF00C61610 /* iOrwell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOrwell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD910B1018D77BDF00C61610 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CD910B1218D77BDF00C61610 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -453,20 +443,13 @@
 				CDB5DE1118FABE50000B48E6 /* ORAlternativeButton.m */,
 				CD910B0318D77B0D00C61610 /* ORArrowButton.h */,
 				CD910B0418D77B0D00C61610 /* ORArrowButton.mm */,
-				CD910B0518D77B0D00C61610 /* ORButton.h */,
-				CD910B0618D77B0D00C61610 /* ORButton.mm */,
 				CD6625F518DE132300802AF0 /* ORCameraViewer.h */,
 				CD6625F618DE132300802AF0 /* ORCameraViewer.mm */,
 				CDB5DE4F18FC6F31000B48E6 /* ORDialogBox.h */,
 				CDB5DE5018FC6F31000B48E6 /* ORDialogBox.m */,
 				CDB5DE5218FC7646000B48E6 /* ORDialogBoxDelegate.h */,
-				CD51E89518F2AA9100633CC7 /* ORSlider.h */,
-				CD51E89618F2AA9100633CC7 /* ORSlider.m */,
-				CD09711318F711FA001FE206 /* ORSliderDelegate.h */,
 				CDCCFA7719027D1B00EB0CA0 /* ORSubmenu.h */,
 				CDCCFA7819027D1B00EB0CA0 /* ORSubmenu.m */,
-				CD910B0718D77B0D00C61610 /* ORTextField.h */,
-				CD910B0818D77B0D00C61610 /* ORTextField.mm */,
 				CD85EE9F18FEE908005C3C12 /* ORTopBar.h */,
 				CD85EEA018FEE908005C3C12 /* ORTopBar.m */,
 			);
@@ -885,7 +868,6 @@
 				CDF0AB5618E9DD50004A7D1A /* ORViewController.m in Sources */,
 				CDF0AB5318E875F0004A7D1A /* ORZMQURL.m in Sources */,
 				CD6625F718DE132300802AF0 /* ORCameraViewer.mm in Sources */,
-				CD51E89718F2AA9100633CC7 /* ORSlider.m in Sources */,
 				CD910B5218D77C2B00C61610 /* server-game.pb.cc in Sources */,
 				CD910B5418D77C2B00C61610 /* server-web.pb.cc in Sources */,
 				CD910B5618D77C2B00C61610 /* BackgroundScene.mm in Sources */,
@@ -895,8 +877,6 @@
 				CD910B5A18D77C2B00C61610 /* MainStage.mm in Sources */,
 				CDCCFA7919027D1B00EB0CA0 /* ORSubmenu.m in Sources */,
 				CD910B5C18D77C2B00C61610 /* ORArrowButton.mm in Sources */,
-				CD910B5D18D77C2B00C61610 /* ORButton.mm in Sources */,
-				CD910B5E18D77C2B00C61610 /* ORTextField.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,12 +25,10 @@
  */
 
 #import "BackgroundScene.h"
-#import "ORButton.h"
 #import "ORTopBar.h"
 
 @interface BackgroundScene()
 @property (strong, nonatomic) SPImage *background;
-@property (strong, nonatomic) ORButton *backButton;
 @end
 
 @implementation BackgroundScene
