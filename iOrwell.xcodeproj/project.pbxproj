@@ -105,10 +105,10 @@
 		CDCCFA7519027A5900EB0CA0 /* Submenu.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA7319027A5900EB0CA0 /* Submenu.png */; };
 		CDCCFA7619027A5900EB0CA0 /* Submenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA7419027A5900EB0CA0 /* Submenu@2x.png */; };
 		CDCCFA7919027D1B00EB0CA0 /* ORSubmenu.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCCFA7819027D1B00EB0CA0 /* ORSubmenu.m */; };
-		CDCCFA7E1902A29C00EB0CA0 /* ShowMapButton-down.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA7A1902A29C00EB0CA0 /* ShowMapButton-down.png */; };
-		CDCCFA7F1902A29C00EB0CA0 /* ShowMapButton-down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA7B1902A29C00EB0CA0 /* ShowMapButton-down@2x.png */; };
-		CDCCFA801902A29C00EB0CA0 /* ShowMapButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA7C1902A29C00EB0CA0 /* ShowMapButton.png */; };
-		CDCCFA811902A29C00EB0CA0 /* ShowMapButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA7D1902A29C00EB0CA0 /* ShowMapButton@2x.png */; };
+		CDCCFA861902D21100EB0CA0 /* GamestateButton-down.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA821902D21100EB0CA0 /* GamestateButton-down.png */; };
+		CDCCFA871902D21100EB0CA0 /* GamestateButton-down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA831902D21100EB0CA0 /* GamestateButton-down@2x.png */; };
+		CDCCFA881902D21100EB0CA0 /* GamestateButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA841902D21100EB0CA0 /* GamestateButton.png */; };
+		CDCCFA891902D21100EB0CA0 /* GamestateButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCCFA851902D21100EB0CA0 /* GamestateButton@2x.png */; };
 		CDDD0B8E18D77FE600979E1E /* sound.caf in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7418D77FE600979E1E /* sound.caf */; };
 		CDDD0B8F18D77FE600979E1E /* bordersprite_regular_20.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7618D77FE600979E1E /* bordersprite_regular_20.fnt */; };
 		CDDD0B9018D77FE600979E1E /* bordersprite_regular_20.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CDDD0B7718D77FE600979E1E /* bordersprite_regular_20.PNG */; };
@@ -267,10 +267,10 @@
 		CDCCFA7419027A5900EB0CA0 /* Submenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Submenu@2x.png"; path = "1x/Submenu@2x.png"; sourceTree = "<group>"; };
 		CDCCFA7719027D1B00EB0CA0 /* ORSubmenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORSubmenu.h; sourceTree = "<group>"; };
 		CDCCFA7819027D1B00EB0CA0 /* ORSubmenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORSubmenu.m; sourceTree = "<group>"; };
-		CDCCFA7A1902A29C00EB0CA0 /* ShowMapButton-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShowMapButton-down.png"; sourceTree = "<group>"; };
-		CDCCFA7B1902A29C00EB0CA0 /* ShowMapButton-down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ShowMapButton-down@2x.png"; path = "1x/ShowMapButton-down@2x.png"; sourceTree = "<group>"; };
-		CDCCFA7C1902A29C00EB0CA0 /* ShowMapButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShowMapButton.png; sourceTree = "<group>"; };
-		CDCCFA7D1902A29C00EB0CA0 /* ShowMapButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ShowMapButton@2x.png"; path = "1x/ShowMapButton@2x.png"; sourceTree = "<group>"; };
+		CDCCFA821902D21100EB0CA0 /* GamestateButton-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GamestateButton-down.png"; sourceTree = "<group>"; };
+		CDCCFA831902D21100EB0CA0 /* GamestateButton-down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "GamestateButton-down@2x.png"; path = "1x/GamestateButton-down@2x.png"; sourceTree = "<group>"; };
+		CDCCFA841902D21100EB0CA0 /* GamestateButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GamestateButton.png; sourceTree = "<group>"; };
+		CDCCFA851902D21100EB0CA0 /* GamestateButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "GamestateButton@2x.png"; path = "1x/GamestateButton@2x.png"; sourceTree = "<group>"; };
 		CDDD0B7418D77FE600979E1E /* sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.caf; sourceTree = "<group>"; };
 		CDDD0B7618D77FE600979E1E /* bordersprite_regular_20.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bordersprite_regular_20.fnt; sourceTree = "<group>"; };
 		CDDD0B7718D77FE600979E1E /* bordersprite_regular_20.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bordersprite_regular_20.PNG; sourceTree = "<group>"; };
@@ -500,8 +500,6 @@
 			isa = PBXGroup;
 			children = (
 				CD85EEAD19004721005C3C12 /* BackButton-down@2x.png */,
-				CDCCFA7B1902A29C00EB0CA0 /* ShowMapButton-down@2x.png */,
-				CDCCFA7D1902A29C00EB0CA0 /* ShowMapButton@2x.png */,
 				CDB5DE3418FAF478000B48E6 /* BackButton@2x.png */,
 				CD85EEA718FEF505005C3C12 /* BusyIndicator@2x.png */,
 				CD85EEC8190052EA005C3C12 /* ButtonDown@2x.png */,
@@ -513,6 +511,8 @@
 				CD85EEB119004851005C3C12 /* CreditsButton-down@2x.png */,
 				CDB5DE1D18FACA12000B48E6 /* CreditsButton@2x.png */,
 				CDB5DE4C18FC6EA3000B48E6 /* DialogBackground@2x.png */,
+				CDCCFA831902D21100EB0CA0 /* GamestateButton-down@2x.png */,
+				CDCCFA851902D21100EB0CA0 /* GamestateButton@2x.png */,
 				CD85EED1190056A1005C3C12 /* HorizontalBackground@2x.png */,
 				CD85EEB319004851005C3C12 /* InformationsButton-down@2x.png */,
 				CDB5DE1A18FAC2B7000B48E6 /* InformationsButton@2x.png */,
@@ -579,8 +579,6 @@
 		CDDD0B7D18D77FE600979E1E /* 1x */ = {
 			isa = PBXGroup;
 			children = (
-				CDCCFA7A1902A29C00EB0CA0 /* ShowMapButton-down.png */,
-				CDCCFA7C1902A29C00EB0CA0 /* ShowMapButton.png */,
 				CD85EEAC19004721005C3C12 /* BackButton-down.png */,
 				CDB5DE3318FAF478000B48E6 /* BackButton.png */,
 				CD85EEA618FEF505005C3C12 /* BusyIndicator.png */,
@@ -594,6 +592,8 @@
 				CD85EEB019004851005C3C12 /* CreditsButton-down.png */,
 				CDB5DE1C18FACA12000B48E6 /* CreditsButton.png */,
 				CDB5DE4B18FC6EA3000B48E6 /* DialogBackground.png */,
+				CDCCFA821902D21100EB0CA0 /* GamestateButton-down.png */,
+				CDCCFA841902D21100EB0CA0 /* GamestateButton.png */,
 				CD85EED0190056A1005C3C12 /* HorizontalBackground.png */,
 				CD85EEB219004851005C3C12 /* InformationsButton-down.png */,
 				CDB5DE1818FAC2B0000B48E6 /* InformationsButton.png */,
@@ -735,8 +735,8 @@
 				CDB5DE4E18FC6EA3000B48E6 /* DialogBackground@2x.png in Resources */,
 				CD85EEAB190043D1005C3C12 /* StageBackground@2x.png in Resources */,
 				CDCCFA7519027A5900EB0CA0 /* Submenu.png in Resources */,
-				CDCCFA801902A29C00EB0CA0 /* ShowMapButton.png in Resources */,
-				CDCCFA7E1902A29C00EB0CA0 /* ShowMapButton-down.png in Resources */,
+				CDCCFA871902D21100EB0CA0 /* GamestateButton-down@2x.png in Resources */,
+				CDCCFA881902D21100EB0CA0 /* GamestateButton.png in Resources */,
 				CDB5DE2218FAD1C1000B48E6 /* LogoBig.png in Resources */,
 				CDDD0BA318D77FE600979E1E /* README.txt in Resources */,
 				CD6625F918DF3FEC00802AF0 /* ButtonDown.png in Resources */,
@@ -755,11 +755,10 @@
 				CDDD0B8E18D77FE600979E1E /* sound.caf in Resources */,
 				CD85EEC019004851005C3C12 /* StarButton-down.png in Resources */,
 				CDDD0B9218D77FE600979E1E /* dodger_condensed_condensed_20.PNG in Resources */,
-				CDCCFA811902A29C00EB0CA0 /* ShowMapButton@2x.png in Resources */,
-				CDCCFA7F1902A29C00EB0CA0 /* ShowMapButton-down@2x.png in Resources */,
 				CDB5DE3E18FAF478000B48E6 /* SelectedInputField@2x.png in Resources */,
 				CD85EEBF19004851005C3C12 /* PlayButton-down@2x.png in Resources */,
 				CD85EEBD19004851005C3C12 /* InformationsButton-down@2x.png in Resources */,
+				CDCCFA891902D21100EB0CA0 /* GamestateButton@2x.png in Resources */,
 				CDB5DE3C18FAF478000B48E6 /* InputField@2x.png in Resources */,
 				CD85EEA518FEEECE005C3C12 /* MegaphoneIcon@2x.png in Resources */,
 				CDB5DE4D18FC6EA3000B48E6 /* DialogBackground.png in Resources */,
@@ -785,6 +784,7 @@
 				CD85EEA818FEF505005C3C12 /* BusyIndicator.png in Resources */,
 				CDB5DE1B18FAC2B7000B48E6 /* InformationsButton@2x.png in Resources */,
 				CD85EEC219004851005C3C12 /* StarButton.png in Resources */,
+				CDCCFA861902D21100EB0CA0 /* GamestateButton-down.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

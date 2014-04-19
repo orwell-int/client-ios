@@ -51,6 +51,14 @@
 			buttonImage = @"ConnectButton.png";
 			buttonImageDown = @"ConnectButton-down.png";
 			break;
+		case OR_BUTTON_GAMESTATE:
+			buttonImage = @"GamestateButton.png";
+			buttonImageDown = @"GamestateButton-down.png";
+			break;
+		case OR_BUTTON_STAR:
+			buttonImage = @"StarButton.png";
+			buttonImageDown = @"StarButton-down.png";
+			break;
 	}
 
 	SPTexture *buttonBackground = [SPTexture textureWithContentsOfFile:buttonImage];

@@ -36,13 +36,16 @@
 #import "ORSlider.h"
 #import "ORSliderDelegate.h"
 #import "ORSubmenu.h"
+#import "ORAlternativeButton.h"
+#import "ORDialogBox.h"
+#import "ORDialogBoxDelegate.h"
 
 #import "robot.pb.h"
 #import "controller.pb.h"
 
 
 #pragma mark - Interface begin
-@interface InputGameScene() <CallbackResponder, ORSliderDelegate>
+@interface InputGameScene() <CallbackResponder, ORSliderDelegate, ORDialogBoxDelegate>
 
 @end
 
@@ -64,10 +67,11 @@
     ORSlider *_leftSlider;
     ORSlider *_rightSlider;
 
-    SPButton *_starButton;
+    ORAlternativeButton *_starButton;
+    ORAlternativeButton *_gamestateButton;
     ORSubmenu *_submenu;
 
-    SPButton *_showMapButton;
+    ORDialogBox *_gamestateDialogBox;
 }
 
 #pragma mark - Init methods
@@ -109,8 +113,7 @@
     viewController.supportedOrientations = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
     _selectorsConfigured = NO;
 
-    _starButton = [SPButton buttonWithUpState:[SPTexture textureWithContentsOfFile:@"StarButton.png"]
-                                    downState:[SPTexture textureWithContentsOfFile:@"StarButton-down.png"]];
+    _starButton = [[ORAlternativeButton alloc] initWithType:OR_BUTTON_STAR];
     [_starButton addEventListener:@selector(onStarButtonClicked:)
                          atObject:self
                           forType:SP_EVENT_TYPE_TRIGGERED];
@@ -131,11 +134,14 @@
                        forType:OR_EVENT_SUBMENU_THIRD_BUTTON_TRIGGERED];
     _submenu.visible = NO;
 
-    _showMapButton = [SPButton buttonWithUpState:[SPTexture textureWithContentsOfFile:@"ShowMapButton.png"]
-                                       downState:[SPTexture textureWithContentsOfFile:@"ShowMapButton-down.png"]];
-    [_showMapButton addEventListener:@selector(onShowMapButtonClicked:)
+    _gamestateButton = [[ORAlternativeButton alloc] initWithType:OR_BUTTON_GAMESTATE];
+    [_gamestateButton addEventListener:@selector(onGamestateButtonClicked:)
                             atObject:self
                              forType:SP_EVENT_TYPE_TRIGGERED];
+
+    _gamestateDialogBox = [[ORDialogBox alloc] initWithHeader:@"Gamestate"
+                                                      andBody:@"To be set"];
+    _gamestateDialogBox.delegate = self;
 
 	return self;
 }
@@ -152,7 +158,8 @@
     [self removeChild:_rightSlider];
     [self removeChild:_starButton];
     [self removeChild:_submenu];
-    [self removeChild:_showMapButton];
+    [self removeChild:_gamestateButton];
+    [self removeChild:_gamestateDialogBox];
 
     // It's not like we're really going to change these values..
     _leftSlider.width = 40.0f;
@@ -199,18 +206,18 @@
             _starButton.x = 20.0f;
             _starButton.y = 366.0f;
 
-            _submenu.x = 89.0f;
+            _submenu.x = 87.0f;
             _submenu.y = 319.0f;
 
-            _showMapButton.x = 157.0f;
-            _showMapButton.y = 338.0f;
+            _gamestateButton.x = 101.0f;
+            _gamestateButton.y = 366.0f;
             
             [self addChild:_downButton];
             [self addChild:_upButton];
             [self addChild:_leftButton];
             [self addChild:_rightButton];
             [self addChild:_starButton];
-            [self addChild:_showMapButton];
+            [self addChild:_gamestateButton];
             [self addChild:_submenu];
 
             // Do not hide the status bar
@@ -406,9 +413,12 @@
     }
 }
 
-- (void)onShowMapButtonClicked:(SPEvent *)event
+- (void)onGamestateButtonClicked:(SPEvent *)event
 {
-    DDLogInfo(@"Show map");
+    DDLogInfo(@"Gamestate");
+    _gamestateDialogBox.x = 40.0f;
+    _gamestateDialogBox.y = 110.0f;
+    [self addChild:_gamestateDialogBox];
 }
 
 - (void)onFireLeft:(SPEvent *)event
@@ -454,6 +464,27 @@
     }
 
     DDLogInfo(@"Slider changed value: %f - %f", _left, _right);
+}
+
+#pragma mark - Dialog box delegate methods
+- (void)dialogBox:(ORDialogBox *)dialogBox startedMoveAtX:(float)x andY:(float)y
+{
+
+}
+
+- (void)dialogBox:(ORDialogBox *)dialogBox continuedMovingAtX:(float)x andY:(float)y
+{
+
+}
+
+- (void)dialogBox:(ORDialogBox *)dialogBox didMoveAtX:(float)x andY:(float)y
+{
+
+}
+
+- (void)dialogBoxWantsToLeave:(ORDialogBox *)dialogBox
+{
+    [self removeChild:dialogBox];
 }
 
 @end
