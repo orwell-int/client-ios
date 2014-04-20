@@ -25,12 +25,13 @@
  */
 
 #import "ORBroadcastRetriever.h"
-#include <netinet/udp.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netdb.h>
+#include <net/if.h>
 #include <unistd.h>
+#include <ifaddrs.h>
 
 @interface ORBroadcastRetriever()
 - (BOOL)retrieveIPFour;
@@ -39,6 +40,7 @@
 
 @implementation ORBroadcastRetriever {
 	struct timeval _timeout;
+	NSMutableArray *_ipFoursContainer;
 }
 
 @synthesize firstIp = _firstIp;
@@ -75,22 +77,28 @@
 
 - (BOOL)retrieveIPFour
 {
-	char szBuffer[1024];
+	struct ifaddrs *allInterfaces;
+	_ipFoursContainer = [NSMutableArray array];
 
-	if(gethostname(szBuffer, sizeof(szBuffer)) == -1)
-	{
-		DDLogError(@"gethostname failed");
-		return NO;
+	if (getifaddrs(&allInterfaces) == 0) {
+		struct ifaddrs *interface;
+		for (interface = allInterfaces; interface != NULL; interface = interface->ifa_next) {
+			uint32_t flags = interface->ifa_flags;
+			struct sockaddr *addr = interface->ifa_addr;
+
+			if ((flags & (IFF_UP|IFF_RUNNING|IFF_LOOPBACK)) == (IFF_UP|IFF_RUNNING)) {
+				if (addr->sa_family == AF_INET) {
+					char host[NI_MAXHOST];
+					getnameinfo(addr, addr->sa_len, host, sizeof(host), NULL, 0, NI_NUMERICHOST);
+					NSString *hostString = [[NSString alloc] initWithUTF8String:host];
+					DDLogInfo(@"Retrieved: %@", hostString);
+
+					_ipFour = [ORIPFour ipFourFromString:hostString];
+					[_ipFoursContainer addObject:_ipFour];
+				}
+			}
+		}
 	}
-
-	struct hostent *host = gethostbyname(szBuffer);
-	if(host == NULL)
-	{
-		DDLogError(@"gethostbyname failed, using hostname: %s", szBuffer);
-		return NO;
-	}
-
-	_ipFour = [ORIPFour ipFourFromBytes:(uint8_t *) host->h_addr_list[0]];
 
 	return YES;
 }
@@ -139,24 +147,28 @@
 	}
 
 	// IPFour should set the last byte to 255
+	for (ORIPFour *ipFour in _ipFoursContainer) {
+		if ([ipFour isValid]) {
+			[ipFour makeBroadcastIP];
+			DDLogInfo(@"Using IP: %@", [ipFour debugDescription]);
+			_ipFour = ipFour;
+			if ([self sendMessageToServer:&broadcastSocket]) {
+				NSData *data = [self getResponseFromServer:&broadcastSocket];
 
-	if ([_ipFour isValid])
-	{
-		[_ipFour makeBroadcastIP];
-		DDLogDebug(@"Retrieved IP: %@", [_ipFour debugDescription]);
+				if (data != nil) {
+					[self parseMessageFromServer:data];
+					returnValue = YES;
+				}
+				else
+					returnValue = NO;
+			}
+
+			if (returnValue) {
+				close(broadcastSocket);
+				break;
+			}
+		}
 	}
-
-	if ([self sendMessageToServer:&broadcastSocket]) {
-		NSData *data = [self getResponseFromServer:&broadcastSocket];
-
-		if (data != nil)
-			[self parseMessageFromServer:data];
-		else
-			returnValue = NO;
-	}
-
-	if (returnValue)
-		close(broadcastSocket);
 
 	return returnValue;
 }
