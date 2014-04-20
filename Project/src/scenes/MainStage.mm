@@ -27,112 +27,178 @@
 #import "MainStage.h"
 #import "SPImage.h"
 #import "Sparrow.h"
-#import "PlayGameScene.h"
+#import "ServerConnectionScene.h"
+#import "ORAlternativeButton.h"
+#import "ORDialogBox.h"
+#import "ORDialogBoxDelegate.h"
 
-#import "ORButton.h"
+#define INFORMATION_BODY \
+@"Welcome to iOrwell, visitor!\n" \
+"This part of the project, as long as all the other parts composing the " \
+"totality of Orwell, is still under heavy development. You are currently " \
+"looking at a pre-pre-pre-alpha application. The whole Orwell project is " \
+"actively developed by the T.I.T.S. team, you can follow the progress " \
+"on github.\nThanks for visiting!\n" \
+" -- the Orwell developers."
+
+#define CREDIS_BODY \
+@"iOrwell is developed using the following frameworks or libraries:\n" \
+"* Protocol Buffers : https://code.google.com/p/protobuf\n" \
+"* ZeroMQ : http://zeromq.org\n" \
+"* LARSBar : https://github.com/larsacus/LARSBar\n" \
+"* Sparrow : http://sparrow-framework.org\n\n" \
+"Graphic kit (Polaris UI Kit) is a courtesy of Designmodo.com"
 
 #pragma mark Private Interface
-@interface MainStage()
+@interface MainStage() <ORDialogBoxDelegate>
 
-@property (strong, nonatomic) SPImage *background;
-@property (strong, nonatomic) SPImage *marvin;
-@property (strong, nonatomic) SPTextField *welcomeMessage;
-@property (strong, nonatomic) ORButton *playGameButton;
+@property (strong, nonatomic) SPImage *logo;
+@property (strong, nonatomic) SPTextField *versionNumber;
+@property (strong, nonatomic) ORAlternativeButton *playButton;
+@property (strong, nonatomic) ORAlternativeButton *informationButton;
+@property (strong, nonatomic) ORAlternativeButton *creditsButton;
 @property (strong, nonatomic) BackgroundScene *activeScene;
-
-// Init functions
-- (void)initWelcomeMessage;
-- (void)initBackground;
-- (void)initButtons;
 
 // Events
 - (void)onButtonTriggered:(SPEvent *)event;
 @end
 
 #pragma mark Implementation
-@implementation MainStage
+@implementation MainStage {
+	ORDialogBox *_dialogBox;
+	float _deltaX;
+	float _deltaY;
+}
 
-
-#pragma mark Functions
-- (id)initMainStage
+#pragma mark Initialization
+- (id)init
 {
 	self = [super init];
 
-	// Init welcome message
-	[self initWelcomeMessage];
-	[self addChild:_welcomeMessage];
+	NSString *softwareVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+	_versionNumber = [SPTextField textFieldWithWidth:Sparrow.stage.width - 30
+											  height:20
+												text:[NSString stringWithFormat:@"Version %@", softwareVersion]];
+	_versionNumber.fontName = @"HelveticaNeue-Light";
+	_versionNumber.fontSize = 17;
+	_versionNumber.color = 0xffffff;
+	_versionNumber.x = 15.0f;
+	_versionNumber.y = 440.0f;
+	[self addChild:_versionNumber];
 
-	// Init buttons
-	[self initButtons];
-	[self addChild:_playGameButton];
+	_logo = [[SPImage alloc] initWithContentsOfFile:@"LogoBig.png"];
+	_logo.x = 0.0f;
+	_logo.y = 55.0f;
+	[self addChild:_logo];
 
-	_marvin = [SPImage imageWithContentsOfFile:@"marvin.png"];
-	_marvin.x = (Sparrow.stage.width / 2) - (_marvin.width / 2);
-	_marvin.y = Sparrow.stage.height - _marvin.height - 10.0f;
-	[self addChild:_marvin];
+	_playButton = [[ORAlternativeButton alloc] initWithType:OR_BUTTON_PLAY];
+	_playButton.name = @"PlayButton";
+	_playButton.x = 70.0f;
+	_playButton.y = 270.0f;
+	[_playButton addEventListener:@selector(onButtonTriggered:)
+						 atObject:self
+						  forType:SP_EVENT_TYPE_TRIGGERED];
+
+	_informationButton = [[ORAlternativeButton alloc] initWithType:OR_BUTTON_INFORMATIONS];
+	_informationButton.name = @"InformationButton";
+	_informationButton.x = 70.0f;
+	_informationButton.y = 325.0f;
+	[_informationButton addEventListener:@selector(onButtonTriggered:)
+								atObject:self
+								 forType:SP_EVENT_TYPE_TRIGGERED];
+
+	_creditsButton = [[ORAlternativeButton alloc] initWithType:OR_BUTTON_CREDITS];
+	_creditsButton.name = @"CreditsButton";
+	_creditsButton.x = 70.0f;
+	_creditsButton.y = 380.0f;
+	[_creditsButton addEventListener:@selector(onButtonTriggered:)
+							atObject:self
+							 forType:SP_EVENT_TYPE_TRIGGERED];
+
+	[self addChild:_playButton];
+	[self addChild:_informationButton];
+	[self addChild:_creditsButton];
 
 	[self addEventListener:@selector(onSceneClosing:)
 				  atObject:self
 				   forType:EVENT_TYPE_SCENE_CLOSING];
 
+	self.topBar.backButtonVisible = NO;
+	self.topBar.text = @"Welcome to iOrwell!";
+
 	return self;
 }
 
-- (void)initBackground
-{
-	_background = [[SPImage alloc] initWithContentsOfFile:@"background.jpg"];
-}
-
-- (void)initWelcomeMessage
-{
-	NSString *softwareVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-	_welcomeMessage = [SPTextField textFieldWithWidth:(Sparrow.stage.width - 30)
-											   height:80
-												 text:[NSString stringWithFormat:@"iOrwellcome to you! (%@)", softwareVersion]];
-	_welcomeMessage.fontName = [SPTextField registerBitmapFontFromFile:@"dodger_condensed_condensed_20.fnt"];
-	_welcomeMessage.fontSize = 12;
-	_welcomeMessage.color = 0xffffff;;
-
-	_welcomeMessage.x = (Sparrow.stage.width / 2) - (_welcomeMessage.width / 2);
-	_welcomeMessage.y = 5;
-}
-
-- (void)initButtons
-{
-	_playGameButton = [[ORButton alloc] initWithText:@"Play"];
-	_playGameButton.name = @"PlayButton";
-
-	// @TODO: redesign interface.
-	// Place it in the middle
-	_playGameButton.x = (Sparrow.stage.width / 2) - (_playGameButton.width / 2);
-	_playGameButton.y = (Sparrow.stage.height / 2) - (_playGameButton.height / 2);
-
-	[_playGameButton addEventListener:@selector(onButtonTriggered:)
-							 atObject:self
-							  forType:SP_EVENT_TYPE_TRIGGERED];
-
-}
-
+#pragma mark Events
 - (void)onButtonTriggered:(SPEvent *)event
 {
 	SPButton *button = (SPButton *)event.target;
 	DDLogDebug(@"Clicked button: %@", button.name);
 
-	if (_activeScene) return;
+	if (_dialogBox) {
+		[self removeChild:_dialogBox];
+		_dialogBox = nil;
+	}
 
-	DDLogWarn(@"Defaulting to PlayGameScene (as it is the only one available)");
-	_activeScene = [[PlayGameScene alloc] init];
-  
-	[_activeScene placeObjectInStage];
+	if ([button.name isEqualToString:@"PlayButton"]) {
+		if (!_activeScene) {
+			_activeScene = [[ServerConnectionScene alloc] init];
+			[_activeScene placeObjectInStage];
 
-	[self addChild:_activeScene];
-	[_activeScene startObjects];
+			[self addChild:_activeScene];
+			[_activeScene startObjects];
+		}
+	}
+	else if ([button.name isEqualToString:@"InformationButton"]) {
+		_dialogBox = [[ORDialogBox alloc] initWithHeader:@"About Orwell"
+												 andBody:INFORMATION_BODY];
+		_dialogBox.x = 15.0f;
+		_dialogBox.y = 45.0f;
+		_dialogBox.delegate = self;
+		[self addChild:_dialogBox];
+	}
+	else if ([button.name isEqualToString:@"CreditsButton"]) {
+		_dialogBox = [[ORDialogBox alloc] initWithHeader:@"Credits"
+												 andBody:CREDIS_BODY];
+		_dialogBox.x = 15.0f;
+		_dialogBox.y = 45.0f;
+		_dialogBox.delegate = self;
+		[self addChild:_dialogBox];
+	}
+}
+
+- (void)dialogBox:(ORDialogBox *)dialogBox didMoveAtX:(float)x andY:(float)y
+{
+	_deltaX = 0;
+	_deltaY = 0;
+}
+
+- (void)dialogBox:(ORDialogBox *)dialogBox startedMoveAtX:(float)x andY:(float)y
+{
+	_deltaX = x;
+	_deltaY = y;
+}
+
+- (void)dialogBox:(ORDialogBox *)dialogBox continuedMovingAtX:(float)x andY:(float)y
+{
+	_deltaX -= x;
+	dialogBox.x -= _deltaX;
+
+	_deltaY -= y;
+	dialogBox.y -= _deltaY;
+
+	_deltaX = x;
+	_deltaY = y;
+}
+
+- (void)dialogBoxWantsToLeave:(ORDialogBox *)dialogBox
+{
+	[self removeChild:dialogBox];
 }
 
 - (void)onSceneClosing:(SPEvent *)event
 {
-	if (_activeScene)
-	{
+	if (_activeScene) {
 		[_activeScene removeFromParent];
 		_activeScene = nil;
 	}
