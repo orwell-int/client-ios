@@ -48,6 +48,7 @@
 
 #pragma mark - Implementation begin
 @implementation InputGameScene {
+    uint64_t _gamestateCounts;
     BOOL _selectorsConfigured;
 	BOOL _running;
     BOOL _isLandscape;
@@ -79,6 +80,7 @@
 	_left = 0;
 	_right = 0;
 	_running = YES;
+    _gamestateCounts = 0;
 
 	_buttonsArray = [NSMutableArray array];
 
@@ -308,12 +310,10 @@
 #pragma mark - Callback responder
 - (BOOL)messageReceived:(NSDictionary *)message
 {
-	static int count = 0;
 	NSNumber *playing = [message objectForKey:CB_GAMESTATE_KEY_PLAYING];
 
-	if (playing != nil) {
-        self.topBar.text = [NSString stringWithFormat:@"%@ (%d)", _robotName, count++];
-	}
+	if (playing != nil)
+        self.topBar.text = [NSString stringWithFormat:@"%@ (%llu)", _robotName, _gamestateCounts++];
 
 	return YES;
 }
