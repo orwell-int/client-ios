@@ -178,6 +178,7 @@
 - (void)communicator:(ORServerCommunicator *)communicator didConnectToServer:(BOOL)connect
 {
 	if (connect) {
+		DDLogInfo(@"Pushing Hello msg");
 		[_communicator runSubscriber];
 		orwell::messages::Hello hello;
 		hello.set_name([_inputPlayerName.text UTF8String]);
@@ -196,6 +197,7 @@
 
 - (BOOL)messageReceived:(NSDictionary *)dictionary
 {
+	DDLogInfo(@"Received msg");
 	NSString *robotName = [dictionary objectForKey:CB_WELCOME_KEY_ROBOT];
 
 	if (robotName != nil) {
@@ -210,7 +212,7 @@
 		[self addChild:_inputGameScene];
 	}
 	else {
-		DDLogInfo(@"Goodby received");
+		DDLogInfo(@"Goodbye received");
 	}
 	return YES;
 }

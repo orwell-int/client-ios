@@ -34,11 +34,9 @@
 @property (strong, nonatomic, readonly) NSNumber *firstPort;
 @property (strong, nonatomic, readonly) NSNumber *secondPort;
 @property (strong, nonatomic, readonly) ORIPFour *ipFour;
-@property (strong, nonatomic, readonly) NSArray *ipFourArray;
 
 + (id)retriever;
 + (id)retrieverWithTimeout:(int)timeout;
-- (NSArray *)retrieveAddresses;
 - (BOOL)retrieveAddress;
 - (BOOL)sendMessageToServer:(int *)socket;
 - (NSData *)getResponseFromServer:(int *)socket;

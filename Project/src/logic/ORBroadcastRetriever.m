@@ -25,12 +25,13 @@
  */
 
 #import "ORBroadcastRetriever.h"
-#include <netinet/udp.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netdb.h>
+#include <net/if.h>
 #include <unistd.h>
+#include <ifaddrs.h>
 
 @interface ORBroadcastRetriever()
 - (BOOL)retrieveIPFour;
@@ -39,6 +40,7 @@
 
 @implementation ORBroadcastRetriever {
 	struct timeval _timeout;
+	NSMutableArray *_ipFoursContainer;
 }
 
 @synthesize firstIp = _firstIp;
@@ -47,7 +49,6 @@
 @synthesize secondPort = _secondPort;
 @synthesize responderIp = _responderIp;
 @synthesize ipFour = _ipFour;
-@synthesize ipFourArray = _ipFourArray;
 
 - (id)init
 {
@@ -75,47 +76,30 @@
 
 - (BOOL)retrieveIPFour
 {
-	char szBuffer[1024];
+	struct ifaddrs *allInterfaces;
+	_ipFoursContainer = [NSMutableArray array];
 
-	if(gethostname(szBuffer, sizeof(szBuffer)) == -1)
-	{
-		DDLogError(@"gethostname failed");
-		return NO;
-	}
+	if (getifaddrs(&allInterfaces) == 0) {
+		struct ifaddrs *interface;
+		for (interface = allInterfaces; interface != NULL; interface = interface->ifa_next) {
+			uint32_t flags = interface->ifa_flags;
+			struct sockaddr *addr = interface->ifa_addr;
 
-	struct hostent *host = gethostbyname(szBuffer);
-	if(host == NULL)
-	{
-		DDLogError(@"gethostbyname failed, using hostname: %s", szBuffer);
-		return NO;
-	}
+			if ((flags & (IFF_UP|IFF_RUNNING|IFF_LOOPBACK)) == (IFF_UP|IFF_RUNNING)) {
+				if (addr->sa_family == AF_INET) {
+					char host[NI_MAXHOST];
+					getnameinfo(addr, addr->sa_len, host, sizeof(host), NULL, 0, NI_NUMERICHOST);
+					NSString *hostString = [[NSString alloc] initWithUTF8String:host];
+					DDLogInfo(@"Retrieved: %@", hostString);
 
-	_ipFour = [ORIPFour ipFourFromBytes:(uint8_t *) host->h_addr_list[0]];
-
-	return YES;
-}
-
-- (NSArray *)retrieveAddresses
-{
-	NSMutableArray *returnValue = nil;
-	char szBuffer[1024];
-
-	if (gethostname(szBuffer, sizeof szBuffer) != -1) {
-		struct hostent *host = gethostbyname(szBuffer);
-		if (host != NULL) {
-			returnValue = [[NSMutableArray alloc] init];
-
-			for (uint8_t i = 0; /* No verification */ ; i++) {
-				if (host->h_addr_list[i] == NULL) {
-					break;
+					_ipFour = [ORIPFour ipFourFromString:hostString];
+					[_ipFoursContainer addObject:_ipFour];
 				}
-
-				[returnValue addObject:[ORIPFour ipFourFromBytes:(uint8_t *)host->h_addr_list[i]]];
 			}
 		}
 	}
 
-	return (NSArray *)returnValue;
+	return YES;
 }
 
 - (BOOL)retrieveAddress
@@ -139,24 +123,28 @@
 	}
 
 	// IPFour should set the last byte to 255
+	for (ORIPFour *ipFour in _ipFoursContainer) {
+		if ([ipFour isValid]) {
+			[ipFour makeBroadcastIP];
+			DDLogInfo(@"Using IP: %@", [ipFour debugDescription]);
+			_ipFour = ipFour;
+			if ([self sendMessageToServer:&broadcastSocket]) {
+				NSData *data = [self getResponseFromServer:&broadcastSocket];
 
-	if ([_ipFour isValid])
-	{
-		[_ipFour makeBroadcastIP];
-		DDLogDebug(@"Retrieved IP: %@", [_ipFour debugDescription]);
+				if (data != nil) {
+					[self parseMessageFromServer:data];
+					returnValue = YES;
+				}
+				else
+					returnValue = NO;
+			}
+
+			if (returnValue) {
+				close(broadcastSocket);
+				break;
+			}
+		}
 	}
-
-	if ([self sendMessageToServer:&broadcastSocket]) {
-		NSData *data = [self getResponseFromServer:&broadcastSocket];
-
-		if (data != nil)
-			[self parseMessageFromServer:data];
-		else
-			returnValue = NO;
-	}
-
-	if (returnValue)
-		close(broadcastSocket);
 
 	return returnValue;
 }
@@ -175,7 +163,7 @@
 		DDLogWarn(@"Fell into receive timeout");
 	}
 	else {
-		DDLogInfo(@"Received message: %s : from %@", reply, _responderIp);
+		DDLogDebug(@"Received message: %s : from %@", reply, _responderIp);
 		data = [NSData dataWithBytes:reply length:sizeof(reply)];
 		_responderIp = [NSString stringWithCString:addr2ascii(AF_INET, &responder.sin_addr, sizeof(responder.sin_addr), 0)
 										  encoding:NSASCIIStringEncoding];
@@ -241,7 +229,7 @@
 
 	// Receive timeout..
 	if ( (setsockopt(*socket, SOL_SOCKET, SO_RCVTIMEO, (char*)&_timeout, sizeof(_timeout))) == -1) {
-		DDLogError(@"Could'nt set RCVTIMEOUT option on Socket");
+		DDLogError(@"Couldn't set RCVTIMEOUT option on Socket");
 		return_value = NO;
 	}
 
