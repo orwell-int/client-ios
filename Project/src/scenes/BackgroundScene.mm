@@ -25,11 +25,10 @@
  */
 
 #import "BackgroundScene.h"
-#import "ORButton.h"
+#import "ORTopBar.h"
 
 @interface BackgroundScene()
 @property (strong, nonatomic) SPImage *background;
-@property (strong, nonatomic) ORButton *backButton;
 @end
 
 @implementation BackgroundScene
@@ -38,52 +37,30 @@
 {
 	self = [super init];
 
-	_background = [SPImage imageWithContentsOfFile:@"game-bg.png"];
+	_background = [SPImage imageWithContentsOfFile:@"StageBackground.png"];
 	_background.touchable = NO;
-	[self addChild:_background];
+
+	// Init Top Bar
+	_topBar = [[ORTopBar alloc] init];
+	[_topBar addEventListener:@selector(onBackButtonPressed:)
+					 atObject:self
+					  forType:OR_EVENT_BACKBUTTON_TRIGGERED];
+
+	[self addChild:_background atIndex:0];
+	[self addChild:_topBar];
 
 	return self;
 }
 
-- (void)addBackButton
+- (void)willGoBack
 {
-	_backButton = [[ORButton alloc] initWithText:@"Back"];;
-	_backButton.name = @"Back";
 
-	_backButton.x = 90.0f;
-	_backButton.y = 400.0f;
-
-	[self addChild:_backButton];
 }
 
-- (void)removeBackButton
+- (void)onBackButtonPressed:(SPEvent *)event
 {
-	[self removeChild:_backButton];
-}
-
-- (void)registerSelector:(SEL)selector
-{
-	if (_backButton)
-		[_backButton addEventListener:selector
-							 atObject:self
-							  forType:SP_EVENT_TYPE_TRIGGERED];
-}
-
-- (void)unregisterSelector:(SEL)selector
-{
-	[_backButton removeEventListener:selector
-							atObject:self
-							 forType:SP_EVENT_TYPE_TRIGGERED];
-}
-
-- (float)getBackButtonY
-{
-	return _backButton.y;
-}
-
-- (float)getBackButtonHeight
-{
-	return _backButton.height;
+	[self willGoBack];
+	[self dispatchEventWithType:EVENT_TYPE_SCENE_CLOSING bubbles:YES];
 }
 
 - (void)placeObjectInStage
@@ -94,31 +71,6 @@
 - (void)startObjects
 {
 
-}
-
-- (CGRect)getUsableScreenSize
-{
-	CGRect screenSize;
-
-	screenSize.size.width = Sparrow.stage.width;
-	screenSize.size.height = Sparrow.stage.height - (Sparrow.stage.height - _backButton.y - 5.0f);
-
-	screenSize.origin.x = 0.0f;
-	screenSize.origin.y = 0.0f;
-
-	return screenSize;
-}
-
-- (void)resetBackground
-{
-	_background = [SPImage imageWithContentsOfFile:@"game-bg.png"];
-	_background.touchable = NO;
-}
-
-- (void)setBlackBackground
-{
-	_background = [[SPImage alloc] initWithWidth:320.0f height:480.0f color:0];
-	_background.touchable = NO;
 }
 
 @end

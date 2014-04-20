@@ -27,20 +27,12 @@
 #import "ORArrowButton.h"
 #import <CoreGraphics/CoreGraphics.h>
 
-@interface ORArrowButton()
-@property (strong, nonatomic) SPImage *backgroundImage;
-@end
-
-@implementation ORArrowButton
+@implementation ORArrowButton {
+	SPImage *_background;
+	SPButton *_button;
+}
 @synthesize rotation = _rotation;
 @synthesize backgroundAlpha = _backgroundAlpha;
-
-- (id)init
-{
-	self = [super initWithUpState:[SPTexture textureWithContentsOfFile:@"button-arrow-down.png"]];
-	_backgroundAlpha = 0.0f;
-	return self;
-}
 
 - (id)initWithRotation:(Rotation)rotation
 {
@@ -48,20 +40,25 @@
 	DDLogInfo(@"Calling ORArrowButton with rotation: %d", rotation);
 
 	_rotation = rotation;
+	self = [super init];
 
 	switch (_rotation) {
 		case DOWN:
 			DDLogInfo(@"Using new ButtonDown.png texture");
 			texture = [SPTexture textureWithContentsOfFile:@"ButtonDown.png"];
+			_background = [SPImage imageWithContentsOfFile:@"HorizontalBackground.png"];
 			break;
 		case UP:
 			texture = [SPTexture textureWithContentsOfFile:@"ButtonUp.png"];
+			_background = [SPImage imageWithContentsOfFile:@"HorizontalBackground.png"];
 			break;
 		case LEFT:
 			texture = [SPTexture textureWithContentsOfFile:@"ButtonLeft.png"];
+			_background = [SPImage imageWithContentsOfFile:@"VerticalBackground.png"];
 			break;
 		case RIGHT:
 			texture = [SPTexture textureWithContentsOfFile:@"ButtonRight.png"];
+			_background = [SPImage imageWithContentsOfFile:@"VerticalBackground.png"];
 			break;
 
 		default:
@@ -70,30 +67,24 @@
 			break;
 	}
 
-	self = [super initWithUpState:texture];
-	DDLogInfo(@"Beginning draw with width: %f - height: %f", self.width, self.height);
-	SPTexture *backgroundTexture = [[SPTexture alloc] initWithWidth:self.width/2 height:self.height/2 draw:^(CGContextRef contextRef) {
-		UIColor * redColor = [UIColor colorWithRed:1.0f green:0.0 blue:0.0 alpha:0.5f];
+	_background.alpha = 0;
+	_button = [[SPButton alloc] initWithUpState:texture];
+	_button.x = _background.width / 2 - _button.width / 2;
+	_button.y = _background.height / 2 - _button.height / 2;
 
-		CGContextSetFillColorWithColor(contextRef, redColor.CGColor);
-		CGContextFillRect(contextRef, CGRectMake(self.x, self.y, self.width/2, self.height/2));
-	}];
-
-	_backgroundImage = [SPImage imageWithTexture:backgroundTexture];
-	_backgroundImage.alpha = _backgroundAlpha; // background invisible
-	[self addChild:_backgroundImage atIndex:0];
+	[self addChild:_background atIndex:0];
+	[self addChild:_button];
 	return self;
 }
 
 - (void)setBackgroundAlpha:(float)backgroundAlpha
 {
-	_backgroundAlpha = backgroundAlpha;
-	_backgroundImage.alpha = _backgroundAlpha;
+	_background.alpha = backgroundAlpha;
 }
 
 - (float)backgroundAlpha
 {
-	return _backgroundImage.alpha;
+	return _background.alpha;
 }
 
 - (NSString *)debugDescription

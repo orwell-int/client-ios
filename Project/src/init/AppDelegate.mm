@@ -57,13 +57,14 @@ void onUncaughtException(NSException *exception)
 
     CGRect screenBounds = [UIScreen mainScreen].bounds;
     _window = [[UIWindow alloc] initWithFrame:screenBounds];
-
     _viewController = [[ORViewController alloc] init];
 	_viewController.showStats = NO;
 	_viewController.multitouchEnabled = YES;
 	_viewController.preferredFramesPerSecond = 60;
 
-    [_viewController startWithRoot:[Game class]];
+    [_viewController startWithRoot:[Game class]
+			supportHighResolutions:YES
+					   doubleOnPad:YES];
 
     [_window setRootViewController:_viewController];
     [_window makeKeyAndVisible];
