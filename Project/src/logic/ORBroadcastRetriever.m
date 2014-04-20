@@ -49,7 +49,6 @@
 @synthesize secondPort = _secondPort;
 @synthesize responderIp = _responderIp;
 @synthesize ipFour = _ipFour;
-@synthesize ipFourArray = _ipFourArray;
 
 - (id)init
 {
@@ -101,29 +100,6 @@
 	}
 
 	return YES;
-}
-
-- (NSArray *)retrieveAddresses
-{
-	NSMutableArray *returnValue = nil;
-	char szBuffer[1024];
-
-	if (gethostname(szBuffer, sizeof szBuffer) != -1) {
-		struct hostent *host = gethostbyname(szBuffer);
-		if (host != NULL) {
-			returnValue = [[NSMutableArray alloc] init];
-
-			for (uint8_t i = 0; /* No verification */ ; i++) {
-				if (host->h_addr_list[i] == NULL) {
-					break;
-				}
-
-				[returnValue addObject:[ORIPFour ipFourFromBytes:(uint8_t *)host->h_addr_list[i]]];
-			}
-		}
-	}
-
-	return (NSArray *)returnValue;
 }
 
 - (BOOL)retrieveAddress
@@ -187,7 +163,7 @@
 		DDLogWarn(@"Fell into receive timeout");
 	}
 	else {
-		DDLogInfo(@"Received message: %s : from %@", reply, _responderIp);
+		DDLogDebug(@"Received message: %s : from %@", reply, _responderIp);
 		data = [NSData dataWithBytes:reply length:sizeof(reply)];
 		_responderIp = [NSString stringWithCString:addr2ascii(AF_INET, &responder.sin_addr, sizeof(responder.sin_addr), 0)
 										  encoding:NSASCIIStringEncoding];
@@ -253,7 +229,7 @@
 
 	// Receive timeout..
 	if ( (setsockopt(*socket, SOL_SOCKET, SO_RCVTIMEO, (char*)&_timeout, sizeof(_timeout))) == -1) {
-		DDLogError(@"Could'nt set RCVTIMEOUT option on Socket");
+		DDLogError(@"Couldn't set RCVTIMEOUT option on Socket");
 		return_value = NO;
 	}
 
