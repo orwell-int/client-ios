@@ -26,28 +26,18 @@
 
 #import <Foundation/Foundation.h>
 #import <Sparrow.h>
-
+#import "ORTopBar.h"
 
 #define EVENT_TYPE_SCENE_CLOSING @"closing"
 #define EVENT_TYPE_INPUT_SCENE_CLOSING @"inputclosing"
 
 @interface BackgroundScene : SPSprite
+@property (nonatomic, strong) ORTopBar *topBar;
 
 - (id)init;
-- (void)addBackButton;
-- (void)removeBackButton;
-
-- (void)registerSelector:(SEL)selector;
-- (void)unregisterSelector:(SEL)selector;
-
-- (float)getBackButtonY;
-- (float)getBackButtonHeight;
+- (void)willGoBack;
 
 - (void)placeObjectInStage;
 - (void)startObjects;
-- (CGRect)getUsableScreenSize;
-
-- (void)resetBackground;
-- (void)setBlackBackground;
 
 @end
