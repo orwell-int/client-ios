@@ -98,6 +98,7 @@
 
 - (void)stop
 {
+	[_urlConnection cancel];
 	_urlConnection = nil;
 	_image = nil;
 	_mutableData = nil;
