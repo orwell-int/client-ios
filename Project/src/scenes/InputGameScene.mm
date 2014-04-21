@@ -153,6 +153,8 @@
     _lbRight.leftChannelLevel = 2.0f;
     _lbRight.rightChannelLevel = 2.0f;
 
+    self.topBar.backButtonVisible = YES;
+
 	return self;
 }
 
@@ -287,7 +289,7 @@
             if (_isLandscape) {
                 _left = _lbLeft.value - 1.0f;
                 _right = _lbRight.value - 1.0f;
-                DDLogInfo(@"In landscape: _left = %.2f - _right = %.2f", _left, _right);
+                DDLogVerbose(@"In landscape: _left = %.2f - _right = %.2f", _left, _right);
             }
 
             input.mutable_move()->set_left(_left);
@@ -448,7 +450,13 @@
 	_running = NO;
 
     [_lbLeft removeFromSuperview];
+    _lbLeft = nil;
     [_lbRight removeFromSuperview];
+    _lbRight = nil;
+
+    [_mjpegViewer stop];
+    _mjpegViewer = nil;
+    [_serverCommunicator disconnect];
     
     ORViewController *viewController = (ORViewController *)[Sparrow currentController];
     viewController.supportedOrientations = UIInterfaceOrientationPortrait;

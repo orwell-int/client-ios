@@ -114,6 +114,10 @@
 		[self addChild:_techStuff];
 		[self addChild:_connectButton];
 
+		[self addEventListener:@selector(onSceneClosing:)
+					  atObject:self
+					   forType:EVENT_TYPE_SCENE_CLOSING];
+
 		if (_inputPlayerName)
 			[Sparrow.currentController.view addSubview:_inputPlayerName];
 
@@ -139,10 +143,23 @@
 }
 
 #pragma mark - Events handling
+- (void)onSceneClosing:(SPEvent *)event
+{
+	DDLogInfo(@"InputGameScene is closing");
+	if (_inputGameScene) {
+		DDLogInfo(@"Resetting pointer for ARC");
+		[_inputGameScene removeFromParent];
+		_inputPlayerName.text = _inputGameScene.playerName;
+		_inputGameScene = nil;
+	}
+}
+
 - (void)willGoBack
 {
 	[_inputPlayerName removeFromSuperview];
 	[_inputServerInfo removeFromSuperview];
+	_inputPlayerName = nil;
+	_inputServerInfo = nil;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

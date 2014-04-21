@@ -27,13 +27,16 @@
 #import "ORViewController.h"
 #import "OREventOrientation.h"
 
-@implementation ORViewController
+@implementation ORViewController {
+	BOOL _autoRotate;
+}
 @synthesize supportedOrientations = _supportedOrientations;
 
 - (id)init
 {
 	self = [super init];
 	_supportedOrientations = UIInterfaceOrientationMaskPortrait;
+	_autoRotate = NO;
 	return self;
 }
 
@@ -44,7 +47,20 @@
 
 - (BOOL)shouldAutorotate
 {
-	return YES;
+	return _autoRotate;
+}
+
+- (void)setSupportedOrientations:(NSUInteger)supportedOrientations
+{
+	_supportedOrientations = supportedOrientations;
+	if ((_supportedOrientations & UIInterfaceOrientationMaskLandscape)) {
+		_autoRotate = YES;
+		DDLogInfo(@"AutoRotate will be YES");
+	}
+	else {
+		_autoRotate = NO;
+		DDLogInfo(@"AutoRotate will be NO");
+	}
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration

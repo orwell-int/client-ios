@@ -97,6 +97,8 @@
 				}
 			}
 		}
+
+		freeifaddrs(allInterfaces);
 	}
 
 	return YES;
