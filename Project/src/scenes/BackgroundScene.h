@@ -39,5 +39,8 @@
 
 - (void)placeObjectInStage;
 - (void)startObjects;
+- (void)animateTransitionWithTime:(double)time;
+- (void)animateTransitionOutWithTime:(double)time andCompletionBlock:(void (^)())block;
+- (void)animationDidFinish;
 
 @end

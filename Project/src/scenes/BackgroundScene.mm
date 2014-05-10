@@ -73,4 +73,33 @@
 
 }
 
+- (void)animateTransitionWithTime:(double)time
+{
+	SPTween *transition = [SPTween tweenWithTarget:self time:time transition:SP_TRANSITION_EASE_IN];
+	[transition moveToX:0 y:0];
+
+	transition.onComplete = ^{
+		[self animationDidFinish];
+	};
+
+	[Sparrow.juggler addObject:transition];
+}
+
+- (void)animateTransitionOutWithTime:(double)time andCompletionBlock:(void (^)())block
+{
+	SPTween *transition = [SPTween tweenWithTarget:self time:time transition:SP_TRANSITION_EASE_OUT];
+	[transition moveToX:Sparrow.stage.width y:0];
+
+	transition.onComplete = ^{
+		block();
+	};
+
+	[Sparrow.juggler addObject:transition];
+}
+
+- (void)animationDidFinish
+{
+
+}
+
 @end
