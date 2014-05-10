@@ -297,11 +297,11 @@
 
             ORServerMessage *message = [[ORServerMessage alloc] init];
             message.tag = @"Input ";
-            message.receiver = @"targetrobot ";
+            message.receiver = @"TANK_0 ";
             message.payload = [NSData dataWithBytes:input.SerializeAsString().c_str()
                                              length:input.SerializeAsString().length()];
             [_serverCommunicator pushMessage:message];
-            usleep(1000 * 250); // Send 4 messages per second
+            usleep(1000 * 100); // Send 4 messages per second
 		}
 		
 		DDLogInfo(@"Leaving background thread");
