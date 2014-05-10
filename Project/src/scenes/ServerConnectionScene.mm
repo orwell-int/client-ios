@@ -118,11 +118,6 @@
 					  atObject:self
 					   forType:EVENT_TYPE_SCENE_CLOSING];
 
-		if (_inputPlayerName)
-			[Sparrow.currentController.view addSubview:_inputPlayerName];
-
-		if (_inputServerInfo)
-			[Sparrow.currentController.view addSubview:_inputServerInfo];
 	}
 
 	return self;
@@ -131,6 +126,15 @@
 - (void)placeObjectInStage
 {
 	
+}
+
+- (void)animationDidFinish
+{
+	if (_inputPlayerName)
+		[Sparrow.currentController.view addSubview:_inputPlayerName];
+
+	if (_inputServerInfo)
+		[Sparrow.currentController.view addSubview:_inputServerInfo];
 }
 
 - (void)startObjects
@@ -225,8 +229,9 @@
 		[_inputGameScene placeObjectInStage];
 		[_inputGameScene startObjects];
 		[self willGoBack];
-
+		_inputGameScene.x = Sparrow.stage.width;
 		[self addChild:_inputGameScene];
+		[_inputGameScene animateTransitionWithTime:0.5];
 	}
 	else {
 		DDLogInfo(@"Goodbye received");
@@ -249,7 +254,10 @@
 		[_inputGameScene placeObjectInStage];
 		[_inputGameScene startObjects];
 		[self willGoBack];
+
+		_inputGameScene.x = Sparrow.stage.width;
 		[self addChild:_inputGameScene];
+		[_inputGameScene animateTransitionWithTime:0.5];
 		return;
 	}
 
