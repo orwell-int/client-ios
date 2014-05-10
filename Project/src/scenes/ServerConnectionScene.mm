@@ -64,11 +64,11 @@
 		[_communicator registerResponder:self forMessage:@"Goodbye"];
 		_techStuff = [SPImage imageWithContentsOfFile:@"TechStuff.png"];
 		_techStuff.x = 75.0f;
-		_techStuff.y = 320.0f;
+		_techStuff.y = Sparrow.stage.height - _techStuff.height - 10.0f;
 
 		_connectButton = [[ORAlternativeButton alloc] initWithType:OR_BUTTON_CONNECT];
 		_connectButton.x = 66.0f;
-		_connectButton.y = 240.0f;
+		_connectButton.y = self.topBar.y + self.topBar.height + 162.0f;
 		[_connectButton addEventListener:@selector(onConnectButton:)
 								atObject:self
 								 forType:SP_EVENT_TYPE_TRIGGERED];
@@ -81,7 +81,7 @@
 		_paddingInputPlayerName = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 28.0f, 0)];
 		_paddingInputServerInfo = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 28.0f, 0)];
 
-		_inputPlayerName = [[UITextField alloc] initWithFrame:CGRectMake(31, 83, 260, 38)];
+		_inputPlayerName = [[UITextField alloc] initWithFrame:CGRectMake(31, self.topBar.y + self.topBar.height + 23.0f, 260, 38)];
 		_inputPlayerName.background = [[UIImage imageNamed:@"InputField.png"] stretchableImageWithLeftCapWidth:20
 																								  topCapHeight:0];
 		_inputPlayerName.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
@@ -95,7 +95,7 @@
 																			   attributes:@{NSForegroundColorAttributeName : [UIColor grayColor]}];
 		_inputPlayerName.attributedPlaceholder = attributedString;
 
-		_inputServerInfo = [[UITextField alloc] initWithFrame:CGRectMake(31, 134, 260, 38)];
+		_inputServerInfo = [[UITextField alloc] initWithFrame:CGRectMake(31, self.topBar.y + self.topBar.height + 72.0f, 260, 38)];
 		_inputServerInfo.background = [[UIImage imageNamed:@"InputField.png"] stretchableImageWithLeftCapWidth:10
 																								  topCapHeight:0];
 		_inputServerInfo.font = [UIFont fontWithName:@"AmericanTypewriter" size:12];
