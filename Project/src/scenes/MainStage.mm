@@ -145,8 +145,10 @@
 		if (!_activeScene) {
 			_activeScene = [[ServerConnectionScene alloc] init];
 			[_activeScene placeObjectInStage];
+			_activeScene.x = Sparrow.stage.width;
 
 			[self addChild:_activeScene];
+			[_activeScene animateTransitionWithTime:0.5];
 			[_activeScene startObjects];
 		}
 	}
@@ -200,8 +202,10 @@
 - (void)onSceneClosing:(SPEvent *)event
 {
 	if (_activeScene) {
-		[_activeScene removeFromParent];
-		_activeScene = nil;
+		[_activeScene animateTransitionOutWithTime:0.5 andCompletionBlock:^{
+			[_activeScene removeFromParent];
+			_activeScene = nil;
+		}];
 	}
 }
 
