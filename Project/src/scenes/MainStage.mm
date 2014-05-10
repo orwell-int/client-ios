@@ -74,6 +74,7 @@
 - (id)init
 {
 	self = [super init];
+	DDLogInfo(@"Initing main screen, height = %f", Sparrow.stage.height);
 
 	NSString *softwareVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 	_versionNumber = [SPTextField textFieldWithWidth:Sparrow.stage.width - 30
@@ -82,19 +83,19 @@
 	_versionNumber.fontName = @"HelveticaNeue-Light";
 	_versionNumber.fontSize = 17;
 	_versionNumber.color = 0xffffff;
-	_versionNumber.x = 15.0f;
-	_versionNumber.y = 440.0f;
+	_versionNumber.x = Sparrow.stage.width / 2 - _versionNumber.width / 2;
+	_versionNumber.y = Sparrow.stage.height - 40.0f;
 	[self addChild:_versionNumber];
 
 	_logo = [[SPImage alloc] initWithContentsOfFile:@"LogoBig.png"];
 	_logo.x = 0.0f;
-	_logo.y = 55.0f;
+	_logo.y = self.topBar.y + self.topBar.height + 1.0f;
 	[self addChild:_logo];
 
 	_playButton = [[ORAlternativeButton alloc] initWithType:OR_BUTTON_PLAY];
 	_playButton.name = @"PlayButton";
 	_playButton.x = 70.0f;
-	_playButton.y = 270.0f;
+	_playButton.y = _logo.y + _logo.height + (Sparrow.stage.height > 480.0f? 50.0f : -10.0f);
 	[_playButton addEventListener:@selector(onButtonTriggered:)
 						 atObject:self
 						  forType:SP_EVENT_TYPE_TRIGGERED];
@@ -102,7 +103,7 @@
 	_informationButton = [[ORAlternativeButton alloc] initWithType:OR_BUTTON_INFORMATIONS];
 	_informationButton.name = @"InformationButton";
 	_informationButton.x = 70.0f;
-	_informationButton.y = 325.0f;
+	_informationButton.y = _playButton.y + 49.0f;
 	[_informationButton addEventListener:@selector(onButtonTriggered:)
 								atObject:self
 								 forType:SP_EVENT_TYPE_TRIGGERED];
@@ -110,7 +111,7 @@
 	_creditsButton = [[ORAlternativeButton alloc] initWithType:OR_BUTTON_CREDITS];
 	_creditsButton.name = @"CreditsButton";
 	_creditsButton.x = 70.0f;
-	_creditsButton.y = 380.0f;
+	_creditsButton.y = _informationButton.y + 49.0f;
 	[_creditsButton addEventListener:@selector(onButtonTriggered:)
 							atObject:self
 							 forType:SP_EVENT_TYPE_TRIGGERED];
@@ -152,16 +153,16 @@
 	else if ([button.name isEqualToString:@"InformationButton"]) {
 		_dialogBox = [[ORDialogBox alloc] initWithHeader:@"About Orwell"
 												 andBody:INFORMATION_BODY];
-		_dialogBox.x = 15.0f;
-		_dialogBox.y = 45.0f;
+		_dialogBox.x = Sparrow.stage.width / 2 - _dialogBox.width / 2;
+		_dialogBox.y = Sparrow.stage.height / 2 - _dialogBox.height / 2;
 		_dialogBox.delegate = self;
 		[self addChild:_dialogBox];
 	}
 	else if ([button.name isEqualToString:@"CreditsButton"]) {
 		_dialogBox = [[ORDialogBox alloc] initWithHeader:@"Credits"
 												 andBody:CREDIS_BODY];
-		_dialogBox.x = 15.0f;
-		_dialogBox.y = 45.0f;
+		_dialogBox.x = Sparrow.stage.width / 2 - _dialogBox.width / 2;
+		_dialogBox.y = Sparrow.stage.height / 2 - _dialogBox.height / 2;
 		_dialogBox.delegate = self;
 		[self addChild:_dialogBox];
 	}
