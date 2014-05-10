@@ -52,8 +52,8 @@
     BOOL _selectorsConfigured;
 	BOOL _running;
     BOOL _isLandscape;
-	float _left;
-	float _right;
+    float _left;
+    float _right;
     float _deltaX;
     float _deltaY;
 
