@@ -147,7 +147,7 @@
 
     _lbRight = [[LARSBar alloc] init];
     _lbRight.transform = CGAffineTransformMakeRotation(M_PI * 1.5);
-    _lbRight.frame = CGRectMake(440, 0, 40, 320);
+    _lbRight.frame = CGRectMake(Sparrow.stage.height - 40.0f, 0, 40, 320);
     _lbRight.minimumValue = 0.0f;
     _lbRight.maximumValue = 2.0f;
     _lbRight.leftChannelLevel = 2.0f;
@@ -188,30 +188,31 @@
             self.topBar.visible = YES;
 
             _mjpegViewer.x = 0.0f;
-            _mjpegViewer.y = 53.0f;
+            _mjpegViewer.y = self.topBar.y + self.topBar.height;
             _mjpegViewer.width = 320.0f;
             _mjpegViewer.height = 240.0f;
 
             _downButton.x = 45.0f;
-            _downButton.y = 245.0f;
+            _downButton.y = (_mjpegViewer.y + 240.0f) - _downButton.height;
             
             _upButton.x = 45.0f;
-            _upButton.y = 53.0f;
+            _upButton.y = _mjpegViewer.y;
             
             _leftButton.x = 0.0f;
-            _leftButton.y = 53.0f;
+            _leftButton.y = _mjpegViewer.y;
             
             _rightButton.x = 280.0f;
-            _rightButton.y = 53.0f;
+            _rightButton.y = _mjpegViewer.y;
 
+            // _submenu.y = _starButton.y - 47.0f
             _starButton.x = 20.0f;
-            _starButton.y = 366.0f;
+            _starButton.y = _mjpegViewer.y + 248.0f + (Sparrow.stage.height > 480.0f? 140.0f : 62.0f);
 
             _submenu.x = 87.0f;
-            _submenu.y = 319.0f;
+            _submenu.y = _starButton.y - 47.0f;
 
             _gamestateButton.x = 101.0f;
-            _gamestateButton.y = 366.0f;
+            _gamestateButton.y = _mjpegViewer.y + 248.0f + (Sparrow.stage.height > 480.0f? 140.0f : 62.0f);
             
             [self addChild:_downButton];
             [self addChild:_upButton];
@@ -237,8 +238,8 @@
             // It is completely stupid, but width and height in Sparrow don't change, so
             // we have to think as if we were in portrait, with the exception that what
             // is now called 'width' it is 'height' in Landscape, and viceversa.
-            _mjpegViewer.width = 320.0f;
-            _mjpegViewer.height = 480.0f;
+            _mjpegViewer.width = Sparrow.stage.width;
+            _mjpegViewer.height = Sparrow.stage.height;
 
             // While x and y coordinates do change, as they are relative to the status bar.
             _mjpegViewer.x = 0.0f;
