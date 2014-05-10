@@ -54,6 +54,8 @@
     BOOL _isLandscape;
 	float _left;
 	float _right;
+    float _deltaX;
+    float _deltaY;
 
     __weak ORServerCommunicator *_serverCommunicator;
     ORArrowButton *_leftButton;
@@ -472,19 +474,28 @@
 }
 
 #pragma mark - Dialog box delegate methods
+- (void)dialogBox:(ORDialogBox *)dialogBox didMoveAtX:(float)x andY:(float)y
+{
+	_deltaX = 0;
+	_deltaY = 0;
+}
+
 - (void)dialogBox:(ORDialogBox *)dialogBox startedMoveAtX:(float)x andY:(float)y
 {
-
+	_deltaX = x;
+	_deltaY = y;
 }
 
 - (void)dialogBox:(ORDialogBox *)dialogBox continuedMovingAtX:(float)x andY:(float)y
 {
+	_deltaX -= x;
+	dialogBox.x -= _deltaX;
 
-}
+	_deltaY -= y;
+	dialogBox.y -= _deltaY;
 
-- (void)dialogBox:(ORDialogBox *)dialogBox didMoveAtX:(float)x andY:(float)y
-{
-
+	_deltaX = x;
+	_deltaY = y;
 }
 
 - (void)dialogBoxWantsToLeave:(ORDialogBox *)dialogBox
