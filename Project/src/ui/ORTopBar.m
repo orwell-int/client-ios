@@ -48,7 +48,7 @@
 		_textField.fontSize = 17;
 		_textField.color = 0xffffff;
 		_textField.x = 50.0f;
-		_textField.y = 20.0f;
+		_textField.y = 26.0f;
 
 		// Init back button
 		_backButton = [SPButton buttonWithUpState:[SPTexture textureWithContentsOfFile:@"BackButton.png"]
@@ -60,7 +60,7 @@
 
 		_busyIndicator = [SPImage imageWithContentsOfFile:@"BusyIndicator.png"];
 		_busyIndicator.x = _background.width - _busyIndicator.width - 20.0f;
-		_busyIndicator.y = 10.0f;
+		_busyIndicator.y = 20.0f;
 		_busyIndicator.visible = NO;
 
 		__weak ORTopBar *wself = self;
