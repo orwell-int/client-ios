@@ -60,7 +60,7 @@
 
 		_busyIndicator = [SPImage imageWithContentsOfFile:@"BusyIndicator.png"];
 		_busyIndicator.x = _background.width - _busyIndicator.width - 20.0f;
-		_busyIndicator.y = 10.0f;
+		_busyIndicator.y = 20.0f;
 		_busyIndicator.visible = NO;
 
 		__weak ORTopBar *wself = self;
