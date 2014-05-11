@@ -661,6 +661,7 @@
 			buildConfigurationList = CD910B3D18D77BDF00C61610 /* Build configuration list for PBXNativeTarget "iOrwell" */;
 			buildPhases = (
 				79D27F72FF934B00B99A1ED9 /* Check Pods Manifest.lock */,
+				CDE125DD191F7D7500379D96 /* Create protobufs */,
 				CD910B0918D77BDF00C61610 /* Sources */,
 				CD910B0A18D77BDF00C61610 /* Frameworks */,
 				CD910B0B18D77BDF00C61610 /* Resources */,
@@ -839,6 +840,21 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		CDE125DD191F7D7500379D96 /* Create protobufs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Create protobufs";
+			outputPaths = (
+				"${SRCROOT}/Project/src/messages/controller.pb.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${SRCROOT}/Project/src/messages\n${PODS_ROOT}/GoogleProtobuf/bin/protoc controller.proto --cpp_out=.\n${PODS_ROOT}/GoogleProtobuf/bin/protoc robot.proto --cpp_out=.\n${PODS_ROOT}/GoogleProtobuf/bin/protoc server-game.proto --cpp_out=.\n${PODS_ROOT}/GoogleProtobuf/bin/protoc server-web.proto --cpp_out=.";
 		};
 		F70BFA72AD12409C9AC2FCA3 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
